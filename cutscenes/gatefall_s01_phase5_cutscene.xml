@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s01_phase5_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_playership" />
+    <object_group name="targets">
+      <reference object="target_playership" />
+      <reference object="target_wreck" />
+      <reference object="target_signal" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="Aftermath" environment="scenezone" duration="7000">
+          <camera>
+            <position>
+              <reference object="target_playership" x="-260" y="170" z="520" />
+            </position>
+            <lookdirection>
+              <reference object="target_playership" x="0" y="0" z="0" />
+            </lookdirection>
+          </camera>
+        </shot>
+        <shot name="PlayerSurveyWide" environment="scenezone" duration="13000">
+          <camera_orbit reference="target_playership" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="2400" angle="-40" elevation="18" />
+            <end distance="3200" angle="48" elevation="24" time="12000" />
+          </camera_orbit>
+        </shot>
+        <shot name="RavagerWreck" environment="scenezone" duration="33000">
+          <camera_orbit reference="target_wreck" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="2350" angle="-30" elevation="18" />
+            <end distance="1650" angle="65" elevation="26" time="32000" />
+          </camera_orbit>
+        </shot>
+        <shot name="AnomalySignal" environment="scenezone" duration="6000">
+          <camera>
+            <position>
+              <reference object="target_signal" x="-2800" y="900" z="8600" />
+            </position>
+            <lookdirection>
+              <reference object="target_signal" x="0" y="0" z="0" />
+            </lookdirection>
+          </camera>
+        </shot>
+        <shot name="PlayerResolve" environment="scenezone" duration="7000">
+          <camera>
+            <position>
+              <reference object="target_playership" x="-240" y="125" z="430" />
+            </position>
+            <lookdirection>
+              <reference object="target_playership" x="0" y="0" z="0" />
+            </lookdirection>
+          </camera>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

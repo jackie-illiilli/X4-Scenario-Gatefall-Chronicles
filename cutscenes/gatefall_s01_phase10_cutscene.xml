@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s01_phase10_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_outpost" />
+    <object_group name="targets">
+      <reference object="target_outpost" />
+      <reference object="target_xenon_i" />
+      <reference object="target_asgard" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="Aftermath" environment="scenezone" duration="26000">
+          <camera_orbit reference="target_asgard" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="15000" angle="-24" elevation="16" />
+            <end distance="13000" angle="18" elevation="12" time="25500" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

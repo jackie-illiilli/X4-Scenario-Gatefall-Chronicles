@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s01_phase6_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_playership" />
+    <object_group name="targets">
+      <reference object="target_playership" />
+      <reference object="target_signal" />
+      <reference object="target_xenon_i" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="FlagshipReveal" environment="scenezone" duration="16000">
+          <camera_orbit reference="target_xenon_i" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="5400" angle="-34" elevation="17" />
+            <end distance="3800" angle="48" elevation="23" time="15000" />
+          </camera_orbit>
+        </shot>
+        <shot name="PlayerThreat" environment="scenezone" duration="3000">
+          <camera>
+            <position>
+              <reference object="target_playership" x="-260" y="160" z="520" />
+            </position>
+            <lookdirection>
+              <reference object="target_playership" x="0" y="0" z="0" />
+            </lookdirection>
+          </camera>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

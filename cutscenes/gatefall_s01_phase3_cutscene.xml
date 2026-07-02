@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s01_phase3_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_playership" />
+    <object_group name="targets">
+      <reference object="target_playership" />
+      <reference object="target_satellite" />
+      <reference object="target_patrol" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="SatelliteDeployment" environment="scenezone" duration="10000">
+          <!-- Keep the forward upper hull and launcher area in frame while the advanced satellite drops away beneath. -->
+          <camera>
+            <position>
+              <reference object="target_playership" x="-35" y="48" z="110" />
+            </position>
+            <lookdirection>
+              <reference object="target_playership" x="0" y="6" z="18" />
+            </lookdirection>
+          </camera>
+        </shot>
+        <shot name="PatrolReveal" environment="scenezone" duration="8000">
+          <camera_orbit reference="target_patrol" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="340" angle="-40" elevation="18" />
+            <end distance="260" angle="55" elevation="24" time="7500" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s01_phase7_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_playership" />
+    <object_group name="targets">
+      <reference object="target_playership" />
+      <reference object="target_fleetlead" />
+      <reference object="target_highway" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="SavageSpurArrival" environment="scenezone" duration="23000">
+          <camera_orbit reference="target_playership" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="360" angle="-18" elevation="12" />
+            <end distance="340" angle="-10" elevation="14" time="22500" />
+          </camera_orbit>
+        </shot>
+        <shot name="FleetReveal" environment="scenezone" duration="7000">
+          <camera_orbit reference="target_fleetlead" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="5200" angle="-18" elevation="16" />
+            <end distance="4200" angle="8" elevation="18" time="6500" />
+          </camera_orbit>
+        </shot>
+        <shot name="Breakaway" environment="scenezone" duration="8000">
+          <camera>
+            <position>
+              <reference object="target_highway" x="-1600" y="620" z="3600" />
+            </position>
+            <lookdirection>
+              <reference object="target_highway" x="0" y="0" z="0" />
+            </lookdirection>
+          </camera>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

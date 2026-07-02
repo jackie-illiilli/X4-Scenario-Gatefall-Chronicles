@@ -1,0 +1,1351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="Gatefall_Scenario_01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd">
+  <cues>
+    <cue name="Start" namespace="this" module="gatefall_scenario_01">
+      <conditions>
+        <event_cue_signalled cue="md.Setup.Start" />
+      </conditions>
+      <actions>
+        <set_value name="md.GenericMissions.Manager.$Disabled" exact="true" />
+        <play_music music="'music_soundtrack_argon'" loop="true" />
+        <set_value name="$MissionCue" exact="namespace" />
+        <set_value name="$MissionSector" exact="player.sector" />
+        <find_sector name="$SavageSpur1" macro="macro.cluster_112_sector001_macro" />
+        <find_sector name="$SavageSpur2" macro="macro.cluster_112_sector002_macro" />
+        <find_gate name="$EntryGate" multiple="false" sortbydistanceto="player.ship" space="$MissionSector" />
+        <!-- Sector coordinates: the player starts just beyond the gate and flies deeper into the sector. -->
+        <create_position name="$DeployPosition" space="$MissionSector" x="40521m" y="500m" z="37640m" />
+        <create_position name="$PatrolPosition" space="$MissionSector" x="40521m" y="500m" z="-2360m" />
+        <create_position name="$WreckPosition" space="$MissionSector" x="46521m" y="-500m" z="41640m" />
+        <create_position name="$AnomalyPosition" space="$MissionSector" x="40521m" y="500m" z="97640m" />
+        <create_position name="$SavageSpurEntryPosition" space="$SavageSpur1" x="-50km" y="0km" z="-145km" />
+        <create_position name="$SavageSpurPursuitPosition" space="$SavageSpur1" x="-16km" y="0km" z="-182km" />
+        <create_position name="$SavageSpurFleetPosition" space="$SavageSpur1" x="-34km" y="0km" z="-120km" />
+        <create_position name="$TerranOutpostPosition" space="$SavageSpur2" x="-126km" y="0km" z="-54km" />
+        <create_position name="$OutpostWavePositionA" space="$SavageSpur2" x="-110km" y="0km" z="-18km" />
+        <create_position name="$OutpostWavePositionB" space="$SavageSpur2" x="-146km" y="0km" z="-30km" />
+        <create_position name="$OutpostWavePositionC" space="$SavageSpur2" x="-90km" y="0km" z="-48km" />
+        <create_position name="$OutpostKPosition" space="$SavageSpur2" x="-126km" y="0km" z="-14km" />
+        <create_position name="$FinalXenonIPosition" space="$SavageSpur2" x="-126km" y="0km" z="-4km" />
+        <create_position name="$FinalAsgardPosition" space="$SavageSpur2" x="-136km" y="0km" z="-4km" />
+        <create_position name="$AsgardStagingPosition" space="$SavageSpur2" x="220km" y="0km" z="220km" />
+        <create_position name="$SavageSpur1DefencePositionA" space="$SavageSpur1" x="128km" y="0km" z="129km" />
+        <create_position name="$SavageSpur1DefencePositionB" space="$SavageSpur1" x="-114km" y="0km" z="120km" />
+        <create_position name="$SavageSpur1ShipyardPosition" space="$SavageSpur1" x="-71km" y="0km" z="-99km" />
+        <create_position name="$SavageSpur1WharfPosition" space="$SavageSpur1" x="75km" y="0km" z="-122km" />
+        <create_position name="$SavageSpur2DefencePositionA" space="$SavageSpur2" x="-114km" y="0km" z="120km" />
+        <create_position name="$SavageSpur2DefencePositionB" space="$SavageSpur2" x="126km" y="0km" z="130km" />
+        <create_position name="$SavageSpur1PatrolPositionA" space="$SavageSpur1" x="-22km" y="0km" z="-146km" />
+        <create_position name="$SavageSpur1PatrolPositionB" space="$SavageSpur1" x="18km" y="0km" z="-92km" />
+        <create_position name="$SavageSpur2PatrolPositionA" space="$SavageSpur2" x="-86km" y="0km" z="148km" />
+        <create_position name="$SavageSpur2PatrolPositionB" space="$SavageSpur2" x="44km" y="0km" z="36km" />
+
+        <!-- Match the TER plot setup: the escort remains TER-owned but treats the player as a friend. -->
+        <set_faction_relation faction="faction.terran" otherfaction="faction.player" value="faction.terran.relation.friend.min" />
+        <set_faction_relation faction="faction.player" otherfaction="faction.terran" value="faction.terran.relation.friend.min" />
+
+        <create_group groupname="$XenonPatrol" />
+        <create_group groupname="$FriendlyShips" />
+        <create_group groupname="$SavageSpurStations" />
+        <create_group groupname="$SavageSpur1Patrols" />
+        <create_group groupname="$SavageSpur2Patrols" />
+        <add_to_group groupname="$FriendlyShips" object="player.ship" />
+        <set_object_min_hull object="player.ship" exact="1" />
+
+        <create_cue_actor name="$WingmanActor" cue="namespace">
+          <select faction="faction.terran" tags="tag.pilot" />
+          <owner exact="faction.terran" />
+          <page exact="899900" />
+          <name name="'{899900,15}'" />
+          <skills>
+            <skill type="morale" exact="12" />
+            <skill type="piloting" exact="12" />
+            <skill type="engineering" exact="9" />
+          </skills>
+        </create_cue_actor>
+        <set_entity_traits entity="$WingmanActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$WingmanActor" title="'{899900,15}'" icon="'pilot'" />
+
+        <create_cue_actor name="$ShipAIActor" cue="namespace">
+          <select race="race.drone" />
+          <owner exact="faction.civilian" />
+          <page exact="899900" />
+          <name name="'{899900,13}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$ShipAIActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$ShipAIActor" title="'{899900,13}'" />
+
+        <create_cue_actor name="$OutpostAdminActor" cue="namespace">
+          <select faction="faction.terran" tags="tag.crew" />
+          <owner exact="faction.terran" />
+          <page exact="899900" />
+          <name name="'{899900,16}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$OutpostAdminActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$OutpostAdminActor" title="'{899900,16}'" icon="'mission'" />
+
+        <create_cue_actor name="$InterventionCommanderActor" cue="namespace">
+          <select faction="faction.terran" tags="tag.commander" />
+          <owner exact="faction.terran" />
+          <page exact="899900" />
+          <name name="'{899900,19}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$InterventionCommanderActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$InterventionCommanderActor" title="'{899900,19}'" icon="'mission'" />
+
+        <create_ship name="$Wingman" macro="macro.ship_ter_m_corvette_01_a_macro" sector="$MissionSector" groupname="$FriendlyShips" capturable="false" commandeerable="false">
+          <owner exact="faction.terran" overridenpc="true" />
+          <pilot actor="$WingmanActor" />
+          <loadout ref="gatefall_scenario_01_katana" />
+          <safepos object="player.ship" x="450m" y="100m" z="-650m" />
+          <rotation value="player.ship.rotation" />
+        </create_ship>
+        <set_object_name object="player.ship" name="'阳裔民兵 武士刀'" />
+        <set_object_name object="$Wingman" name="'阳裔民兵 武士刀'" />
+        <set_object_min_hull object="$Wingman" exact="1" />
+        <set_entity_traits entity="player.entity" subtitlename="true" />
+        <set_entity_overrides entity="player.entity" title="'{899900,14}'" />
+        <set_object_relation_behaviour object="$Wingman" disable="false" />
+        <set_known object="$Wingman" known="true" />
+        <set_object_forced_radar_visible object="$Wingman" visible="true" />
+        <cancel_all_orders object="$Wingman" />
+        <create_order id="'Wait'" object="$Wingman" default="true" />
+
+        <create_station name="$TerranOutpost" macro="macro.station_gen_factory_base_01_macro" sector="$SavageSpur2" state="componentstate.operational" owner="faction.terran" constructionplan="'story_terran_outpost'">
+          <safepos value="$TerranOutpostPosition" />
+        </create_station>
+        <signal_objects object="player.galaxy" param="'init station'" param2="$TerranOutpost" param3="false" />
+        <set_object_name object="$TerranOutpost" name="{899900,17}" />
+        <set_object_min_hull object="$TerranOutpost" exact="1" />
+
+        <create_station name="$SavageSpur1DefenceA" groupname="$SavageSpurStations" macro="macro.station_xen_defence_base_01_macro" constructionplan="'xen_defence'" sector="$SavageSpur1" owner="faction.xenon" state="componentstate.operational">
+          <safepos value="$SavageSpur1DefencePositionA" />
+        </create_station>
+        <create_station name="$SavageSpur1DefenceB" groupname="$SavageSpurStations" macro="macro.station_xen_defence_base_01_macro" constructionplan="'xen_defence'" sector="$SavageSpur1" owner="faction.xenon" state="componentstate.operational">
+          <safepos value="$SavageSpur1DefencePositionB" />
+        </create_station>
+        <create_station name="$SavageSpur1Shipyard" groupname="$SavageSpurStations" macro="macro.station_xen_shipyard_base_01_macro" constructionplan="'xen_shipyard'" sector="$SavageSpur1" owner="faction.xenon" state="componentstate.operational">
+          <safepos value="$SavageSpur1ShipyardPosition" />
+        </create_station>
+        <create_station name="$SavageSpur1Wharf" groupname="$SavageSpurStations" macro="macro.station_xen_shipyard_base_01_macro" constructionplan="'xen_wharf'" sector="$SavageSpur1" owner="faction.xenon" state="componentstate.operational">
+          <safepos value="$SavageSpur1WharfPosition" />
+        </create_station>
+        <create_station name="$SavageSpur2DefenceA" groupname="$SavageSpurStations" macro="macro.station_xen_defence_base_01_macro" constructionplan="'xen_defence'" sector="$SavageSpur2" owner="faction.xenon" state="componentstate.operational">
+          <safepos value="$SavageSpur2DefencePositionA" />
+        </create_station>
+        <create_station name="$SavageSpur2DefenceB" groupname="$SavageSpurStations" macro="macro.station_xen_defence_base_01_macro" constructionplan="'xen_defence'" sector="$SavageSpur2" owner="faction.xenon" state="componentstate.operational">
+          <safepos value="$SavageSpur2DefencePositionB" />
+        </create_station>
+        <do_for_each name="$SavageSpurStation" in="$SavageSpurStations">
+          <set_module_loadout_level object="$SavageSpurStation" exact="1" />
+          <signal_objects object="player.galaxy" param="'init station'" param2="$SavageSpurStation" param3="true" />
+        </do_for_each>
+
+        <create_ship name="$SavageSpur1PatrolLeadA" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$SavageSpur1" groupname="$SavageSpur1Patrols" capturable="false" commandeerable="false">
+          <owner exact="faction.xenon" overridenpc="true" />
+          <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+          <loadout><level exact="1.0" /></loadout>
+          <position value="$SavageSpur1PatrolPositionA" />
+          <rotation yaw="210deg" />
+        </create_ship>
+        <do_all exact="4" counter="$i">
+          <create_ship name="$SavageSpur1PatrolEscortA" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$SavageSpur1" groupname="$SavageSpur1Patrols" capturable="false" commandeerable="false">
+            <owner exact="faction.xenon" overridenpc="true" />
+            <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+            <loadout><level exact="1.0" /></loadout>
+            <safepos object="$SavageSpur1PatrolLeadA" min="900m" max="2200m" />
+            <rotation yaw="210deg" />
+          </create_ship>
+          <create_order id="'ProtectShip'" object="$SavageSpur1PatrolEscortA" immediate="true">
+            <param name="target" value="$SavageSpur1PatrolLeadA" />
+          </create_order>
+        </do_all>
+        <create_order id="'Patrol'" object="$SavageSpur1PatrolLeadA" immediate="true" default="true">
+          <param name="range" value="class.zone" />
+        </create_order>
+
+        <create_ship name="$SavageSpur1PatrolLeadB" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$SavageSpur1" groupname="$SavageSpur1Patrols" capturable="false" commandeerable="false">
+          <owner exact="faction.xenon" overridenpc="true" />
+          <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+          <loadout><level exact="1.0" /></loadout>
+          <position value="$SavageSpur1PatrolPositionB" />
+          <rotation yaw="160deg" />
+        </create_ship>
+        <do_all exact="3" counter="$i">
+          <create_ship name="$SavageSpur1PatrolEscortB" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$SavageSpur1" groupname="$SavageSpur1Patrols" capturable="false" commandeerable="false">
+            <owner exact="faction.xenon" overridenpc="true" />
+            <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+            <loadout><level exact="1.0" /></loadout>
+            <safepos object="$SavageSpur1PatrolLeadB" min="900m" max="2200m" />
+            <rotation yaw="160deg" />
+          </create_ship>
+          <create_order id="'ProtectShip'" object="$SavageSpur1PatrolEscortB" immediate="true">
+            <param name="target" value="$SavageSpur1PatrolLeadB" />
+          </create_order>
+        </do_all>
+        <create_order id="'Patrol'" object="$SavageSpur1PatrolLeadB" immediate="true" default="true">
+          <param name="range" value="class.zone" />
+        </create_order>
+
+        <create_ship name="$SavageSpur2PatrolLeadA" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$SavageSpur2" groupname="$SavageSpur2Patrols" capturable="false" commandeerable="false">
+          <owner exact="faction.xenon" overridenpc="true" />
+          <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+          <loadout><level exact="1.0" /></loadout>
+          <position value="$SavageSpur2PatrolPositionA" />
+          <rotation yaw="245deg" />
+        </create_ship>
+        <do_all exact="4" counter="$i">
+          <create_ship name="$SavageSpur2PatrolEscortA" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$SavageSpur2" groupname="$SavageSpur2Patrols" capturable="false" commandeerable="false">
+            <owner exact="faction.xenon" overridenpc="true" />
+            <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+            <loadout><level exact="1.0" /></loadout>
+            <safepos object="$SavageSpur2PatrolLeadA" min="900m" max="2200m" />
+            <rotation yaw="245deg" />
+          </create_ship>
+          <create_order id="'ProtectShip'" object="$SavageSpur2PatrolEscortA" immediate="true">
+            <param name="target" value="$SavageSpur2PatrolLeadA" />
+          </create_order>
+        </do_all>
+        <create_order id="'Patrol'" object="$SavageSpur2PatrolLeadA" immediate="true" default="true">
+          <param name="range" value="class.zone" />
+        </create_order>
+
+        <create_ship name="$SavageSpur2PatrolLeadB" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$SavageSpur2" groupname="$SavageSpur2Patrols" capturable="false" commandeerable="false">
+          <owner exact="faction.xenon" overridenpc="true" />
+          <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+          <loadout><level exact="1.0" /></loadout>
+          <position value="$SavageSpur2PatrolPositionB" />
+          <rotation yaw="120deg" />
+        </create_ship>
+        <do_all exact="3" counter="$i">
+          <create_ship name="$SavageSpur2PatrolEscortB" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$SavageSpur2" groupname="$SavageSpur2Patrols" capturable="false" commandeerable="false">
+            <owner exact="faction.xenon" overridenpc="true" />
+            <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+            <loadout><level exact="1.0" /></loadout>
+            <safepos object="$SavageSpur2PatrolLeadB" min="900m" max="2200m" />
+            <rotation yaw="120deg" />
+          </create_ship>
+          <create_order id="'ProtectShip'" object="$SavageSpur2PatrolEscortB" immediate="true">
+            <param name="target" value="$SavageSpur2PatrolLeadB" />
+          </create_order>
+        </do_all>
+        <create_order id="'Patrol'" object="$SavageSpur2PatrolLeadB" immediate="true" default="true">
+          <param name="range" value="class.zone" />
+        </create_order>
+
+        <create_object name="$XenonAmplifier" macro="macro.xenon_asteroid_02_base_03_macro" sector="$SavageSpur1" owner="faction.xenon">
+          <safepos value="position.[50605.707031m, 0.000000m, 44402.492188m]" />
+        </create_object>
+
+        <create_mission cue="$MissionCue" abortable="false"
+                        name="{899900,201}" description="{899900,202}"
+                        icon="'briefing_mission_director_01'" difficulty="level.medium"
+                        type="missiontype.fight" faction="faction.terran">
+          <briefing>
+            <objective step="1" action="objective.deploy" text="{899900,211}" object="$MissionSector" offset="$DeployPosition" radius="8km" />
+            <objective step="2" action="objective.destroy" group="$XenonPatrol" text="{899900,212}" />
+          </briefing>
+        </create_mission>
+
+        <fade_screen fadeout="0s" fadein="1s" realtime="true" />
+      </actions>
+      <cues>
+        <cue name="Phase1_Intro">
+          <!-- Child cues activate only after Start has finished, so the intro cannot miss an early signal. -->
+          <delay exact="500ms" />
+          <actions>
+            <play_cutscene letterbox="true" movesoundcamera="true" result="$Phase1Cutscene" key="'gatefall_s01_phase1_cutscene'" abortable="true">
+              <param name="target_playership" object="player.ship" />
+              <param name="target_wingman" object="$Wingman" />
+              <param name="target_gate" object="$EntryGate" />
+            </play_cutscene>
+          </actions>
+          <cues>
+            <cue name="Phase1_GateActivation">
+              <delay exact="750ms" />
+              <actions>
+                <do_if value="@$EntryGate.exists">
+                  <trigger_animation object="$EntryGate" trigger="activate" immediate="true" />
+                  <add_effect object="$EntryGate" effect="'jump_gateeffect'" />
+                </do_if>
+                <add_effect object="player.ship" effect="'jump_gateeffect'" />
+                <add_effect object="$Wingman" effect="'jump_gateeffect'" />
+                <play_sound sound="'gate_flythrough'" object="player.ship" />
+              </actions>
+            </cue>
+
+            <cue name="Phase1_Subtitles">
+              <actions><speak actor="player.entity" page="899900" line="501" priority="100" /></actions>
+              <delay exact="3s" />
+              <actions><speak actor="$WingmanActor" page="899900" line="502" priority="100" /></actions>
+              <delay exact="4s" />
+              <actions><speak actor="player.entity" page="899900" line="503" priority="100" /></actions>
+              <delay exact="4s" />
+              <actions><speak actor="$WingmanActor" page="899900" line="504" priority="100" /></actions>
+              <delay exact="2s" />
+              <actions><speak actor="player.entity" page="899900" line="505" priority="100" /></actions>
+              <delay exact="4s" />
+              <actions><speak actor="$WingmanActor" page="899900" line="506" priority="100" /></actions>
+            </cue>
+
+            <cue name="Phase1_Ended">
+              <conditions>
+                <event_cutscene_stopped key="'gatefall_s01_phase1_cutscene'" />
+              </conditions>
+              <actions>
+                <cancel_cue cue="Phase1_Subtitles" />
+                <interrupt_speak actor="player.entity" priority="100" />
+                <interrupt_speak actor="$WingmanActor" priority="100" />
+                <interrupt_speak actor="$ShipAIActor" priority="100" />
+                <muffle_sound strength="0" duration="0s" />
+                <blur_screen strength="0" duration="0s" />
+                <fade_screen fadeout="0s" holdtime="0.25s" fadein="0.25s" realtime="true" />
+                <cancel_all_orders object="$Wingman" />
+                <create_order id="'Wait'" object="$Wingman" default="true" />
+                <create_order id="'ProtectShip'" object="$Wingman" immediate="true">
+                  <param name="target" value="player.ship" />
+                </create_order>
+                <set_objective_from_briefing cue="$MissionCue" step="1" />
+              </actions>
+            </cue>
+          </cues>
+        </cue>
+
+        <cue name="Phase2_Deployment">
+          <conditions>
+            <event_satellite_launched space="$MissionSector" />
+            <check_value value="event.param2.isplayerowned" />
+            <check_value value="event.param2.macro == macro.eq_arg_satellite_02_macro" />
+            <check_value value="event.param2.distanceto.[$MissionSector, $DeployPosition] le 8km" />
+          </conditions>
+          <actions>
+            <set_value name="$Satellite" exact="event.param2" />
+            <set_objective cue="$MissionCue" step="1" action="objective.none" updatebriefing="true" silent="true" />
+            <set_known object="$Satellite" known="true" />
+            <set_object_forced_radar_visible object="$Satellite" visible="true" />
+
+            <!-- Spawn the Ravager directly as a persistent wreck only after the deployment area is reached. -->
+            <create_ship name="$RavagerWreck" macro="macro.ship_kha_l_destroyer_01_a_macro" sector="$MissionSector" state="componentstate.wreck" capturable="false" commandeerable="false">
+              <owner exact="faction.ownerless" overridenpc="true" />
+              <position value="$WreckPosition" />
+              <rotation yaw="35deg" pitch="-12deg" roll="18deg" />
+            </create_ship>
+            <set_wreck_persistence object="$RavagerWreck" persistent="true" />
+            <set_known object="$RavagerWreck" known="true" />
+            <set_object_forced_radar_visible object="$RavagerWreck" visible="true" />
+
+            <!-- The Xenon corvette group uses the cutscene time to close the distance without opening fire yet. -->
+            <create_position name="$PatrolApproachPosition" object="player.ship" space="$MissionSector" x="0km" y="0km" z="4km" />
+
+            <create_ship name="$PatrolLeader" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$MissionSector" groupname="$XenonPatrol" capturable="false" commandeerable="false">
+              <owner exact="faction.ownerless" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+              <loadout><level exact="1.0" /></loadout>
+              <position value="$PatrolPosition" />
+              <rotation yaw="180deg" />
+            </create_ship>
+            <do_all exact="3" counter="$i">
+              <create_ship name="$PatrolFighter" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$MissionSector" groupname="$XenonPatrol" capturable="false" commandeerable="false">
+                <owner exact="faction.ownerless" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                <loadout><level exact="1.0" /></loadout>
+                <safepos object="$PatrolLeader" min="800m" max="2200m" />
+                <rotation yaw="180deg" />
+              </create_ship>
+              <create_order id="'Wait'" object="$PatrolFighter" default="true">
+                <param name="timeout" value="60s" />
+              </create_order>
+              <create_order id="'MoveWait'" object="$PatrolFighter" immediate="true">
+                <param name="destination" value="[$MissionSector, $PatrolApproachPosition]" />
+                <param name="timeout" value="0s" />
+                <param name="noattackresponse" value="true" />
+              </create_order>
+            </do_all>
+            <create_order id="'Wait'" object="$PatrolLeader" default="true">
+              <param name="timeout" value="60s" />
+            </create_order>
+            <create_order id="'MoveWait'" object="$PatrolLeader" immediate="true">
+              <param name="destination" value="[$MissionSector, $PatrolApproachPosition]" />
+              <param name="timeout" value="0s" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+
+            <play_cutscene letterbox="true" movesoundcamera="true" result="$Phase3Cutscene" key="'gatefall_s01_phase3_cutscene'" abortable="true">
+              <param name="target_playership" object="player.ship" />
+              <param name="target_satellite" object="$Satellite" />
+              <param name="target_patrol" object="$PatrolLeader" />
+            </play_cutscene>
+          </actions>
+          <cues>
+            <cue name="Phase3_Subtitles">
+              <actions><speak actor="player.entity" page="899900" line="511" priority="100" /></actions>
+              <delay exact="4s" />
+              <actions><speak actor="$ShipAIActor" page="899900" line="512" priority="100" /></actions>
+              <delay exact="4s" />
+              <actions><speak actor="$WingmanActor" page="899900" line="513" priority="100" /></actions>
+              <delay exact="5s" />
+              <actions><speak actor="$ShipAIActor" page="899900" line="514" priority="100" /></actions>
+              <delay exact="1800ms" />
+              <actions><speak actor="$WingmanActor" page="899900" line="515" priority="100" /></actions>
+              <delay exact="2200ms" />
+              <actions><speak actor="player.entity" page="899900" line="518" priority="100" /></actions>
+            </cue>
+
+            <cue name="Phase3_Ended">
+              <conditions>
+                <event_cutscene_stopped key="'gatefall_s01_phase3_cutscene'" />
+              </conditions>
+              <actions>
+                <cancel_cue cue="Phase3_Subtitles" />
+                <interrupt_speak actor="player.entity" priority="100" />
+                <interrupt_speak actor="$WingmanActor" priority="100" />
+                <interrupt_speak actor="$ShipAIActor" priority="100" />
+                <stop_music />
+                <muffle_sound strength="0" duration="0s" />
+                <blur_screen strength="0" duration="0s" />
+                <fade_screen fadeout="0s" holdtime="0.25s" fadein="0.25s" realtime="true" />
+                <do_for_each name="$Enemy" in="$XenonPatrol">
+                  <set_owner object="$Enemy" faction="faction.xenon" overridenpc="true" />
+                  <set_known object="$Enemy" known="true" />
+                  <set_object_forced_radar_visible object="$Enemy" visible="true" />
+                  <cancel_all_orders object="$Enemy" />
+                  <create_order id="'Attack'" object="$Enemy" immediate="true">
+                    <param name="primarytarget" value="player.ship" />
+                    <param name="forceprimarytarget" value="true" />
+                    <param name="checkrelation" value="false" />
+                  </create_order>
+                </do_for_each>
+                <set_objective_from_briefing cue="$MissionCue" step="2" />
+              </actions>
+              <cues>
+                <cue name="Phase4_Combat" checkinterval="500ms">
+                  <conditions>
+                    <check_value value="$XenonPatrol.count == 0" />
+                  </conditions>
+                  <actions>
+                    <set_objective cue="$MissionCue" step="2" action="objective.none" updatebriefing="true" silent="true" />
+                    <play_music music="'music_soundtrack_argon'" loop="true" />
+                    <create_position name="$AnomalyPosition" object="player.ship" space="$MissionSector" x="0km" y="0km" z="60km" />
+                    <create_object name="$AnomalyBeacon" macro="macro.env_deco_nav_beacon_t1_mission_macro" owner="faction.ownerless" sector="$MissionSector">
+                      <safepos value="$AnomalyPosition" />
+                    </create_object>
+                    <set_object_name object="$AnomalyBeacon" name="{899900,18}" />
+                  </actions>
+                  <delay exact="1500ms" />
+                  <actions>
+                    <play_cutscene letterbox="true" movesoundcamera="true" result="$Phase5Cutscene" key="'gatefall_s01_phase5_cutscene'" abortable="true">
+                      <param name="target_playership" object="player.ship" />
+                      <param name="target_wreck" object="$RavagerWreck" />
+                      <param name="target_signal" object="$AnomalyBeacon" />
+                    </play_cutscene>
+                  </actions>
+                  <cues>
+                    <cue name="Phase5_Subtitles">
+                      <actions>
+                        <force_player_speed speed="0" />
+                        <set_playership_throttle value="0" />
+                        <speak actor="player.entity" page="899900" line="521" priority="100" />
+                      </actions>
+                      <delay exact="4s" />
+                      <actions><speak actor="$ShipAIActor" page="899900" line="522" priority="100" /></actions>
+                      <delay exact="3s" />
+                      <actions><speak actor="$ShipAIActor" page="899900" line="523" priority="100" /></actions>
+                      <delay exact="4s" />
+                      <actions><speak actor="$WingmanActor" page="899900" line="524" priority="100" /></actions>
+                      <delay exact="5s" />
+                      <actions><speak actor="player.entity" page="899900" line="525" priority="100" /></actions>
+                      <delay exact="4s" />
+                      <actions><speak actor="$ShipAIActor" page="899900" line="526" priority="100" /></actions>
+                      <delay exact="5s" />
+                      <actions><speak actor="$WingmanActor" page="899900" line="527" priority="100" /></actions>
+                      <delay exact="5s" />
+                      <actions><speak actor="$ShipAIActor" page="899900" line="528" priority="100" /></actions>
+                      <delay exact="6s" />
+                      <actions><speak actor="player.entity" page="899900" line="529" priority="100" /></actions>
+                      <delay exact="3s" />
+                      <actions><speak actor="$ShipAIActor" page="899900" line="530" priority="100" /></actions>
+                      <delay exact="6s" />
+                      <actions><speak actor="$WingmanActor" page="899900" line="531" priority="100" /></actions>
+                      <delay exact="5s" />
+                      <actions><speak actor="player.entity" page="899900" line="532" priority="100" /></actions>
+                      <delay exact="3s" />
+                      <actions>
+                        <add_effect object="$AnomalyBeacon" effect="'hq_warpin'">
+                          <position object="$AnomalyBeacon" />
+                        </add_effect>
+                        <play_sound sound="'gate_flythrough'" object="$AnomalyBeacon" />
+                        <speak actor="$ShipAIActor" page="899900" line="533" priority="100" />
+                      </actions>
+                      <delay exact="6s" />
+                      <actions><speak actor="player.entity" page="899900" line="534" priority="100" /></actions>
+                    </cue>
+
+                    <cue name="Phase5_Ended">
+                      <conditions>
+                        <event_cutscene_stopped key="'gatefall_s01_phase5_cutscene'" />
+                      </conditions>
+                      <actions>
+                        <cancel_cue cue="Phase5_Subtitles" />
+                        <interrupt_speak actor="player.entity" priority="100" />
+                        <interrupt_speak actor="$WingmanActor" priority="100" />
+                        <interrupt_speak actor="$ShipAIActor" priority="100" />
+                        <set_known object="$AnomalyBeacon" known="true" />
+                        <set_object_forced_radar_visible object="$AnomalyBeacon" visible="true" />
+                        <set_objective cue="$MissionCue" step="3" action="objective.approach" object="$AnomalyBeacon" text="{899900,213}" insert="true" updatebriefing="true" />
+                      </actions>
+                      <cues>
+                        <cue name="Phase6_ApproachAnomaly" checkinterval="500ms">
+                          <conditions>
+                            <check_value value="player.ship.distanceto.[$MissionSector, $AnomalyPosition] le 30km" />
+                          </conditions>
+                          <actions>
+                            <set_objective cue="$MissionCue" step="3" action="objective.none" updatebriefing="true" silent="true" />
+                            <set_playership_throttle value="0" />
+                            <create_position name="$XenonIPosition" object="$AnomalyBeacon" space="$MissionSector" x="0km" y="0km" z="-0km" />
+                            <create_position name="$XenonK1Position" object="$AnomalyBeacon" space="$MissionSector" x="-1km" y="1km" z="1km" />
+                            <create_position name="$XenonK2Position" object="$AnomalyBeacon" space="$MissionSector" x="1km" y="-1km" z="-1km" />
+
+                            <create_ship name="$XenonFlagship" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$MissionSector" capturable="false" commandeerable="false">
+                              <owner exact="faction.ownerless" overridenpc="true" />
+                              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                              <loadout><level exact="1.0" /></loadout>
+                              <position value="$XenonIPosition" />
+                              <rotation yaw="210deg" />
+                            </create_ship>
+                            <create_ship name="$XenonDestroyer1" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$MissionSector" capturable="false" commandeerable="false">
+                              <owner exact="faction.ownerless" overridenpc="true" />
+                              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                              <loadout><level exact="1.0" /></loadout>
+                              <position value="$XenonK1Position" />
+                              <rotation yaw="170deg" />
+                            </create_ship>
+                            <create_ship name="$XenonDestroyer2" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$MissionSector" capturable="false" commandeerable="false">
+                              <owner exact="faction.ownerless" overridenpc="true" />
+                              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                              <loadout><level exact="1.0" /></loadout>
+                              <position value="$XenonK2Position" />
+                              <rotation yaw="240deg" />
+                            </create_ship>
+                            <add_effect object="$XenonFlagship.zone" effect="'hq_warpin'">
+                              <position object="$XenonFlagship" />
+                            </add_effect>
+                            <add_effect object="$XenonDestroyer1.zone" effect="'hq_warpin'">
+                              <position object="$XenonDestroyer1" />
+                            </add_effect>
+                            <add_effect object="$XenonDestroyer2.zone" effect="'hq_warpin'">
+                              <position object="$XenonDestroyer2" />
+                            </add_effect>
+
+                            <play_cutscene letterbox="true" movesoundcamera="true" result="$Phase6Cutscene" key="'gatefall_s01_phase6_cutscene'" abortable="false">
+                              <param name="target_playership" object="player.ship" />
+                              <param name="target_signal" object="$AnomalyBeacon" />
+                              <param name="target_xenon_i" object="$XenonFlagship" />
+                            </play_cutscene>
+                          </actions>
+                          <cues>
+                            <cue name="Phase6_Subtitles">
+                              <actions><speak actor="player.entity" page="899900" line="541" priority="100" /></actions>
+                              <delay exact="4s" />
+                              <actions><speak actor="$WingmanActor" page="899900" line="542" priority="100" /></actions>
+                              <delay exact="4s" />
+                              <actions><speak actor="$ShipAIActor" page="899900" line="543" priority="100" /></actions>
+                              <delay exact="3s" />
+                              <actions><speak actor="player.entity" page="899900" line="544" priority="100" /></actions>
+                              <delay exact="4s" />
+                              <actions><speak actor="$ShipAIActor" page="899900" line="545" priority="100" /></actions>
+                              <delay exact="500ms" />
+                              <actions>
+                                <create_position name="$PlayerWarpFlashA" object="player.ship" space="$MissionSector" x="900m" y="150m" z="700m" />
+                                <create_position name="$PlayerWarpFlashB" object="player.ship" space="$MissionSector" x="-1100m" y="-50m" z="450m" />
+                                <create_position name="$PlayerWarpFlashC" object="player.ship" space="$MissionSector" x="350m" y="250m" z="-950m" />
+                                <add_effect object="$AnomalyBeacon" effect="'hq_warpin'">
+                                  <position object="$AnomalyBeacon" />
+                                </add_effect>
+                                <add_effect object="player.ship.zone" effect="'hq_warpin'">
+                                  <position object="player.ship" />
+                                </add_effect>
+                                <add_effect object="$Wingman.zone" effect="'hq_warpin'">
+                                  <position object="$Wingman" />
+                                </add_effect>
+                                <add_effect object="player.ship.zone" effect="'hq_warpin'">
+                                  <position value="$PlayerWarpFlashA" />
+                                </add_effect>
+                                <add_effect object="player.ship.zone" effect="'hq_warpin'">
+                                  <position value="$PlayerWarpFlashB" />
+                                </add_effect>
+                                <add_effect object="player.ship.zone" effect="'hq_warpin'">
+                                  <position value="$PlayerWarpFlashC" />
+                                </add_effect>
+                                <set_playership_throttle value="0" />
+                                <play_sound sound="'gate_flythrough'" object="player.ship" />
+                                <speak actor="player.entity" page="899900" line="555" priority="100" />
+                              </actions>
+                              <cues>
+                                <cue name="Phase6_LocalWarp">
+                                  <delay exact="2500ms" />
+                                  <actions>
+                                    <find_gate name="$SavageSpurHighway" space="$SavageSpur1" accelerator="true" multiple="false" />
+                                    <warp object="player.ship" sector="$SavageSpur1">
+                                      <safepos value="$SavageSpurEntryPosition" />
+                                      <rotation yaw="180deg" />
+                                    </warp>
+                                    <warp object="$Wingman" sector="$SavageSpur1">
+                                      <safepos object="player.ship" x="450m" y="100m" z="-650m" />
+                                      <rotation yaw="180deg" />
+                                    </warp>
+                                    <create_position name="$SavageSpurWarpFlashA" object="player.ship" space="$SavageSpur1" x="800m" y="120m" z="600m" />
+                                    <create_position name="$SavageSpurWarpFlashB" object="player.ship" space="$SavageSpur1" x="-1050m" y="-80m" z="350m" />
+                                    <create_position name="$SavageSpurWarpFlashC" object="player.ship" space="$SavageSpur1" x="420m" y="200m" z="-900m" />
+                                    <add_effect object="player.ship.zone" effect="'hq_warpin'">
+                                      <position object="player.ship" />
+                                    </add_effect>
+                                    <add_effect object="$Wingman.zone" effect="'hq_warpin'">
+                                      <position object="$Wingman" />
+                                    </add_effect>
+                                    <add_effect object="player.ship.zone" effect="'hq_warpin'">
+                                      <position value="$SavageSpurWarpFlashA" />
+                                    </add_effect>
+                                    <add_effect object="player.ship.zone" effect="'hq_warpin'">
+                                      <position value="$SavageSpurWarpFlashB" />
+                                    </add_effect>
+                                    <add_effect object="player.ship.zone" effect="'hq_warpin'">
+                                      <position value="$SavageSpurWarpFlashC" />
+                                    </add_effect>
+                                    <set_playership_throttle value="0" />
+                                    <play_sound sound="'gate_flythrough'" object="player.ship" />
+                                    <play_music music="'music_soundtrack_xenon'" loop="true" />
+                                  </actions>
+                                </cue>
+                              </cues>
+                            </cue>
+
+                            <cue name="Phase6_Ended">
+                              <conditions>
+                                <event_cutscene_stopped key="'gatefall_s01_phase6_cutscene'" />
+                              </conditions>
+                              <actions>
+                                <cancel_cue cue="Phase6_Subtitles" />
+                                <interrupt_speak actor="player.entity" priority="100" />
+                                <interrupt_speak actor="$WingmanActor" priority="100" />
+                                <interrupt_speak actor="$ShipAIActor" priority="100" />
+                                <stop_music />
+                                <find_gate name="$SavageSpurHighway" space="$SavageSpur1" accelerator="true" multiple="false" />
+                                <do_if value="player.sector != $SavageSpur1">
+                                  <warp object="player.ship" sector="$SavageSpur1">
+                                    <safepos value="$SavageSpurEntryPosition" />
+                                    <rotation yaw="180deg" />
+                                  </warp>
+                                </do_if>
+                                <do_if value="$Wingman.sector != $SavageSpur1">
+                                  <warp object="$Wingman" sector="$SavageSpur1">
+                                    <safepos object="player.ship" x="450m" y="100m" z="-650m" />
+                                    <rotation yaw="180deg" />
+                                  </warp>
+                                </do_if>
+                                <set_playership_throttle value="0" />
+                                <cancel_all_orders object="$Wingman" />
+                                <create_order id="'Wait'" object="$Wingman" default="true" />
+                                <create_order id="'ProtectShip'" object="$Wingman" immediate="true">
+                                  <param name="target" value="player.ship" />
+                                </create_order>
+                                <create_group groupname="$SavageSpurArmada" />
+                                <create_group groupname="$SavageSpurPursuit" />
+                                <create_group groupname="$OutpostDefenders" />
+                                <create_group groupname="$InterventionFleet" />
+                                <create_group groupname="$OutpostEnemies" />
+                                <set_value name="$OutpostWaveSpawnA" exact="$OutpostWavePositionA" />
+                                <set_value name="$OutpostWaveSpawnB" exact="$OutpostWavePositionB" />
+                                <set_value name="$OutpostWaveSpawnC" exact="$OutpostWavePositionC" />
+                                <set_value name="$OutpostWaveSpawnK" exact="$OutpostKPosition" />
+                                <set_value name="$CurrentFinalXenonIPosition" exact="$FinalXenonIPosition" />
+                                <set_value name="$CurrentFinalAsgardPosition" exact="$FinalAsgardPosition" />
+                                <create_position name="$CurrentTerranOutpostPosition" space="$SavageSpur2" object="$TerranOutpost" />
+                                <find_gate name="$SavageSpur2MoonGate" space="$SavageSpur2" multiple="false" sortbydistanceto="$TerranOutpost" />
+                                <do_if value="$SavageSpur2MoonGate.exists">
+                                  <create_position name="$CurrentFinalAsgardPosition" object="$SavageSpur2MoonGate" space="$SavageSpur2" x="-2500m" y="0m" z="0m" />
+                                  <create_position name="$CurrentFinalXenonIPosition" object="$SavageSpur2MoonGate" space="$SavageSpur2" x="-16500m" y="0m" z="0m" />
+                                </do_if>
+
+                                <!-- The outpost now starts effectively unsupported; Intervention reinforcements arrive only in the finale. -->
+
+                                <create_ship name="$SavageSpurArmadaLead" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$SavageSpur1" groupname="$SavageSpurArmada" capturable="false" commandeerable="false">
+                                  <owner exact="faction.ownerless" overridenpc="true" />
+                                  <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                                  <loadout><level exact="1.0" /></loadout>
+                                  <position value="$SavageSpurFleetPosition" />
+                                  <rotation yaw="190deg" />
+                                </create_ship>
+                                <create_ship name="$SavageSpurArmadaWarp1" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$SavageSpur1" groupname="$SavageSpurArmada" capturable="false" commandeerable="false">
+                                  <owner exact="faction.ownerless" overridenpc="true" />
+                                  <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                                  <loadout><level exact="1.0" /></loadout>
+                                  <safepos object="$SavageSpurArmadaLead" min="5km" max="8km" />
+                                  <rotation yaw="190deg" />
+                                </create_ship>
+                                <create_ship name="$SavageSpurArmadaWarp2" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$SavageSpur1" groupname="$SavageSpurArmada" capturable="false" commandeerable="false">
+                                  <owner exact="faction.ownerless" overridenpc="true" />
+                                  <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                                  <loadout><level exact="1.0" /></loadout>
+                                  <safepos object="$SavageSpurArmadaLead" min="6km" max="9km" />
+                                  <rotation yaw="190deg" />
+                                </create_ship>
+                                <create_ship name="$SavageSpurArmadaWarp3" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$SavageSpur1" groupname="$SavageSpurArmada" capturable="false" commandeerable="false">
+                                  <owner exact="faction.ownerless" overridenpc="true" />
+                                  <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                                  <loadout><level exact="1.0" /></loadout>
+                                  <safepos object="$SavageSpurArmadaLead" min="7km" max="10km" />
+                                  <rotation yaw="190deg" />
+                                </create_ship>
+                                <do_all exact="7" counter="$i">
+                                  <create_ship name="$SavageSpurArmadaShip" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$SavageSpur1" groupname="$SavageSpurArmada" capturable="false" commandeerable="false">
+                                    <owner exact="faction.ownerless" overridenpc="true" />
+                                    <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                                    <loadout><level exact="1.0" /></loadout>
+                                    <safepos object="$SavageSpurArmadaLead" min="9km" max="18km" />
+                                    <rotation yaw="190deg" />
+                                  </create_ship>
+                                </do_all>
+
+                                <create_ship name="$PursuitLeader" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$SavageSpur1" groupname="$SavageSpurPursuit" capturable="false" commandeerable="false">
+                                  <owner exact="faction.ownerless" overridenpc="true" />
+                                  <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                                  <loadout><level exact="1.0" /></loadout>
+                                  <position value="$SavageSpurPursuitPosition" />
+                                  <rotation yaw="180deg" />
+                                </create_ship>
+                                <do_all exact="3" counter="$i">
+                                  <create_ship name="$PursuitFighter" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$SavageSpur1" groupname="$SavageSpurPursuit" capturable="false" commandeerable="false">
+                                    <owner exact="faction.ownerless" overridenpc="true" />
+                                    <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                                    <loadout><level exact="1.0" /></loadout>
+                                    <safepos object="$PursuitLeader" min="800m" max="2200m" />
+                                    <rotation yaw="180deg" />
+                                  </create_ship>
+                                </do_all>
+                                <do_all exact="2" counter="$i">
+                                  <create_ship name="$PursuitCorvette" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$SavageSpur1" groupname="$SavageSpurPursuit" capturable="false" commandeerable="false">
+                                    <owner exact="faction.ownerless" overridenpc="true" />
+                                    <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                                    <loadout><level exact="1.0" /></loadout>
+                                    <safepos object="$PursuitLeader" min="5km" max="9km" />
+                                    <rotation yaw="180deg" />
+                                  </create_ship>
+                                  <do_all exact="3" counter="$j">
+                                    <create_ship name="$PursuitCorvetteEscort" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$SavageSpur1" groupname="$SavageSpurPursuit" capturable="false" commandeerable="false">
+                                      <owner exact="faction.ownerless" overridenpc="true" />
+                                      <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                                      <loadout><level exact="1.0" /></loadout>
+                                      <safepos object="$PursuitCorvette" min="800m" max="2200m" />
+                                      <rotation yaw="180deg" />
+                                    </create_ship>
+                                  </do_all>
+                                </do_all>
+
+                                <play_cutscene letterbox="true" movesoundcamera="true" result="$Phase7Cutscene" key="'gatefall_s01_phase7_cutscene'" abortable="true">
+                                  <param name="target_playership" object="player.ship" />
+                                  <param name="target_fleetlead" object="$SavageSpurArmadaLead" />
+                                  <param name="target_highway" object="$SavageSpurHighway" />
+                                </play_cutscene>
+                              </actions>
+                              <cues>
+                                <cue name="Phase7_Subtitles">
+                                  <actions><speak actor="player.entity" page="899900" line="546" priority="100" /></actions>
+                                  <delay exact="4s" />
+                                  <actions><speak actor="$ShipAIActor" page="899900" line="547" priority="100" /></actions>
+                                  <delay exact="4s" />
+                                  <actions><speak actor="$WingmanActor" page="899900" line="548" priority="100" /></actions>
+                                  <delay exact="4s" />
+                                  <actions><speak actor="$ShipAIActor" page="899900" line="549" priority="100" /></actions>
+                                  <delay exact="4s" />
+                                  <actions><speak actor="player.entity" page="899900" line="550" priority="100" /></actions>
+                                  <delay exact="4s" />
+                                  <actions><speak actor="$WingmanActor" page="899900" line="551" priority="100" /></actions>
+                                  <delay exact="3s" />
+                                  <actions>
+                                    <add_effect object="$SavageSpurArmadaLead.zone" effect="'hq_warpin'">
+                                      <position object="$SavageSpurArmadaLead" />
+                                    </add_effect>
+                                    <add_effect object="$SavageSpurArmadaWarp1.zone" effect="'hq_warpin'">
+                                      <position object="$SavageSpurArmadaWarp1" />
+                                    </add_effect>
+                                    <add_effect object="$SavageSpurArmadaWarp2.zone" effect="'hq_warpin'">
+                                      <position object="$SavageSpurArmadaWarp2" />
+                                    </add_effect>
+                                    <speak actor="$ShipAIActor" page="899900" line="552" priority="100" />
+                                  </actions>
+                                  <delay exact="4s" />
+                                  <actions><speak actor="$WingmanActor" page="899900" line="556" priority="100" /></actions>
+                                  <delay exact="3s" />
+                                  <actions><speak actor="player.entity" page="899900" line="553" priority="100" /></actions>
+                                  <delay exact="4s" />
+                                  <actions><speak actor="$WingmanActor" page="899900" line="554" priority="100" /></actions>
+                                </cue>
+
+                                <cue name="Phase7_Ended">
+                                  <conditions>
+                                    <event_cutscene_stopped key="'gatefall_s01_phase7_cutscene'" />
+                                  </conditions>
+                                  <actions>
+                                    <cancel_cue cue="Phase7_Subtitles" />
+                                    <interrupt_speak actor="player.entity" priority="100" />
+                                    <interrupt_speak actor="$WingmanActor" priority="100" />
+                                    <interrupt_speak actor="$ShipAIActor" priority="100" />
+                                    <set_known object="$TerranOutpost" known="true" />
+                                    <set_object_forced_radar_visible object="$TerranOutpost" visible="true" />
+                                    <do_for_each name="$ArmadaShip" in="$SavageSpurArmada">
+                                      <set_owner object="$ArmadaShip" faction="faction.xenon" overridenpc="true" />
+                                      <set_known object="$ArmadaShip" known="true" />
+                                      <set_object_forced_radar_visible object="$ArmadaShip" visible="true" />
+                                      <cancel_all_orders object="$ArmadaShip" />
+                                      <create_order id="'Wait'" object="$ArmadaShip" default="true">
+                                        <param name="timeout" value="0s" />
+                                      </create_order>
+                                    </do_for_each>
+                                    <do_for_each name="$PursuitShip" in="$SavageSpurPursuit">
+                                      <set_owner object="$PursuitShip" faction="faction.xenon" overridenpc="true" />
+                                      <set_known object="$PursuitShip" known="true" />
+                                      <set_object_forced_radar_visible object="$PursuitShip" visible="true" />
+                                      <cancel_all_orders object="$PursuitShip" />
+                                      <create_order id="'Attack'" object="$PursuitShip" immediate="true">
+                                        <param name="primarytarget" value="player.ship" />
+                                        <param name="forceprimarytarget" value="true" />
+                                        <param name="pursuetargets" value="true" />
+                                        <param name="allowothertargets" value="false" />
+                                        <param name="checkrelation" value="false" />
+                                      </create_order>
+                                    </do_for_each>
+                                    <set_objective cue="$MissionCue" step="4" action="objective.approach" object="$TerranOutpost" text="{899900,214}" insert="true" updatebriefing="true" />
+                                  </actions>
+                                  <cues>
+                                    <cue name="Phase8_OutpostArrival" checkinterval="500ms">
+                                      <conditions>
+                                        <check_value value="player.sector == $SavageSpur2" />
+                                        <check_value value="player.ship.distanceto.{$TerranOutpost} le 12km" />
+                                      </conditions>
+                                      <actions>
+                                        <set_objective cue="$MissionCue" step="4" action="objective.none" updatebriefing="true" silent="true" />
+                                      </actions>
+                                      <delay exact="500ms" />
+                                      <actions><speak actor="$OutpostAdminActor" page="899900" line="561" priority="100" /></actions>
+                                      <delay exact="4s" />
+                                      <actions><speak actor="player.entity" page="899900" line="562" priority="100" /></actions>
+                                      <delay exact="4s" />
+                                      <actions><speak actor="$ShipAIActor" page="899900" line="563" priority="100" /></actions>
+                                      <delay exact="3s" />
+                                      <actions><speak actor="$OutpostAdminActor" page="899900" line="564" priority="100" /></actions>
+                                      <delay exact="4s" />
+                                      <actions><speak actor="$WingmanActor" page="899900" line="565" priority="100" /></actions>
+                                      <delay exact="2s" />
+                                      <actions><speak actor="$OutpostAdminActor" page="899900" line="566" priority="100" /></actions>
+                                      <delay exact="5s" />
+                                      <actions><speak actor="player.entity" page="899900" line="567" priority="100" /></actions>
+                                      <delay exact="2s" />
+                                      <actions>
+                                        <set_value name="$OutpostDefenceActive" exact="true" />
+                                        <set_value name="$OutpostDefenceEndTime" exact="player.age + 600s" />
+                                        <do_for_each name="$Defender" in="$OutpostDefenders">
+                                          <cancel_all_orders object="$Defender" />
+                                          <create_order id="'ProtectStation'" object="$Defender" immediate="true" default="true">
+                                            <param name="station" value="$TerranOutpost" />
+                                          </create_order>
+                                        </do_for_each>
+                                        <set_objective cue="$MissionCue" step="5" action="objective.protect" object="$TerranOutpost" text="{899900,215}" insert="true" updatebriefing="true" endtime="$OutpostDefenceEndTime" />
+                                      </actions>
+                                      <cues>
+                                        <cue name="Phase9_Wave1" checkinterval="1s">
+                                          <conditions>
+                                            <check_value value="$OutpostDefenceActive?" />
+                                          </conditions>
+                                          <delay exact="20s" />
+                                          <actions>
+                                            <do_if value="not @$ScenarioEnded">
+                                              <speak actor="$ShipAIActor" page="899900" line="581" priority="100" />
+                                              <create_ship name="$Wave1Lead" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$SavageSpur2" groupname="$OutpostEnemies" capturable="false" commandeerable="false">
+                                                <owner exact="faction.xenon" overridenpc="true" />
+                                                <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                                                <loadout><level exact="1.0" /></loadout>
+                                                <position value="$OutpostWaveSpawnA" />
+                                                <rotation yaw="180deg" />
+                                              </create_ship>
+                                              <do_all exact="4" counter="$i">
+                                                <create_ship name="$Wave1Escort" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$SavageSpur2" groupname="$OutpostEnemies" capturable="false" commandeerable="false">
+                                                  <owner exact="faction.xenon" overridenpc="true" />
+                                                  <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                                                  <loadout><level exact="1.0" /></loadout>
+                                                  <safepos object="$Wave1Lead" min="800m" max="2200m" />
+                                                  <rotation yaw="180deg" />
+                                                </create_ship>
+                                              </do_all>
+                                              <do_for_each name="$Enemy" in="$OutpostEnemies">
+                                                <set_known object="$Enemy" known="true" />
+                                                <set_object_forced_radar_visible object="$Enemy" visible="true" />
+                                                <cancel_all_orders object="$Enemy" />
+                                                <create_order id="'ProtectPosition'" object="$Enemy" default="true">
+                                                  <param name="destination" value="[$SavageSpur2, $CurrentTerranOutpostPosition]" />
+                                                </create_order>
+                                                <create_order id="'Attack'" object="$Enemy" immediate="true">
+                                                  <param name="primarytarget" value="$TerranOutpost" />
+                                                  <param name="pursuetargets" value="true" />
+                                                  <param name="allowothertargets" value="false" />
+                                                  <param name="checkrelation" value="false" />
+                                                </create_order>
+                                              </do_for_each>
+                                              <do_for_each name="$Defender" in="$OutpostDefenders">
+                                                <cancel_all_orders object="$Defender" />
+                                                <create_order id="'Attack'" object="$Defender" immediate="true">
+                                                  <param name="primarytarget" value="$Wave1Lead" />
+                                                  <param name="forceprimarytarget" value="true" />
+                                                  <param name="checkrelation" value="false" />
+                                                </create_order>
+                                              </do_for_each>
+                                            </do_if>
+                                          </actions>
+                                          <delay exact="3s" />
+                                          <actions>
+                                            <do_if value="not @$ScenarioEnded">
+                                              <speak actor="$WingmanActor" page="899900" line="582" priority="100" />
+                                            </do_if>
+                                          </actions>
+                                        </cue>
+                                        <cue name="Phase9_Wave2" checkinterval="1s">
+                                          <conditions>
+                                            <check_value value="$OutpostDefenceActive?" />
+                                          </conditions>
+                                          <delay exact="140s" />
+                                          <actions>
+                                            <do_if value="not @$ScenarioEnded">
+                                              <create_ship name="$Wave2Lead" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$SavageSpur2" groupname="$OutpostEnemies" capturable="false" commandeerable="false">
+                                                <owner exact="faction.xenon" overridenpc="true" />
+                                                <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                                                <loadout><level exact="1.0" /></loadout>
+                                                <position value="$OutpostWaveSpawnB" />
+                                                <rotation yaw="180deg" />
+                                              </create_ship>
+                                              <do_all exact="2" counter="$i">
+                                                <create_ship name="$Wave2Corvette" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$SavageSpur2" groupname="$OutpostEnemies" capturable="false" commandeerable="false">
+                                                  <owner exact="faction.xenon" overridenpc="true" />
+                                                  <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                                                  <loadout><level exact="1.0" /></loadout>
+                                                  <safepos object="$Wave2Lead" min="4km" max="8km" />
+                                                  <rotation yaw="180deg" />
+                                                </create_ship>
+                                              </do_all>
+                                              <do_all exact="6" counter="$i">
+                                                <create_ship name="$Wave2Escort" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$SavageSpur2" groupname="$OutpostEnemies" capturable="false" commandeerable="false">
+                                                  <owner exact="faction.xenon" overridenpc="true" />
+                                                  <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                                                  <loadout><level exact="1.0" /></loadout>
+                                                  <safepos object="$Wave2Lead" min="800m" max="2200m" />
+                                                  <rotation yaw="180deg" />
+                                                </create_ship>
+                                              </do_all>
+                                              <do_for_each name="$Enemy" in="$OutpostEnemies">
+                                                <set_known object="$Enemy" known="true" />
+                                                <set_object_forced_radar_visible object="$Enemy" visible="true" />
+                                                <cancel_all_orders object="$Enemy" />
+                                                <create_order id="'ProtectPosition'" object="$Enemy" default="true">
+                                                  <param name="destination" value="[$SavageSpur2, $CurrentTerranOutpostPosition]" />
+                                                </create_order>
+                                                <create_order id="'Attack'" object="$Enemy" immediate="true">
+                                                  <param name="primarytarget" value="$TerranOutpost" />
+                                                  <param name="pursuetargets" value="true" />
+                                                  <param name="allowothertargets" value="false" />
+                                                  <param name="checkrelation" value="false" />
+                                                </create_order>
+                                              </do_for_each>
+                                              <do_for_each name="$Defender" in="$OutpostDefenders">
+                                                <cancel_all_orders object="$Defender" />
+                                                <create_order id="'Attack'" object="$Defender" immediate="true">
+                                                  <param name="primarytarget" value="$Wave2Lead" />
+                                                  <param name="forceprimarytarget" value="true" />
+                                                  <param name="checkrelation" value="false" />
+                                                </create_order>
+                                              </do_for_each>
+                                            </do_if>
+                                          </actions>
+                                        </cue>
+                                        <cue name="Phase9_Wave3" checkinterval="1s">
+                                          <conditions>
+                                            <check_value value="$OutpostDefenceActive?" />
+                                          </conditions>
+                                          <delay exact="260s" />
+                                          <actions>
+                                            <do_if value="not @$ScenarioEnded">
+                                              <create_ship name="$Wave3Lead" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$SavageSpur2" groupname="$OutpostEnemies" capturable="false" commandeerable="false">
+                                                <owner exact="faction.xenon" overridenpc="true" />
+                                                <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                                                <loadout><level exact="1.0" /></loadout>
+                                                <position value="$OutpostWaveSpawnC" />
+                                                <rotation yaw="180deg" />
+                                              </create_ship>
+                                              <do_all exact="3" counter="$i">
+                                                <create_ship name="$Wave3Corvette" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$SavageSpur2" groupname="$OutpostEnemies" capturable="false" commandeerable="false">
+                                                  <owner exact="faction.xenon" overridenpc="true" />
+                                                  <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                                                  <loadout><level exact="1.0" /></loadout>
+                                                  <safepos object="$Wave3Lead" min="4km" max="8km" />
+                                                  <rotation yaw="180deg" />
+                                                </create_ship>
+                                              </do_all>
+                                              <do_all exact="8" counter="$i">
+                                                <create_ship name="$Wave3Escort" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$SavageSpur2" groupname="$OutpostEnemies" capturable="false" commandeerable="false">
+                                                  <owner exact="faction.xenon" overridenpc="true" />
+                                                  <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                                                  <loadout><level exact="1.0" /></loadout>
+                                                  <safepos object="$Wave3Lead" min="800m" max="2200m" />
+                                                  <rotation yaw="180deg" />
+                                                </create_ship>
+                                              </do_all>
+                                              <do_for_each name="$Enemy" in="$OutpostEnemies">
+                                                <set_known object="$Enemy" known="true" />
+                                                <set_object_forced_radar_visible object="$Enemy" visible="true" />
+                                                <cancel_all_orders object="$Enemy" />
+                                                <create_order id="'ProtectPosition'" object="$Enemy" default="true">
+                                                  <param name="destination" value="[$SavageSpur2, $CurrentTerranOutpostPosition]" />
+                                                </create_order>
+                                                <create_order id="'Attack'" object="$Enemy" immediate="true">
+                                                  <param name="primarytarget" value="$TerranOutpost" />
+                                                  <param name="pursuetargets" value="true" />
+                                                  <param name="allowothertargets" value="false" />
+                                                  <param name="checkrelation" value="false" />
+                                                </create_order>
+                                              </do_for_each>
+                                              <do_for_each name="$Defender" in="$OutpostDefenders">
+                                                <cancel_all_orders object="$Defender" />
+                                                <create_order id="'Attack'" object="$Defender" immediate="true">
+                                                  <param name="primarytarget" value="$Wave3Lead" />
+                                                  <param name="forceprimarytarget" value="true" />
+                                                  <param name="checkrelation" value="false" />
+                                                </create_order>
+                                              </do_for_each>
+                                            </do_if>
+                                          </actions>
+                                        </cue>
+                                        <cue name="Phase9_KPressure" checkinterval="1s">
+                                          <conditions>
+                                            <check_value value="$OutpostDefenceActive?" />
+                                          </conditions>
+                                          <delay exact="380s" />
+                                          <actions>
+                                            <do_if value="not @$ScenarioEnded">
+                                              <speak actor="$ShipAIActor" page="899900" line="570" priority="100" />
+                                              <create_ship name="$PressureK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$SavageSpur2" groupname="$OutpostEnemies" capturable="false" commandeerable="false">
+                                                <owner exact="faction.xenon" overridenpc="true" />
+                                                <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                                                <loadout><level exact="1.0" /></loadout>
+                                                <position value="$OutpostWaveSpawnK" />
+                                                <rotation yaw="180deg" />
+                                              </create_ship>
+                                              <do_for_each name="$Enemy" in="$OutpostEnemies">
+                                                <set_known object="$Enemy" known="true" />
+                                                <set_object_forced_radar_visible object="$Enemy" visible="true" />
+                                                <cancel_all_orders object="$Enemy" />
+                                                <create_order id="'ProtectPosition'" object="$Enemy" default="true">
+                                                  <param name="destination" value="[$SavageSpur2, $CurrentTerranOutpostPosition]" />
+                                                </create_order>
+                                                <create_order id="'Attack'" object="$Enemy" immediate="true">
+                                                  <param name="primarytarget" value="$TerranOutpost" />
+                                                  <param name="pursuetargets" value="true" />
+                                                  <param name="allowothertargets" value="false" />
+                                                  <param name="checkrelation" value="false" />
+                                                </create_order>
+                                              </do_for_each>
+                                            </do_if>
+                                          </actions>
+                                          <delay exact="3s" />
+                                          <actions>
+                                            <do_if value="not @$ScenarioEnded">
+                                              <speak actor="$OutpostAdminActor" page="899900" line="571" priority="100" />
+                                            </do_if>
+                                          </actions>
+                                        </cue>
+                                        <cue name="Phase9_Wave5" checkinterval="1s">
+                                          <conditions>
+                                            <check_value value="$OutpostDefenceActive?" />
+                                          </conditions>
+                                          <delay exact="500s" />
+                                          <actions>
+                                            <do_if value="not @$ScenarioEnded">
+                                              <create_ship name="$Wave5Lead" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$SavageSpur2" groupname="$OutpostEnemies" capturable="false" commandeerable="false">
+                                                <owner exact="faction.xenon" overridenpc="true" />
+                                                <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                                                <loadout><level exact="1.0" /></loadout>
+                                                <position value="$OutpostWaveSpawnK" />
+                                                <rotation yaw="180deg" />
+                                              </create_ship>
+                                              <do_all exact="2" counter="$i">
+                                                <create_ship name="$Wave5Corvette" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$SavageSpur2" groupname="$OutpostEnemies" capturable="false" commandeerable="false">
+                                                  <owner exact="faction.xenon" overridenpc="true" />
+                                                  <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                                                  <loadout><level exact="1.0" /></loadout>
+                                                  <safepos object="$Wave5Lead" min="5km" max="9km" />
+                                                  <rotation yaw="180deg" />
+                                                </create_ship>
+                                              </do_all>
+                                              <do_all exact="8" counter="$i">
+                                                <create_ship name="$Wave5Escort" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$SavageSpur2" groupname="$OutpostEnemies" capturable="false" commandeerable="false">
+                                                  <owner exact="faction.xenon" overridenpc="true" />
+                                                  <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                                                  <loadout><level exact="1.0" /></loadout>
+                                                  <safepos object="$Wave5Lead" min="1200m" max="2600m" />
+                                                  <rotation yaw="180deg" />
+                                                </create_ship>
+                                              </do_all>
+                                              <do_for_each name="$Enemy" in="$OutpostEnemies">
+                                                <set_known object="$Enemy" known="true" />
+                                                <set_object_forced_radar_visible object="$Enemy" visible="true" />
+                                                <cancel_all_orders object="$Enemy" />
+                                                <create_order id="'ProtectPosition'" object="$Enemy" default="true">
+                                                  <param name="destination" value="[$SavageSpur2, $CurrentTerranOutpostPosition]" />
+                                                </create_order>
+                                                <create_order id="'Attack'" object="$Enemy" immediate="true">
+                                                  <param name="primarytarget" value="$TerranOutpost" />
+                                                  <param name="pursuetargets" value="true" />
+                                                  <param name="allowothertargets" value="false" />
+                                                  <param name="checkrelation" value="false" />
+                                                </create_order>
+                                              </do_for_each>
+                                              <do_for_each name="$Defender" in="$OutpostDefenders">
+                                                <cancel_all_orders object="$Defender" />
+                                                <create_order id="'Attack'" object="$Defender" immediate="true">
+                                                  <param name="primarytarget" value="$Wave5Lead" />
+                                                  <param name="forceprimarytarget" value="true" />
+                                                  <param name="checkrelation" value="false" />
+                                                </create_order>
+                                              </do_for_each>
+                                            </do_if>
+                                          </actions>
+                                        </cue>
+                                        <cue name="Phase10_Finale" checkinterval="1s">
+                                          <conditions>
+                                            <check_value value="$OutpostDefenceActive?" />
+                                          </conditions>
+                                          <delay exact="600s" />
+                                          <actions>
+                                            <do_if value="not @$ScenarioEnded">
+                                              <set_value name="$OutpostDefenceActive" exact="false" />
+                                              <set_objective cue="$MissionCue" step="5" action="objective.none" updatebriefing="true" silent="true" />
+                                              <create_ship name="$FinalXenonI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$SavageSpur2" groupname="$OutpostEnemies" capturable="false" commandeerable="false">
+                                                <owner exact="faction.xenon" overridenpc="true" />
+                                                <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                                                <loadout><level exact="1.0" /></loadout>
+                                                <position value="$CurrentFinalXenonIPosition" />
+                                                <rotation yaw="180deg" />
+                                              </create_ship>
+                                              <set_object_shield object="$FinalXenonI" exact="0" />
+                                              <set_object_shield_unrepairable object="$FinalXenonI" unrepairable="true" />
+                                              <set_known object="$FinalXenonI" known="true" />
+                                              <set_object_forced_radar_visible object="$FinalXenonI" visible="true" />
+                                              <cancel_all_orders object="$FinalXenonI" />
+                                              <create_order id="'Wait'" object="$FinalXenonI" default="true">
+                                                <param name="timeout" value="0s" />
+                                              </create_order>
+                                              <signal_cue cue="Phase10_Subtitles" />
+                                            </do_if>
+                                          </actions>
+                                          <cues>
+                                            <cue name="Phase10_Subtitles">
+                                              <conditions>
+                                                <event_cue_signalled />
+                                              </conditions>
+                                              <actions><speak actor="$ShipAIActor" page="899900" line="572" priority="100" /></actions>
+                                              <delay exact="4s" />
+                                              <actions><speak actor="$WingmanActor" page="899900" line="573" priority="100" /></actions>
+                                              <delay exact="4s" />
+                                              <actions><speak actor="player.entity" page="899900" line="574" priority="100" /></actions>
+                                              <delay exact="4s" />
+                                              <actions>
+                                                <play_music music="'music_dlc_terran_story_som_6'"/>
+                                                <do_if value="$SavageSpur2MoonGate.exists">
+                                                  <add_effect object="$SavageSpur2MoonGate" effect="'jump_gateeffect'" />
+                                                </do_if>
+                                                <create_ship name="$Asgard" macro="macro.ship_atf_xl_battleship_01_a_macro" sector="$SavageSpur2" groupname="$InterventionFleet" capturable="false" commandeerable="false">
+                                                  <owner exact="faction.terran" overridenpc="true" />
+                                                  <pilot actor="$InterventionCommanderActor" />
+                                                  <loadout><level exact="1.0" /></loadout>
+                                                  <position value="$CurrentFinalAsgardPosition" />
+                                                  <rotation yaw="0deg" />
+                                                </create_ship>
+                                                <set_object_name object="$Asgard" name="'TER 典范'" />
+                                                <add_effect object="$Asgard" effect="'jump_gateeffect'" />
+                                                <do_all exact="3" counter="$i">
+                                                  <create_ship name="$InterventionDestroyer" macro="macro.ship_ter_l_destroyer_01_a_macro" sector="$SavageSpur2" groupname="$InterventionFleet" capturable="false" commandeerable="false">
+                                                    <owner exact="faction.terran" overridenpc="true" />
+                                                    <pilot><select faction="faction.terran" tags="tag.commander" /></pilot>
+                                                    <people ref="terran_elite_military_crew" />
+                                                    <loadout><level exact="1.0" /></loadout>
+                                                    <safepos object="$Asgard" min="5km" max="10km" />
+                                                    <rotation yaw="0deg" />
+                                                  </create_ship>
+                                                </do_all>
+                                                <do_all exact="4" counter="$i">
+                                                  <create_ship name="$InterventionKatana" macro="macro.ship_ter_m_corvette_01_a_macro" sector="$SavageSpur2" groupname="$InterventionFleet" capturable="false" commandeerable="false">
+                                                    <owner exact="faction.terran" overridenpc="true" />
+                                                    <pilot><select faction="faction.terran" tags="tag.pilot" /></pilot>
+                                                    <loadout ref="gatefall_scenario_01_katana" />
+                                                    <safepos object="$Asgard" min="3km" max="8km" />
+                                                    <rotation yaw="0deg" />
+                                                  </create_ship>
+                                                </do_all>
+                                                <do_all exact="8" counter="$i">
+                                                  <create_ship name="$InterventionFighter" macro="macro.ship_ter_s_fighter_01_a_macro" sector="$SavageSpur2" groupname="$InterventionFleet" capturable="false" commandeerable="false">
+                                                    <owner exact="faction.terran" overridenpc="true" />
+                                                    <pilot><select faction="faction.terran" tags="tag.fighterpilot" /></pilot>
+                                                    <loadout><level exact="1.0" /></loadout>
+                                                    <safepos object="$Asgard" min="2km" max="9km" />
+                                                    <rotation yaw="0deg" />
+                                                  </create_ship>
+                                                </do_all>
+                                                <do_for_each name="$InterventionShip" in="$InterventionFleet">
+                                                  <set_known object="$InterventionShip" known="true" />
+                                                  <set_object_forced_radar_visible object="$InterventionShip" visible="true" />
+                                                  <set_object_relation_behaviour object="$InterventionShip" disable="true" />
+                                                  <set_relation_boost object="$InterventionShip" faction="faction.player" value="1.0" decay="0" silent="true" />
+                                                  <cancel_all_orders object="$InterventionShip" />
+                                                  <create_order id="'Wait'" object="$InterventionShip" default="true">
+                                                    <param name="timeout" value="0s" />
+                                                  </create_order>
+                                                </do_for_each>
+                                                <create_order id="'Attack'" object="$Asgard" immediate="true">
+                                                  <param name="primarytarget" value="$FinalXenonI" />
+                                                  <param name="forceprimarytarget" value="true" />
+                                                  <param name="allowothertargets" value="false" />
+                                                  <param name="checkrelation" value="false" />
+                                                </create_order>
+                                                <do_for_each name="$InterventionShip" in="$InterventionFleet">
+                                                  <do_if value="$InterventionShip != $Asgard and $OutpostEnemies.count">
+                                                    <create_order id="'Attack'" object="$InterventionShip" immediate="true" default="true">
+                                                      <param name="primarytarget" value="$OutpostEnemies.random" />
+                                                      <param name="secondarytargets" value="$OutpostEnemies" />
+                                                      <param name="pursuetargets" value="true" />
+                                                      <param name="allowothertargets" value="false" />
+                                                      <param name="checkrelation" value="false" />
+                                                    </create_order>
+                                                  </do_if>
+                                                </do_for_each>
+                                                <speak actor="$InterventionCommanderActor" page="899900" line="576" priority="100" />
+                                              </actions>
+                                              <delay exact="5s" />
+                                              <actions>
+                                                <set_objective cue="$MissionCue" step="6" action="objective.defeat" group="$OutpostEnemies" insert="true" updatebriefing="true" />
+                                                <set_value name="$Phase10CleanupActive" exact="true" />
+                                                <do_for_each name="$InterventionShip" in="$InterventionFleet">
+                                                  <cancel_all_orders object="$InterventionShip" />
+                                                  <do_if value="$OutpostEnemies.count">
+                                                    <create_order id="'Attack'" object="$InterventionShip" immediate="true" default="true">
+                                                      <param name="primarytarget" value="$OutpostEnemies.random" />
+                                                      <param name="secondarytargets" value="$OutpostEnemies" />
+                                                      <param name="pursuetargets" value="true" />
+                                                      <param name="allowothertargets" value="false" />
+                                                      <param name="checkrelation" value="false" />
+                                                    </create_order>
+                                                  </do_if>
+                                                </do_for_each>
+                                              </actions>
+                                            </cue>
+                                            <cue name="Phase10_CleanupFinished" checkinterval="1s">
+                                              <conditions>
+                                                <check_value value="$Phase10CleanupActive? and ($OutpostEnemies.count == 0) and not @$ScenarioEnded" />
+                                              </conditions>
+                                              <actions>
+                                                <set_value name="$Phase10CleanupActive" exact="false" />
+                                                <set_objective cue="$MissionCue" step="6" action="objective.none" updatebriefing="true" silent="true" />
+                                                <play_cutscene letterbox="true" movesoundcamera="true" result="$Phase10Cutscene" key="'gatefall_s01_phase10_cutscene'" abortable="false">
+                                                  <param name="target_outpost" object="$TerranOutpost" />
+                                                  <param name="target_xenon_i" object="$Asgard" />
+                                                  <param name="target_asgard" object="$Asgard" />
+                                                </play_cutscene>
+                                              </actions>
+                                              <cues>
+                                                <cue name="Phase10_PostBattleSubtitles">
+                                                  <conditions>
+                                                    <event_cutscene_started key="'gatefall_s01_phase10_cutscene'" />
+                                                  </conditions>
+                                                  <actions><speak actor="$InterventionCommanderActor" page="899900" line="577" priority="100" /></actions>
+                                                  <delay exact="4s" />
+                                                  <actions><speak actor="$InterventionCommanderActor" page="899900" line="578" priority="100" /></actions>
+                                                  <delay exact="4s" />
+                                                  <actions><speak actor="$InterventionCommanderActor" page="899900" line="579" priority="100" /></actions>
+                                                  <delay exact="6s" />
+                                                  <actions><speak actor="$InterventionCommanderActor" page="899900" line="580" priority="100" /></actions>
+                                                </cue>
+                                                <cue name="Phase10_Ended">
+                                                  <conditions>
+                                                    <event_cutscene_stopped key="'gatefall_s01_phase10_cutscene'" />
+                                                  </conditions>
+                                                  <actions>
+                                                    <cancel_cue cue="Phase10_PostBattleSubtitles" />
+                                                    <interrupt_speak actor="player.entity" priority="100" />
+                                                    <interrupt_speak actor="$WingmanActor" priority="100" />
+                                                    <interrupt_speak actor="$ShipAIActor" priority="100" />
+                                                    <interrupt_speak actor="$OutpostAdminActor" priority="100" />
+                                                    <interrupt_speak actor="$InterventionCommanderActor" priority="100" />
+                                                    <set_value name="$ScenarioEnded" exact="true" />
+                                                    <set_userdata name="'gatefall_scenario_01_demo_completed'" value="1" />
+                                                    <remove_mission cue="$MissionCue" type="completed" />
+                                                    <set_value name="$PlayerHullPercent" exact="[player.ship.hullpercentage, 100].min" />
+                                                    <set_value name="$OutpostHullPercent" exact="if $TerranOutpost.isoperational then [$TerranOutpost.hullpercentage, 100].min else 0" />
+                                                    <set_value name="$Score_PlayerHull" exact="($PlayerHullPercent / 4)i" />
+                                                    <set_value name="$Score_OutpostHull" exact="[($OutpostHullPercent - 75) * 2, 0].max" />
+                                                    <set_value name="$ResultData" exact="table[]" />
+                                                    <set_value name="$ResultData.$PlayerDied" exact="false" />
+                                                    <set_value name="$ResultData.$Score" exact="$Score_PlayerHull + $Score_OutpostHull" />
+                                                    <do_if value="player.ship.hull le 1">
+                                                      <set_value name="$Score_PlayerHull" exact="0" />
+                                                      <set_value name="$ResultData.$Score" exact="0" />
+                                                    </do_if>
+                                                    <add_scenario_stat id="'player_hull'" name="'玩家剩余结构'" uivalue="($PlayerHullPercent)i + '%'" score="$Score_PlayerHull" maxscore="25" />
+                                                    <add_scenario_stat id="'outpost_hull'" name="'前哨站剩余结构'" uivalue="($OutpostHullPercent)i + '%'" score="$Score_OutpostHull" maxscore="50" />
+                                                  </actions>
+                                                  <cues>
+                                                    <cue name="Finished_Ref" ref="md.Gatefall_Lib_Scenario.ScenarioFinished">
+                                                      <param name="ResultData" value="$ResultData" />
+                                                    </cue>
+                                                  </cues>
+                                                </cue>
+                                              </cues>
+                                            </cue>
+                                          </cues>
+                                        </cue>
+                                      </cues>
+                                    </cue>
+                                  </cues>
+                                </cue>
+                              </cues>
+                            </cue>
+                          </cues>
+                        </cue>
+                      </cues>
+                    </cue>
+                  </cues>
+                </cue>
+              </cues>
+            </cue>
+          </cues>
+        </cue>
+
+        <cue name="PlayerDeath">
+          <conditions>
+            <check_all>
+              <event_object_destroyed object="player.entity" />
+              <check_value value="not @$ScenarioEnded" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$ScenarioEnded" exact="true" />
+            <remove_mission cue="$MissionCue" type="failed" />
+            <set_value name="$ResultData" exact="table[]" />
+            <set_value name="$ResultData.$PlayerDied" exact="true" />
+            <set_value name="$ResultData.$Score" exact="0" />
+            <add_scenario_stat id="'demo_failed'" name="{899900,1003}" description="{899900,1004}" uivalue="{1001,2618}" score="0" maxscore="1" />
+          </actions>
+          <cues>
+            <cue name="Failed_Ref" ref="md.Gatefall_Lib_Scenario.ScenarioFinished">
+              <param name="ResultData" value="$ResultData" />
+            </cue>
+          </cues>
+        </cue>
+      </cues>
+    </cue>
+  </cues>
+</mdscript>

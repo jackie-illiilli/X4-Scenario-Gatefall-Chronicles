@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="Gatefall_Lib_Scenario" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd">
+  <cues>
+    <library name="ScenarioFinished">
+      <params>
+        <param name="ResultData" />
+      </params>
+      <delay exact="1ms" />
+      <actions>
+        <set_value name="$TimesFinishedName" exact="player.module + '_times_finished'" />
+        <set_value name="$LastDurationName" exact="player.module + '_last_duration'" />
+        <set_value name="$LastScoreName" exact="player.module + '_last_score'" />
+        <set_value name="$LastRatingName" exact="player.module + '_last_rating'" />
+        <set_value name="$BestScoreName" exact="player.module + '_best_score'" />
+        <set_value name="$BestRatingName" exact="player.module + '_best_rating'" />
+        <set_value name="$BestDurationName" exact="player.module + '_best_duration'" />
+
+        <do_if value="$ResultData.$Score lt 0">
+          <set_value name="$ResultData.$Score" exact="0" />
+        </do_if>
+        <set_value name="$Rating" exact="player.allmodules.{player.module}.rating.{$ResultData.$Score}" />
+
+        <set_userdata name="$TimesFinishedName" value="@userdata.{$TimesFinishedName} + 1" />
+        <set_userdata name="$LastDurationName" value="player.age" />
+        <set_userdata name="$LastScoreName" value="$ResultData.$Score" />
+        <set_userdata name="$LastRatingName" value="$Rating" />
+
+        <do_if value="userdata.{$TimesFinishedName} == 1 or $ResultData.$Score gt @userdata.{$BestScoreName}">
+          <set_userdata name="$BestScoreName" value="$ResultData.$Score" />
+          <set_userdata name="$BestRatingName" value="$Rating" />
+          <set_userdata name="$BestDurationName" value="player.age" />
+        </do_if>
+
+        <do_if value="$Rating ge 1">
+          <play_music music="'music_soundtrack_timelines_scenario_result'" loop="true" />
+        </do_if>
+        <do_else>
+          <play_music music="'scenario_fail'" />
+        </do_else>
+
+        <set_value name="$PlayerDied" exact="@$ResultData.$PlayerDied or player.isgameover" />
+        <do_if value="$PlayerDied">
+          <set_userdata name="'timelines_hub_spawnmethod'" value="2" />
+        </do_if>
+        <do_else>
+          <set_userdata name="'timelines_hub_spawnmethod'" value="1" />
+          <open_menu menu="ScenarioDebriefingMenu" />
+        </do_else>
+      </actions>
+    </library>
+  </cues>
+</mdscript>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s01_phase1_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_playership" />
+    <object_group name="targets">
+      <reference object="target_playership" />
+      <reference object="target_wingman" />
+      <reference object="target_gate" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="PlayerAndGateWide" environment="scenezone" duration="13000">
+          <!-- Hold a stable upper-front view through the early dialogue, including line 503. -->
+          <camera>
+            <position>
+              <reference object="target_playership" x="-260" y="170" z="520" />
+            </position>
+            <lookdirection>
+              <reference object="target_playership" x="0" y="0" z="0" />
+            </lookdirection>
+          </camera>
+        </shot>
+        <shot name="PlayerCloseOrbit" environment="scenezone" duration="7000">
+          <camera_orbit reference="target_playership" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="220" angle="-24" elevation="17" />
+            <end distance="235" angle="158" elevation="13" time="6500" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<diff>
+  <add sel="/gamestarts">
+    <gamestart id="gatefall_scenario_01" name="{899900,1}" description="{899900,2}" image="gamestart_scenario_seek_and_destroy" group="11" tags="nosave">
+      <info startyear="3040" startmonth="6" startday="30" />
+      <type name="Timelines Scenario" description="Gatefall Chronicles hidden scenario" />
+      <loadingscreen>
+        <text text="{899900,101}" />
+        <text text="{899900,102}" />
+        <text text="{899900,103}" />
+        <info text="{899900,111}" />
+        <info text="{899900,112}" />
+        <info text="{899900,113}" />
+      </loadingscreen>
+      <location galaxy="gatefall_scenario_01_galaxy_macro" zone="zone001_cluster_715_sector001_macro">
+        <!-- 2.5 km beyond the Cluster 026 gate, facing away from the gate into Mists of Artemis. -->
+        <position x="40435.5" y="500" z="29594.9" />
+        <rotation yaw="180" pitch="0" roll="0" />
+      </location>
+      <player macro="character_player_scenario_combat_terran_macro" money="0" name="{899900,14}">
+        <ship macro="ship_ter_m_corvette_01_a_macro" name="{899900,11}">
+          <loadout ref="gatefall_scenario_01_katana" />
+        </ship>
+      </player>
+      <universe ventures="false" visitors="false" onlineinventory="false">
+        <jobs enabled="false" />
+        <god enabled="false" />
+        <masstraffic enabled="false" />
+      </universe>
+      <scenario chapter="0" description="{899900,3}">
+        <scores description="{899900,4}">
+          <score value="5" rating="1" />
+          <score value="15" rating="2" />
+          <score value="30" rating="3" />
+          <score value="45" rating="4" />
+          <score value="60" rating="5" />
+        </scores>
+      </scenario>
+    </gamestart>
+  </add>
+</diff>

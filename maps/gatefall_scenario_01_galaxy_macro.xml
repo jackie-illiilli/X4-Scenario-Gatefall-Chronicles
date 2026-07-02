@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<macros>
+  <macro name="gatefall_scenario_01_galaxy_macro" class="galaxy">
+    <component ref="standardgalaxy" />
+    <connections>
+      <connection name="gatefall_scenario_01_cluster_connection" ref="clusters">
+        <macro ref="Cluster_715_macro" connection="galaxy" />
+      </connection>
+      <connection name="gatefall_scenario_01_savagespur_cluster_connection" ref="clusters">
+        <offset>
+          <position x="-120000000" y="0" z="69280000" />
+        </offset>
+        <macro ref="Cluster_112_macro" connection="galaxy" />
+      </connection>
+    </connections>
+  </macro>
+</macros>

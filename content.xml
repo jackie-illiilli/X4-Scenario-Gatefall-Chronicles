@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<content id="gatefall_chronicles"
+         name="Gatefall Chronicles"
+         description="A custom X4: Timelines campaign."
+         author="Gatefall Chronicles"
+         version="001"
+         date="2026-06-30"
+         save="false"
+         enabled="1">
+  <dependency version="900" />
+  <dependency id="ego_dlc_terran" version="900" optional="false" name="Cradle of Humanity" />
+  <dependency id="ego_dlc_timelines" version="900" optional="false" name="Timelines" />
+</content>
