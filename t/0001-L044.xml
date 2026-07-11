@@ -2,9 +2,10 @@
 <language id="44">
   <page id="899900" title="Gatefall Chronicles" descr="Gatefall Chronicles custom Timelines campaign" voice="no">
     <t id="1">Gatefall 01: Under the Surface</t>
-    <t id="2">You and a Terran wingman have just come through the gate and are heading deeper into the Mists of Artemis to drop an advanced satellite. What should have been a routine recon run turns into something a whole lot stranger—something tied to both the Xenon and the Kha'ak.</t>
-    <t id="3">Behind the anomalous signal and the mass jump signatures, something far worse is brewing.</t>
+    <t id="2">Background: The Xenon have seized Kha'ak jump technology and are using it to funnel forces from beyond the gate network into known space, setting a chain of disasters in motion. You are about to uncover the first piece of their plot.\n\nGameplay: Pilot a frigate against fighter-class ships, defend a station, and cripple the engines of enemy capital ships.</t>
+    <t id="3">You are a pilot with the Sunborn Militia, entering the Mists of Artemis to deploy a long-range reconnaissance satellite.</t>
     <t id="4">Phase 1 Demo</t>
+
     <t id="11">Mission</t>
     <t id="12">Wingman</t>
     <t id="13">Ship AI</t>
@@ -13,36 +14,42 @@
     <t id="16">Outpost Administrator</t>
     <t id="17">TER Outpost</t>
     <t id="18">Anomalous Signal</t>
-    <t id="19">Paradigm Command</t>
+    <t id="19">TER Paradigm</t>
+    <t id="20">Sunborn Militia Katana</t>
+
     <t id="101">Mists of Artemis Recon Operation.</t>
-    <t id="102">Investigate local Kha'ak hive activity</t>
+    <t id="102">Investigate local Kha'ak hive activity.</t>
     <t id="103">Do not engage Xenon capital forces unless absolutely necessary.</t>
     <t id="111">The Sunborn Militia has been contracted by Terran border intelligence to verify changes in Kha'ak hive activity in the Mists of Artemis.</t>
-    <t id="112">Katana flight ordered into the Mists of Artemis</t>
-    <t id="113">Deploy recon satellite, gather hive data, and pull out</t>
-    <t id="201">Investigate the Mists of Artemis</t>
+    <t id="112">Katana flight ordered into the Mists of Artemis.</t>
+    <t id="113">Deploy recon satellite, gather hive data, and pull out.</t>
+
+    <t id="201">Investigate the Mists of Artemis.</t>
     <t id="202">The Sunborn Militia has been contracted by Terran border intelligence to verify changes in Kha'ak hive activity in the Mists of Artemis. The mission is risky, but the Intervention Corps will not divert major assets for a target this low on their list.</t>
-    <t id="211">Fly to the deployment area and place the advanced satellite</t>
-    <t id="212">Destroy the Xenon patrol</t>
-    <t id="213">Approach the anomalous signal</t>
-    <t id="214">Reach the TER outpost</t>
-    <t id="215">Defend the TER outpost until the Intervention Corps arrives</t>
-    <t id="501">Finally lost the Xenon. Took long enough.</t>
-    <t id="502">Who the hell decided to send us to a place like this? Shouldn't this be an Intervention Corps job?</t>
-    <t id="503">We're deep in Xenon territory. If the Corps wants to push in here, they're gonna have to pay for it in blood.</t>
-    <t id="504">So what exactly are we doing again?</t>
+    <t id="211">Fly to the deployment area and place the advanced satellite.</t>
+    <t id="212">Destroy the Xenon patrol.</t>
+    <t id="213">Approach the anomalous signal.</t>
+    <t id="214">Reach the TER outpost.</t>
+    <t id="215">Defend the TER outpost until the Intervention Corps arrives.</t>
+
+    <t id="501">Finally shook the Xenon. Took long enough.</t>
+    <t id="502">Who the hell decided to send us somewhere like this? Shouldn't this be an Intervention Corps problem?</t>
+    <t id="503">We're deep in Xenon territory. If the Corps wants to push in here, they'll have to bleed for it.</t>
+    <t id="504">So what exactly are we doing here again?</t>
     <t id="505">According to Shiratori: head to the marked area, drop a long-range satellite, confirm hive activity, then get back to Saturn Station and grab a drink.</t>
-    <t id="506">Yeah... if it were ever that easy.</t>
-    <t id="511">Satellite's down. Ship AI, start the readout.</t>
+    <t id="506">Yeah... if only it were ever that simple.</t>
+
+    <t id="511">Satellite deployed. Ship AI, begin the readout.</t>
     <t id="512">Receiving telemetry now. Estimated completion time: twenty seconds.</t>
-    <t id="513">Once the numbers come in, we can call it a day. Wonder if the beer festival at Saturn Station's still on...</t>
+    <t id="513">Once the numbers are in, we can head home. Wonder if the beer festival at Saturn Station is still going...</t>
     <t id="514">Warning: Xenon vessels detected ahead. Range: thirty kilometres.</t>
     <t id="515">Xenon...? No way.</t>
     <t id="518">Doesn't matter. Weapons hot.</t>
+
     <t id="521">That's done. Ship AI, start parsing the satellite data.</t>
     <t id="522">Parsing now.</t>
     <t id="523">No qualifying Kha'ak station detected in the vicinity.</t>
-    <t id="524">No qualifying station? Wasn't this supposed to be the biggest Kha'ak hive in the whole damned universe?</t>
+    <t id="524">Nothing? Wasn't this supposed to be one of the biggest Kha'ak hives in the whole damned universe?</t>
     <t id="525">Maybe our coordinates are off. Widen the search.</t>
     <t id="526">Search radius expanded. Wreckage detected: Kha'ak Ravager-class guardian. No hive structure detected.</t>
     <t id="527">A Ravager... wreck? You're saying something killed it?</t>
@@ -52,47 +59,234 @@
     <t id="531">Spatial-fold readings? What the hell are the Xenon up to?</t>
     <t id="532">See if there's anything else in there.</t>
     <t id="533">Anomalous signal detected in the distance. Signal pattern does not match a gate, accelerator, or conventional Kha'ak jump residue.</t>
-    <t id="534">Mark it. We take a look, then we get the hell out.</t>
-    <t id="541">That's a Xenon I... Why the hell is there a Xenon capital ship out here?</t>
+    <t id="534">Mark it. We take a look, then we get out.</t>
+
+    <t id="541">That's a Xenon I... Why the hell is a Xenon capital ship all the way out here?</t>
     <t id="542">The Xenon don't usually send an I somewhere like this unless...</t>
     <t id="543">Warning: high-energy spatial fold detected.</t>
     <t id="544">What the hell is happening?</t>
     <t id="545">Unable to localise. The signal is coming from the entire debris field.</t>
     <t id="546">Where... where are we?</t>
     <t id="547">Star map recalibration complete. Current position: Savage Spur I.</t>
-    <t id="548">Savage Spur I?! That's a Xenon core sector! We were just in the Mists of Artemis—</t>
+    <t id="548">Savage Spur I?! That's a Xenon core sector! We were just in the Mists of Artemis...</t>
     <t id="549">Inference: this ship was dragged in by an anomalous spatial fold.</t>
-    <t id="550">So the Xenon got jump tech out of that Kha'ak hive... If there are Xenon forces outside the gate network—</t>
-    <t id="551">Forget that. Look up ahead.</t>
+    <t id="550">So the Xenon got jump technology out of that Kha'ak hive... If there are Xenon forces outside the gate network...</t>
+    <t id="551">Forget that. Look ahead.</t>
     <t id="552">Multiple large ship groups detected exiting spatial fold.</t>
     <t id="553">We can't stay here. Savage Spur I has a one-way accelerator to Savage Spur II. There's a TER outpost on the other side.</t>
     <t id="554">...Right. Move. Now.</t>
-    <t id="555">Hold on—something's happening.</t>
-    <t id="556">That many I's... There aren't even that many inside the gate network...</t>
+    <t id="555">Hold on... something's happening.</t>
+    <t id="556">That many I-class ships... There aren't even this many in the whole gate network...</t>
+
     <t id="561">This is the Savage Spur II outpost. Unauthorised vessels, identify yourselves immediately. Wait... Sunborn Militia? Weren't you assigned to the Mists of Artemis?</t>
-    <t id="562">No time. The Xenon are coming.</t>
+    <t id="562">No time to explain. The Xenon are coming.</t>
     <t id="563">Uploading sensor records now.</t>
-    <t id="564">...Data received. Damn it. The defense crews are all back at Saturn Station getting drunk.</t>
-    <t id="565">Well, we're screwed. Maybe we should just run for it—</t>
-    <t id="566">Ten minutes! Just give me ten damn minutes! The Defense Minister said that after ten minutes, either the fleet gets here or his head rolls—one of the two!</t>
+    <t id="564">...Data received. Damn it. The defence crews are all back at Saturn Station getting drunk.</t>
+    <t id="565">Then we're screwed. Maybe we should just run for it...</t>
+    <t id="566">Ten minutes! Just buy us ten damn minutes! The Defence Minister said that after ten minutes, either the fleet gets here or his head rolls; one of the two!</t>
     <t id="567">Ten minutes? ...Fine. Let's just hope it's the fleet.</t>
     <t id="568">Warning: extra-large vessel signature detected. Identified as Xenon I.</t>
     <t id="569">No. No, no, no... that's an I.</t>
     <t id="570">Attention: Xenon K closing on the station.</t>
-    <t id="571">We don't have the firepower to break a K's shields. Hit the engines—keep it off the station!</t>
+    <t id="571">We don't have the firepower to break a K's shields. Hit the engines and keep it off the station!</t>
     <t id="572">Warning: extra-large vessel signature detected. Identified as Xenon I.</t>
-    <t id="573">No. No, no, no... that's an I.</t>
+    <t id="573">No. No, no, no... that's another I.</t>
     <t id="574">We're done. The outpost is finished this time.</t>
-    <t id="576">This is the Terran Intervention Corps battleship Paradigm. Sorry we're late. Looks like things got ugly. More ships are coming through the gate behind us.</t>
+    <t id="576">This is the Terran Intervention Corps battleship Paradigm. Sorry we're late. Looks like you've had quite the party. More reinforcements are already coming through the gate.</t>
     <t id="577">Threat eliminated. Repeat, threat eliminated. Stand down from red alert. All units, maintain patrol status.</t>
     <t id="578">To the two Sunborn Militia pilots: you have our thanks. We've already pulled the sensor records from your ship computers.</t>
-    <t id="579">The Xenon are using Kha'ak jump technology. If they can bring in reinforcements from outside the gate network, then the whole of human civilisation is in deep trouble.</t>
-    <t id="580">Drinks at Saturn are on me, so help yourselves. Just don't overdo it—the Intervention Corps command staff and the Defense Ministry still want a full report from both of you.</t>
+    <t id="579">The Xenon are using Kha'ak jump technology. If they can keep pulling reinforcements in from beyond the gate network, human civilisation is well and truly screwed.</t>
+    <t id="580">Drinks at Saturn are on me, so help yourselves. Just don't overdo it. The Intervention Corps staff and the Defence Ministry still want a full report from both of you.</t>
     <t id="581">Warning: first Xenon attack wing is closing fast.</t>
     <t id="582">At least these are still the small ones.</t>
+
     <t id="1001">Phase 1 Demo Complete</t>
     <t id="1002">You completed the Phase 1 demo of Under the Surface: scouting the Mists of Artemis, breaking out through Savage Spur, and helping the TER outpost hold until Paradigm arrived.</t>
     <t id="1003">Demo Failed</t>
     <t id="1004">You failed to complete the Phase 1 demo of Under the Surface.</t>
+    <t id="1005">Player Hull</t>
+    <t id="1006">TER Outpost Hull</t>
+  </page>
+
+  <page id="899901" title="Gatefall Chronicles" descr="Gatefall Chronicles custom Timelines campaign 02" voice="no">
+    <t id="1">Gatefall 02: Passing the Buck</t>
+    <t id="2">Background: Using stolen jump technology, the Xenon are funnelling ever more forces into the gate network, and Tharka's Cascade is taking the brunt of it.\nSince HAT needed ARG's help to resolve the Scale Plate Pact crisis, it has effectively become an Argon vassal—one expected to pay in blood when asked. The 86th Escort Fleet is one such payment.\nThe 86th once saved your life. Now ARG means to spend them as cannon fodder, and you are determined to keep them alive, whatever the cost.\nGameplay: Command a frigate fleet remotely (OOS) and put its anti-fighter and anti-capital capabilities to the test.</t>
+    <t id="3">Play as ARG commander Syme, directing HAT's 86th Escort Fleet from a rear command platform in Hatikvah's Choice as one crisis after another erupts in Tharka's Cascade.</t>
+    <t id="4">Full Campaign Demo</t>
+
+    <t id="11">ARG Rear Command Platform</t>
+    <t id="12">Captain Rayna</t>
+    <t id="13">Ship AI</t>
+    <t id="14">Player</t>
+    <t id="16">TEL Freighter</t>
+    <t id="17">HAT Mining Guard Station</t>
+    <t id="18">Profit Escort</t>
+    <t id="19">HAT Miner</t>
+    <t id="20">ARG Rear Command Platform</t>
+    <t id="21">86th Escort Fleet Leader</t>
+    <t id="22">HAT 86th Escort Fleet Cerberus</t>
+    <t id="23">Frontier Commander</t>
+    <t id="24">Staff Officer</t>
+    <t id="25">Staff Officer</t>
+    <t id="26">Satellite Deployment Point</t>
+    <t id="27">Rear Platform Bar</t>
+    <t id="28">Classified Database</t>
+    <t id="29">Navigation Beacon Deployment Point</t>
+    <t id="30">ZYA Dragon</t>
+    <t id="31">ZYA Elephant Rescue Convoy</t>
+    <t id="32">ZYA Weapon Component Factory</t>
+    <t id="33">ZYA Hull Parts Factory Alpha</t>
+    <t id="34">ZYA Hull Parts Factory Beta</t>
+    <t id="35">ZYA Refined Metals Factory Alpha</t>
+    <t id="36">ZYA Refined Metals Factory Beta</t>
+    <t id="37">ZYA Weapon Component Factory Alpha</t>
+    <t id="38">ZYA Weapon Component Factory Beta</t>
+    <t id="39">ZYA Missile Component Factory Alpha</t>
+    <t id="40">ZYA Missile Component Factory Beta</t>
+    <t id="41">ZYA Scan Component Factory Alpha</t>
+    <t id="42">ZYA Scan Component Factory Beta</t>
+    <t id="43">ZYA Border Defence Platform</t>
+
+    <t id="101">The rear command platform is now receiving the live tactical feed from Tharka's Cascade.</t>
+    <t id="102">The 86th Escort Fleet is standing by in Tharka's Cascade.</t>
+    <t id="103">Open the map and issue remote orders to the fleet.</t>
+    <t id="111">HAT's 86th Escort Fleet conducts routine patrol and escort work in Tharka's Cascade.</t>
+    <t id="112">Their job is to protect the sector's ships and stations, just as they once protected you.</t>
+    <t id="113">With no ARG reinforcements coming, keep as many of them alive as you can.</t>
+    <t id="114">You can pause the game at any time. Open the map now and take remote command.</t>
+
+    <t id="201">Gatefall 02: Passing the Buck</t>
+    <t id="202">You are remotely directing HAT's 86th Escort Fleet from the rear command platform. Use the map to issue orders.</t>
+    <t id="211">Open the map and prepare to command the 86th Escort Fleet.</t>
+    <t id="212">Destroy the Xenon fleet attacking the TEL freighter.</t>
+    <t id="213">Clear all Xenon attack groups.</t>
+    <t id="214">Proceed to the Argon forward command centre.</t>
+    <t id="215">Deploy a satellite in deep space.</t>
+    <t id="216">Forward Command Centre</t>
+    <t id="217">Return to the rear command platform and open the map.</t>
+    <t id="218">Defend the HAT station for 5 minutes.</t>
+    <t id="219">Recover the classified-database keycard from the bar.</t>
+    <t id="220">Go to the classified database.</t>
+    <t id="221">Access the classified database.</t>
+    <t id="222">Open the map and give the 86th Escort Fleet its final assignment.</t>
+    <t id="223">Proceed to the navigation beacon deployment site in Family Zhin.</t>
+    <t id="224">Downloading classified data and wiping camera footage and access logs...</t>
+    <t id="225">Classified data download complete.</t>
+
+    <t id="501">Morning, Commander. All quiet in Tharka's Cascade.</t>
+    <t id="502">Morning, Rayna. Same as usual today—see if anyone needs a hand.</t>
+    <t id="503">Same as yesterday, then? Remind me, how many Xenon did we bag on that "routine patrol"?</t>
+    <t id="504">Lost count of the Ms and PEs. Plus a K—that one was a right pain.</t>
+    <t id="505">After all that, ARG owes us something, surely. Maybe they could finally send those supplies they've been sitting on?</t>
+    <t id="506">Uh...</t>
+    <t id="507">The crews are saying the new Cerberuses are already coming apart at the seams—like someone hauled them straight out of a scrapyard.</t>
+    <t id="508">I'll... see what else I can squeeze out of them. You know things haven't been the same between ARG and HAT since you went "legitimate".</t>
+    <t id="509">I know. That's why they stuck us out here in the first place. Anyway, let's get the patrol done.</t>
+
+    <t id="521">Mayday! Mayday! Under Xenon attack! Engines are down—requesting immediate assistance...</t>
+    <t id="522">86th Escort Command here. Our ships are on the way. Hold on for one minute!</t>
+    <t id="523">Don't worry, Commander. Our defence drones will make short work of the small fry, and the plasma turrets will stay on that Xenon K.</t>
+
+    <t id="531">Commander, that TEL captain wants a word. Says you're old friends.</t>
+    <t id="532">Sounds like one of my contacts in TEL. Put them through.</t>
+    <t id="533">Well, well—if it isn't the commander of the 86th. I swear your fleet gets smaller every time I see it.</t>
+    <t id="534">Hardly a match for your mighty escort fleet. Remind me—where did you find that optical camouflage of theirs?</t>
+    <t id="535">All right, all right, walked right into that one. Seriously, though—thanks for the rescue.</t>
+    <t id="536">If you really want to thank me, find me some better gear. That last batch was rough. Which pirate did you dig it up from?</t>
+    <t id="537">Argon have been breathing down my neck lately. You're lucky I found you anything that could shoot. Besides, you're the one who insisted on frigates.</t>
+    <t id="538">The Xenon are hitting harder by the day. Fighters don't last in Tharka's radiation, and you know what kind of shape HAT's 86th is in.</t>
+    <t id="539">Lucky for them they've got a first-rate mug like you, funding your own job. Still don't know why you're so damn determined to protect the 86th.</t>
+
+    <t id="541">Mayday! Mayday! The station is under Xenon attack, and they've brought capital ships!</t>
+    <t id="542">HAT miner calling! Both us and the station are under Xenon attack! We need support!</t>
+    <t id="543">Commander, the TEL freighter has its engines back. It's ready to withdraw.</t>
+    <t id="544">Good. Send it towards the southern gate. Rayna, clear the hostiles around the miner, then double back and reinforce the station.</t>
+    <t id="545">Understood. I'll cover their withdrawal, then head straight for the miner.</t>
+    <t id="546">Copy that. Making for the gate now. I'll stay out of your way...</t>
+
+    <t id="551">Thanks again! I'll see if I can cobble together a few more frigates for you.</t>
+    <t id="552">Thank you. I've made it safely out of Tharka's Cascade.</t>
+    <t id="553">Couldn't have done it without you. These Xenon capital ships are getting harder to deal with every day.</t>
+
+    <t id="561">What a day... Say, Commander, what did they mean by "funding your own job" and "better gear"?</t>
+    <t id="562">Uh... You must've strayed onto the wrong comm channel. I'm sure you misheard.</t>
+    <t id="563">Then there's the fact that our entire operating budget for the past six months came from one private account. Any idea whose, Commander?</t>
+    <t id="564">Uh... let's shelve that. Bigger problem: Xenon attacks are ramping up fast, both in size and frequency.</t>
+    <t id="565">Capital-ship raids are practically routine now. Come to think of it, thank goodness for those plasma guns you somehow got hold of.</t>
+    <t id="566">I get the feeling the Xenon are gearing up for something big. Even Argon patrols are being reinforced. We need more ships.</t>
+
+    <t id="567">Frontier Commander, this is Syme, commander of the 86th Escort Fleet. I have an urgent report.</t>
+    <t id="568">Oh? HAT's escort commander? Go on, then.</t>
+    <t id="569">Xenon attacks on Tharka's Cascade are escalating. The threat to the core sectors, even Argon Prime, cannot be ignored.</t>
+    <t id="570">HAT's still holding, isn't it? The sky hasn't fallen yet.</t>
+    <t id="571">Yes, sir. But even limited support for the 86th would take enormous pressure off Argon's rear-area fleet.</t>
+    <t id="572">Syme, I understand what the 86th means to you. They did save your life.</t>
+    <t id="573">But this isn't something I can fix for you. I can't talk the Defence Ministry into supporting HAT, and you already knew that.</t>
+    <t id="574">Still, you've done well lately, so here's some advice: bring them proof of a Xenon threat they can't ignore—and a little "gift" to sweeten it—and you might have a chance.</t>
+
+    <t id="575">Rayna, I've got a job for you. A risky one. Head deep into the sector and find out what the Xenon are up to.</t>
+    <t id="576">No problem—leave it to us. We'll keep some ships near the station in case they hit it again.</t>
+    <t id="577">Be careful.</t>
+    <t id="578">Commander, the satellite is in place. Deep-space telemetry is coming in now.</t>
+    <t id="579">Good. Send it over. Let's see what the Xenon have tucked away in the depths of Tharka's Cascade.</t>
+    <t id="581">Damn... That's a Xenon capital fleet. We're in trouble.</t>
+    <t id="582">Rayna, pull back and hold the station. I'll call for reinforcements.</t>
+    <t id="583">Frontier Commander, we've detected a massive concentration of Xenon I-class ships! The HAT station won't last long!</t>
+    <t id="584">...I see them. You're right—this is serious. Have your people hold for five minutes. Reinforcements should make it by then.</t>
+    <t id="585">Five minutes... All right. We'll do what we can.</t>
+
+    <t id="586">Bad news, Commander! The station can't take much more!</t>
+    <t id="587">Frontier Command, the Xenon capital fleet is on top of us! We can't hold much longer!</t>
+    <t id="588">Syme, the Defence Ministry's order is for the 86th Escort Fleet to hold Tharka's Cascade to the last ship.</t>
+    <t id="589">Your sacrifice will buy time for the Argon fleet to assemble and establish defences beyond the gate.</t>
+    <t id="590">...</t>
+    <t id="591">I'm sorry. I can't help you. One other thing—I seem to have left my classified-database key tucked under the lip of a table in the bar. Fetch it and return it to me.</t>
+    <t id="592">Understood, Commander.</t>
+    <t id="593">The classified-database key the Commander just "happened" to leave behind... Let's hope there's something useful in there.</t>
+    <t id="594">There's plenty here. I already have a high-resolution map of Tharka's Cascade, and a map of ZYA space won't do much for us right now...</t>
+    <t id="595">Yaki navigation protocol... It can use a navigation beacon to alter Xenon attack vectors... That's it!</t>
+    <t id="596">But the nearest viable target is Family Zhin in ZYA space... There are civilians there too...</t>
+    <t id="597">And sooner or later, the Xenon will just come back... Damn it. Save the 86th first; deal with the rest later.</t>
+    <t id="598">Rayna, do you still have a navigation beacon?</t>
+    <t id="599">One left, Commander. What are your orders?</t>
+    <t id="600">Listen carefully. ARG command intends to sacrifice you, but I found a way to get you out alive.</t>
+    <t id="601">I'm sending an encrypted package. Deploy the navigation beacon in ZYA's Family Zhin sector.</t>
+    <t id="602">Copy that, Commander!</t>
+
+    <t id="603">Beacon deployed. A whole swarm of Xenon just appeared by the gate in Family Zhin—looks like the same I-class ships that were heading for the station.</t>
+    <t id="604">Commander, what exactly does that encrypted package do?</t>
+    <t id="605">Orders from above. Need-to-know, and even I don't know the details... Besides, they're Xenon. Who knows what goes on in their heads?</t>
+    <t id="606">But I do have one last assignment for you. ZYA and ARG are both about to be in deep trouble.</t>
+    <t id="607">I've sent you a map of ZYA space. Follow their territory all the way to Heretic's End. I have Boron friends there—they'll take you in.</t>
+    <t id="608">What about you, Commander? We have to take you with us!</t>
+    <t id="609">I'm staying to hold back the Xenon, right to the end. Consider it repayment for saving my life.</t>
+    <t id="610">Commander, you've already done more than enough for the 86th, but we...</t>
+    <t id="611">As of today, you're all dead in the ARG database. The chains that bound you died with you.</t>
+    <t id="612">Goodbye, Rayna. Goodbye, all of you. Go—go and claim the freedom that's yours... (communications cut)</t>
+    <t id="613">Family Zhin flagship calling! Too many Xenon! Split needs reinforcements!</t>
+    <t id="614">This is the rescue convoy! Split escorts are gone! Xenon are slaughtering civilians! Split requests reinforc—</t>
+    <t id="615">This is Weapon Component Factory, section C02! Xenon detonated the munitions! Fire on one side, vacuum on the other—Split cannot hold...</t>
+    <t id="616">Frontier Commander, sir. I retrieved the key you left in the bar.</t>
+    <t id="617">You didn't use it, did you?</t>
+    <t id="618">No. The cameras outside the database and the access logs will confirm it.</t>
+    <t id="619">Good. And the 86th?</t>
+    <t id="620">Lost with all hands. They destroyed a large Xenon force and bought Argon the time it needed. It's all in the combat logs.</t>
+    <t id="621">A job well done, then... What's wrong, Syme? The 86th are gone, Rayna with them. Not happy?</t>
+    <t id="622">(shakes head)</t>
+    <t id="623">Or did switching on the killing machine yourself leave a bad taste, even with our oldest enemy on the receiving end?</t>
+    <t id="624">(remains silent)</t>
+    <t id="625">Never mind. For now... godspeed to the 86th.</t>
+    <t id="626">And... good luck to ZYA as well.</t>
+
+    <t id="1001">Gatefall 02: Passing the Buck Complete</t>
+    <t id="1002">You completed Gatefall 02: Passing the Buck. With the Xenon fleet closing in, you refused to sacrifice the 86th, used a Yaki navigation protocol to redirect the assault into Family Zhin, and hid the truth from Argon.</t>
+    <t id="1003">Campaign Failed</t>
+    <t id="1004">You failed to complete Gatefall 02: Passing the Buck.</t>
+    <t id="1005">Flagship Hull</t>
+    <t id="1006">TEL Freighter Hull</t>
+    <t id="1007">HAT Miner Hull</t>
+    <t id="1008">HAT Outpost Hull</t>
+    <t id="1009">86th Escort Survivors</t>
+    <t id="1010">Xenon Ships Destroyed</t>
   </page>
 </language>

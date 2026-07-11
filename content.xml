@@ -8,6 +8,7 @@
          save="false"
          enabled="1">
   <dependency version="900" />
+  <dependency id="ego_dlc_split" version="900" optional="false" name="Split Vendetta" />
   <dependency id="ego_dlc_terran" version="900" optional="false" name="Cradle of Humanity" />
   <dependency id="ego_dlc_timelines" version="900" optional="false" name="Timelines" />
 </content>

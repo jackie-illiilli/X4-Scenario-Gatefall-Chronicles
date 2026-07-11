@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s02_phase1_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_tel_ship" />
+    <object_group name="targets">
+      <reference object="target_tel_ship" />
+      <reference object="target_player_ship" />
+      <reference object="target_outpost" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="TelFreighterUnderAttack" environment="scenezone" duration="4000">
+          <camera_orbit reference="target_tel_ship" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="1500" angle="-26" elevation="15" />
+            <end distance="1350" angle="-10" elevation="13" time="3500" />
+          </camera_orbit>
+        </shot>
+        <shot name="MoveToPlayer" environment="scenezone" duration="4000">
+          <camera_orbit reference="target_player_ship" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="2200" angle="-155" elevation="10" />
+            <end distance="1050" angle="-28" elevation="14" time="3800" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

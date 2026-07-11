@@ -37,5 +37,39 @@
         </scores>
       </scenario>
     </gamestart>
+    <gamestart id="gatefall_scenario_02" name="{899901,1}" description="{899901,2}" image="gamestart_scenario_seek_and_destroy" group="11" tags="nosave">
+      <info startyear="3040" startmonth="7" startday="5" />
+      <type name="Timelines Scenario" description="Gatefall Chronicles hidden scenario" />
+      <loadingscreen>
+        <text text="{899901,101}" />
+        <text text="{899901,102}" />
+        <text text="{899901,103}" />
+        <info text="{899901,111}" />
+        <info text="{899901,112}" />
+        <info text="{899901,113}" />
+      </loadingscreen>
+      <location galaxy="gatefall_scenario_02_galaxy_macro" sector="gatefall_scenario_02_cluster_29_sector001_macro" station="gatefall_scenario_02_cluster_29_sector001_zone_900_station_001_macro">
+        <player disembarked="true">
+          <position x="2.00" y="1.29" z="-6.4" />
+          <rotation yaw="-140" pitch="-14" roll="0" />
+        </player>
+        <interior module="dockarea_arg_m_station_01_macro" corridor="room_arg_corridor_01_macro" door="con_room_01" room="room_gen_war_01_macro" name="{20007,1501}" persistent="true" />
+      </location>
+      <player macro="character_player_scenario_combat_argon_macro" money="0" name="{899901,14}" />
+      <universe ventures="false" visitors="false" onlineinventory="false">
+        <jobs enabled="false" />
+        <god enabled="false" />
+        <masstraffic enabled="false" />
+      </universe>
+      <scenario chapter="0" description="{899901,3}">
+        <scores description="{899901,4}">
+          <score value="200" rating="1" />
+          <score value="250" rating="2" />
+          <score value="300" rating="3" />
+          <score value="350" rating="4" />
+          <score value="400" rating="5" />
+        </scores>
+      </scenario>
+    </gamestart>
   </add>
 </diff>

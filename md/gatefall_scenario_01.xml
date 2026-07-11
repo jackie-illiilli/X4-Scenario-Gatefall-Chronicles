@@ -100,8 +100,8 @@
           <safepos object="player.ship" x="450m" y="100m" z="-650m" />
           <rotation value="player.ship.rotation" />
         </create_ship>
-        <set_object_name object="player.ship" name="'阳裔民兵 武士刀'" />
-        <set_object_name object="$Wingman" name="'阳裔民兵 武士刀'" />
+        <set_object_name object="player.ship" name="{899900,20}" />
+        <set_object_name object="$Wingman" name="{899900,20}" />
         <set_object_min_hull object="$Wingman" exact="1" />
         <set_entity_traits entity="player.entity" subtitlename="true" />
         <set_entity_overrides entity="player.entity" title="'{899900,14}'" />
@@ -1166,7 +1166,7 @@
                                                   <position value="$CurrentFinalAsgardPosition" />
                                                   <rotation yaw="0deg" />
                                                 </create_ship>
-                                                <set_object_name object="$Asgard" name="'TER 典范'" />
+                                                <set_object_name object="$Asgard" name="{899900,19}" />
                                                 <add_effect object="$Asgard" effect="'jump_gateeffect'" />
                                                 <do_all exact="3" counter="$i">
                                                   <create_ship name="$InterventionDestroyer" macro="macro.ship_ter_l_destroyer_01_a_macro" sector="$SavageSpur2" groupname="$InterventionFleet" capturable="false" commandeerable="false">
@@ -1294,8 +1294,8 @@
                                                       <set_value name="$Score_PlayerHull" exact="0" />
                                                       <set_value name="$ResultData.$Score" exact="0" />
                                                     </do_if>
-                                                    <add_scenario_stat id="'player_hull'" name="'玩家剩余结构'" uivalue="($PlayerHullPercent)i + '%'" score="$Score_PlayerHull" maxscore="25" />
-                                                    <add_scenario_stat id="'outpost_hull'" name="'前哨站剩余结构'" uivalue="($OutpostHullPercent)i + '%'" score="$Score_OutpostHull" maxscore="50" />
+                                                    <add_scenario_stat id="'player_hull'" name="{899900,1005}" uivalue="($PlayerHullPercent)i + '%'" score="$Score_PlayerHull" maxscore="25" />
+                                                    <add_scenario_stat id="'outpost_hull'" name="{899900,1006}" uivalue="($OutpostHullPercent)i + '%'" score="$Score_OutpostHull" maxscore="50" />
                                                   </actions>
                                                   <cues>
                                                     <cue name="Finished_Ref" ref="md.Gatefall_Lib_Scenario.ScenarioFinished">

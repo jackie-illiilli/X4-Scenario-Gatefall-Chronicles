@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<diff>
+  <add sel="/regions">
+    <region name="gatefall_region_cluster_32_sector_001_scaled" density="1.5" rotation="0" noisescale="10000" seed="3214" minnoisevalue="0.15" maxnoisevalue="1">
+      <boundary class="cylinder">
+        <size r="62500" linear="25000" />
+      </boundary>
+      <falloff>
+        <lateral>
+          <step position="0.0" value="0.0" />
+          <step position="0.1" value="1.0" />
+          <step position="0.9" value="1.0" />
+          <step position="1.0" value="0.0" />
+        </lateral>
+        <radial>
+          <step position="0.0" value="1.0" />
+          <step position="0.3" value="1.0" />
+          <step position="0.5" value="0.9" />
+          <step position="0.9" value="0.4" />
+          <step position="1.0" value="0.0" />
+        </radial>
+      </falloff>
+      <fields>
+        <damagefield affectsnavigation="false">
+          <damage shield="1">
+            <multiplier traveldrive="0" />
+          </damage>
+          <effects shield="dmgfx_cockpit_electrostatic_01" mindelay="1.0" maxdelay="3.0" />
+        </damagefield>
+        <volumetricfog multiplier="0.6" medium="fog_orange_directional" texture="assets/textures/environments/fog_patterncloud_03" lodrule="nebulafar" size="12000" sizevariation="0.5" densityfactor="0.02" rotation="0" rotationvariation="0.50" noisescale="2500" seed="1" minnoisevalue="0.80" maxnoisevalue="1.0" distancefactor="0.250" />
+        <asteroid groupref="asteroid_ore_xxl" densityfactor="1" rotation="360" rotationvariation="4" noisescale="2500" seed="3214" minnoisevalue="0.95" maxnoisevalue="1" />
+        <asteroid groupref="asteroid_ore_xl" densityfactor="2" rotation="360" rotationvariation="4" noisescale="2500" seed="3214" minnoisevalue="0.9" maxnoisevalue="1" />
+        <asteroid groupref="asteroid_silicon_xl" densityfactor="2" rotation="360" rotationvariation="4" noisescale="2500" seed="3214" minnoisevalue="0.9" maxnoisevalue="1" />
+        <asteroid groupref="asteroid_ore_l" densityfactor="3" rotation="360" rotationvariation="4" noisescale="2500" seed="3214" minnoisevalue="0.9" maxnoisevalue="1" />
+        <asteroid groupref="asteroid_silicon_l" densityfactor="2" rotation="360" rotationvariation="4" noisescale="2500" seed="3214" minnoisevalue="0.9" maxnoisevalue="1" />
+        <asteroid groupref="asteroid_ore_m" densityfactor="3" rotation="360" rotationvariation="8" noisescale="2500" seed="3214" minnoisevalue="0.85" maxnoisevalue="1" />
+        <asteroid groupref="asteroid_silicon_m" densityfactor="3" rotation="360" rotationvariation="8" noisescale="2500" seed="3214" minnoisevalue="0.85" maxnoisevalue="1" />
+        <asteroid groupref="asteroid_nividium_l" densityfactor="0.625" rotation="360" rotationvariation="4" noisescale="2500" seed="3214" minnoisevalue="0.9" maxnoisevalue="1" />
+        <nebula ref="fogvolume_small_macro" localred="29" localgreen="23" localblue="9" localdensity="0.1" uniformred="49" uniformgreen="43" uniformblue="19" uniformdensity="0.2" backgroundfog="false" resources="hydrogen" />
+      </fields>
+    </region>
+  </add>
+</diff>

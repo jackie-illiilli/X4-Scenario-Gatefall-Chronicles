@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<diff>
+  <add sel="/soundlibrary">
+    <sound id="gatefall_music_age_of_deceivers" tags="music" repeat="-1" is3d="0" preload="1">
+      <sample start="extensions\ego_dlc_timelines\music\special\x4_timelines_ost_06_age_of_deceivers" />
+    </sound>
+    <sound id="gatefall_music_mission_control" tags="music" repeat="-1" is3d="0" preload="1">
+      <sample start="extensions\ego_dlc_timelines\music\x4_timelines_ost_04_mission_control" />
+    </sound>
+    <sound id="gatefall_music_redemption" tags="music" repeat="-1" is3d="0" preload="1">
+      <sample start="extensions\ego_dlc_timelines\music\x4_timelines_ost_02_redemption" />
+    </sound>
+  </add>
+</diff>
