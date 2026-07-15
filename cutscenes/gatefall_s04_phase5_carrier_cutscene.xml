@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s04_phase5_carrier_cutscene" />
+
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_carrier" />
+    <object_group name="targets">
+      <reference object="target_carrier" />
+      <reference object="target_support" />
+    </object_group>
+  </environments>
+
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="CarrierArrival" environment="scenezone" duration="18000">
+          <camera_orbit reference="target_carrier" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="11000" angle="36" elevation="7" />
+            <end distance="11000" angle="54" elevation="7" time="17000" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

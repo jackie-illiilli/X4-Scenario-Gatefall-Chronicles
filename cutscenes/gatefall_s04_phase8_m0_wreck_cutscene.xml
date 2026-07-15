@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s04_phase8_m0_wreck_cutscene" />
+
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_wreck" />
+    <object_group name="targets">
+      <reference object="target_wreck" />
+    </object_group>
+  </environments>
+
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="M0WreckSurvey" environment="scenezone" duration="18000">
+          <camera_orbit reference="target_wreck" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="18500" angle="-10" elevation="8" />
+            <end distance="16500" angle="0" elevation="9" time="17000" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

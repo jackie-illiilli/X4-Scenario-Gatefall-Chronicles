@@ -118,4 +118,286 @@
       <thruster macro="thruster_gen_s_combat_01_mk3_macro" />
     </virtualmacros>
   </loadout>
+
+  <!-- Scenario 04: player Hydra Regal, anti-fighter configuration. -->
+  <loadout id="gatefall_scenario_04_hydra_regal_player" macro="ship_bor_m_corvette_02_a_macro">
+    <macros>
+      <engine macro="engine_bor_m_allround_01_mk3_macro" path="../con_engine_01" />
+      <engine macro="engine_bor_m_allround_01_mk3_macro" path="../con_engine_02" />
+      <engine macro="engine_bor_m_allround_01_mk3_macro" path="../con_engine_03" />
+      <weapon macro="weapon_ter_m_laser_01_mk2_macro" path="../con_weapon_01" />
+      <weapon macro="weapon_ter_m_laser_01_mk2_macro" path="../con_weapon_02" />
+      <weapon macro="weapon_ter_m_laser_01_mk2_macro" path="../con_weapon_03" />
+      <weapon macro="weapon_ter_m_laser_01_mk2_macro" path="../con_weapon_04" />
+      <shield macro="shield_ter_m_standard_01_mk3_macro" path="../con_shield_01" />
+      <shield macro="shield_ter_m_standard_01_mk3_macro" path="../con_shield_02" />
+      <shield macro="shield_ter_m_standard_01_mk3_macro" path="../con_shield_03" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_m_01" weaponmode="attackfighters" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_m_02" weaponmode="attackfighters" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_m_03" weaponmode="attackfighters" />
+    </macros>
+    <ammunition>
+      <ammunition macro="countermeasure_flares_01_macro" exact="8" />
+    </ammunition>
+    <software>
+      <software ware="software_dockmk2" />
+      <software ware="software_flightassistmk1" />
+      <software ware="software_scannerlongrangemk2" />
+      <software ware="software_scannerobjectmk2" />
+      <software ware="software_targetmk1" />
+    </software>
+    <virtualmacros>
+      <thruster macro="thruster_gen_m_combat_01_mk3_macro" />
+    </virtualmacros>
+  </loadout>
+
+  <!-- Scenario 04: Thresher anti-fighter escort. -->
+  <loadout id="gatefall_scenario_04_thresher_anti_fighter" macro="ship_bor_m_gunboat_01_a_macro">
+    <macros>
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_01" />
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_02" />
+      <weapon macro="weapon_ter_m_laser_01_mk2_macro" path="../con_weapon_01" />
+      <shield macro="shield_ter_m_standard_01_mk3_macro" path="../con_shield_01" />
+      <shield macro="shield_ter_m_standard_01_mk3_macro" path="../con_shield_02" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_m_01" weaponmode="attackfighters" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_m_02" weaponmode="attackfighters" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_m_03" weaponmode="attackfighters" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_m_04" weaponmode="attackfighters" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_m_05" weaponmode="attackfighters" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_m_06" weaponmode="attackfighters" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_m_07" weaponmode="attackfighters" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_m_08" weaponmode="attackfighters" />
+    </macros>
+    <ammunition>
+      <ammunition macro="countermeasure_flares_01_macro" exact="8" />
+    </ammunition>
+    <software>
+      <software ware="software_dockmk2" />
+      <software ware="software_flightassistmk1" />
+      <software ware="software_scannerlongrangemk2" />
+      <software ware="software_scannerobjectmk2" />
+      <software ware="software_targetmk1" />
+    </software>
+    <virtualmacros>
+      <thruster macro="thruster_gen_m_combat_01_mk3_macro" />
+    </virtualmacros>
+  </loadout>
+
+  <!-- Scenario 04: Hydra anti-capital configuration. -->
+  <loadout id="gatefall_scenario_04_hydra_anti_capital" macro="ship_bor_m_corvette_01_a_macro">
+    <macros>
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_01" />
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_02" />
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_03" />
+      <weapon macro="weapon_gen_m_plasma_01_mk2_macro" path="../con_weapon_01" />
+      <weapon macro="weapon_gen_m_plasma_01_mk2_macro" path="../con_weapon_02" />
+      <weapon macro="weapon_gen_m_plasma_01_mk2_macro" path="../con_weapon_03" />
+      <weapon macro="weapon_gen_m_plasma_01_mk2_macro" path="../con_weapon_04" />
+      <shield macro="shield_ter_m_standard_01_mk3_macro" path="../con_shield_01" />
+      <shield macro="shield_ter_m_standard_01_mk3_macro" path="../con_shield_02" />
+      <shield macro="shield_ter_m_standard_01_mk3_macro" path="../con_shield_03" />
+      <turret macro="turret_arg_m_plasma_01_mk1_macro" path="../con_turret_m_01" weaponmode="attackcapital" />
+      <turret macro="turret_arg_m_plasma_01_mk1_macro" path="../con_turret_m_02" weaponmode="attackcapital" />
+      <turret macro="turret_arg_m_plasma_01_mk1_macro" path="../con_turret_m_03" weaponmode="attackcapital" />
+    </macros>
+    <ammunition>
+      <ammunition macro="countermeasure_flares_01_macro" exact="8" />
+    </ammunition>
+    <software>
+      <software ware="software_dockmk2" />
+      <software ware="software_flightassistmk1" />
+      <software ware="software_scannerlongrangemk2" />
+      <software ware="software_scannerobjectmk2" />
+      <software ware="software_targetmk1" />
+    </software>
+    <virtualmacros>
+      <thruster macro="thruster_gen_m_combat_01_mk3_macro" />
+    </virtualmacros>
+  </loadout>
+
+  <!-- Scenario 04: Katana anti-fighter configuration. -->
+  <loadout id="gatefall_scenario_04_katana_anti_fighter" macro="ship_ter_m_corvette_01_a_macro">
+    <macros>
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_01" />
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_02" />
+      <weapon macro="weapon_ter_m_laser_01_mk2_macro" path="../con_weapon_01" />
+      <weapon macro="weapon_ter_m_laser_01_mk2_macro" path="../con_weapon_02" />
+      <weapon macro="weapon_ter_m_laser_01_mk2_macro" path="../con_weapon_03" />
+      <weapon macro="weapon_ter_m_laser_01_mk2_macro" path="../con_weapon_04" />
+      <shield macro="shield_ter_m_standard_01_mk3_macro" path="../con_shield_01" />
+      <shield macro="shield_ter_m_standard_01_mk3_macro" path="../con_shield_02" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_front" weaponmode="attackfighters" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_mid" weaponmode="attackfighters" />
+    </macros>
+    <ammunition>
+      <ammunition macro="countermeasure_flares_01_macro" exact="20" />
+    </ammunition>
+    <software>
+      <software ware="software_dockmk2" />
+      <software ware="software_flightassistmk1" />
+      <software ware="software_scannerlongrangemk2" />
+      <software ware="software_scannerobjectmk2" />
+      <software ware="software_targetmk1" />
+    </software>
+    <virtualmacros>
+      <thruster macro="thruster_gen_m_combat_01_mk3_macro" />
+    </virtualmacros>
+  </loadout>
+
+  <!-- Scenario 04 Phase 3: Katana anti-capital variant with four Meson Streams. -->
+  <loadout id="gatefall_scenario_04_katana_meson" macro="ship_ter_m_corvette_01_a_macro">
+    <macros>
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_01" />
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_02" />
+      <weapon macro="weapon_ter_m_beam_01_mk2_macro" path="../con_weapon_01" />
+      <weapon macro="weapon_ter_m_beam_01_mk2_macro" path="../con_weapon_02" />
+      <weapon macro="weapon_ter_m_beam_01_mk2_macro" path="../con_weapon_03" />
+      <weapon macro="weapon_ter_m_beam_01_mk2_macro" path="../con_weapon_04" />
+      <shield macro="shield_ter_m_standard_01_mk3_macro" path="../con_shield_01" />
+      <shield macro="shield_ter_m_standard_01_mk3_macro" path="../con_shield_02" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_front" weaponmode="attackfighters" />
+      <turret macro="turret_arg_m_flak_01_mk1_macro" path="../con_turret_mid" weaponmode="attackfighters" />
+    </macros>
+    <ammunition>
+      <ammunition macro="countermeasure_flares_01_macro" exact="20" />
+    </ammunition>
+    <software>
+      <software ware="software_dockmk2" />
+      <software ware="software_flightassistmk1" />
+      <software ware="software_scannerlongrangemk2" />
+      <software ware="software_scannerobjectmk2" />
+      <software ware="software_targetmk1" />
+    </software>
+    <virtualmacros>
+      <thruster macro="thruster_gen_m_combat_01_mk3_macro" />
+    </virtualmacros>
+  </loadout>
+
+  <!-- Scenario 04 Phase 3: Scimitar anti-capital strike craft for Hakapo's fleet. -->
+  <loadout id="gatefall_scenario_04_scimitar_anti_capital" macro="ship_ter_m_frigate_01_a_macro">
+    <macros>
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_003" />
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_002" />
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_005" />
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_004" />
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_006" />
+      <engine macro="engine_arg_m_combat_01_mk3_macro" path="../con_engine_01" />
+      <weapon macro="weapon_gen_m_plasma_01_mk2_macro" path="../con_weapon_01" />
+      <weapon macro="weapon_gen_m_plasma_01_mk2_macro" path="../con_weapon_03" />
+      <weapon macro="weapon_gen_m_plasma_01_mk2_macro" path="../con_weapon_04" />
+      <weapon macro="weapon_gen_m_plasma_01_mk2_macro" path="../con_weapon_02" />
+      <shield macro="shield_ter_m_standard_01_mk3_macro" path="../con_shield_01" />
+      <shield macro="shield_ter_m_standard_01_mk3_macro" path="../con_shield_02" />
+      <turret macro="turret_arg_m_plasma_01_mk1_macro" path="../con_turret_l" weaponmode="attackcapital" />
+      <turret macro="turret_arg_m_plasma_01_mk1_macro" path="../con_turret_r" weaponmode="attackcapital" />
+    </macros>
+    <ammunition>
+      <ammunition macro="countermeasure_flares_01_macro" exact="20" />
+      <unit macro="ship_gen_s_fightingdrone_01_a_macro" exact="10" />
+    </ammunition>
+    <software>
+      <software ware="software_dockmk2" />
+      <software ware="software_flightassistmk1" />
+      <software ware="software_scannerlongrangemk2" />
+      <software ware="software_scannerobjectmk2" />
+      <software ware="software_targetmk1" />
+    </software>
+    <virtualmacros>
+      <thruster macro="thruster_gen_m_combat_01_mk3_macro" />
+    </virtualmacros>
+  </loadout>
+
+  <!-- Scenario 04: Ray with Boron shields and surface elements. -->
+  <loadout id="gatefall_scenario_04_ray" macro="ship_bor_l_destroyer_01_a_macro">
+    <macros>
+      <engine macro="engine_bor_l_travel_01_mk1_macro" path="../con_engine_01" />
+      <engine macro="engine_bor_l_travel_01_mk1_macro" path="../con_engine_02" />
+      <engine macro="engine_bor_l_travel_01_mk1_macro" path="../con_engine_03" />
+      <engine macro="engine_bor_l_travel_01_mk1_macro" path="../con_engine_04" />
+      <weapon macro="weapon_bor_l_beam_01_mk1_macro" path="../con_weapon_l_01" />
+      <shield macro="shield_bor_l_standard_01_mk3_macro" path="../con_shield_l_01" />
+      <shield macro="shield_bor_l_standard_01_mk3_macro" path="../con_shield_l_02" />
+      <shield macro="shield_bor_l_standard_01_mk3_macro" path="../con_shield_l_03" />
+      <shield macro="shield_bor_l_standard_01_mk3_macro" path="../con_shield_l_04" />
+    </macros>
+    <groups>
+      <shields macro="shield_bor_m_standard_02_mk3_macro" path=".." group="group_engines" exact="4" />
+      <shields macro="shield_bor_m_standard_02_mk3_macro" path=".." group="group_front_down_right" />
+      <shields macro="shield_bor_m_standard_02_mk3_macro" path=".." group="group_front_down_left" />
+      <shields macro="shield_bor_m_standard_02_mk3_macro" path=".." group="group_mid_down_left" />
+      <shields macro="shield_bor_m_standard_02_mk3_macro" path=".." group="group_front_up_right" />
+      <shields macro="shield_bor_m_standard_02_mk3_macro" path=".." group="group_rear_down_mid" />
+      <shields macro="shield_bor_m_standard_02_mk3_macro" path=".." group="group_front_up_left" />
+      <shields macro="shield_bor_m_standard_02_mk3_macro" path=".." group="group_front_up_mid" exact="2" />
+      <shields macro="shield_bor_m_standard_02_mk3_macro" path=".." group="group_front_down_mid" exact="2" />
+      <turrets macro="turret_bor_l_flak_01_mk1_macro" path=".." group="group_front_up_mid" weaponmode="attackfighters" />
+      <turrets macro="turret_bor_l_flak_01_mk1_macro" path=".." group="group_front_down_mid" weaponmode="attackfighters" />
+      <turrets macro="turret_bor_m_laser_02_mk1_macro" path=".." group="group_front_down_right" exact="2" weaponmode="attackfighters" />
+      <turrets macro="turret_bor_m_laser_02_mk1_macro" path=".." group="group_front_down_left" exact="2" weaponmode="attackfighters" />
+      <turrets macro="turret_bor_m_laser_02_mk1_macro" path=".." group="group_mid_down_left" exact="2" weaponmode="attackfighters" />
+      <turrets macro="turret_bor_m_laser_02_mk1_macro" path=".." group="group_front_up_right" exact="2" weaponmode="attackfighters" />
+      <turrets macro="turret_bor_m_laser_02_mk1_macro" path=".." group="group_rear_down_mid" exact="2" weaponmode="attackfighters" />
+      <turrets macro="turret_bor_m_laser_02_mk1_macro" path=".." group="group_front_up_left" exact="2" weaponmode="attackfighters" />
+    </groups>
+    <ammunition>
+      <unit macro="ship_gen_xs_repairdrone_01_a_macro" exact="4" />
+      <unit macro="ship_gen_xs_cargodrone_empty_01_a_macro" exact="2" />
+    </ammunition>
+    <software>
+      <software ware="software_dockmk2" />
+      <software ware="software_flightassistmk1" />
+      <software ware="software_scannerlongrangemk2" />
+      <software ware="software_scannerobjectmk2" />
+      <software ware="software_targetmk1" />
+    </software>
+    <virtualmacros>
+      <thruster macro="thruster_gen_l_allround_01_mk3_macro" />
+    </virtualmacros>
+  </loadout>
+
+  <!-- Scenario 04: Syn. The actual Syn macro is ship_atf_l_destroyer_01_a_macro. -->
+  <loadout id="gatefall_scenario_04_syn" macro="ship_atf_l_destroyer_01_a_macro">
+    <macros>
+      <engine macro="engine_ter_l_travel_01_mk1_macro" path="../con_engine_01" />
+      <weapon macro="weapon_ter_l_destroyer_01_mk1_macro" path="../con_weapon_01" />
+      <weapon macro="weapon_ter_l_destroyer_01_mk1_macro" path="../con_weapon_02" />
+      <weapon macro="weapon_ter_l_destroyer_01_mk1_macro" path="../con_weapon_03" />
+      <shield macro="shield_ter_l_standard_01_mk3_macro" path="../con_shieldgen_l_01" />
+      <shield macro="shield_ter_l_standard_01_mk3_macro" path="../con_shieldgen_l_02" />
+      <shield macro="shield_ter_l_standard_01_mk3_macro" path="../con_shieldgen_l_03" />
+    </macros>
+    <groups>
+      <shields macro="shield_ter_m_standard_02_mk3_macro" path=".." group="group_back_mid_mid" exact="2" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" path=".." group="group_back_up_mid" exact="2" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" path=".." group="group_mid_up_left_2" exact="2" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" path=".." group="group_mid_right_up_2" exact="2" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" path=".." group="group_back_down_mid" exact="2" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" path=".." group="group_mid_up_left_1" exact="2" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" path=".." group="group_mid_right_up_1" exact="2" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" path=".." group="group_mid_right_down_2" exact="2" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" path=".." group="group_mid_right_down_1" exact="2" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" path=".." group="group_mid_down_left_2" exact="2" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" path=".." group="group_mid_down_left_1" exact="2" />
+      <turrets macro="turret_arg_m_flak_02_mk1_macro" path=".." group="group_back_up_mid" exact="2" weaponmode="attackfighters" />
+      <turrets macro="turret_arg_m_flak_02_mk1_macro" path=".." group="group_back_down_mid" exact="2" weaponmode="attackfighters" />
+      <turrets macro="turret_arg_l_plasma_01_mk1_macro" path=".." group="group_mid_up_left_2" weaponmode="attackcapital" />
+      <turrets macro="turret_arg_l_plasma_01_mk1_macro" path=".." group="group_mid_right_up_2" weaponmode="attackcapital" />
+      <turrets macro="turret_arg_l_plasma_01_mk1_macro" path=".." group="group_mid_up_left_1" weaponmode="attackcapital" />
+      <turrets macro="turret_arg_l_plasma_01_mk1_macro" path=".." group="group_mid_right_up_1" weaponmode="attackcapital" />
+      <turrets macro="turret_arg_l_plasma_01_mk1_macro" path=".." group="group_mid_right_down_2" weaponmode="attackcapital" />
+      <turrets macro="turret_arg_l_plasma_01_mk1_macro" path=".." group="group_mid_right_down_1" weaponmode="attackcapital" />
+      <turrets macro="turret_arg_l_plasma_01_mk1_macro" path=".." group="group_mid_down_left_2" weaponmode="attackcapital" />
+      <turrets macro="turret_arg_l_plasma_01_mk1_macro" path=".." group="group_mid_down_left_1" weaponmode="attackcapital" />
+    </groups>
+    <software>
+      <software ware="software_dockmk2" />
+      <software ware="software_flightassistmk1" />
+      <software ware="software_scannerlongrangemk2" />
+      <software ware="software_scannerobjectmk2" />
+      <software ware="software_targetmk1" />
+    </software>
+    <virtualmacros>
+      <thruster macro="thruster_gen_l_allround_01_mk3_macro" />
+    </virtualmacros>
+  </loadout>
 </loadouts>

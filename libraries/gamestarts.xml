@@ -71,5 +71,40 @@
         </scores>
       </scenario>
     </gamestart>
+    <gamestart id="gatefall_scenario_04" name="{899902,1}" description="{899902,2}" image="gamestart_scenario_m0_boss_battle" group="11" tags="nosave">
+      <info startyear="3040" startmonth="8" startday="18" />
+      <type name="Timelines Scenario" description="Gatefall Chronicles hidden scenario" />
+      <loadingscreen>
+        <text text="{899902,101}" />
+        <text text="{899902,102}" />
+        <text text="{899902,103}" />
+        <info text="{899902,111}" />
+        <info text="{899902,112}" />
+        <info text="{899902,113}" />
+      </loadingscreen>
+      <location galaxy="gatefall_scenario_04_galaxy_macro" zone="gatefall_scenario_04_cluster_601_sector001_zone_002_macro">
+        <position x="3672m" y="500m" z="-46977m" />
+        <rotation yaw="45" pitch="0" roll="0" />
+      </location>
+      <player macro="character_player_boron_customgamestart_male_macro" money="0" name="{899902,14}">
+        <ship macro="ship_bor_m_corvette_02_a_macro" name="{899902,20}">
+          <loadout ref="gatefall_scenario_04_hydra_regal_player" />
+        </ship>
+      </player>
+      <universe ventures="false" visitors="false" onlineinventory="false">
+        <jobs enabled="false" />
+        <god enabled="false" />
+        <masstraffic enabled="false" />
+      </universe>
+      <scenario chapter="0" description="{899902,3}">
+        <scores description="{899902,4}">
+          <score value="80" rating="1" />
+          <score value="160" rating="2" />
+          <score value="240" rating="3" />
+          <score value="320" rating="4" />
+          <score value="400" rating="5" />
+        </scores>
+      </scenario>
+    </gamestart>
   </add>
 </diff>

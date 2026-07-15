@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s04_intro_cutscene" />
+
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_xenon_k" />
+    <object_group name="targets">
+      <reference object="target_xenon_k" />
+      <reference object="target_bluefin" />
+      <reference object="target_fleet_anchor" />
+    </object_group>
+  </environments>
+
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <!-- Keep one fixed ecliptic-facing orientation. Only the camera position is translated. -->
+        <shot name="XenonKToBluefin" environment="scenezone" duration="8000">
+          <camera_flyfromto reference="target_xenon_k" distance="1200"
+                            flyto_reference="target_bluefin" flyto_distance="520"
+                            interpolation="smooth" time_firstobject="2000" time_fly="3500"
+                            cycle="none" orient_to="ecliptic"
+                            orbit1_yaw_start="-24" orbit1_yaw_end="-24" orbit1_elevation="9"
+                            orbit2_yaw_start="-24" orbit2_yaw_end="-24" orbit2_pitch="9" />
+        </shot>
+
+        <!-- The engine resolves the incoming orbit frame opposite to the outgoing frame at this hand-off.
+             Compensate with a fixed 180-degree yaw offset; the shot itself still only translates. -->
+        <shot name="BluefinToFleetAnchor" environment="scenezone" duration="7000">
+          <camera_flyfromto reference="target_bluefin" distance="520"
+                            flyto_reference="target_fleet_anchor" flyto_distance="1700"
+                            interpolation="smooth" time_firstobject="1500" time_fly="3500"
+                            cycle="none" orient_to="ecliptic"
+                            orbit1_yaw_start="156" orbit1_yaw_end="156" orbit1_elevation="9"
+                            orbit2_yaw_start="156" orbit2_yaw_end="156" orbit2_pitch="9" />
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

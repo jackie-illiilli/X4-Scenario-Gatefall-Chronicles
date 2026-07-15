@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s04_phase8_beacon_cutscene" />
+
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_beacon" />
+    <object_group name="targets">
+      <reference object="target_beacon" />
+    </object_group>
+  </environments>
+
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="BeaconExtremeClose" environment="scenezone" duration="30000">
+          <camera_orbit reference="target_beacon" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="90" angle="-5" elevation="4" />
+            <end distance="75" angle="3" elevation="5" time="28000" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

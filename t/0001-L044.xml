@@ -8,7 +8,6 @@
 
     <t id="11">Mission</t>
     <t id="12">Wingman</t>
-    <t id="13">Ship AI</t>
     <t id="14">Player</t>
     <t id="15">Wingman</t>
     <t id="16">Outpost Administrator</t>
@@ -288,5 +287,156 @@
     <t id="1008">HAT Outpost Hull</t>
     <t id="1009">86th Escort Survivors</t>
     <t id="1010">Xenon Ships Destroyed</t>
+  </page>
+  <page id="899902" title="Gatefall Chronicles" descr="Gatefall Chronicles custom Timelines campaign 04" voice="no">
+    <t id="1">Gatefall 04: In the Same Boat</t>
+    <t id="2">Background: To reopen the lifeline to Morning Star ice resources, the Boron have entered a temporary operation with the Terrans, who want to strike an anomalous Xenon threat node.\n\nGameplay: Pilot a Boron Hydra Regal and protect the salvage ship as it recovers blockade intelligence from a Guppy carrier wreck.</t>
+    <t id="3">You are the tactical officer of the Boron-Terran joint fleet, arriving in Watchful Gaze with Terran expeditionary firepower and Boron escorts.</t>
+    <t id="4">Full Scenario</t>
+
+    <t id="13">Ship AI</t>
+    <t id="14">Player</t>
+    <t id="15">Tinfika</t>
+    <t id="16">Ledavi</t>
+    <t id="17">Terran Tactical Officer</t>
+    <t id="18">Hakapo</t>
+    <t id="20">Hydra Regal</t>
+    <t id="21">Guppy Carrier Wreck</t>
+    <t id="22">Salvage Ship</t>
+    <t id="23">Bluefin Leader</t>
+    <t id="24">Bluefin Thresher</t>
+    <t id="25">TER Syn</t>
+    <t id="26">BOR Ray</t>
+    <t id="27">Xenon M0 Gatebreaker</t>
+    <t id="28">Radar Ship</t>
+    <t id="29">Xenon Ranging Radar Beta</t>
+    <t id="30">Xenon M0 Shield Power Node Alpha</t>
+    <t id="31">Xenon M0 Shield Power Node Beta</t>
+    <t id="32">Xenon Deep Shipyard</t>
+    <t id="33">Xenon Deep Wharf</t>
+    <t id="34">Purplefin Leader</t>
+    <t id="35">Purplefin Hydra</t>
+    <t id="36">Purplefin Scimitar</t>
+    <t id="37">Purplefin Katana (Anti-Fighter)</t>
+    <t id="38">Mobile Base Packer</t>
+    <t id="39">Tactical Production Platform</t>
+    <t id="40">Ledavi's Shark Carrier</t>
+    <t id="41">Intervention Corps Tokyo Carrier</t>
+    <t id="42">Xenon Jump Navigation Beacon</t>
+    <t id="43">Xenon M0 Gatebreaker Wreck</t>
+
+    <t id="101">The Boron-Terran joint fleet is assembling in Watchful Gaze.</t>
+    <t id="102">The salvage ship is recovering data from a Guppy carrier wreck.</t>
+    <t id="103">Protect the salvage ship and recover intelligence on the Heretic's End blockade.</t>
+    <t id="111">Heretic's End is locked down by a Xenon M0 variant.</t>
+    <t id="112">The Boron need to reopen their lifeline to Morning Star ice resources.</t>
+    <t id="113">The Terran expeditionary fleet has agreed to temporary cooperation, but its goal is clear: suppress the anomalous Xenon node.</t>
+
+    <t id="201">Gatefall 04: In the Same Boat</t>
+    <t id="202">Protect the Boron salvage ship while it recovers data from the Guppy wreck, destroy the Xenon radar ships in Heretic's End, cover the Tactical Production Platform's forward deployment, dismantle the Xenon power and shipbuilding network, and finally destroy the M0 long-range artillery ship.</t>
+    <t id="211">Destroy the Xenon force threatening the salvage ship.</t>
+    <t id="212">Protect the salvage ship for three minutes.</t>
+    <t id="213">Enter Heretic's End with the Bluefin strike group.</t>
+    <t id="214">Destroy the SE radar ship.</t>
+    <t id="215">Destroy the second SE radar ship.</t>
+    <t id="216">Destroy the first radar ship's escort force.</t>
+    <t id="217">Destroy the second radar ship's escort force.</t>
+    <t id="218">Protect the Mobile Base Packer for five minutes while it deploys the Tactical Production Platform.</t>
+    <t id="219">Destroy the Xenon shipyard.</t>
+    <t id="220">Destroy the Xenon wharf.</t>
+    <t id="221">Destroy both Xenon solar power plants.</t>
+    <t id="222">Destroy the remaining Xenon solar power plant before reinforcements arrive.</t>
+    <t id="223">The tactical production platform is now linked to the player's build network, and the authorised blueprints plus Dolphin supply freighters are in place.</t>
+    <t id="224">Destroy the Xenon long-range artillery ship: M0.</t>
+    <t id="225">Destroy the second solar power plant.</t>
+    <t id="226">Destroy the Xenon Deep-Space Shipyard</t>
+    <t id="227">Destroy the Xenon deep-space shipyard to stop it from deploying more capital ships. This mission is independent of the Mutual Aid main mission.</t>
+    <t id="228">Destroy the Xenon Deep-Space Wharf</t>
+    <t id="229">Destroy the Xenon deep-space wharf to stop it from deploying more medium and small ships. This mission is independent of the Mutual Aid main mission.</t>
+
+    <t id="501">Bluefin anti-fighter fleet reporting. We are under attack by Xenon capital ships.</t>
+    <t id="502">Hakapo, where have you been? This is exactly when we needed you!</t>
+    <t id="503">This is the ambassador posted to Earth. I brought fleet reinforcements with me.</t>
+    <t id="511">So that gust finally blew you in... Still, all those years as a diplomat near Earth clearly were not wasted.</t>
+    <t id="512">You know Terrans. Cold as deep water until someone says Xenon, then suddenly everyone is wide awake.</t>
+    <t id="513">Ledavi sent me here so fast I barely had time to ask why. What is the situation?</t>
+    <t id="514">As you can see, the Xenon have taken Heretic's End. Our water route is cut.</t>
+    <t id="515">And the moment I think about us running out of water... no. I am not thinking about that.</t>
+    <t id="516">The Xenon deployed some kind of long-range cannon. Our scouts were crippled before they could even get a proper look.</t>
+    <t id="517">Then the Terrans heard the report and came running like someone put a battery in them, with capital ships attached.</t>
+    <t id="518">I still do not love sharing a battlespace with people who treat artillery as a personality, but first we protect the salvage ship.</t>
+
+    <t id="531">Sorry I am late. The Terrans asked me to bring along a few local specialties.</t>
+    <t id="532">Took you long enough... We will need you for what comes next. The data from the carrier's black box is ready.</t>
+    <t id="533">It appears the Xenon can hit our ships so precisely because they have deployed two mobile radar stations near the gate.</t>
+    <t id="534">The data also shows that the Xenon cannon can only track L-class ships. It cannot accurately target fast small craft.</t>
+    <t id="535">The carrier's fighters died triangulating those positions. We have to make this opportunity count.</t>
+
+    <t id="541">That SE should be the radar ship we are looking for.</t>
+    <t id="542">It is surrounded by a large number of Xenon ships. Destroying it will not be easy.</t>
+    <t id="543">This is exactly what Bluefin does, and this time we have Terran weapons to back us up.</t>
+    <t id="544">The second radar ship has a troublesome capital ship nearby... good thing I managed to call in a favor from the Terrans.</t>
+    <t id="545">These Scimitars pair beautifully with plasma. They suit Purplefin perfectly.</t>
+
+    <t id="551">Thank you for the cooperation, Boron friends. We can now investigate the object intruding into the gate network... an M0!</t>
+    <t id="552">Structurally, it is unquestionably an M0, but it carries a long-range anti-ship weapon rather than a planet-killer.</t>
+    <t id="553">The I-class ships around it are trouble enough. How many ships did you commit at Nopileos' Memorial?</t>
+    <t id="554">The entire Community fleet went in. Without Kyle Brennan, none of us would still be alive.</t>
+    <t id="555">This time you have a full Terran equipment package behind you... but first, there is an unusual energy flow around the M0.</t>
+    <t id="556">Something appears to be charging the M0's shields. This has escalated. I must report to the Queen and request deployment of a Tactical Production Platform.</t>
+
+    <t id="561">Her Majesty is certainly committing everything. She even sent one of our Mobile Base Packers.</t>
+    <t id="562">A standard base packing cycle takes ten minutes. Deployment is faster, but it still needs five.</t>
+    <t id="563">That is your assignment. The Tactical Production Platform must deploy without interruption.</t>
+    <t id="564">Once complete, it will let us temporarily produce most ships from frigates through capital ships.</t>
+    <t id="565">Given the current Xenon threat, the Intervention Corps authorises you to produce Syn-class destroyers.</t>
+    <t id="566">That is generous. Even Terran allies do not always receive that privilege.</t>
+    <t id="567">You carry the responsibility of destroying the Xenon. Terrans are never stingy toward their benefactors!</t>
+    <t id="568">The Xenon capital ships have caught our scent. They do not look particularly hospitable.</t>
+    <t id="569">Then let us teach them the proper meaning of hospitality!</t>
+    <t id="570">That ship... could it be... a Xenon I? That Xenon I is enormous...</t>
+    <t id="571">Far more impressive than the old veterans' descriptions from the gate-shutdown era!</t>
+    <t id="572">I have to say, this Xenon I is much harder to kill than the K-class ships we usually face.</t>
+    <t id="573">No wonder the Terrans get so jumpy when they keep dealing with beasts like these every day.</t>
+    <t id="574">The Xenon assault is far more intense than expected. It seems we must enter the field ourselves.</t>
+    <t id="575">These two carriers can repair your frigates and serve as the core of our positional defence.</t>
+    <t id="576">So this is the Tactical Production Platform you erected in such a short time. It would suit the Intervention Corps quite well on a deep expedition.</t>
+    <t id="577">Hardship forced it out of us. Back in the Provinces Adrift days, the Boron migrated like this before every water source.</t>
+    <t id="578">This solar power plant should be one of the Xenon's power-harvesting facilities.</t>
+    <t id="579">With microwave energy transmission, they can project a near-impenetrable shield over the M0 and its escort screen.</t>
+    <t id="580">Our analysis suggests the two solar plants back each other up, and both are heavily guarded.</t>
+    <t id="581">In that case, we will have to destroy both solar plants simultaneously.</t>
+    <t id="582">The Xenon use Heretic's End's rich mineral resources to produce more ships.</t>
+    <t id="583">If we can destroy these facilities, we can greatly weaken the Xenon offensive.</t>
+    <t id="584">The Xenon shipyard is down. Now every Xenon capital ship they lose is gone for good.</t>
+    <t id="585">That should put an end to the Xenon small craft swarming us.</t>
+    <t id="586">Long-range radar shows the Xenon are reinforcing the second solar power plant.</t>
+    <t id="587">Every family has its troubles... Still, our survey fleet did manage to uncover something useful.</t>
+    <t id="588">We completed a trade with the Terrans: mobile-base packing technology in exchange for kha'ak alloy extraction technology.</t>
+    <t id="589">Kha'ak alloy can substitute for any raw material you lack, whether it is unique to the Community or to Terran production.</t>
+    <t id="590">We installed the technology aboard the Dolphins. For every Dolphin you retain, the base receives 500 units of kha'ak alloy per minute.</t>
+    <t id="591">The M0's iron curtain is down! All ships, attack!</t>
+    <t id="592">The Xenon are getting desperate. They are teleporting fleets in from all over.</t>
+    <t id="593">You mean... these Xenon... can teleport?</t>
+    <t id="594">Yes. That is exactly why we came to investigate. Take down the M0 before they can bring in more forces!</t>
+    <t id="595">Excellent! The Provinces Adrift have their water supply back! Wait... is that a navigation beacon?</t>
+    <t id="596">Data recovered from the wreck indicates that the Xenon maintain a jump tower in their core sectors, coordinating fleet transfers.</t>
+    <t id="597">The destination of each jump is selected through navigation beacons distributed across the network.</t>
+    <t id="598">We intercepted several Xenon scouts heading for the Solar System. It seems they were placing these beacons... Ledavi, you do not look well.</t>
+    <t id="599">This is bad! Xenon scouts were sighted repeatedly in Kingdom End not long ago, and we never eliminated all of them...</t>
+    <t id="600">There is still time to repair the damage. You must notify Her Majesty immediately!</t>
+    <t id="601">Look! A Xenon scout, heading toward Argon space!</t>
+    <t id="602">The Argon claim to be concentrating on defence of their core territory while abandoning even Heretic's End. Let us hope they truly have been making an effort...</t>
+
+    <t id="1001">In the Same Boat Complete</t>
+    <t id="1002">You completed In the Same Boat: recovered the Guppy wreck intelligence, destroyed both Xenon radar ships, established the Tactical Production Platform, cut the Xenon shipbuilding and power network, and destroyed the M0 long-range artillery ship.</t>
+    <t id="1003">Scenario Failed</t>
+    <t id="1004">The salvage ship was destroyed and the wreck data could not be recovered.</t>
+    <t id="1005">Salvage Ship Hull</t>
+    <t id="1006">Player Hull</t>
+    <t id="1007">Auto-cleared Xenon Remnants</t>
+    <t id="1008">Mobile Base Packer Hull</t>
+    <t id="1009">The Mobile Base Packer was destroyed and the Tactical Production Platform could not deploy.</t>
+    <t id="1010">The Tactical Production Platform was destroyed, and the joint fleet lost its forward base.</t>
   </page>
 </language>

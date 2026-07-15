@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s04_phase2_intro_cutscene" />
+
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_radar_ship" />
+    <object_group name="targets">
+      <reference object="target_radar_ship" />
+      <reference object="target_player_ship" />
+      <reference object="target_bluefin" />
+    </object_group>
+  </environments>
+
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <!-- Hold on the SE radar ship, then translate along the gate-radar axis to reveal the strike group. -->
+        <shot name="RadarToStrikeFleet" environment="scenezone" duration="14000">
+          <camera_flyfromto reference="target_radar_ship" distance="450"
+                            flyto_reference="target_player_ship" flyto_distance="3600"
+                            interpolation="smooth" time_firstobject="3500" time_fly="5000"
+                            cycle="none" orient_to="object"
+                            orbit1_yaw_start="-22" orbit1_yaw_end="-22" orbit1_elevation="11"
+                            orbit2_yaw_start="-22" orbit2_yaw_end="-22" orbit2_pitch="11" />
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

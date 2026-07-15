@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s04_phase8_scout_cutscene" />
+
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_scout" />
+    <object_group name="targets">
+      <reference object="target_scout" />
+    </object_group>
+  </environments>
+
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="ScoutGateExit" environment="scenezone" duration="5000">
+          <camera_orbit reference="target_scout" orient_to="object" interpolation="linear" cycle="none">
+            <begin distance="420" angle="15" elevation="5" />
+            <end distance="420" angle="15" elevation="5" time="4000" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

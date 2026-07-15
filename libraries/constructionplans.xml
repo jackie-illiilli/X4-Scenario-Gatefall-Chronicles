@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plans>
+  <!-- Scenario 04 Phase 5: player tactical production platform. -->
+  <plan id="gatefall_scenario_04_forward_base" name="{899902,39}" useplanname="false" fixed="1">
+    <entry index="1" macro="buildmodule_bor_ships_m_dockarea_01_macro">
+      <offset>
+        <position x="2200" y="0" z="0" />
+        <rotation yaw="90" />
+      </offset>
+    </entry>
+    <entry index="2" macro="buildmodule_bor_ships_l_macro">
+      <offset>
+        <position x="0" y="2500" z="0" />
+        <rotation yaw="180" />
+      </offset>
+    </entry>
+    <entry index="3" macro="buildmodule_bor_ships_l_macro">
+      <offset>
+        <position x="3600" y="2500" z="0" />
+        <rotation yaw="180" />
+      </offset>
+    </entry>
+    <entry index="4" macro="storage_bor_l_container_01_macro">
+      <offset>
+        <position x="-1800" y="0" z="0" />
+      </offset>
+    </entry>
+    <entry index="5" macro="storage_bor_l_container_01_macro">
+      <offset>
+        <position x="-5400" y="0" z="0" />
+      </offset>
+    </entry>
+    <entry index="6" macro="buildmodule_bor_ships_l_macro">
+      <offset>
+        <position x="7200" y="2500" z="0" />
+        <rotation yaw="180" />
+      </offset>
+    </entry>
+  </plan>
+</plans>

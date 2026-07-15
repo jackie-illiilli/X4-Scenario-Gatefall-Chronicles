@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s04_phase6_freighter_cutscene" />
+
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_freighter" />
+    <object_group name="targets">
+      <reference object="target_freighter" />
+    </object_group>
+  </environments>
+
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="DolphinCloseSurvey" environment="scenezone" duration="24000">
+          <camera_orbit reference="target_freighter" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="950" angle="-8" elevation="6" />
+            <end distance="850" angle="4" elevation="7" time="22000" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

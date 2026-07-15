@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s04_phase4_m0_cutscene" />
+
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_m0" />
+    <object_group name="targets">
+      <reference object="target_m0" />
+      <reference object="target_escort" />
+    </object_group>
+  </environments>
+
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="M0AndEscortWide" environment="scenezone" duration="40000">
+          <camera_orbit reference="target_m0" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="21000" angle="-10" elevation="8" />
+            <end distance="18500" angle="2" elevation="9" time="36000" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>
