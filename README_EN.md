@@ -102,16 +102,16 @@ Note: The released scenarios currently use Chinese and English subtitles and do 
 
 ## Campaign Progress
 
-| Scenario | Title                | Main content                                                                                   | Status                                  |
-| -------- | -------------------- | ---------------------------------------------------------------------------------------------- | --------------------------------------- |
-| 01       | Under the Surface    | Terran reconnaissance, anomalous jump, Savage Spur escape, and outpost defence                 | Public demo complete                    |
-| 02       | Passing the Buck     | Argon remote command, defence and recon, redirecting the Xenon offensive into ZYA territory    | Complete campaign demo                  |
-| 03       | Escape Alive         | Zyarth evacuation escort through fallen sectors                                                | Story details not locked; paused        |
-| 04       | In the Same Boat     | Boron–Terran offensive through Heretic's End culminating in the destruction of a Xenon M0       | Complete scenario                       |
-| 05       | Judgement Day        | Xenon infiltration of Argon space and deployment of a Second Fleet production node             | Phase 0–4 development preview; unreleased |
-| 06       | Last Stand           | Trinity defence of seed ships escaping towards the Sol system                                  | Concept stage                           |
-| 07       | A Faint Hope         | Terran defence of the Sol approach and a deep strike towards Savage Spur                       | Concept stage                           |
-| 08       | Crime and Punishment | Multi-faction counteroffensive into Savage Spur I to destroy the Xenon jump facility            | Concept stage                           |
+| Scenario | Title                | Main content                                                                                | Status                                     |
+| -------- | -------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| 01       | Under the Surface    | Terran reconnaissance, anomalous jump, Savage Spur escape, and outpost defence              | Public demo complete                       |
+| 02       | Passing the Buck     | Argon remote command, defence and recon, redirecting the Xenon offensive into ZYA territory | Complete campaign demo                     |
+| 03       | Escape Alive         | Zyarth evacuation escort through fallen sectors                                             | Story details not locked; paused           |
+| 04       | In the Same Boat     | Boron–Terran offensive through Heretic's End culminating in the destruction of a Xenon M0  | Complete scenario                          |
+| 05       | Judgement Day        | Xenon infiltration of Argon space and deployment of a Second Fleet production node          | Phase 0–4 development preview; unreleased |
+| 06       | Last Stand           | Trinity defence of seed ships escaping towards the Sol system                               | Concept stage                              |
+| 07       | A Faint Hope         | Terran defence of the Sol approach and a deep strike towards Savage Spur                    | Concept stage                              |
+| 08       | Crime and Punishment | Multi-faction counteroffensive into Savage Spur I to destroy the Xenon jump facility        | Concept stage                              |
 
 ## Notes
 
