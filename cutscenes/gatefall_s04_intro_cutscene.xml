@@ -28,11 +28,11 @@
              Compensate with a fixed 180-degree yaw offset; the shot itself still only translates. -->
         <shot name="BluefinToFleetAnchor" environment="scenezone" duration="7000">
           <camera_flyfromto reference="target_bluefin" distance="520"
-                            flyto_reference="target_fleet_anchor" flyto_distance="1700"
+                            flyto_reference="target_fleet_anchor" flyto_distance="1200"
                             interpolation="smooth" time_firstobject="1500" time_fly="3500"
                             cycle="none" orient_to="ecliptic"
-                            orbit1_yaw_start="156" orbit1_yaw_end="156" orbit1_elevation="9"
-                            orbit2_yaw_start="156" orbit2_yaw_end="156" orbit2_pitch="9" />
+                            orbit1_yaw_start="-24" orbit1_yaw_end="-24" orbit1_elevation="-171"
+                            orbit2_yaw_start="-24" orbit2_yaw_end="-24" orbit2_pitch="-171" />
         </shot>
       </sequence>
     </actions>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<macros>
+  <macro name="gatefall_scenario_05_sector_macro" class="sector"><component ref="standardsector" connection="cluster" /><properties><identification name="{899903,10}" description="{899903,11}" /><area sunlight="1" economy="0.6" security="0.7" /></properties></macro>
+  <macro name="gatefall_scenario_05_argon_prime_sector_macro" class="sector"><component ref="standardsector" connection="cluster" /><properties><identification name="{899903,12}" description="{899903,11}" /><area sunlight="1.2" economy="1" security="1" /></properties></macro>
+  <macro name="gatefall_scenario_05_faith_sector_macro" class="sector"><component ref="standardsector" connection="cluster" /><properties><identification name="{899903,13}" description="{899903,11}" /><area sunlight="0.8" economy="0.4" security="0.4" /></properties></macro>
+  <macro name="gatefall_scenario_05_nopileos_sector_macro" class="sector"><component ref="standardsector" connection="cluster" /><properties><identification name="{899903,14}" description="{899903,11}" /><area sunlight="1.5" economy="0.1" security="0.1" /></properties></macro>
+  <macro name="gatefall_scenario_05_cluster_macro" class="cluster">
+    <component ref="standardcluster" connection="galaxy" /><properties><identification name="{899903,10}" description="{899903,11}" /><area factionlogic="false" /><system><space environment="{1042,12011}" /></system></properties>
+    <connections>
+      <connection name="choice" ref="sectors"><macro ref="gatefall_scenario_05_sector_macro" connection="cluster" /></connection>
+      <connection name="prime" ref="sectors"><offset><position x="30000000" y="0" z="0" /></offset><macro ref="gatefall_scenario_05_argon_prime_sector_macro" connection="cluster" /></connection>
+      <connection name="faith" ref="sectors"><offset><position x="60000000" y="0" z="0" /></offset><macro ref="gatefall_scenario_05_faith_sector_macro" connection="cluster" /></connection>
+      <connection name="nopileos" ref="sectors"><offset><position x="90000000" y="0" z="0" /></offset><macro ref="gatefall_scenario_05_nopileos_sector_macro" connection="cluster" /></connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_galaxy_macro" class="galaxy"><component ref="standardgalaxy" /><connections><connection name="cluster_connection" ref="clusters"><macro ref="gatefall_scenario_05_cluster_macro" connection="galaxy" /></connection></connections></macro>
+</macros>

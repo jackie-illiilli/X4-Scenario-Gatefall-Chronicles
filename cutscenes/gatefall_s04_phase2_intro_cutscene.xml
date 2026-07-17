@@ -17,7 +17,7 @@
         <!-- Hold on the SE radar ship, then translate along the gate-radar axis to reveal the strike group. -->
         <shot name="RadarToStrikeFleet" environment="scenezone" duration="14000">
           <camera_flyfromto reference="target_radar_ship" distance="450"
-                            flyto_reference="target_player_ship" flyto_distance="3600"
+                            flyto_reference="target_player_ship" flyto_distance="2500"
                             interpolation="smooth" time_firstobject="3500" time_fly="5000"
                             cycle="none" orient_to="object"
                             orbit1_yaw_start="-22" orbit1_yaw_end="-22" orbit1_elevation="11"

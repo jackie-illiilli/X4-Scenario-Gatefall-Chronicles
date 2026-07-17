@@ -98,13 +98,22 @@
       </universe>
       <scenario chapter="0" description="{899902,3}">
         <scores description="{899902,4}">
-          <score value="80" rating="1" />
-          <score value="160" rating="2" />
-          <score value="240" rating="3" />
-          <score value="320" rating="4" />
-          <score value="400" rating="5" />
+          <score value="300" rating="1" />
+          <score value="400" rating="2" />
+          <score value="500" rating="3" />
+          <score value="600" rating="4" />
+          <score value="700" rating="5" />
         </scores>
       </scenario>
+    </gamestart>
+    <gamestart id="gatefall_scenario_05" name="{899903,1}" description="{899903,2}" image="gamestart_scenario_m0_boss_battle" group="11" tags="nosave">
+      <info startyear="3040" startmonth="9" startday="1" />
+      <type name="Timelines Scenario" description="Gatefall Chronicles scenario 05" />
+      <loadingscreen><text text="{899903,101}" /><text text="{899903,102}" /><text text="{899903,103}" /></loadingscreen>
+      <location galaxy="gatefall_scenario_05_galaxy_macro" sector="gatefall_scenario_05_sector_macro"><position x="0" y="0" z="0" /><rotation yaw="0" pitch="0" roll="0" /></location>
+      <player macro="character_player_scenario_combat_terran_macro" money="0" name="{899903,14}"><ship macro="ship_xen_s_heavyfighter_01_a_macro" name="{899903,20}" /></player>
+      <universe ventures="false" visitors="false" onlineinventory="false"><jobs enabled="false" /><god enabled="false" /><masstraffic enabled="false" /></universe>
+      <scenario chapter="0" description="{899903,3}"><scores description="{899903,4}"><score value="1" rating="5" /></scores></scenario>
     </gamestart>
   </add>
 </diff>

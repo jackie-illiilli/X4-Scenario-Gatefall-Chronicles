@@ -1,14 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <diff>
   <add sel="/soundlibrary">
-    <sound id="gatefall_music_age_of_deceivers" tags="music" repeat="-1" is3d="0" preload="1">
+    <sound id="gatefall_music_age_of_deceivers" repeat="-1" is3d="0" preload="1">
       <sample start="extensions\ego_dlc_timelines\music\special\x4_timelines_ost_06_age_of_deceivers" />
     </sound>
-    <sound id="gatefall_music_mission_control" tags="music" repeat="-1" is3d="0" preload="1">
+    <sound id="gatefall_music_mission_control" repeat="-1" is3d="0" preload="1">
       <sample start="extensions\ego_dlc_timelines\music\x4_timelines_ost_04_mission_control" />
     </sound>
-    <sound id="gatefall_music_redemption" tags="music" repeat="-1" is3d="0" preload="1">
+    <sound id="gatefall_music_redemption" repeat="-1" is3d="0" preload="1">
       <sample start="extensions\ego_dlc_timelines\music\x4_timelines_ost_02_redemption" />
+    </sound>
+
+    <!-- Gatefall Chronicles mission 04: authored phase cues. -->
+    <sound id="gfc_music_m04_intro_downloading" description="Gatefall mission 04 opening" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\downloading" />
+      <volume start="0.75" />
+      <effects><fade in="1.5" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_phase1_building_defenses" description="Gatefall mission 04 Phase 1 defence preparation" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\brighton_beach_building_defenses" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_phase1_coming_ashore" description="Gatefall mission 04 Phase 1 salvage defence" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\brighton_beach_soviets_coming_ashore" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_m0_reveal" description="Gatefall mission 04 M0 reveal" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\threatened_island_fortress" />
+      <volume start="0.72" />
+      <effects><fade in="1.5" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_base_deployment" description="Gatefall mission 04 forward base deployment" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\exploring_shinigaprovince" />
+      <volume start="0.70" />
+      <effects><fade in="1.5" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_carrier_arrival" description="Gatefall mission 04 carrier arrival" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\allied_victory" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_final_tension" description="Gatefall mission 04 final M0 tension" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\yuriko_tension" />
+      <volume start="0.72" />
+      <effects><fade in="1.5" out="1.0" /></effects>
+    </sound>
+
+    <!-- Gatefall Chronicles mission 04: explicitly controlled looping cues. -->
+    <sound id="gfc_music_m04_radar_assault" description="Gatefall mission 04 radar assault" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\tanya_in_gibraltar" />
+      <volume start="0.72" />
+      <effects><fade in="1.5" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_base_defence" description="Gatefall mission 04 forward base defence" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\threatened_mount_fuji" />
+      <volume start="0.74" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_solar_reveal" description="Gatefall mission 04 solar station reveal" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\allies_2_intro" />
+      <volume start="0.70" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <!-- Phase 6 selections are one-shots. MD chooses the next track at the recorded end time so a
+         random selection cannot become the single sample repeated forever by repeat="-1". -->
+    <sound id="gfc_music_m04_phase6_calm_gamma_epsilon" description="Gatefall mission 04 RTS calm - Gamma Epsilon" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\ego_dlc_timelines\music\x4_timelines_ost_10_gamma_epsilon" />
+      <volume start="0.66" />
+      <effects><fade in="2.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_phase6_calm_floating_island" description="Gatefall mission 04 RTS calm - Floating Island Fortress" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\floating_island_fortress" />
+      <volume start="0.66" />
+      <effects><fade in="2.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_phase6_calm_easter_island" description="Gatefall mission 04 RTS calm - Easter Island" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\easter_island_lying_in_wait" />
+      <volume start="0.66" />
+      <effects><fade in="2.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_phase6_calm_shinigaprovince" description="Gatefall mission 04 RTS calm - Shiniga Province" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\exploring_shinigaprovince" />
+      <volume start="0.66" />
+      <effects><fade in="2.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_phase6_combat_japan_uprising" description="Gatefall mission 04 RTS combat - Japan Uprising" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\japan_combat_uprising" />
+      <volume start="0.72" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_phase6_combat_perseverance" description="Gatefall mission 04 RTS combat - Perseverance" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\perseverance" />
+      <volume start="0.72" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_phase6_combat_allied_uprising" description="Gatefall mission 04 RTS combat - Allied Uprising" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\allied_combat_uprising" />
+      <volume start="0.72" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_phase6_combat_allied_1" description="Gatefall mission 04 RTS combat - Allied Combat 1" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\allied_combat_1" />
+      <volume start="0.72" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_phase6_combat_tokyo_harbor" description="Gatefall mission 04 RTS combat - Tokyo Harbor" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\threatened_tokyo_harbor" />
+      <volume start="0.72" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <!-- Phase 8 follows the same MD-controlled one-shot approach as Phase 6. A random sample with
+         repeat="-1" only chooses once and therefore repeats that one choice forever. -->
+    <sound id="gfc_music_m04_final_combat_japan_uprising" description="Gatefall mission 04 final assault - Japan Uprising" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\japan_combat_uprising" />
+      <volume start="0.74" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_final_combat_japan_2" description="Gatefall mission 04 final assault - Japan Combat 2" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\japan_combat_2_triumphal" />
+      <volume start="0.74" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_final_combat_allied_2" description="Gatefall mission 04 final assault - Allied Combat 2" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\allied_combat_2" />
+      <volume start="0.74" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_final_combat_eminent" description="Gatefall mission 04 final assault - Eminent" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\eminent" />
+      <volume start="0.74" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_final_combat_soviet_2" description="Gatefall mission 04 final assault - Soviet Combat 2" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\soviet_combat_2" />
+      <volume start="0.74" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m04_victory" description="Gatefall mission 04 post-M0 victory" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_04\allied_combat_2_triumphal" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.5" /></effects>
     </sound>
   </add>
 </diff>

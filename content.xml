@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<content id="ws_3762203448" name="Gatefall Chronicles" description="A custom X4: Timelines campaign." author="illiilli" version="001" date="2026-07-11" save="false" enabled="1" sync="false" lastupdate="1783736090">
+<content id="ws_3762203448" name="Gatefall Chronicles" description="A custom X4: Timelines campaign." author="illiilli" version="002" date="2026-07-18" save="false" enabled="1" sync="false" lastupdate="1784304398">
   <dependency version="900"/>
   <dependency id="ego_dlc_split" version="900" optional="false" name="Split Vendetta"/>
   <dependency id="ego_dlc_terran" version="900" optional="false" name="Cradle of Humanity"/>

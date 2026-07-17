@@ -45,11 +45,24 @@
         <set_value name="$Phase6NextShipyardWaveTime" exact="0" />
         <set_value name="$Phase6NextWharfWaveTime" exact="0" />
         <set_value name="$PackerHullPercent" exact="100" />
+        <set_value name="$ForwardBasePackerCreated" exact="false" />
+        <set_value name="$ForwardBaseCreated" exact="false" />
         <set_value name="$Phase8Started" exact="false" />
         <set_value name="$Phase8ObjectiveStarted" exact="false" />
         <set_value name="$Phase8Completed" exact="false" />
         <set_value name="$TotalXenonShipsSpawned" exact="0" />
         <set_value name="$AutoRemovedXenonShips" exact="0" />
+        <!-- Scenario scoring is finalised after the mission-ending dialogue. -->
+        <set_value name="$ScenarioStartTime" exact="player.age" />
+        <set_value name="$XenonCapitalShipsDestroyed" exact="0" />
+        <set_value name="$Phase1MusicSequenceActive" exact="false" />
+        <set_value name="$Phase6MusicMode" exact="'none'" />
+        <set_value name="$Phase6CombatMusicUntil" exact="0" />
+        <set_value name="$Phase6CurrentMusicEndTime" exact="0" />
+        <set_value name="$Phase6LastCalmMusicChoice" exact="0" />
+        <set_value name="$Phase6LastCombatMusicChoice" exact="0" />
+        <set_value name="$Phase8CurrentMusicEndTime" exact="0" />
+        <set_value name="$Phase8LastMusicChoice" exact="0" />
 
         <find_sector name="$WatchfulGaze" macro="macro.gatefall_scenario_04_cluster_601_sector001_macro" required="true" />
         <find_sector name="$HereticsEnd" macro="macro.gatefall_scenario_04_cluster_31_sector001_macro" required="true" />
@@ -84,8 +97,10 @@
         <create_group groupname="$Phase6WharfAttackers" />
         <create_group groupname="$Phase6SolarEmergencyAttackers" />
         <create_group groupname="$Phase6SupportFreighters" />
+        <create_group groupname="$Phase6PlayerOwnedShips" />
         <create_group groupname="$Phase8M0Defenders" />
         <create_group groupname="$ScenarioXenonBackground" />
+        <create_group groupname="$ScoreXenonCapitalTargets" />
         <create_group groupname="$ScenarioStations" />
         <add_to_group groupname="$FriendlyFleet" object="player.ship" />
 
@@ -100,7 +115,7 @@
         <set_entity_overrides entity="player.entity" title="'{899902,14}'" />
         <set_object_name object="player.ship" name="{899902,20}" />
         <set_object_min_hull object="player.ship" exact="1" />
-        <play_music music="'music_dlc_boron_soundtrack_border'" loop="true" />
+        <play_music music="'gfc_music_m04_intro_downloading'" loop="true" />
         <set_known object="$WatchfulGaze" known="true" />
         <set_known object="$WatchfulGaze.cluster" known="true" />
         <set_known object="$HereticsEnd" known="true" />
@@ -142,6 +157,7 @@
         <create_position name="$XenonWharfPos" space="$HereticsEnd" x="58km" y="0km" z="-68km" />
         <create_position name="$Phase5SharkPos" space="$HereticsEnd" x="-92km" y="0km" z="138km" />
         <create_position name="$Phase5TokyoPos" space="$HereticsEnd" x="-84km" y="0km" z="146km" />
+        <create_position name="$Phase5ResupplierPos" space="$HereticsEnd" x="-90km" y="3km" z="142km" />
         <create_position name="$Phase5SolarBriefingPos" space="$HereticsEnd" x="82.6km" y="0km" z="72.6km" />
         <create_position name="$Phase5ShipyardBriefingPos" space="$HereticsEnd" x="72.6km" y="0km" z="-82.6km" />
         <create_position name="$Phase8M0ViewPos" space="$HereticsEnd" x="-30km" y="0km" z="0km" />
@@ -203,7 +219,9 @@
           <rotation yaw="90deg" />
         </create_ship>
         <set_object_name object="$MCV" name="{899902,22}" />
-        <set_object_min_hull object="$MCV" exact="1" />
+        <!-- This is a genuine fail-state target. A 1% minimum hull made it look destroyed while
+             preventing event_object_destroyed from ever firing. -->
+        <set_object_min_hull object="$MCV" exact="0" />
         <set_known object="$MCV" known="true" />
         <set_object_forced_radar_visible object="$MCV" visible="true" />
         <set_ship_safepos_allowed ship="$MCV" allow="false" />
@@ -266,6 +284,7 @@
           <position value="$InitialCapitalThreatPos" />
           <rotation yaw="270deg" />
         </create_ship>
+        <add_to_group groupname="$ScoreXenonCapitalTargets" object="$InitialK" />
         <create_ship name="$InitialK2" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$WatchfulGaze" groupname="$Phase1InitialThreats" capturable="false" commandeerable="false">
           <owner exact="faction.ownerless" overridenpc="true" />
           <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
@@ -273,6 +292,7 @@
           <safepos object="$InitialK" min="4km" max="8km" />
           <rotation yaw="270deg" />
         </create_ship>
+        <add_to_group groupname="$ScoreXenonCapitalTargets" object="$InitialK2" />
         <create_ship name="$InitialPELead" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$WatchfulGaze" groupname="$Phase1InitialThreats" capturable="false" commandeerable="false">
           <owner exact="faction.ownerless" overridenpc="true" />
           <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
@@ -311,6 +331,7 @@
           <position value="$M0Pos" />
           <rotation yaw="320deg" />
         </create_ship>
+        <add_to_group groupname="$ScoreXenonCapitalTargets" object="$XenonM0" />
         <set_object_name object="$XenonM0" name="{899902,27}" />
         <set_ship_safepos_allowed ship="$XenonM0" allow="false" />
         <set_known object="$XenonM0" known="true" />
@@ -363,8 +384,18 @@
           <position value="$XenonWharfPos" />
         </create_station>
         <set_object_name object="$XenonWharf" name="{899902,33}" />
-        <do_for_each name="$ScenarioStation" in="$ScenarioStations">
+        <do_for_each name="$ScenarioStation" in="[$SolarStationA, $SolarStationB, $XenonShipyard, $XenonWharf]">
+          <!-- Base-game construction plans do not carry the explicit per-entry upgrades used by the
+               Timeline Xenon plans. Generate and apply the Xenon default loadout directly to every
+               operational module so its shield and turret connections are actually equipped. -->
           <set_module_loadout_level object="$ScenarioStation" exact="1" />
+          <find_object_component name="$ScenarioStationModules" object="$ScenarioStation" class="class.module" multiple="true" />
+          <do_for_each name="$ScenarioStationModule" in="$ScenarioStationModules">
+            <generate_loadout result="$ScenarioStationModuleLoadout" macro="$ScenarioStation.macro" module="$ScenarioStationModule.macro" faction="faction.xenon" level="1.0" variation="0" />
+            <do_if value="$ScenarioStationModuleLoadout.count">
+              <apply_loadout object="$ScenarioStationModule" loadout="$ScenarioStationModuleLoadout.{1}" />
+            </do_if>
+          </do_for_each>
           <signal_objects object="player.galaxy" param="'init station'" param2="$ScenarioStation" param3="true" />
           <set_object_min_hull object="$ScenarioStation" exact="100" />
         </do_for_each>
@@ -381,6 +412,19 @@
         <fade_screen fadeout="0s" fadein="1s" realtime="true" />
       </actions>
       <cues>
+        <!-- Count only combat destruction of the scenario's registered Xenon L/XL ships. Objects removed
+             by scripted cleanup have no killer and therefore do not inflate the practice score. -->
+        <cue name="Score_XenonCapitalDestroyed" instantiate="true">
+          <conditions>
+            <event_object_destroyed group="$ScoreXenonCapitalTargets" />
+          </conditions>
+          <actions>
+            <do_if value="not @$ScenarioEnded and event.param and (event.object.isclass.ship_l or event.object.isclass.ship_xl)">
+              <set_value name="$XenonCapitalShipsDestroyed" operation="add" exact="1" />
+            </do_if>
+          </actions>
+        </cue>
+
         <!-- Keep the salvage ship physically fixed at its authored position. The velocity lock is applied
              after the Wait order has initialised because order initialisation can replace the velocity controller. -->
         <cue name="MCV_InitialVelocityLock">
@@ -419,6 +463,13 @@
           <delay exact="1s" />
           <actions>
             <set_playership_throttle value="0" />
+            <!-- The opening camera ends its first translation on Bluefin. Hold the target at its authored
+                 position and rotation so AI formation adjustment cannot drag the shot endpoint. -->
+            <cancel_all_orders object="$BlueFinLeader" />
+            <create_order id="'Wait'" object="$BlueFinLeader" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
             <warp object="player.ship" sector="$WatchfulGaze">
               <safepos value="$PlayerStartPos" space="$WatchfulGaze" />
               <rotation yaw="45deg" />
@@ -428,7 +479,42 @@
               <param name="target_bluefin" object="$BlueFinLeader" />
               <param name="target_fleet_anchor" object="$CapitalVanguard.{1}" />
             </play_cutscene>
+            <signal_cue cue="Phase1_LockBlueFinForFirstShot" />
+            <signal_cue cue="Phase1_ReleaseBlueFinAfterFirstShot" />
             <signal_cue cue="Phase1_Intro_501" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_LockBlueFinForFirstShot">
+          <conditions><event_cue_signalled /></conditions>
+          <!-- Wait-order initialisation replaces the velocity controller, so apply the hard lock two
+               frames later, following the Timeline cutscene pattern. -->
+          <delay exact="1ms" />
+          <actions />
+          <delay exact="1ms" />
+          <actions>
+            <do_if value="$BlueFinLeader.exists and not @$ScenarioEnded">
+              <set_object_velocity object="$BlueFinLeader" constantvel="true">
+                <linear value="vector.[0m, 0m, 0m]" />
+                <angular value="vector.[0m, 0m, 0m]" />
+              </set_object_velocity>
+            </do_if>
+          </actions>
+        </cue>
+
+        <cue name="Phase1_ReleaseBlueFinAfterFirstShot">
+          <conditions><event_cue_signalled /></conditions>
+          <!-- The first shot lasts exactly eight seconds. Reinitialising the Wait order releases the
+               constant-velocity controller as the second translation begins. -->
+          <delay exact="8s" />
+          <actions>
+            <do_if value="$BlueFinLeader.exists and not @$ScenarioEnded">
+              <cancel_all_orders object="$BlueFinLeader" />
+              <create_order id="'Wait'" object="$BlueFinLeader" default="true">
+                <param name="skipalignment" value="true" />
+                <param name="noattackresponse" value="true" />
+              </create_order>
+            </do_if>
           </actions>
         </cue>
 
@@ -508,7 +594,24 @@
           <actions>
             <set_value name="$Phase1InitialCleared" exact="true" />
             <set_objective cue="$MissionCue" step="1" action="objective.none" updatebriefing="true" silent="true" />
+            <set_value name="$Phase1MusicSequenceActive" exact="true" />
+            <stop_music />
+            <play_music music="'gfc_music_m04_phase1_building_defenses'" />
+            <signal_cue cue="Phase1_PlayComingAshoreMusic" />
             <signal_cue cue="Phase1_PostInitialDialogue" />
+          </actions>
+        </cue>
+
+        <!-- The first source track is 74 seconds long. There is no music-finished event in the standard
+             MD API, so the second track is scheduled explicitly, then loops until fleet transfer. -->
+        <cue name="Phase1_PlayComingAshoreMusic">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="74s" />
+          <actions>
+            <do_if value="$Phase1MusicSequenceActive and not @$ScenarioEnded">
+              <stop_music />
+              <play_music music="'gfc_music_m04_phase1_coming_ashore'" loop="true" />
+            </do_if>
           </actions>
         </cue>
 
@@ -629,6 +732,7 @@
                 <position value="$Phase1SpawnAPos" />
                 <rotation yaw="270deg" />
               </create_ship>
+              <add_to_group groupname="$ScoreXenonCapitalTargets" object="$WaveK" />
               <create_ship name="$WavePELead" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$WatchfulGaze" groupname="$CurrentSalvageWave" capturable="false" commandeerable="false">
                 <owner exact="faction.xenon" overridenpc="true" />
                 <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
@@ -792,6 +896,8 @@
           <conditions><event_cue_signalled /></conditions>
           <delay exact="6s" />
           <actions>
+            <set_value name="$Phase1MusicSequenceActive" exact="false" />
+            <stop_music />
             <do_for_each name="$TransferredShip" in="$BlueFinFleet">
               <do_if value="$TransferredShip.exists">
                 <set_owner object="$TransferredShip" faction="faction.boron" overridenpc="true" />
@@ -890,6 +996,8 @@
                   <create_order id="'Wait'" object="$StrikeShip" default="true" />
                 </do_if>
               </do_for_each>
+              <stop_music />
+              <play_music music="'gfc_music_m04_radar_assault'" loop="true" />
               <play_cutscene result="$Phase2IntroCutscene" key="'gatefall_s04_phase2_intro_cutscene'" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="true">
                 <param name="target_radar_ship" object="$RadarShipA" />
                 <param name="target_player_ship" object="player.ship" />
@@ -1117,6 +1225,7 @@
                 <safepos object="$RadarShipB" min="3km" max="5km" />
                 <rotation yaw="250deg" />
               </create_ship>
+              <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase3H" />
               <set_object_min_shield object="$Phase3H" exact="0" />
               <set_object_min_hull object="$Phase3H" exact="0" />
               <set_known object="$Phase3H" known="true" />
@@ -1276,6 +1385,7 @@
           </conditions>
           <actions>
             <set_value name="$Phase3Completed" exact="true" />
+            <stop_music />
             <set_objective cue="$MissionCue" step="4" action="objective.none" updatebriefing="true" silent="true" />
             <do_for_each name="$StrikeShip" in="$Phase3StrikeFleet">
               <do_if value="$StrikeShip.exists and $StrikeShip != player.ship">
@@ -1299,33 +1409,45 @@
           <actions>
             <do_if value="not @$Phase4Started and not @$ScenarioEnded">
               <set_value name="$Phase4Started" exact="true" />
+              <play_music music="'gfc_music_m04_m0_reveal'" />
               <set_playership_throttle value="0" />
               <clear_group group="$Phase4M0Guard" />
 
-              <set_owner object="$XenonM0" faction="faction.ownerless" overridenpc="true" />
+              <!-- Keep the M0 screen genuinely hostile from the moment it is revealed. The old
+                   ownerless/no-response staging state persisted on the pilots after ownership was
+                   restored and left the original I screen unable to move or fire in Phase 8. -->
+              <set_owner object="$XenonM0" faction="faction.xenon" overridenpc="true" />
               <set_object_min_shield object="$XenonM0" exact="100" />
               <set_object_min_hull object="$XenonM0" exact="100" />
               <cancel_all_orders object="$XenonM0" />
-              <create_order id="'Wait'" object="$XenonM0" default="true">
-                <param name="skipalignment" value="true" />
-                <param name="noattackresponse" value="true" />
+              <set_value name="$XenonM0.pilot.$noattackresponse" exact="false" />
+              <create_order id="'ProtectPosition'" object="$XenonM0" default="true">
+                <param name="destination" value="[$HereticsEnd, $M0Pos]" />
               </create_order>
 
               <do_all exact="10">
                 <create_ship name="$Phase4M0EscortI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$HereticsEnd" groupname="$Phase4M0Guard" capturable="false" commandeerable="false">
-                  <owner exact="faction.ownerless" overridenpc="true" />
+                  <owner exact="faction.xenon" overridenpc="true" />
                   <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
-                  <loadout><level exact="1.0" /></loadout>
+                  <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
                   <safepos object="$XenonM0" min="12km" max="22km" />
                   <rotation yaw="180deg" />
                 </create_ship>
+                <!-- Generate once more against the Xenon equipment table and apply it explicitly.
+                     This guarantees that owner staging cannot produce an I with empty turret slots. -->
+                <generate_loadout result="$Phase4M0EscortLoadout" macro="$Phase4M0EscortI.macro" faction="faction.xenon" level="1.0" variation="0" />
+                <do_if value="$Phase4M0EscortLoadout.count">
+                  <apply_loadout object="$Phase4M0EscortI" loadout="$Phase4M0EscortLoadout.{1}" />
+                </do_if>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase4M0EscortI" />
                 <set_known object="$Phase4M0EscortI" known="true" />
                 <set_object_forced_radar_visible object="$Phase4M0EscortI" visible="true" />
-                <cancel_all_orders object="$Phase4M0EscortI" />
-                <create_order id="'Wait'" object="$Phase4M0EscortI" default="true">
-                  <param name="skipalignment" value="true" />
-                  <param name="noattackresponse" value="true" />
-                </create_order>
+                <set_value name="$Phase4M0EscortI.pilot.$noattackresponse" exact="false" />
+                <set_value name="$Phase4M0EscortTurrets" exact="$Phase4M0EscortI.turrets.operational.list" />
+                <do_all exact="$Phase4M0EscortTurrets.count" counter="$Phase4M0EscortTurretIndex">
+                  <set_weapon_mode weapon="$Phase4M0EscortTurrets.{$Phase4M0EscortTurretIndex}" weaponmode="weaponmode.attackenemies" />
+                </do_all>
+                <set_object_commander object="$Phase4M0EscortI" commander="$XenonM0" assignment="assignment.bombardment" />
               </do_all>
 
               <warp object="player.ship" sector="$HereticsEnd">
@@ -1395,10 +1517,19 @@
                 <stop_cutscene cutscene="$Phase4M0Cutscene" />
               </do_if>
               <set_owner object="$XenonM0" faction="faction.xenon" overridenpc="true" />
+              <set_value name="$XenonM0.pilot.$noattackresponse" exact="false" />
               <do_for_each name="$M0Escort" in="$Phase4M0Guard">
                 <do_if value="$M0Escort.exists">
                   <set_owner object="$M0Escort" faction="faction.xenon" overridenpc="true" />
+                  <set_value name="$M0Escort.pilot.$noattackresponse" exact="false" />
                   <cancel_all_orders object="$M0Escort" />
+                  <do_if value="$M0Escort.commander">
+                    <remove_object_commander object="$M0Escort" />
+                  </do_if>
+                  <set_value name="$M0EscortTurrets" exact="$M0Escort.turrets.operational.list" />
+                  <do_all exact="$M0EscortTurrets.count" counter="$M0EscortTurretIndex">
+                    <set_weapon_mode weapon="$M0EscortTurrets.{$M0EscortTurretIndex}" weaponmode="weaponmode.attackenemies" />
+                  </do_all>
                   <set_object_commander object="$M0Escort" commander="$XenonM0" assignment="assignment.bombardment" />
                 </do_if>
               </do_for_each>
@@ -1434,6 +1565,7 @@
                 <position value="$Phase4PackerPos" />
                 <rotation yaw="140deg" />
               </create_ship>
+              <set_value name="$ForwardBasePackerCreated" exact="true" />
               <set_object_name object="$ForwardBasePacker" name="{899902,38}" />
               <set_object_min_hull object="$ForwardBasePacker" exact="0" />
               <set_known object="$ForwardBasePacker" known="true" />
@@ -1449,30 +1581,6 @@
               <signal_cue cue="Phase4_BaseDialogue_562" />
             </do_if>
           </actions>
-          <cues>
-            <cue name="Phase4_FailPackerDestroyed">
-              <conditions>
-                <check_all>
-                  <event_object_destroyed object="$ForwardBasePacker" />
-                  <check_value value="not @$Phase4Completed and not @$ScenarioEnded" />
-                </check_all>
-              </conditions>
-              <actions>
-                <set_value name="$ScenarioEnded" exact="true" />
-                <remove_mission cue="$MissionCue" type="failed" />
-                <set_value name="$ResultData" exact="table[]" />
-                <set_value name="$ResultData.$PlayerDied" exact="false" />
-                <set_value name="$ResultData.$Score" exact="0" />
-                <add_scenario_stat id="'gatefall_scenario_04_failed'" name="{899902,1003}" description="{899902,1009}" uivalue="{1001,2618}" score="0" maxscore="1" />
-                <show_notification text="{899902,1009}" sound="notification_negative" />
-              </actions>
-              <cues>
-                <cue name="Failed_ForwardBasePacker_Ref" ref="md.Gatefall_Lib_Scenario.ScenarioFinished">
-                  <param name="ResultData" value="$ResultData" />
-                </cue>
-              </cues>
-            </cue>
-          </cues>
         </cue>
 
         <cue name="Phase4_BaseDialogue_562">
@@ -1531,6 +1639,8 @@
             <do_if value="$ForwardBasePacker.exists and not @$Phase4DefenceStarted and not @$ScenarioEnded">
               <set_value name="$Phase4DefenceStarted" exact="true" />
               <set_value name="$Phase4DefenceEndTime" exact="player.age + 300s" />
+              <stop_music />
+              <play_music music="'gfc_music_m04_base_deployment'" />
               <clear_group group="$Phase4Attackers" />
               <set_objective cue="$MissionCue" step="5" action="objective.protect" object="$ForwardBasePacker" text="{899902,218}" endtime="$Phase4DefenceEndTime" updatebriefing="true" />
               <do_for_each name="$AlliedShip" in="$Phase4AlliedFleet">
@@ -1564,6 +1674,7 @@
                 <position value="$Phase4AttackSpawnPos" />
                 <rotation yaw="320deg" />
               </create_ship>
+              <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase4LeadK" />
               <do_all exact="1">
                 <create_ship name="$Phase4K" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$HereticsEnd" groupname="$Phase4Attackers" capturable="false" commandeerable="false">
                   <owner exact="faction.xenon" overridenpc="true" />
@@ -1572,6 +1683,7 @@
                   <safepos object="$Phase4LeadK" min="3km" max="8km" />
                   <rotation yaw="320deg" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase4K" />
               </do_all>
               <do_all exact="4">
                 <create_ship name="$Phase4PE" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$HereticsEnd" groupname="$Phase4Attackers" capturable="false" commandeerable="false">
@@ -1626,6 +1738,8 @@
             <do_if value="$Phase4DefenceStarted and not @$Phase4Wave2Spawned and not @$Phase4Completed and not @$ScenarioEnded">
               <set_value name="$Phase4Wave2Spawned" exact="true" />
               <set_value name="$TotalXenonShipsSpawned" operation="add" exact="1" />
+              <stop_music />
+              <play_music music="'gfc_music_m04_base_defence'" loop="true" />
               <create_ship name="$Phase4IWave2" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$HereticsEnd" groupname="$Phase4Attackers" capturable="false" commandeerable="false">
                 <owner exact="faction.xenon" overridenpc="true" />
                 <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
@@ -1633,6 +1747,7 @@
                 <position value="$Phase4AttackSpawnPos" />
                 <rotation yaw="320deg" />
               </create_ship>
+              <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase4IWave2" />
               <set_known object="$Phase4IWave2" known="true" />
               <set_object_forced_radar_visible object="$Phase4IWave2" visible="true" />
               <cancel_all_orders object="$Phase4IWave2" />
@@ -1673,6 +1788,7 @@
                 <position value="$Phase4AttackSpawnPos" />
                 <rotation yaw="320deg" />
               </create_ship>
+              <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase4IWave3" />
               <do_all exact="2">
                 <create_ship name="$Phase4Wave3PE" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$HereticsEnd" groupname="$Phase4Attackers" capturable="false" commandeerable="false">
                   <owner exact="faction.xenon" overridenpc="true" />
@@ -1735,6 +1851,7 @@
           <actions>
             <do_if value="$Phase4DefenceStarted and $ForwardBasePacker.exists and not @$Phase4Completed and not @$ScenarioEnded">
               <set_value name="$Phase4Completed" exact="true" />
+              <stop_music />
               <set_value name="$AutoRemovedXenonShips" operation="add" exact="$Phase4Attackers.count" />
               <do_for_each name="$Phase4Enemy" in="$Phase4Attackers">
                 <destroy_object object="$Phase4Enemy" />
@@ -1745,8 +1862,19 @@
               <create_station name="$ForwardBase" macro="macro.station_gen_factory_base_01_macro" sector="$HereticsEnd" groupname="$ScenarioStations" state="componentstate.operational" owner="faction.player" constructionplan="'gatefall_scenario_04_forward_base'">
                 <position value="$Phase4StationPos" />
               </create_station>
+              <set_value name="$ForwardBaseCreated" exact="true" />
               <set_object_name object="$ForwardBase" name="{899902,39}" />
               <set_module_loadout_level object="$ForwardBase" exact="1" />
+              <!-- The station is spawned fully built, so explicitly generate and apply a maximum-level
+                   Boron module loadout. This equips the four Boron defence discs with their default
+                   shields and turrets instead of leaving the operational modules empty. -->
+              <find_object_component name="$ForwardBaseModules" object="$ForwardBase" class="class.module" multiple="true" />
+              <do_for_each name="$ForwardBaseModule" in="$ForwardBaseModules">
+                <generate_loadout result="$ForwardBaseModuleLoadout" macro="$ForwardBase.macro" module="$ForwardBaseModule.macro" faction="faction.boron" level="1.0" variation="0" />
+                <do_if value="$ForwardBaseModuleLoadout.count">
+                  <apply_loadout object="$ForwardBaseModule" loadout="$ForwardBaseModuleLoadout.{1}" />
+                </do_if>
+              </do_for_each>
               <signal_objects object="player.galaxy" param="'init station'" param2="$ForwardBase" param3="true" />
               <do_if value="not $ForwardBase.tradenpc.exists">
                 <create_control_entity object="$ForwardBase" post="controlpost.manager">
@@ -1765,8 +1893,11 @@
                 </do_if>
                 <remove_value name="$ForwardBaseShiptrader" />
               </do_if>
-              <add_wares object="$ForwardBase" ware="ware.ship_gen_xs_buildingdrone_01_a" exact="120" />
-              <add_wares object="$ForwardBase" ware="ware.ship_gen_s_fightingdrone_01_a" exact="20" />
+              <!-- Reserve 20 unit slots for repair drones, then fill every remaining station
+                   unit slot with construction drones. Using units.free keeps this correct if
+                   the construction plan changes the station's drone capacity again. -->
+              <add_units object="$ForwardBase" macro="macro.ship_gen_xs_repairdrone_01_a_macro" exact="[20, $ForwardBase.units.free].min" />
+              <add_units object="$ForwardBase" macro="macro.ship_gen_xs_buildingdrone_01_a_macro" exact="$ForwardBase.units.free" />
               <add_cargo object="$ForwardBase" ware="ware.khaakalloy" exact="30000" />
               <set_object_min_hull object="$ForwardBase" exact="0" />
               <set_known object="$ForwardBase" known="true" />
@@ -1786,6 +1917,7 @@
           <actions>
             <do_if value="$ForwardBase.exists and not @$Phase5Started and not @$ScenarioEnded">
               <set_value name="$Phase5Started" exact="true" />
+              <play_music music="'gfc_music_m04_carrier_arrival'" />
               <clear_group group="$Phase5CarrierGroup" />
               <clear_group group="$Phase5SolarAGuards" />
               <clear_group group="$Phase5SolarBGuards" />
@@ -1824,11 +1956,26 @@
                 <param name="noattackresponse" value="true" />
               </create_order>
 
+              <!-- Player-controlled Boron auxiliary support arriving with the two carriers. It receives
+                   a full default Boron loadout but no forced order, so the player can employ it at once. -->
+              <create_ship name="$BoronResupplier" macro="macro.ship_bor_xl_resupplier_01_a_macro" sector="$HereticsEnd" groupname="$Phase5CarrierGroup" capturable="false" commandeerable="false">
+                <owner exact="faction.player" overridenpc="true" />
+                <pilot><select faction="faction.boron" race="race.boron" tags="tag.commander" /></pilot>
+                <loadout><level exact="1.0" faction="faction.boron" /></loadout>
+                <position value="$Phase5ResupplierPos" />
+                <rotation yaw="140deg" />
+              </create_ship>
+              <set_known object="$BoronResupplier" known="true" />
+              <set_object_forced_radar_visible object="$BoronResupplier" visible="true" />
+
               <add_effect object="$BoronFlagship.zone" effect="'jump_jumpin_capship_xl'">
                 <position object="$BoronFlagship" />
               </add_effect>
               <add_effect object="$TerranFlagship.zone" effect="'jump_jumpin_capship_xl'">
                 <position object="$TerranFlagship" />
+              </add_effect>
+              <add_effect object="$BoronResupplier.zone" effect="'jump_jumpin_capship_xl'">
+                <position object="$BoronResupplier" />
               </add_effect>
 
               <play_cutscene result="$Phase5CarrierCutscene" key="'gatefall_s04_phase5_carrier_cutscene'" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="true">
@@ -1907,6 +2054,7 @@
                   <loadout><level exact="1.0" /></loadout>
                   <safepos object="$SolarStationA" min="8km" max="15km" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$SolarAGuardI" />
                 <set_object_commander object="$SolarAGuardI" commander="$SolarStationA" assignment="assignment.bombardment" />
               </do_all>
               <do_all exact="2">
@@ -1916,6 +2064,7 @@
                   <loadout><level exact="1.0" /></loadout>
                   <safepos object="$SolarStationA" min="6km" max="12km" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$SolarAGuardH" />
                 <set_object_commander object="$SolarAGuardH" commander="$SolarStationA" assignment="assignment.interception" />
               </do_all>
 
@@ -1926,6 +2075,7 @@
                   <loadout><level exact="1.0" /></loadout>
                   <safepos object="$SolarStationB" min="8km" max="15km" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$SolarBGuardI" />
                 <set_object_commander object="$SolarBGuardI" commander="$SolarStationB" assignment="assignment.bombardment" />
               </do_all>
               <do_all exact="2">
@@ -1935,6 +2085,7 @@
                   <loadout><level exact="1.0" /></loadout>
                   <safepos object="$SolarStationB" min="6km" max="12km" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$SolarBGuardH" />
                 <set_object_commander object="$SolarBGuardH" commander="$SolarStationB" assignment="assignment.interception" />
               </do_all>
 
@@ -1945,6 +2096,7 @@
                   <loadout><level exact="1.0" /></loadout>
                   <safepos object="$XenonShipyard" min="8km" max="15km" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$ShipyardGuardI" />
                 <set_object_commander object="$ShipyardGuardI" commander="$XenonShipyard" assignment="assignment.bombardment" />
               </do_all>
               <do_all exact="2">
@@ -1954,6 +2106,7 @@
                   <loadout><level exact="1.0" /></loadout>
                   <safepos object="$XenonShipyard" min="6km" max="12km" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$ShipyardGuardH" />
                 <set_object_commander object="$ShipyardGuardH" commander="$XenonShipyard" assignment="assignment.interception" />
               </do_all>
 
@@ -1964,6 +2117,7 @@
                   <loadout><level exact="1.0" /></loadout>
                   <safepos object="$XenonWharf" min="8km" max="15km" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$WharfGuardI" />
                 <set_object_commander object="$WharfGuardI" commander="$XenonWharf" assignment="assignment.bombardment" />
               </do_all>
               <do_all exact="2">
@@ -1973,6 +2127,7 @@
                   <loadout><level exact="1.0" /></loadout>
                   <safepos object="$XenonWharf" min="6km" max="12km" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$WharfGuardH" />
                 <set_object_commander object="$WharfGuardH" commander="$XenonWharf" assignment="assignment.interception" />
               </do_all>
 
@@ -1980,6 +2135,8 @@
                 <position value="$Phase5SolarBriefingPos" />
                 <rotation yaw="225deg" />
               </warp>
+              <stop_music />
+              <play_music music="'gfc_music_m04_solar_reveal'" loop="true" />
               <play_cutscene result="$Phase5SolarCutscene" key="'gatefall_s04_phase5_station_cutscene'" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="true">
                 <param name="target_station" object="$SolarStationA" />
               </play_cutscene>
@@ -2063,6 +2220,7 @@
               <do_if value="$Phase5ShipyardCutscene?">
                 <stop_cutscene cutscene="$Phase5ShipyardCutscene" />
               </do_if>
+              <stop_music />
               <warp object="player.ship" sector="$HereticsEnd">
                 <position value="$Phase4GateBasePos" />
                 <rotation yaw="140deg" />
@@ -2092,11 +2250,20 @@
           <actions>
             <do_if value="$ForwardBase.exists and not @$Phase6Started and not @$ScenarioEnded">
               <set_value name="$Phase6Started" exact="true" />
+              <set_value name="$Phase6MusicMode" exact="'calm'" />
+              <set_value name="$Phase6CombatMusicUntil" exact="0" />
+              <set_value name="$Phase6CurrentMusicEndTime" exact="0" />
+              <set_value name="$Phase6LastCalmMusicChoice" exact="0" />
+              <set_value name="$Phase6LastCombatMusicChoice" exact="0" />
+              <stop_music />
+              <signal_cue cue="Phase6_PlayNextMusic" />
               <clear_group group="$Phase6SolarTargets" />
               <clear_group group="$Phase6ShipyardAttackers" />
               <clear_group group="$Phase6WharfAttackers" />
               <clear_group group="$Phase6SolarEmergencyAttackers" />
               <clear_group group="$Phase6SupportFreighters" />
+              <clear_group group="$Phase6PlayerOwnedShips" />
+              <find_ship_by_true_owner groupname="$Phase6PlayerOwnedShips" faction="faction.player" space="player.galaxy" class="[class.ship_s, class.ship_m, class.ship_l, class.ship_xl]" unit="false" multiple="true" />
 
               <warp object="player.ship" sector="$HereticsEnd">
                 <position value="$Phase4GateBasePos" />
@@ -2197,6 +2364,8 @@
               </do_if>
               <do_if value="not $XenonShipyard.exists">
                 <set_value name="$Phase6ShipyardDestroyed" exact="true" />
+                <set_value name="$Phase6NextShipyardWaveTime" exact="0" />
+                <cancel_cue cue="Phase6_ShipyardWavePulse" />
               </do_if>
 
               <do_if value="$XenonWharf.exists">
@@ -2205,6 +2374,8 @@
               </do_if>
               <do_if value="not $XenonWharf.exists">
                 <set_value name="$Phase6WharfDestroyed" exact="true" />
+                <set_value name="$Phase6NextWharfWaveTime" exact="0" />
+                <cancel_cue cue="Phase6_WharfWavePulse" />
               </do_if>
 
               <set_objective cue="$MissionCue" step="8" action="objective.destroy" group="$Phase6SolarTargets" text="{899902,221}" updatebriefing="true" />
@@ -2276,17 +2447,168 @@
           </actions>
         </cue>
 
+        <!-- The sound library's random sample selection happens only once per play_music call. These
+             one-shot selections therefore rotate in MD, using the measured source durations. The prior
+             choice is excluded so the same track can never play twice consecutively. -->
+        <cue name="Phase6_PlayNextMusic" instantiate="true">
+          <conditions><event_cue_signalled /></conditions>
+          <actions>
+            <do_if value="$Phase6Started and not @$Phase6Completed and not @$ScenarioEnded and $Phase6CurrentMusicEndTime == 0">
+              <do_if value="$Phase6MusicMode == 'calm'">
+                <do_if value="$Phase6LastCalmMusicChoice == 1">
+                  <set_value name="$Phase6MusicChoice" exact="[2, 3, 4].random" />
+                </do_if>
+                <do_elseif value="$Phase6LastCalmMusicChoice == 2">
+                  <set_value name="$Phase6MusicChoice" exact="[1, 3, 4].random" />
+                </do_elseif>
+                <do_elseif value="$Phase6LastCalmMusicChoice == 3">
+                  <set_value name="$Phase6MusicChoice" exact="[1, 2, 4].random" />
+                </do_elseif>
+                <do_elseif value="$Phase6LastCalmMusicChoice == 4">
+                  <set_value name="$Phase6MusicChoice" exact="[1, 2, 3].random" />
+                </do_elseif>
+                <do_else>
+                  <set_value name="$Phase6MusicChoice" exact="[1, 2, 3, 4].random" />
+                </do_else>
+                <set_value name="$Phase6LastCalmMusicChoice" exact="$Phase6MusicChoice" />
+                <stop_music />
+                <do_if value="$Phase6MusicChoice == 1">
+                  <play_music music="'gfc_music_m04_phase6_calm_gamma_epsilon'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 228s" />
+                </do_if>
+                <do_elseif value="$Phase6MusicChoice == 2">
+                  <play_music music="'gfc_music_m04_phase6_calm_floating_island'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 118s" />
+                </do_elseif>
+                <do_elseif value="$Phase6MusicChoice == 3">
+                  <play_music music="'gfc_music_m04_phase6_calm_easter_island'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 68s" />
+                </do_elseif>
+                <do_else>
+                  <play_music music="'gfc_music_m04_phase6_calm_shinigaprovince'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 130s" />
+                </do_else>
+              </do_if>
+              <do_elseif value="$Phase6MusicMode == 'combat'">
+                <do_if value="$Phase6LastCombatMusicChoice == 1">
+                  <set_value name="$Phase6MusicChoice" exact="[2, 3, 4, 5].random" />
+                </do_if>
+                <do_elseif value="$Phase6LastCombatMusicChoice == 2">
+                  <set_value name="$Phase6MusicChoice" exact="[1, 3, 4, 5].random" />
+                </do_elseif>
+                <do_elseif value="$Phase6LastCombatMusicChoice == 3">
+                  <set_value name="$Phase6MusicChoice" exact="[1, 2, 4, 5].random" />
+                </do_elseif>
+                <do_elseif value="$Phase6LastCombatMusicChoice == 4">
+                  <set_value name="$Phase6MusicChoice" exact="[1, 2, 3, 5].random" />
+                </do_elseif>
+                <do_elseif value="$Phase6LastCombatMusicChoice == 5">
+                  <set_value name="$Phase6MusicChoice" exact="[1, 2, 3, 4].random" />
+                </do_elseif>
+                <do_else>
+                  <set_value name="$Phase6MusicChoice" exact="[1, 2, 3, 4, 5].random" />
+                </do_else>
+                <set_value name="$Phase6LastCombatMusicChoice" exact="$Phase6MusicChoice" />
+                <stop_music />
+                <do_if value="$Phase6MusicChoice == 1">
+                  <play_music music="'gfc_music_m04_phase6_combat_japan_uprising'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 202s" />
+                </do_if>
+                <do_elseif value="$Phase6MusicChoice == 2">
+                  <play_music music="'gfc_music_m04_phase6_combat_perseverance'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 115s" />
+                </do_elseif>
+                <do_elseif value="$Phase6MusicChoice == 3">
+                  <play_music music="'gfc_music_m04_phase6_combat_allied_uprising'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 61s" />
+                </do_elseif>
+                <do_elseif value="$Phase6MusicChoice == 4">
+                  <play_music music="'gfc_music_m04_phase6_combat_allied_1'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 104s" />
+                </do_elseif>
+                <do_else>
+                  <play_music music="'gfc_music_m04_phase6_combat_tokyo_harbor'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 119s" />
+                </do_else>
+              </do_elseif>
+            </do_if>
+          </actions>
+        </cue>
+
+        <cue name="Phase6_MusicTrackFinished" checkinterval="1s" instantiate="true">
+          <conditions>
+            <check_value value="$Phase6Started and not @$Phase6Completed and not @$ScenarioEnded and $Phase6CurrentMusicEndTime gt 0 and player.age ge $Phase6CurrentMusicEndTime" />
+          </conditions>
+          <actions>
+            <set_value name="$Phase6CurrentMusicEndTime" exact="0" />
+            <signal_cue cue="Phase6_PlayNextMusic" />
+          </actions>
+        </cue>
+
+        <!-- Rebuild a real all-player-owned ship group. global.$PlayerShipsGroup only contains the
+             ship occupied by the player and its docking chain, so it cannot observe fleets built by
+             the tactical platform. -->
+        <cue name="Phase6_RefreshPlayerOwnedShips" checkinterval="2s" instantiate="true">
+          <conditions>
+            <check_value value="$Phase6Started and not @$Phase6Completed and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <clear_group group="$Phase6PlayerOwnedShips" />
+            <find_ship_by_true_owner groupname="$Phase6PlayerOwnedShips" faction="faction.player" space="player.galaxy" class="[class.ship_s, class.ship_m, class.ship_l, class.ship_xl]" unit="false" multiple="true" />
+          </actions>
+        </cue>
+
+        <!-- Phase 6 music follows combat involving any player-owned ship, including ships produced
+             during the RTS phase. Starting an attack, firing on a target, or receiving a hit extends
+             the combat window; after 30 seconds without any of those events the calm pool resumes. -->
+        <cue name="Phase6_MusicCombatActivity" instantiate="true">
+          <conditions>
+            <check_all>
+              <check_any>
+                <event_attack_started attacker="$Phase6PlayerOwnedShips" />
+                <event_attack_started target="$Phase6PlayerOwnedShips" />
+                <event_object_attacked_object group="$Phase6PlayerOwnedShips" />
+                <event_object_attacked group="$Phase6PlayerOwnedShips" />
+              </check_any>
+              <check_value value="$Phase6Started and not @$Phase6Completed and not @$ScenarioEnded" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$Phase6CombatMusicUntil" exact="player.age + 30s" />
+            <do_if value="$Phase6MusicMode != 'combat'">
+              <set_value name="$Phase6MusicMode" exact="'combat'" />
+              <set_value name="$Phase6CurrentMusicEndTime" exact="0" />
+              <stop_music />
+              <signal_cue cue="Phase6_PlayNextMusic" />
+            </do_if>
+          </actions>
+        </cue>
+
+        <cue name="Phase6_MusicReturnToCalm" checkinterval="5s" instantiate="true">
+          <conditions>
+            <check_value value="$Phase6Started and not @$Phase6Completed and not @$ScenarioEnded and $Phase6MusicMode == 'combat' and player.age ge $Phase6CombatMusicUntil" />
+          </conditions>
+          <actions>
+            <set_value name="$Phase6MusicMode" exact="'calm'" />
+            <set_value name="$Phase6CurrentMusicEndTime" exact="0" />
+            <stop_music />
+            <signal_cue cue="Phase6_PlayNextMusic" />
+          </actions>
+        </cue>
+
         <!-- Poll an absolute next-wave timestamp. This follows the proven recurring support-freighter
              pattern and does not depend on a completed cue being able to signal itself again. -->
         <cue name="Phase6_ShipyardWavePulse" checkinterval="5s" instantiate="true">
           <conditions>
-            <check_value value="$Phase6Started and not @$ScenarioEnded and $XenonShipyard.exists and $ForwardBase.exists and $Phase6NextShipyardWaveTime gt 0 and player.age ge $Phase6NextShipyardWaveTime" />
+            <check_value value="$Phase6Started and not @$Phase6ShipyardDestroyed and not @$ScenarioEnded and $XenonShipyard.exists and $ForwardBase.exists and $Phase6NextShipyardWaveTime gt 0 and player.age ge $Phase6NextShipyardWaveTime" />
           </conditions>
           <actions>
-            <do_if value="$Phase6Started and not @$ScenarioEnded and $XenonShipyard.exists and $ForwardBase.exists">
+            <!-- Repeat the destroyed-state check in actions as well. The object reference can still report
+                 .exists briefly after event_object_destroyed, or this pulse may already be queued. -->
+            <do_if value="$Phase6Started and not @$Phase6ShipyardDestroyed and not @$ScenarioEnded and $XenonShipyard.exists and $ForwardBase.exists">
               <set_value name="$Phase6NextShipyardWaveTime" exact="player.age + 300s" />
-              <!-- Wave 1: a light capital probe of 1 I and 2 H. -->
-              <do_if value="$Phase6ShipyardWaveCount == 0">
+              <!-- Waves 1-2: light capital probes of 1 I and 2 H, preserving an early growth window. -->
+              <do_if value="$Phase6ShipyardWaveCount lt 2">
                 <set_value name="$TotalXenonShipsSpawned" operation="add" exact="3" />
                 <create_ship name="$Phase6FirstShipyardLeadI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$HereticsEnd" groupname="$Phase6ShipyardAttackers" capturable="false" commandeerable="false">
                   <owner exact="faction.xenon" overridenpc="true" />
@@ -2294,6 +2616,7 @@
                   <loadout><level exact="1.0" /></loadout>
                   <safepos object="$XenonShipyard" min="10km" max="15km" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase6FirstShipyardLeadI" />
                 <do_all exact="2">
                   <create_ship name="$Phase6FirstShipyardH" macro="macro.ship_xen_l_terraformer_01_a_macro" sector="$HereticsEnd" groupname="$Phase6ShipyardAttackers" capturable="false" commandeerable="false">
                     <owner exact="faction.xenon" overridenpc="true" />
@@ -2301,10 +2624,11 @@
                     <loadout><level exact="1.0" /></loadout>
                     <safepos object="$Phase6FirstShipyardLeadI" min="4km" max="10km" />
                   </create_ship>
+                  <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase6FirstShipyardH" />
                 </do_all>
               </do_if>
-              <!-- Waves 2-6: 1 I, 3 K and 2 H. -->
-              <do_if value="$Phase6ShipyardWaveCount ge 1 and $Phase6ShipyardWaveCount lt 6">
+              <!-- Waves 3-6: 1 I, 3 K and 2 H. -->
+              <do_if value="$Phase6ShipyardWaveCount ge 2 and $Phase6ShipyardWaveCount lt 6">
                 <set_value name="$TotalXenonShipsSpawned" operation="add" exact="6" />
                 <create_ship name="$Phase6ShipyardLeadI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$HereticsEnd" groupname="$Phase6ShipyardAttackers" capturable="false" commandeerable="false">
                   <owner exact="faction.xenon" overridenpc="true" />
@@ -2312,6 +2636,7 @@
                   <loadout><level exact="1.0" /></loadout>
                   <safepos object="$XenonShipyard" min="10km" max="15km" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase6ShipyardLeadI" />
                 <do_all exact="3">
                   <create_ship name="$Phase6ShipyardK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$HereticsEnd" groupname="$Phase6ShipyardAttackers" capturable="false" commandeerable="false">
                     <owner exact="faction.xenon" overridenpc="true" />
@@ -2319,6 +2644,7 @@
                     <loadout><level exact="1.0" /></loadout>
                     <safepos object="$Phase6ShipyardLeadI" min="5km" max="12km" />
                   </create_ship>
+                  <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase6ShipyardK" />
                 </do_all>
                 <do_all exact="2">
                   <create_ship name="$Phase6ShipyardH" macro="macro.ship_xen_l_terraformer_01_a_macro" sector="$HereticsEnd" groupname="$Phase6ShipyardAttackers" capturable="false" commandeerable="false">
@@ -2327,6 +2653,7 @@
                     <loadout><level exact="1.0" /></loadout>
                     <safepos object="$Phase6ShipyardLeadI" min="4km" max="10km" />
                   </create_ship>
+                  <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase6ShipyardH" />
                 </do_all>
               </do_if>
               <!-- Wave 7 onward: 5 I and 5 H. -->
@@ -2338,6 +2665,7 @@
                   <loadout><level exact="1.0" /></loadout>
                   <safepos object="$XenonShipyard" min="10km" max="15km" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase6HeavyShipyardLeadI" />
                 <do_all exact="4">
                   <create_ship name="$Phase6HeavyShipyardI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$HereticsEnd" groupname="$Phase6ShipyardAttackers" capturable="false" commandeerable="false">
                     <owner exact="faction.xenon" overridenpc="true" />
@@ -2345,6 +2673,7 @@
                     <loadout><level exact="1.0" /></loadout>
                     <safepos object="$Phase6HeavyShipyardLeadI" min="6km" max="16km" />
                   </create_ship>
+                  <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase6HeavyShipyardI" />
                 </do_all>
                 <do_all exact="5">
                   <create_ship name="$Phase6HeavyShipyardH" macro="macro.ship_xen_l_terraformer_01_a_macro" sector="$HereticsEnd" groupname="$Phase6ShipyardAttackers" capturable="false" commandeerable="false">
@@ -2353,6 +2682,7 @@
                     <loadout><level exact="1.0" /></loadout>
                     <safepos object="$Phase6HeavyShipyardLeadI" min="4km" max="12km" />
                   </create_ship>
+                  <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase6HeavyShipyardH" />
                 </do_all>
               </do_if>
               <set_value name="$Phase6ShipyardWaveCount" operation="add" exact="1" />
@@ -2376,10 +2706,11 @@
 
         <cue name="Phase6_WharfWavePulse" checkinterval="5s" instantiate="true">
           <conditions>
-            <check_value value="$Phase6Started and not @$ScenarioEnded and $XenonWharf.exists and $ForwardBase.exists and $Phase6NextWharfWaveTime gt 0 and player.age ge $Phase6NextWharfWaveTime" />
+            <check_value value="$Phase6Started and not @$Phase6WharfDestroyed and not @$ScenarioEnded and $XenonWharf.exists and $ForwardBase.exists and $Phase6NextWharfWaveTime gt 0 and player.age ge $Phase6NextWharfWaveTime" />
           </conditions>
           <actions>
-            <do_if value="$Phase6Started and not @$ScenarioEnded and $XenonWharf.exists and $ForwardBase.exists">
+            <!-- Mirror the shipyard guard so a queued pulse cannot survive the wharf destruction event. -->
+            <do_if value="$Phase6Started and not @$Phase6WharfDestroyed and not @$ScenarioEnded and $XenonWharf.exists and $ForwardBase.exists">
               <set_value name="$Phase6NextWharfWaveTime" exact="player.age + 300s" />
               <set_value name="$TotalXenonShipsSpawned" operation="add" exact="25" />
               <do_all exact="5">
@@ -2425,6 +2756,8 @@
           </conditions>
           <actions>
             <set_value name="$Phase6ShipyardDestroyed" exact="true" />
+            <set_value name="$Phase6NextShipyardWaveTime" exact="0" />
+            <cancel_cue cue="Phase6_ShipyardWavePulse" />
             <do_if value="$Phase6ShipyardSideMissionActive">
               <remove_mission cue="Phase6_ShipyardSideMission" type="completed" />
               <set_value name="$Phase6ShipyardSideMissionActive" exact="false" />
@@ -2442,6 +2775,8 @@
           </conditions>
           <actions>
             <set_value name="$Phase6WharfDestroyed" exact="true" />
+            <set_value name="$Phase6NextWharfWaveTime" exact="0" />
+            <cancel_cue cue="Phase6_WharfWavePulse" />
             <do_if value="$Phase6WharfSideMissionActive">
               <remove_mission cue="Phase6_WharfSideMission" type="completed" />
               <set_value name="$Phase6WharfSideMissionActive" exact="false" />
@@ -2547,6 +2882,7 @@
                   <loadout><level exact="1.0" /></loadout>
                   <safepos object="$Phase6RemainingSolar" min="8km" max="18km" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase6SolarReinforcementI" />
               </do_all>
               <do_for_each name="$SolarDefender" in="$Phase6SolarEmergencyAttackers">
                 <do_if value="$SolarDefender.exists">
@@ -2581,12 +2917,37 @@
           <actions>
             <do_if value="$Phase6Completed and $XenonM0.exists and not @$Phase8Started and not @$ScenarioEnded">
               <set_value name="$Phase8Started" exact="true" />
+              <set_value name="$Phase6MusicMode" exact="'none'" />
+              <set_value name="$Phase8CurrentMusicEndTime" exact="0" />
+              <set_value name="$Phase8LastMusicChoice" exact="0" />
+              <stop_music />
+              <play_music music="'gfc_music_m04_final_tension'" />
+              <signal_cue cue="Phase8_PlayFinalCombatMusic" />
               <clear_group group="$Phase8M0Defenders" />
               <set_object_min_shield object="$XenonM0" exact="100" />
               <set_object_min_hull object="$XenonM0" exact="100" />
               <set_owner object="$XenonM0" faction="faction.xenon" overridenpc="true" />
+              <set_value name="$XenonM0.pilot.$noattackresponse" exact="false" />
               <set_known object="$XenonM0" known="true" />
               <set_object_forced_radar_visible object="$XenonM0" visible="true" />
+
+              <!-- Re-issue the combat assignment to every surviving I from the original M0 screen.
+                   This clears the passive/no-response state used by the earlier reveal sequence. -->
+              <do_for_each name="$OriginalM0Guard" in="$Phase4M0Guard">
+                <do_if value="$OriginalM0Guard.exists">
+                  <set_owner object="$OriginalM0Guard" faction="faction.xenon" overridenpc="true" />
+                  <set_value name="$OriginalM0Guard.pilot.$noattackresponse" exact="false" />
+                  <cancel_all_orders object="$OriginalM0Guard" />
+                  <do_if value="$OriginalM0Guard.commander">
+                    <remove_object_commander object="$OriginalM0Guard" />
+                  </do_if>
+                  <set_value name="$OriginalM0GuardTurrets" exact="$OriginalM0Guard.turrets.operational.list" />
+                  <do_all exact="$OriginalM0GuardTurrets.count" counter="$OriginalM0GuardTurretIndex">
+                    <set_weapon_mode weapon="$OriginalM0GuardTurrets.{$OriginalM0GuardTurretIndex}" weaponmode="weaponmode.attackenemies" />
+                  </do_all>
+                  <set_object_commander object="$OriginalM0Guard" commander="$XenonM0" assignment="assignment.bombardment" />
+                </do_if>
+              </do_for_each>
 
               <create_object name="$Phase8M0Satellite" macro="macro.eq_arg_satellite_02_macro" owner="faction.player" sector="$HereticsEnd">
                 <safepos object="$XenonM0" min="20km" max="24km" />
@@ -2608,6 +2969,78 @@
           </actions>
         </cue>
 
+        <!-- YurikoTension is 66 seconds long. Afterwards Phase 8 uses independently registered
+             one-shots so every selection is made by MD instead of looping one random sample forever. -->
+        <cue name="Phase8_PlayFinalCombatMusic">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="66s" />
+          <actions>
+            <do_if value="$Phase8Started and not @$Phase8Completed and not @$ScenarioEnded">
+              <stop_music />
+              <set_value name="$Phase8CurrentMusicEndTime" exact="0" />
+              <signal_cue cue="Phase8_PlayNextCombatMusic" />
+            </do_if>
+          </actions>
+        </cue>
+
+        <cue name="Phase8_PlayNextCombatMusic" instantiate="true">
+          <conditions><event_cue_signalled /></conditions>
+          <actions>
+            <do_if value="$Phase8Started and not @$Phase8Completed and not @$ScenarioEnded and $Phase8CurrentMusicEndTime == 0">
+              <do_if value="$Phase8LastMusicChoice == 1">
+                <set_value name="$Phase8MusicChoice" exact="[2, 3, 4, 5].random" />
+              </do_if>
+              <do_elseif value="$Phase8LastMusicChoice == 2">
+                <set_value name="$Phase8MusicChoice" exact="[1, 3, 4, 5].random" />
+              </do_elseif>
+              <do_elseif value="$Phase8LastMusicChoice == 3">
+                <set_value name="$Phase8MusicChoice" exact="[1, 2, 4, 5].random" />
+              </do_elseif>
+              <do_elseif value="$Phase8LastMusicChoice == 4">
+                <set_value name="$Phase8MusicChoice" exact="[1, 2, 3, 5].random" />
+              </do_elseif>
+              <do_elseif value="$Phase8LastMusicChoice == 5">
+                <set_value name="$Phase8MusicChoice" exact="[1, 2, 3, 4].random" />
+              </do_elseif>
+              <do_else>
+                <set_value name="$Phase8MusicChoice" exact="[1, 2, 3, 4, 5].random" />
+              </do_else>
+              <set_value name="$Phase8LastMusicChoice" exact="$Phase8MusicChoice" />
+              <stop_music />
+              <do_if value="$Phase8MusicChoice == 1">
+                <play_music music="'gfc_music_m04_final_combat_japan_uprising'" />
+                <set_value name="$Phase8CurrentMusicEndTime" exact="player.age + 203s" />
+              </do_if>
+              <do_elseif value="$Phase8MusicChoice == 2">
+                <play_music music="'gfc_music_m04_final_combat_japan_2'" />
+                <set_value name="$Phase8CurrentMusicEndTime" exact="player.age + 86s" />
+              </do_elseif>
+              <do_elseif value="$Phase8MusicChoice == 3">
+                <play_music music="'gfc_music_m04_final_combat_allied_2'" />
+                <set_value name="$Phase8CurrentMusicEndTime" exact="player.age + 113s" />
+              </do_elseif>
+              <do_elseif value="$Phase8MusicChoice == 4">
+                <play_music music="'gfc_music_m04_final_combat_eminent'" />
+                <set_value name="$Phase8CurrentMusicEndTime" exact="player.age + 75s" />
+              </do_elseif>
+              <do_else>
+                <play_music music="'gfc_music_m04_final_combat_soviet_2'" />
+                <set_value name="$Phase8CurrentMusicEndTime" exact="player.age + 101s" />
+              </do_else>
+            </do_if>
+          </actions>
+        </cue>
+
+        <cue name="Phase8_MusicTrackFinished" checkinterval="1s" instantiate="true">
+          <conditions>
+            <check_value value="$Phase8Started and not @$Phase8Completed and not @$ScenarioEnded and $Phase8CurrentMusicEndTime gt 0 and player.age ge $Phase8CurrentMusicEndTime" />
+          </conditions>
+          <actions>
+            <set_value name="$Phase8CurrentMusicEndTime" exact="0" />
+            <signal_cue cue="Phase8_PlayNextCombatMusic" />
+          </actions>
+        </cue>
+
         <cue name="Phase8_SpawnReinforcements">
           <conditions><event_cue_signalled /></conditions>
           <delay exact="6s" />
@@ -2621,6 +3054,7 @@
                   <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
                   <safepos object="$XenonM0" min="12km" max="22km" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase8I" />
                 <set_object_commander object="$Phase8I" commander="$XenonM0" assignment="assignment.bombardment" />
                 <add_effect object="$Phase8I.zone" effect="'hq_warpin'">
                   <position object="$Phase8I" />
@@ -2633,6 +3067,7 @@
                   <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
                   <safepos object="$XenonM0" min="10km" max="20km" />
                 </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase8K" />
                 <set_object_commander object="$Phase8K" commander="$XenonM0" assignment="assignment.bombardment" />
                 <add_effect object="$Phase8K.zone" effect="'hq_warpin'">
                   <position object="$Phase8K" />
@@ -2699,6 +3134,37 @@
               <do_if value="$Phase8M0Cutscene?">
                 <stop_cutscene cutscene="$Phase8M0Cutscene" />
               </do_if>
+              <!-- The Timeline M0's six L plasma turrets and four arm-mounted XL turrets are fixed
+                   subcomponents of the ship macro, so its intentionally thruster-only generated loadout
+                   must remain unchanged. Activate those embedded weapons explicitly when the boss fight
+                   starts, and replace the earlier no-response order with a stationary armed wait. -->
+              <set_owner object="$XenonM0" faction="faction.xenon" overridenpc="true" />
+              <set_value name="$XenonM0.pilot.$noattackresponse" exact="false" />
+              <cancel_all_orders object="$XenonM0" />
+              <create_order object="$XenonM0" id="'ProtectPosition'" default="true">
+                <param name="destination" value="[$HereticsEnd, $M0Pos]" />
+              </create_order>
+              <set_value name="$M0OperationalTurrets" exact="$XenonM0.turrets.operational.list" />
+              <do_all exact="$M0OperationalTurrets.count" counter="$M0TurretIndex">
+                <set_weapon_mode weapon="$M0OperationalTurrets.{$M0TurretIndex}" weaponmode="weaponmode.attackenemies" />
+              </do_all>
+              <!-- Cutscene transitions can rewrite the current AI response state, so unlock and
+                   re-arm the original ten I ships once more at the exact start of combat. -->
+              <do_for_each name="$ActivatedOriginalM0Guard" in="$Phase4M0Guard">
+                <do_if value="$ActivatedOriginalM0Guard.exists">
+                  <set_owner object="$ActivatedOriginalM0Guard" faction="faction.xenon" overridenpc="true" />
+                  <set_value name="$ActivatedOriginalM0Guard.pilot.$noattackresponse" exact="false" />
+                  <cancel_all_orders object="$ActivatedOriginalM0Guard" />
+                  <do_if value="$ActivatedOriginalM0Guard.commander">
+                    <remove_object_commander object="$ActivatedOriginalM0Guard" />
+                  </do_if>
+                  <set_value name="$ActivatedOriginalM0GuardTurrets" exact="$ActivatedOriginalM0Guard.turrets.operational.list" />
+                  <do_all exact="$ActivatedOriginalM0GuardTurrets.count" counter="$ActivatedOriginalM0GuardTurretIndex">
+                    <set_weapon_mode weapon="$ActivatedOriginalM0GuardTurrets.{$ActivatedOriginalM0GuardTurretIndex}" weaponmode="weaponmode.attackenemies" />
+                  </do_all>
+                  <set_object_commander object="$ActivatedOriginalM0Guard" commander="$XenonM0" assignment="assignment.bombardment" />
+                </do_if>
+              </do_for_each>
               <set_object_min_shield object="$XenonM0" exact="0" />
               <set_object_min_hull object="$XenonM0" exact="0" />
               <set_objective cue="$MissionCue" step="10" action="objective.destroy" object="$XenonM0" text="{899902,224}" updatebriefing="true" />
@@ -2716,6 +3182,8 @@
           <delay exact="3s" />
           <actions>
             <set_value name="$Phase8Completed" exact="true" />
+            <stop_music />
+            <play_music music="'gfc_music_m04_victory'" loop="true" />
             <set_objective cue="$MissionCue" step="10" action="objective.none" updatebriefing="true" silent="true" />
             <!-- Freeze the surviving M0 screen so the post-battle dialogue cannot be interrupted by ships
                  whose bombardment/interception assignment just lost its commander. -->
@@ -2887,6 +3355,7 @@
           <conditions><event_cue_signalled /></conditions>
           <delay exact="8s" />
           <actions>
+            <stop_music />
             <show_notification text="{899902,1001}" sound="notification_generic" />
             <signal_cue_instantly cue="Phase6_CloseSideMissions" />
             <set_value name="$ScenarioEnded" exact="true" />
@@ -2894,16 +3363,36 @@
             <set_value name="$MCVHullPercent" exact="[$MCV.hullpercentage, 100].min" />
             <set_value name="$PackerHullPercent" exact="if $ForwardBasePacker.exists then [$ForwardBasePacker.hullpercentage, 100].min else $PackerHullPercent" />
             <set_value name="$PlayerHullPercent" exact="[player.ship.hullpercentage, 100].min" />
-            <set_value name="$EnemyCleanupScore" exact="[100 - $AutoRemovedXenonShips, 0].max" />
+            <set_value name="$ForwardBaseHullPercent" exact="if $ForwardBase.exists then [$ForwardBase.hullpercentage, 100].min else 0" />
+            <set_value name="$ScenarioDuration" exact="player.age - $ScenarioStartTime" />
+            <set_value name="$CapitalKillScore" exact="$XenonCapitalShipsDestroyed * 10" />
+            <set_value name="$ForwardBaseHullScore" exact="($ForwardBaseHullPercent)i" />
+            <!-- 40 minutes or less = 200; 140 minutes or more = 0; linear and rounded in between. -->
+            <set_value name="$TimeScore" exact="0" />
+            <do_if value="$ScenarioDuration le 2400s">
+              <set_value name="$TimeScore" exact="200" />
+            </do_if>
+            <do_elseif value="$ScenarioDuration lt 8400s">
+              <set_value name="$TimeScore" exact="((((8400s - $ScenarioDuration)f * 200.0 / 6000.0) + 0.5)i)" />
+            </do_elseif>
+            <set_value name="$FinalScore" exact="$CapitalKillScore + $TimeScore + $ForwardBaseHullScore" />
             <set_value name="$ResultData" exact="table[]" />
             <set_value name="$ResultData.$PlayerDied" exact="false" />
-            <set_value name="$ResultData.$Score" exact="$MCVHullPercent + $PackerHullPercent + $PlayerHullPercent + $EnemyCleanupScore" />
-            <add_scenario_stat id="'mcv_hull'" name="{899902,1005}" uivalue="$MCVHullPercent + '%'" score="$MCVHullPercent" maxscore="100" />
-            <add_scenario_stat id="'forward_base_packer_hull'" name="{899902,1008}" uivalue="$PackerHullPercent + '%'" score="$PackerHullPercent" maxscore="100" />
-            <add_scenario_stat id="'player_hull'" name="{899902,1006}" uivalue="$PlayerHullPercent + '%'" score="$PlayerHullPercent" maxscore="100" />
-            <add_scenario_stat id="'phase2_cleanup'" name="{899902,1007}" uivalue="$AutoRemovedXenonShips" score="$EnemyCleanupScore" maxscore="100" />
-            <add_scenario_stat id="'gatefall_scenario_04_complete'" name="{899902,1001}" description="{899902,1002}" uivalue="{899902,4}" score="$ResultData.$Score" maxscore="400" />
+            <set_value name="$ResultData.$Score" exact="$FinalScore" />
+            <set_userdata name="'gatefall_scenario_04_completed'" value="1" />
+            <!-- Match the working Scenario 02 order exactly: calculate first, register every
+                 scenario-stat row in the same action block, then delay only the results screen. -->
+            <add_scenario_stat id="'xenon_capital_kills'" name="{899902,1011}" description="{899902,1012}" uivalue="$XenonCapitalShipsDestroyed" score="$CapitalKillScore" maxscore="400" />
+            <add_scenario_stat id="'scenario_duration'" name="{899902,1013}" description="{899902,1015}" uivalue="$ScenarioDuration.formatted.default" score="$TimeScore" maxscore="200" />
+            <add_scenario_stat id="'forward_base_hull'" name="{899902,1018}" description="{899902,1019}" uivalue="($ForwardBaseHullPercent)i + '%'" score="$ForwardBaseHullScore" maxscore="100" />
+            <add_scenario_stat id="'gatefall_scenario_04_complete'" name="{899902,1001}" description="{899902,1002}" uivalue="$ResultData.$Score" score="$ResultData.$Score" maxscore="700" />
+            <signal_cue cue="MissionComplete_ShowResults" />
           </actions>
+        </cue>
+
+        <cue name="MissionComplete_ShowResults">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="1s" />
           <cues>
             <cue name="Finished_Ref" ref="md.Gatefall_Lib_Scenario.ScenarioFinished">
               <param name="ResultData" value="$ResultData" />
@@ -2911,14 +3400,37 @@
           </cues>
         </cue>
 
-        <cue name="Fail_ForwardBaseDestroyed">
+        <!-- The packer and the final station do not exist when Start's child cues are registered.
+             Poll their persisted creation flags instead of binding event_object_destroyed to an
+             undefined object, which could leave the failure listener attached to nothing. -->
+        <cue name="Fail_ForwardBasePackerDestroyed" checkinterval="0.1s">
           <conditions>
-            <check_all>
-              <event_object_destroyed object="$ForwardBase" />
-              <check_value value="not @$ScenarioEnded" />
-            </check_all>
+            <check_value value="$ForwardBasePackerCreated and not @$Phase4Completed and not @$ScenarioEnded and (not $ForwardBasePacker.exists or $ForwardBasePacker.iswreck or $ForwardBasePacker.hullpercentage le 0)" />
           </conditions>
           <actions>
+            <stop_music />
+            <signal_cue_instantly cue="Phase6_CloseSideMissions" />
+            <set_value name="$ScenarioEnded" exact="true" />
+            <remove_mission cue="$MissionCue" type="failed" />
+            <set_value name="$ResultData" exact="table[]" />
+            <set_value name="$ResultData.$PlayerDied" exact="false" />
+            <set_value name="$ResultData.$Score" exact="0" />
+            <add_scenario_stat id="'gatefall_scenario_04_failed'" name="{899902,1003}" description="{899902,1009}" uivalue="{1001,2618}" score="0" maxscore="1" />
+            <show_notification text="{899902,1009}" sound="notification_negative" />
+          </actions>
+          <cues>
+            <cue name="Failed_ForwardBasePacker_Ref" ref="md.Gatefall_Lib_Scenario.ScenarioFinished">
+              <param name="ResultData" value="$ResultData" />
+            </cue>
+          </cues>
+        </cue>
+
+        <cue name="Fail_ForwardBaseDestroyed" checkinterval="0.1s">
+          <conditions>
+            <check_value value="$ForwardBaseCreated and not @$ScenarioEnded and (not $ForwardBase.exists or $ForwardBase.iswreck or $ForwardBase.hullpercentage le 0)" />
+          </conditions>
+          <actions>
+            <stop_music />
             <signal_cue_instantly cue="Phase6_CloseSideMissions" />
             <set_value name="$ScenarioEnded" exact="true" />
             <remove_mission cue="$MissionCue" type="failed" />
@@ -2943,6 +3455,7 @@
             </check_all>
           </conditions>
           <actions>
+            <stop_music />
             <signal_cue_instantly cue="Phase6_CloseSideMissions" />
             <set_value name="$ScenarioEnded" exact="true" />
             <remove_mission cue="$MissionCue" type="failed" />
@@ -2959,14 +3472,12 @@
           </cues>
         </cue>
 
-        <cue name="Fail_MCVDestroyed">
+        <cue name="Fail_MCVDestroyed" checkinterval="0.1s">
           <conditions>
-            <check_all>
-              <event_object_destroyed object="$MCV" />
-              <check_value value="not @$ScenarioEnded" />
-            </check_all>
+            <check_value value="not @$ScenarioEnded and (not $MCV.exists or $MCV.iswreck or $MCV.hullpercentage le 0)" />
           </conditions>
           <actions>
+            <stop_music />
             <signal_cue_instantly cue="Phase6_CloseSideMissions" />
             <set_value name="$ScenarioEnded" exact="true" />
             <remove_mission cue="$MissionCue" type="failed" />

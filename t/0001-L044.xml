@@ -290,8 +290,8 @@
   </page>
   <page id="899902" title="Gatefall Chronicles" descr="Gatefall Chronicles custom Timelines campaign 04" voice="no">
     <t id="1">Gatefall 04: In the Same Boat</t>
-    <t id="2">Background: To reopen the lifeline to Morning Star ice resources, the Boron have entered a temporary operation with the Terrans, who want to strike an anomalous Xenon threat node.\n\nGameplay: Pilot a Boron Hydra Regal and protect the salvage ship as it recovers blockade intelligence from a Guppy carrier wreck.</t>
-    <t id="3">You are the tactical officer of the Boron-Terran joint fleet, arriving in Watchful Gaze with Terran expeditionary firepower and Boron escorts.</t>
+    <t id="2">Background: The Xenon have pushed out of ZYA territory and seized Heretic's End. To reopen the lifeline to Morning Star's ice reserves, the Boron have entered a temporary alliance with the Terrans, who have come forward to suppress the anomalous Xenon threat.\n\nGameplay: Pilot a Boron Hydra Regal and protect the salvage ship as it recovers intelligence on a Xenon long-range weapon from a wrecked Guppy carrier. Build ships at the Tactical Production Platform, then command capital ships and fighters in an RTS-style assault on Xenon installations.\nNote: This scenario pays homage to the fifth Allied mission in Command &amp; Conquer: Red Alert 3 and makes extensive use of its soundtrack.</t>
+    <t id="3">You are the Boron ambassador to Earth, trained in Terran military doctrine. In this operation, you serve as tactical officer of the Boron-Terran joint fleet, leading Terran expeditionary firepower and Boron escorts into Watchful Gaze.</t>
     <t id="4">Full Scenario</t>
 
     <t id="13">Ship AI</t>
@@ -307,7 +307,7 @@
     <t id="24">Bluefin Thresher</t>
     <t id="25">TER Syn</t>
     <t id="26">BOR Ray</t>
-    <t id="27">Xenon M0 Gatebreaker</t>
+    <t id="27">Xenon Long-Range Artillery</t>
     <t id="28">Radar Ship</t>
     <t id="29">Xenon Ranging Radar Beta</t>
     <t id="30">Xenon M0 Shield Power Node Alpha</t>
@@ -320,10 +320,10 @@
     <t id="37">Purplefin Katana (Anti-Fighter)</t>
     <t id="38">Mobile Base Packer</t>
     <t id="39">Tactical Production Platform</t>
-    <t id="40">Ledavi's Shark Carrier</t>
-    <t id="41">Intervention Corps Tokyo Carrier</t>
+    <t id="40">Menelaus' Reminiscence</t>
+    <t id="41">TER Intervention Corps Tokyo</t>
     <t id="42">Xenon Jump Navigation Beacon</t>
-    <t id="43">Xenon M0 Gatebreaker Wreck</t>
+    <t id="43">Xenon Long-Range Artillery Wreck</t>
 
     <t id="101">The Boron-Terran joint fleet is assembling in Watchful Gaze.</t>
     <t id="102">The salvage ship is recovering data from a Guppy carrier wreck.</t>
@@ -378,14 +378,14 @@
     <t id="544">The second radar ship has a troublesome capital ship nearby... good thing I managed to call in a favor from the Terrans.</t>
     <t id="545">These Scimitars pair beautifully with plasma. They suit Purplefin perfectly.</t>
 
-    <t id="551">Thank you for the cooperation, Boron friends. We can now investigate the object intruding into the gate network... an M0!</t>
+    <t id="551">Thank you for your cooperation, Boron friends. We can now study the vessel that breached the gate network in detail... an M0!</t>
     <t id="552">Structurally, it is unquestionably an M0, but it carries a long-range anti-ship weapon rather than a planet-killer.</t>
     <t id="553">The I-class ships around it are trouble enough. How many ships did you commit at Nopileos' Memorial?</t>
-    <t id="554">The entire Community fleet went in. Without Kyle Brennan, none of us would still be alive.</t>
+    <t id="554">The entire Commonwealth fleet was committed. Without Kyle Brennan, none of us would still be alive.</t>
     <t id="555">This time you have a full Terran equipment package behind you... but first, there is an unusual energy flow around the M0.</t>
     <t id="556">Something appears to be charging the M0's shields. This has escalated. I must report to the Queen and request deployment of a Tactical Production Platform.</t>
 
-    <t id="561">Her Majesty is certainly committing everything. She even sent one of our Mobile Base Packers.</t>
+    <t id="561">Her Majesty has certainly spared no expense. She even sent one of our Mobile Base Packers.</t>
     <t id="562">A standard base packing cycle takes ten minutes. Deployment is faster, but it still needs five.</t>
     <t id="563">That is your assignment. The Tactical Production Platform must deploy without interruption.</t>
     <t id="564">Once complete, it will let us temporarily produce most ships from frigates through capital ships.</t>
@@ -400,21 +400,21 @@
     <t id="573">No wonder the Terrans get so jumpy when they keep dealing with beasts like these every day.</t>
     <t id="574">The Xenon assault is far more intense than expected. It seems we must enter the field ourselves.</t>
     <t id="575">These two carriers can repair your frigates and serve as the core of our positional defence.</t>
-    <t id="576">So this is the Tactical Production Platform you erected in such a short time. It would suit the Intervention Corps quite well on a deep expedition.</t>
-    <t id="577">Hardship forced it out of us. Back in the Provinces Adrift days, the Boron migrated like this before every water source.</t>
+    <t id="576">So this is the Tactical Production Platform you deployed at such short notice. It would serve the Intervention Corps well on a deep-space expedition.</t>
+    <t id="577">Necessity taught us how. During the Provinces Adrift era, the Boron moved from one water source to the next in much the same way.</t>
     <t id="578">This solar power plant should be one of the Xenon's power-harvesting facilities.</t>
-    <t id="579">With microwave energy transmission, they can project a near-impenetrable shield over the M0 and its escort screen.</t>
+    <t id="579">With microwave energy transmission, they can project a near-impenetrable iron curtain around the M0 and its escorts.</t>
     <t id="580">Our analysis suggests the two solar plants back each other up, and both are heavily guarded.</t>
-    <t id="581">In that case, we will have to destroy both solar plants simultaneously.</t>
+    <t id="581">If we fail to destroy them together, the Xenon will concentrate their defences around the surviving plant. We need to take both down at the same time.</t>
     <t id="582">The Xenon use Heretic's End's rich mineral resources to produce more ships.</t>
     <t id="583">If we can destroy these facilities, we can greatly weaken the Xenon offensive.</t>
     <t id="584">The Xenon shipyard is down. Now every Xenon capital ship they lose is gone for good.</t>
     <t id="585">That should put an end to the Xenon small craft swarming us.</t>
     <t id="586">Long-range radar shows the Xenon are reinforcing the second solar power plant.</t>
     <t id="587">Every family has its troubles... Still, our survey fleet did manage to uncover something useful.</t>
-    <t id="588">We completed a trade with the Terrans: mobile-base packing technology in exchange for kha'ak alloy extraction technology.</t>
-    <t id="589">Kha'ak alloy can substitute for any raw material you lack, whether it is unique to the Community or to Terran production.</t>
-    <t id="590">We installed the technology aboard the Dolphins. For every Dolphin you retain, the base receives 500 units of kha'ak alloy per minute.</t>
+    <t id="588">We struck a deal with the Terrans: mobile-base packing technology in exchange for Claytronics extraction technology.</t>
+    <t id="589">Claytronics can substitute for any material you are missing, whether it is unique to Commonwealth or Terran production.</t>
+    <t id="590">We installed the technology aboard the Dolphins. For every Dolphin you own, the base receives 500 units of Claytronics per minute.</t>
     <t id="591">The M0's iron curtain is down! All ships, attack!</t>
     <t id="592">The Xenon are getting desperate. They are teleporting fleets in from all over.</t>
     <t id="593">You mean... these Xenon... can teleport?</t>
@@ -438,5 +438,24 @@
     <t id="1008">Mobile Base Packer Hull</t>
     <t id="1009">The Mobile Base Packer was destroyed and the Tactical Production Platform could not deploy.</t>
     <t id="1010">The Tactical Production Platform was destroyed, and the joint fleet lost its forward base.</t>
+    <t id="1011">Xenon Capital Ships Destroyed</t>
+    <t id="1012">Each registered Xenon L/XL capital ship destroyed in combat adds 10 points. Scripted cleanup does not count.</t>
+    <t id="1013">Scenario Time</t>
+    <t id="1014">Time Score</t>
+    <t id="1015">A time of 40 minutes or less scores 200; 140 minutes or more scores 0; times in between are mapped linearly.</t>
+    <t id="1016">Final Score</t>
+    <t id="1017">The final score combines Xenon capital-ship kills, time, and the Tactical Production Platform's remaining hull.</t>
+    <t id="1018">Tactical Production Platform Hull</t>
+    <t id="1019">The platform's remaining hull from 0% to 100% maps directly to 0 to 100 points.</t>
+  </page>
+  <page id="899903" title="Gatefall Chronicles" descr="Gatefall Chronicles campaign 05" voice="no">
+    <t id="1">Gatefall 05: Judgement Day</t><t id="2">Infiltrate Argon space, deploy a strategic anchor and bring a Second Fleet production node online.</t><t id="3">Phase 0–4 vertical slice. Completion intentionally awards zero stars.</t><t id="4">Phase 4 Preview</t>
+    <t id="10">Hatikvah's Choice</t><t id="11">A campaign-authored strategic theatre.</t><t id="12">Argon Prime</t><t id="13">Hatikvah's Faith</t><t id="14">Nopileos Memorial</t><t id="15">Second Fleet Command Core</t><t id="20">Xenon F</t><t id="21">Xenon CPU Ship</t><t id="31">Argon Wharf</t><t id="32">Argon Shipyard</t><t id="33">Argon Administration Centre</t><t id="34">Strategic Anchor</t>
+    <t id="101">Pass through the Argon expedition review.</t><t id="102">Cross Argon Prime without being destroyed.</t><t id="103">Deploy the first strategic anchor and initialise the manufacturing chain.</t>
+    <t id="201">Assemble 1 Xenon I</t><t id="202">Assemble 2 Xenon K</t><t id="203">Assemble 10 Xenon PE</t><t id="204">Assemble 10 Xenon B</t><t id="205">Assemble 20 Xenon F</t><t id="206">Assemble 30 Xenon M</t>
+    <t id="211">Accepting this production order removes all other orders. The selected ships appear near the CPU ship immediately. New orders become available after two minutes.</t>
+    <t id="301">Judgement Day</t><t id="302">Establish the first Second Fleet strategic anchor inside Argon space.</t><t id="311">Evade Argon reconnaissance and reach the Argon Prime transit point.</t><t id="312">Cross Argon Prime.</t><t id="313">Cross Hatikvah's Faith.</t><t id="314">Reach the Nopileos Memorial anchor point.</t><t id="315">Complete three CPU-ship production orders.</t>
+    <t id="501">Supervisor instance online. Continuity verified. Establish the first strategic anchor.</t><t id="511">The Argon northern expedition is departing under full public review.</t><t id="512">Its confidence has emptied the core while preserving the appearance of strength.</t><t id="521">Argon Prime identified. Shipbuilding and administrative targets recorded.</t><t id="522">Transit to Hatikvah's Faith complete. Maintain low power.</t><t id="531">Nopileos Memorial ahead. Proceed to the anchor point.</t><t id="541">Strategic anchor deployed. Correcting the failure recorded at this monument.</t><t id="551">CPU ship authorised. Complete three assembly orders to verify the manufacturing chain.</t><t id="552">Assembly order complete.</t>
+    <t id="1001">Phase 4 Preview Complete</t><t id="1002">Production orders completed</t><t id="1003">This preview ends after the manufacturing tutorial and intentionally awards zero score.</t>
   </page>
 </language>
