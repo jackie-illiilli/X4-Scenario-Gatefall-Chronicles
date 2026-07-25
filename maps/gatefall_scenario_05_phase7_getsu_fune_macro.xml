@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<macros>
+  <!-- Phase 7 sandbox reconstruction: Getsu Fune -->
+  <macro name="gatefall_scenario_05_phase7_zone001_cluster_48_sector001_macro" class="zone">
+    <component ref="standardzone" />
+    <connections>
+      <connection name="connection_ClusterGate048To100" ref="gates">
+        <offset>
+          <position x="-32271.056640625" y="0" z="13088.626953125" />
+          <quaternion qx="0" qy="0.7071066499" qz="0" qw="0.7071068883" />
+        </offset>
+        <macro ref="props_gates_anc_gate_macro" connection="space" />
+      </connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_zone002_cluster_48_sector001_macro" class="zone">
+    <component ref="standardzone" />
+    <connections />
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_zone003_cluster_48_sector001_macro" class="zone">
+    <component ref="standardzone" />
+    <connections>
+      <connection name="connection_ClusterGate048To027" ref="gates">
+        <offset>
+          <position x="10370.056640625" y="0" z="12331.626953125" />
+          <quaternion qx="0" qy="-0.5000000596" qz="0" qw="0.8660253882" />
+        </offset>
+        <macro ref="props_gates_anc_gate_macro" connection="space" />
+      </connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_zone004_cluster_48_sector001_macro" class="zone">
+    <component ref="standardzone" />
+    <connections>
+      <connection name="connection_ClusterGate048To112" ref="gates">
+        <offset>
+          <position x="-17343.056640625" y="0" z="3110.626953125" />
+          <quaternion qx="0" qy="-0.887011" qz="0" qw="0.461749" />
+        </offset>
+        <macro ref="props_gates_anc_gate_macro" connection="space" />
+      </connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_zone005_cluster_48_sector01_macro" class="zone">
+    <component ref="standardzone" />
+    <connections />
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_zone006_cluster_48_sector001_macro" class="zone">
+    <component ref="standardzone" />
+    <connections>
+      <connection name="connection_ClusterGate048To604" ref="gates">
+        <offset>
+          <position x="-41224.856640625" y="0" z="41969.126953125" />
+          <quaternion qx="0" qy="0.7071066499" qz="0" qw="0.7071068883" />
+        </offset>
+        <macro ref="props_gates_anc_gate_macro" connection="space">
+          <properties>
+            <state active="false" />
+          </properties>
+        </macro>
+      </connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_cluster_48_sector001_macro" class="sector">
+    <component ref="standardsector" />
+    <properties>
+      <area jobs="false" />
+    </properties>
+    <connections>
+      <connection name="Zone003_Cluster_48_Sector001_connection" ref="zones">
+        <offset>
+          <position x="-49561.94140625" y="0" z="-104808.9375" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_zone003_cluster_48_sector001_macro" connection="sector" />
+      </connection>
+      <connection name="Zone002_Cluster_48_Sector001_connection" ref="zones">
+        <offset>
+          <position x="34082.6796875" y="0" z="285527.03125" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_zone002_cluster_48_sector001_macro" connection="sector" />
+      </connection>
+      <connection name="Zone001_Cluster_48_Sector001_connection" ref="zones">
+        <offset>
+          <position x="-106998.9140625" y="0" z="77455.4296875" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_zone001_cluster_48_sector001_macro" connection="sector" />
+      </connection>
+      <connection name="Zone006_Cluster_48_Sector001_connection" ref="zones">
+        <offset>
+          <position x="-106998.9140625" y="0" z="186408.4296875" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_zone006_cluster_48_sector001_macro" connection="sector" />
+      </connection>
+      <connection name="Zone004_Cluster_48_Sector001_connection" ref="zones">
+        <offset>
+          <position x="232354.296875" y="0" z="104691.8203125" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_zone004_cluster_48_sector001_macro" connection="sector" />
+      </connection>
+      <connection name="Zone005_Cluster_48_Sector01_connection" ref="zones">
+        <offset>
+          <position x="305554.1875" y="-65343.75" z="-201126.65625" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_zone005_cluster_48_sector01_macro" connection="sector" />
+      </connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_cluster_48_macro" class="cluster">
+    <component ref="standardcluster" />
+    <properties>
+      <area factionlogic="false" />
+    </properties>
+    <connections>
+      <connection name="C48S01_Region001_connection" ref="regions">
+        <macro name="gatefall_scenario_05_phase7_c48s01_region001_macro">
+          <component connection="cluster" ref="standardregion" />
+          <properties>
+            <region ref="audioregion_cluster_48_sector_001" />
+          </properties>
+        </macro>
+      </connection>
+      <connection name="C48S01_Region002_connection" ref="regions">
+        <macro name="gatefall_scenario_05_phase7_c48s01_region002_macro">
+          <component connection="cluster" ref="standardregion" />
+          <properties>
+            <region ref="region_cluster_48_sector_001" />
+          </properties>
+        </macro>
+      </connection>
+      <connection name="Cluster_48_Sector001_connection" ref="sectors">
+        <macro ref="gatefall_scenario_05_phase7_cluster_48_sector001_macro" connection="cluster" />
+      </connection>
+      <connection ref="content">
+        <macro>
+          <component connection="space" ref="Cluster_48" />
+        </macro>
+      </connection>
+    </connections>
+  </macro>
+</macros>

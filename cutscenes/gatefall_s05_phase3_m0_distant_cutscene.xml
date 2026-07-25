@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s05_phase3_m0_distant_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_m0" />
+    <object_group name="targets"><reference object="target_m0" /></object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="M0FleetArrivalWide" environment="scenezone" duration="20000">
+          <camera_orbit reference="target_m0" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="48000" angle="-18" elevation="12" />
+            <end distance="45000" angle="-8" elevation="13" time="19000" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

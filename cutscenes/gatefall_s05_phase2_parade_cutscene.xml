@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s05_phase2_parade_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_builder_first" />
+    <object_group name="targets">
+      <reference object="target_builder_first" />
+      <reference object="target_builder_last" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <!-- A level, non-orbiting translation down the western construction-ship column. -->
+        <shot name="SecondFleetBuilders" environment="scenezone" duration="18000">
+          <camera_flyfromto reference="target_builder_first" distance="1900"
+                            flyto_reference="target_builder_last" flyto_distance="1900"
+                            interpolation="smooth" time_firstobject="2000" time_fly="14000"
+                            cycle="none" orient_to="object"
+                            orbit1_yaw_start="90" orbit1_yaw_end="90" orbit1_elevation="5"
+                            orbit2_yaw_start="90" orbit2_yaw_end="90" orbit2_pitch="5" />
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

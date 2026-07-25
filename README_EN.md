@@ -2,27 +2,26 @@
 
 One-line summary: Gatefall Chronicles is an original hidden Timelines campaign for X4, built around anomalous Xenon jump technology, a collapsing gate front, and a chain of desperate alliances forged under extinction-level pressure.
 
-The current public build contains three scenarios that can be played through to their results screens:
+The current public build contains four scenarios that can be played through to their results screens:
 
 - `Gatefall 01: Under the Surface`
 - `Gatefall 02: Passing the Buck`
 - `Gatefall 04: In the Same Boat`
+- `Gatefall 05: Judgement Day`
 
 Chinese version: [README.md](README.md)
 
-## Latest Update: In the Same Boat
+## Latest Update: Judgement Day
 
-This update adds the complete fourth scenario, `Gatefall 04: In the Same Boat`:
+This update adds the complete fifth scenario, `Gatefall 05: Judgement Day`:
 
-- Pilot a Boron Hydra Regal and protect a salvage ship recovering intelligence on a Xenon long-range weapon.
-- Enter Heretic's End with a Boron–Terran joint fleet and destroy two Xenon radar ships and their escorts.
-- Cover a Mobile Base Packer and gain control of a player-owned Tactical Production Platform.
-- Build a fleet using S/M and L shipyards, authorised blueprints, Dolphin supply mechanics, and a renewable Claytronics resource loop.
-- Destroy the Xenon shipyard and wharf through independent secondary objectives to weaken recurring enemy reinforcements.
-- Eliminate both M0 shield power nodes, then launch the final assault on the Xenon M0 long-range artillery ship.
-- Experience new cutscenes, dynamic music, explicit failure conditions, detailed scoring, and a full one-to-five-star rating system.
-
-The update also fixes a range of Scenario 04 issues, including inactive Xenon fleets, reinforcement loops stopping after their first wave, objectives failing to advance, invulnerability states not clearing, and score details missing from the results screen.
+- Pilot a Xenon F through an Argon expeditionary fleet review and infiltrate Argon Prime.
+- Evade identification by an Argon security scout, compromise the communications and power hubs, and deploy a strategic beacon in Nopileos' Memorial.
+- Take command of a transmitted Xenon CPU Ship and use repeatable mission orders to assemble I, K, PE, B, and F units in a pseudo-RTS production system.
+- Intercept twelve Argon construction ships, destroy the Communications Hub within ten minutes, and bring down the shipyard, wharf, and Administrative Centre.
+- Deploy a defence station at gate A and fight three returning expeditionary waves under Commander Syme.
+- Watch four successful strikes unfold in Kingdom End, Profit Center Alpha, Trinity Sanctum III, and Zyarth's Dominion IV, followed by the failed Solar System beacon observed from Getsu Fune.
+- Experience full Chinese and English subtitles, multi-stage cutscenes, custom music, explicit failure conditions, detailed scoring, and one-to-five-star ratings.
 
 ## Requirements
 
@@ -98,6 +97,17 @@ Status: Complete scenario, fully playable with end-of-scenario results
 
 Key features: large fleet battles, player shipyards, renewable resources, independent secondary objectives, recurring enemy reinforcements, custom music, full cutscenes, failure conditions, and five-star scoring.
 
+### Scenario 05: Judgement Day
+
+Status: Complete scenario, fully playable with end-of-scenario results
+
+- Infiltrate Argon space from a Xenon perspective, compromise communications and power infrastructure, and deploy a strategic jump beacon.
+- Command a Xenon CPU Ship and repeatedly assemble fleets through mission orders instead of a conventional player shipyard.
+- Assault the construction ships, Communications Hub, shipyard, wharf, and Administrative Centre in Argon Prime.
+- Fortify a gate, destroy three waves of the returning Argon expedition, and witness four Xenon strikes followed by the failed beacon at Getsu Fune.
+
+Key features: infiltration and identification evasion, mission-driven pseudo-RTS production, CPU Ship command, large station assaults, gate defence, a multi-sector finale, custom music, failure conditions, and five-star scoring.
+
 Note: The released scenarios currently use Chinese and English subtitles and do not include voice acting.
 
 ## Campaign Progress
@@ -108,21 +118,22 @@ Note: The released scenarios currently use Chinese and English subtitles and do 
 | 02       | Passing the Buck     | Argon remote command, defence and recon, redirecting the Xenon offensive into ZYA territory | Complete campaign demo                     |
 | 03       | Escape Alive         | Zyarth evacuation escort through fallen sectors                                             | Story details not locked; paused           |
 | 04       | In the Same Boat     | Boron–Terran offensive through Heretic's End culminating in the destruction of a Xenon M0  | Complete scenario                          |
-| 05       | Judgement Day        | Xenon infiltration of Argon space and deployment of a Second Fleet production node          | Phase 0–4 development preview; unreleased |
+| 05       | Judgement Day        | Xenon infiltration, pseudo-RTS production, the assault on Argon Prime, and a gate battle     | Complete scenario                          |
 | 06       | Last Stand           | Trinity defence of seed ships escaping towards the Sol system                               | Concept stage                              |
 | 07       | A Faint Hope         | Terran defence of the Sol approach and a deep strike towards Savage Spur                    | Concept stage                              |
 | 08       | Crime and Punishment | Multi-faction counteroffensive into Savage Spur I to destroy the Xenon jump facility        | Concept stage                              |
 
 ## Notes
 
-- All three released scenarios can be played independently from start to finish and produce scored results.
-- Scenario 05 is currently only a development preview and does not represent its final story, flow, or quality.
+- All four released scenarios can be played independently from start to finish and produce scored results.
 - The mod uses the hidden Timelines scenario interface and does not replace the official Timelines storyline.
 - Development is ongoing. Later scenarios, presentation, art, balance, and localization will continue to evolve.
 
 ## Tribute
 
 The structure and presentation of `Gatefall 04: In the Same Boat` pay tribute to the fifth Allied mission from Command & Conquer: Red Alert 3, `North Sea: The Unfathomable Fortress`. The scenario also makes extensive use of the Red Alert 3 original soundtrack, recreating the atmosphere and pacing of that classic mission through X4 fleet combat, base construction, and multi-stage objectives.
+
+`Gatefall 05: Judgement Day` pays tribute to Epsilon Mission 13, `The Conqueror`, from `Mental Omega 3.3.6`, a mod for Command & Conquer: Red Alert 2. It also uses music composed by Black Ice 9 for the Epsilon faction.
 
 ## Credits
 

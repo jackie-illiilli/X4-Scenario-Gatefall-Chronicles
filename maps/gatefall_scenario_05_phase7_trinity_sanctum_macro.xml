@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<macros>
+  <!-- Phase 7 sandbox reconstruction: Trinity Sanctum III -->
+  <macro name="gatefall_scenario_05_phase7_highway01_cluster_18_sector001_macro" class="highway">
+    <component ref="standardzonehighway" />
+    <connections>
+      <connection ref="entrypoint">
+        <offset>
+          <position x="2352.0363769531" y="0" z="-74158.5703125" />
+        </offset>
+      </connection>
+      <connection ref="exitpoint">
+        <offset>
+          <position x="2408.7492675781" y="0" z="104684.8125" />
+        </offset>
+      </connection>
+    </connections>
+    <properties>
+      <boundaries>
+        <boundary class="splinetube">
+          <splineposition x="2352.03637695313" y="0" z="-74158.5703125" tx="0" ty="0" tz="1" weight="0" inlength="0" outlength="3776.31005859375" />
+          <splineposition x="2352.14916992188" y="0" z="-57741.2109375" tx="-8.34499985558068e-07" ty="0" tz="1" weight="1" inlength="3776.32006835938" outlength="19247.099609375" />
+          <splineposition x="2352.14916992188" y="0" z="0" tx="-1.19200002757225e-07" ty="0" tz="1" weight="1" inlength="19247.099609375" outlength="27003.80078125" />
+          <splineposition x="2352.14916992188" y="0" z="81011.265625" tx="4.72069004899822e-05" ty="0" tz="1" weight="1" inlength="27003.80078125" outlength="5991.89013671875" />
+          <splineposition x="2408.74926757813" y="0" z="104684.8125" tx="-2.76542996289209e-05" ty="0" tz="1" weight="0" inlength="5991.8701171875" outlength="0" />
+          <size r="200" />
+        </boundary>
+      </boundaries>
+      <controls>
+        <linear>
+          <time />
+        </linear>
+        <angular>
+          <roll />
+        </angular>
+      </controls>
+      <configuration ref="ringlocalhighwayconfiguration" ring="1" />
+    </properties>
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_highway02_cluster_18_sector001_macro" class="highway">
+    <component ref="standardzonehighway" />
+    <connections>
+      <connection ref="entrypoint">
+        <offset>
+          <position x="1875.8399658203" y="0" z="105060.5078125" />
+        </offset>
+      </connection>
+      <connection ref="exitpoint">
+        <offset>
+          <position x="1819.1270751953" y="0" z="-73782.875" />
+        </offset>
+      </connection>
+    </connections>
+    <properties>
+      <boundaries>
+        <boundary class="splinetube">
+          <splineposition x="1875.83996582031" y="0" z="105060.5078125" tx="-0.00505391787737608" ty="0" tz="-0.999987244606018" weight="0" inlength="0" outlength="3714.419921875" />
+          <splineposition x="1807.95812988281" y="0" z="88241.046875" tx="-0.0049814130179584" ty="0" tz="-0.999987602233887" weight="1" inlength="3714.42993164063" outlength="29413.69921875" />
+          <splineposition x="1807.95788574219" y="0" z="0" tx="2.49743006861536e-05" ty="0" tz="-1" weight="1" inlength="29413.69921875" outlength="18333.5" />
+          <splineposition x="1807.95812988281" y="0" z="-55000.390625" tx="1.24573998618871e-05" ty="0" tz="-1" weight="1" inlength="18333.5" outlength="4564.47021484375" />
+          <splineposition x="1819.12707519531" y="0" z="-73782.875" tx="-2.97469996439759e-05" ty="0" tz="-1" weight="0" inlength="4564.47021484375" outlength="0" />
+          <size r="200" />
+        </boundary>
+      </boundaries>
+      <controls>
+        <linear>
+          <time />
+        </linear>
+        <angular>
+          <roll />
+        </angular>
+      </controls>
+      <configuration ref="ringlocalhighwayconfiguration" ring="1" />
+    </properties>
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_highway03_cluster_18_sector001_macro" class="highway">
+    <component ref="standardzonehighway" />
+    <connections>
+      <connection ref="entrypoint">
+        <offset>
+          <position x="-19943.140625" y="0" z="-68692.3046875" />
+        </offset>
+      </connection>
+      <connection ref="exitpoint">
+        <offset>
+          <position x="-11176.3916015625" y="0" z="96336.1328125" />
+        </offset>
+      </connection>
+    </connections>
+    <properties>
+      <boundaries>
+        <boundary class="splinetube">
+          <splineposition x="-19943.140625" y="0" z="-68692.3046875" tx="0.999819219112396" ty="0" tz="-0.0190140400081873" weight="0" inlength="0" outlength="11508.7001953125" />
+          <splineposition x="13180.83203125" y="0" z="-60144.8828125" tx="0.873622417449951" ty="0" tz="0.486604422330856" weight="1" inlength="12118.7998046875" outlength="12118.7998046875" />
+          <splineposition x="43513.21484375" y="0" z="-33189.66796875" tx="0.579280316829681" ty="0" tz="0.81512838602066" weight="1" inlength="24368.599609375" outlength="24368.599609375" />
+          <splineposition x="97943.9609375" y="0" z="58989.59765625" tx="0.488624751567841" ty="0" tz="0.872494041919708" weight="1" inlength="21864.30078125" outlength="21864.30078125" />
+          <splineposition x="107613.2109375" y="0" z="81269.8203125" tx="0.0361519753932953" ty="0" tz="0.999346315860748" weight="0" inlength="5842.0498046875" outlength="5842.0498046875" />
+          <splineposition x="99376.3046875" y="0" z="94012.6484375" tx="-0.863993287086487" ty="0" tz="0.503503322601318" weight="0" inlength="4961.5400390625" outlength="4961.5400390625" />
+          <splineposition x="81863.671875" y="0" z="96208.7421875" tx="-0.999675750732422" ty="0" tz="0.0254631042480469" weight="1" inlength="14826.099609375" outlength="14826.099609375" />
+          <splineposition x="10449.9130859375" y="0" z="96335.9609375" tx="-0.999999225139618" ty="0" tz="0.00125503563322127" weight="1" inlength="15506.7001953125" outlength="15506.7001953125" />
+          <splineposition x="-11176.3916015625" y="0" z="96336.1328125" tx="-0.999812066555023" ty="0" tz="-0.019386101514101" weight="0" inlength="1089.34997558594" outlength="0" />
+          <size r="200" />
+        </boundary>
+      </boundaries>
+      <controls>
+        <linear>
+          <time />
+        </linear>
+        <angular>
+          <roll />
+        </angular>
+      </controls>
+      <configuration ring="0" />
+    </properties>
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_zone001_cluster_18_sector001_macro" class="zone">
+    <component ref="standardzone" />
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_zone002_cluster_18_sector001_macro" class="zone">
+    <component ref="standardzone" />
+    <connections>
+      <connection name="connection_ClusterGate018To019" ref="gates">
+        <offset>
+          <position x="28224.74609375" y="0" z="-15643.791015625" />
+          <quaternion qx="0" qy="-0.5" qz="0" qw="0.8660253882" />
+        </offset>
+        <macro ref="props_gates_anc_gate_macro" connection="space" />
+      </connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_zone003_cluster_18_sector001_macro" class="zone">
+    <component ref="standardzone" />
+    <connections>
+      <connection ref="Highway02Connection01_gate">
+        <offset>
+          <position x="-423.5193786621" y="0" z="30347.1328125" />
+        </offset>
+      </connection>
+      <connection ref="Highway01Connection02_gate">
+        <offset>
+          <position x="576.4806518555" y="0" z="30347.1328125" />
+        </offset>
+      </connection>
+      <connection ref="Highway03Connection02_gate">
+        <offset>
+          <position x="25563.400390625" y="0" z="26574.337890625" />
+        </offset>
+      </connection>
+      <connection name="connection_ClusterGate018To009" ref="gates">
+        <offset>
+          <position x="76.4806289673" y="500" z="30347.1328125" />
+          <quaternion qx="0" qy="-1" qz="0" qw="-1.19e-08" />
+        </offset>
+        <macro ref="props_gates_anc_gate_macro" connection="space" />
+      </connection>
+      <connection name="connection_ClusterGate018To047" ref="gates">
+        <offset>
+          <position x="-16907.455078125" y="500" z="40875.546875" />
+          <quaternion qx="0" qy="-0.9396926165" qz="0" qw="-0.3420200944" />
+        </offset>
+        <macro ref="props_gates_orb_accelerator_01_macro" connection="space" />
+      </connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_zone004_cluster_18_sector001_macro" class="zone">
+    <component ref="standardzone" />
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_zone005_cluster_18_sector001_macro" class="zone">
+    <component ref="standardzone" />
+    <connections>
+      <connection ref="Highway02Connection02_gate">
+        <offset>
+          <position x="335.075378418" y="0" z="-7917.4194335938" />
+        </offset>
+      </connection>
+      <connection ref="Highway01Connection01_gate">
+        <offset>
+          <position x="1335.0754394531" y="0" z="-7917.4194335938" />
+        </offset>
+      </connection>
+      <connection ref="Highway03Connection01_gate">
+        <offset>
+          <position x="17611.958984375" y="0" z="2124.7253417969" />
+        </offset>
+      </connection>
+      <connection name="connection_ClusterGate018To010" ref="gates">
+        <offset>
+          <position x="835.075378418" y="500" z="-7917.4194335938" />
+          <quaternion qx="0" qy="-8.74e-08" qz="0" qw="1" />
+        </offset>
+        <macro ref="props_gates_anc_gate_macro" connection="space" />
+      </connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_zone006_cluster_18_sector001_macro" class="zone">
+    <component ref="standardzone" />
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_cluster_18_sector001_macro" class="sector">
+    <component ref="standardsector" />
+    <properties>
+      <area jobs="false" />
+    </properties>
+    <connections>
+      <connection name="Zone001_Cluster_18_Sector001_connection" ref="zones">
+        <offset>
+          <position x="-106322.9375" y="0" z="-93529.4140625" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_zone001_cluster_18_sector001_macro" connection="sector" />
+      </connection>
+      <connection name="Zone002_Cluster_18_Sector001_connection" ref="zones">
+        <offset>
+          <position x="130040.6171875" y="0" z="34803.94921875" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_zone002_cluster_18_sector001_macro" connection="sector" />
+      </connection>
+      <connection name="Zone003_Cluster_18_Sector001_connection" ref="zones">
+        <offset>
+          <position x="3129.2189941406" y="0" z="4814.7314453125" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_zone003_cluster_18_sector001_macro" connection="sector" />
+      </connection>
+      <connection name="Zone004_Cluster_18_Sector001_connection" ref="zones">
+        <offset>
+          <position x="122406.828125" y="0" z="-62265.37890625" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_zone004_cluster_18_sector001_macro" connection="sector" />
+      </connection>
+      <connection name="Zone005_Cluster_18_Sector001_connection" ref="zones">
+        <offset>
+          <position x="2313.9113769531" y="0" z="-135764.09375" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_zone005_cluster_18_sector001_macro" connection="sector" />
+      </connection>
+      <connection name="Zone006_Cluster_18_Sector001_connection" ref="zones">
+        <offset>
+          <position x="116546.265625" y="0" z="-137467.21875" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_zone006_cluster_18_sector001_macro" connection="sector" />
+      </connection>
+      <connection name="Highway01_Cluster_18_Sector001_connection" ref="zonehighways">
+        <offset>
+          <position x="1296.9503173828" y="0" z="-69522.953125" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_highway01_cluster_18_sector001_macro" connection="sector">
+          <connections>
+            <connection ref="exitpoint">
+              <macro path="../../Zone003_Cluster_18_Sector001_connection" connection="Highway01Connection02_gate" />
+            </connection>
+            <connection ref="entrypoint">
+              <macro path="../../Zone005_Cluster_18_Sector001_connection" connection="Highway01Connection01_gate" />
+            </connection>
+          </connections>
+        </macro>
+      </connection>
+      <connection name="Highway02_Cluster_18_Sector001_connection" ref="zonehighways">
+        <offset>
+          <position x="829.8597412109" y="0" z="-69898.640625" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_highway02_cluster_18_sector001_macro" connection="sector">
+          <connections>
+            <connection ref="entrypoint">
+              <macro path="../../Zone003_Cluster_18_Sector001_connection" connection="Highway02Connection01_gate" />
+            </connection>
+            <connection ref="exitpoint">
+              <macro path="../../Zone005_Cluster_18_Sector001_connection" connection="Highway02Connection02_gate" />
+            </connection>
+          </connections>
+        </macro>
+      </connection>
+      <connection name="Highway03_Cluster_18_Sector001_connection" ref="zonehighways">
+        <offset>
+          <position x="39869.01171875" y="0" z="-64947.06640625" />
+        </offset>
+        <macro ref="gatefall_scenario_05_phase7_highway03_cluster_18_sector001_macro" connection="sector">
+          <connections>
+            <connection ref="exitpoint">
+              <macro path="../../Zone003_Cluster_18_Sector001_connection" connection="Highway03Connection02_gate" />
+            </connection>
+            <connection ref="entrypoint">
+              <macro path="../../Zone005_Cluster_18_Sector001_connection" connection="Highway03Connection01_gate" />
+            </connection>
+          </connections>
+        </macro>
+      </connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_phase7_cluster_18_macro" class="cluster">
+    <component ref="standardcluster" />
+    <properties>
+      <area factionlogic="false" />
+    </properties>
+    <connections>
+      <connection name="Cluster_18_Sector001_connection" ref="sectors">
+        <macro ref="gatefall_scenario_05_phase7_cluster_18_sector001_macro" connection="cluster" />
+      </connection>
+      <connection name="C18S01_Region006_connection" ref="regions">
+        <offset>
+          <position x="63269.515625" y="0" z="97090.7890625" />
+        </offset>
+        <macro name="gatefall_scenario_05_phase7_c18s01_region006_macro">
+          <component connection="cluster" ref="standardregion" />
+          <properties>
+            <region ref="p1_40km_ice_field" />
+          </properties>
+        </macro>
+      </connection>
+      <connection name="C18S01_Region005_connection" ref="regions">
+        <offset>
+          <position x="92525.0234375" y="0" z="90375.65625" />
+        </offset>
+        <macro name="gatefall_scenario_05_phase7_c18s01_region005_macro">
+          <component connection="cluster" ref="standardregion" />
+          <properties>
+            <region ref="p1_40km_ice_field" />
+          </properties>
+        </macro>
+      </connection>
+      <connection name="C18S01_Region002_connection" ref="regions">
+        <offset>
+          <position x="130198.8984375" y="0" z="-86828.921875" />
+        </offset>
+        <macro name="gatefall_scenario_05_phase7_c18s01_region002_macro">
+          <component connection="cluster" ref="standardregion" />
+          <properties>
+            <region ref="p1_40km_hydrogen_field" />
+          </properties>
+        </macro>
+      </connection>
+      <connection name="C18S01_Region001_connection" ref="regions">
+        <offset>
+          <position x="156244.015625" y="0" z="-77858.4609375" />
+        </offset>
+        <macro name="gatefall_scenario_05_phase7_c18s01_region001_macro">
+          <component connection="cluster" ref="standardregion" />
+          <properties>
+            <region ref="p1_40km_asteroid_field" />
+          </properties>
+        </macro>
+      </connection>
+      <connection name="C18S01_Region003_connection" ref="regions">
+        <offset>
+          <position x="166156.84375" y="0" z="-102637.875" />
+        </offset>
+        <macro name="gatefall_scenario_05_phase7_c18s01_region003_macro">
+          <component connection="cluster" ref="standardregion" />
+          <properties>
+            <region ref="p1_40km_methane_field" />
+          </properties>
+        </macro>
+      </connection>
+      <connection name="C18S01_Region004_connection" ref="regions">
+        <offset>
+          <position x="-11983.90234375" y="0" z="-168526.8125" />
+        </offset>
+        <macro name="gatefall_scenario_05_phase7_c18s01_region004_macro">
+          <component connection="cluster" ref="standardregion" />
+          <properties>
+            <region ref="p1_40km_helium_field" />
+          </properties>
+        </macro>
+      </connection>
+      <connection name="C18S01_Region007_connection" ref="regions">
+        <macro name="gatefall_scenario_05_phase7_c18s01_region007_macro">
+          <component connection="cluster" ref="standardregion" />
+          <properties>
+            <region ref="audioregion_cluster_18_sector_001" />
+          </properties>
+        </macro>
+      </connection>
+      <connection ref="content">
+        <macro>
+          <component connection="space" ref="Cluster_18" />
+        </macro>
+      </connection>
+    </connections>
+  </macro>
+</macros>

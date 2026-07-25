@@ -11,6 +11,59 @@
       <sample start="extensions\ego_dlc_timelines\music\x4_timelines_ost_02_redemption" />
     </sound>
 
+    <!-- Gatefall Chronicles mission 05: Phase 1-2 continuous loop. -->
+    <sound id="gfc_music_m05_phase12_soviet_march" description="Gatefall mission 05 Phase 1-2 - Soviet March" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_05\mission_e13_soviet_march" />
+      <volume start="0.72" />
+      <effects><fade in="1.5" out="1.5" /></effects>
+    </sound>
+    <sound id="gfc_music_m05_phase3_opening_gates" description="Gatefall mission 05 Phase 3 reveal - Opening of the Gates" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_05\mission_e13_opening_of_the_gates" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m05_phase3_treachery" description="Gatefall mission 05 Phase 3 assault - Treachery" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_05\mission_e13_treachery" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.5" /></effects>
+    </sound>
+    <sound id="gfc_music_m05_phase3_godsend" description="Gatefall mission 05 Kha'ak capital-ship reveal - Godsend Main" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_05\mission_e17_godsend_main" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.5" /></effects>
+    </sound>
+    <!-- After Godsend Main, MD rotates these measured one-shots without an immediate repeat. -->
+    <sound id="gfc_music_m05_phase3_duality" description="Gatefall mission 05 assault rotation - Duality" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_05\duality" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.5" /></effects>
+    </sound>
+    <sound id="gfc_music_m05_phase3_inside_your_soul" description="Gatefall mission 05 assault rotation - Inside Your Soul" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_05\inside_your_soul" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.5" /></effects>
+    </sound>
+    <sound id="gfc_music_m05_phase3_nine_realms" description="Gatefall mission 05 assault rotation - Nine Realms" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_05\nine_realms" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.5" /></effects>
+    </sound>
+    <sound id="gfc_music_m05_phase3_outbreak" description="Gatefall mission 05 assault rotation - Outbreak" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_05\outbreak" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.5" /></effects>
+    </sound>
+    <sound id="gfc_music_m05_phase3_virus_versus_predator" description="Gatefall mission 05 assault rotation - Virus Versus Predator" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_05\virus_versus_predator" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.5" /></effects>
+    </sound>
+    <sound id="gfc_music_m05_phase5_frostburn" description="Gatefall mission 05 third expedition wave - Frostburn" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_05\frostburn" />
+      <volume start="0.78" />
+      <effects><fade in="1.0" out="1.5" /></effects>
+    </sound>
+
     <!-- Gatefall Chronicles mission 04: authored phase cues. -->
     <sound id="gfc_music_m04_intro_downloading" description="Gatefall mission 04 opening" repeat="-1" is3d="0" preload="0">
       <sample start="extensions\gatefall_chronicles\music\mission_04\downloading" />

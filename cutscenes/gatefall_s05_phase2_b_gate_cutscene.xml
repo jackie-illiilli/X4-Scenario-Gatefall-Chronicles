@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s05_phase2_b_gate_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_gate" />
+    <object_group name="targets">
+      <reference object="target_gate" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="BGateOrbit" environment="scenezone" duration="20000">
+          <camera_orbit reference="target_gate" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="5200" angle="-38" elevation="16" />
+            <end distance="4200" angle="28" elevation="8" time="19000" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

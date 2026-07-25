@@ -1,17 +1,372 @@
 <?xml version="1.0" encoding="utf-8"?>
 <macros>
-  <macro name="gatefall_scenario_05_sector_macro" class="sector"><component ref="standardsector" connection="cluster" /><properties><identification name="{899903,10}" description="{899903,11}" /><area sunlight="1" economy="0.6" security="0.7" /></properties></macro>
-  <macro name="gatefall_scenario_05_argon_prime_sector_macro" class="sector"><component ref="standardsector" connection="cluster" /><properties><identification name="{899903,12}" description="{899903,11}" /><area sunlight="1.2" economy="1" security="1" /></properties></macro>
-  <macro name="gatefall_scenario_05_faith_sector_macro" class="sector"><component ref="standardsector" connection="cluster" /><properties><identification name="{899903,13}" description="{899903,11}" /><area sunlight="0.8" economy="0.4" security="0.4" /></properties></macro>
-  <macro name="gatefall_scenario_05_nopileos_sector_macro" class="sector"><component ref="standardsector" connection="cluster" /><properties><identification name="{899903,14}" description="{899903,11}" /><area sunlight="1.5" economy="0.1" security="0.1" /></properties></macro>
-  <macro name="gatefall_scenario_05_cluster_macro" class="cluster">
-    <component ref="standardcluster" connection="galaxy" /><properties><identification name="{899903,10}" description="{899903,11}" /><area factionlogic="false" /><system><space environment="{1042,12011}" /></system></properties>
+  <!-- Fully scenario-local reconstruction of Hatikvah's Choice (vanilla Cluster 29).
+       Every sector, zone, gate and highway macro has a Gatefall Scenario 05 identity. -->
+
+  <!-- Hatikvah's Choice I: superhighway portals and ordinary zones. -->
+  <macro name="gatefall_scenario_05_cluster_29_sector001_shcon11_zone_macro" class="zone">
+    <component ref="standardzone" connection="sector" />
+    <properties><identification name="{20006,601}" /></properties>
+    <connections><connection ref="SHCon11_gate" /></connections>
+  </macro>
+  <macro name="gatefall_scenario_05_cluster_29_sector001_shcon12_zone_macro" class="zone">
+    <component ref="standardzone" connection="sector" />
+    <properties><identification name="{20006,601}" /></properties>
+    <connections><connection ref="SHCon12_gate" /></connections>
+  </macro>
+  <macro name="gatefall_scenario_05_cluster_29_sector001_zone001_macro" class="zone">
+    <component ref="standardzone" connection="sector" />
+    <properties><identification name="{20006,601}" /></properties>
     <connections>
-      <connection name="choice" ref="sectors"><macro ref="gatefall_scenario_05_sector_macro" connection="cluster" /></connection>
-      <connection name="prime" ref="sectors"><offset><position x="30000000" y="0" z="0" /></offset><macro ref="gatefall_scenario_05_argon_prime_sector_macro" connection="cluster" /></connection>
-      <connection name="faith" ref="sectors"><offset><position x="60000000" y="0" z="0" /></offset><macro ref="gatefall_scenario_05_faith_sector_macro" connection="cluster" /></connection>
-      <connection name="nopileos" ref="sectors"><offset><position x="90000000" y="0" z="0" /></offset><macro ref="gatefall_scenario_05_nopileos_sector_macro" connection="cluster" /></connection>
+      <connection name="connection_ClusterGate029To030" ref="gates">
+        <offset><position x="-31414.802734375" y="0" z="43491.9140625" /><quaternion qx="0" qy="0.8660253286" qz="0" qw="0.5000000596" /></offset>
+        <macro ref="props_anc_gate_01_blocked_macro" connection="space"><properties><identification description="{20001,702}" /></properties></macro>
+      </connection>
     </connections>
   </macro>
-  <macro name="gatefall_scenario_05_galaxy_macro" class="galaxy"><component ref="standardgalaxy" /><connections><connection name="cluster_connection" ref="clusters"><macro ref="gatefall_scenario_05_cluster_macro" connection="galaxy" /></connection></connections></macro>
+  <macro name="gatefall_scenario_05_cluster_29_sector001_zone002_macro" class="zone">
+    <component ref="standardzone" connection="sector" />
+    <properties><identification name="{20006,601}" /></properties>
+    <connections>
+      <connection ref="Highway02Connection01_gate"><offset><position x="14669.11328125" y="0" z="17405.974609375" /></offset></connection>
+      <connection ref="Highway01Connection02_gate"><offset><position x="14669.12890625" y="0" z="16405.990234375" /></offset></connection>
+      <connection name="connection_ClusterGate029To032" ref="gates">
+        <offset><position x="8471.603515625" y="0" z="66695.48046875" /><quaternion qx="0" qy="-1" qz="0" qw="7.55e-08" /></offset>
+        <macro ref="props_anc_gate_01_blocked_macro" connection="space"><properties><identification description="{20001,702}" /></properties></macro>
+      </connection>
+      <connection name="connection_ClusterGate029To008" ref="gates">
+        <offset><position x="14669.11328125" y="500" z="16905.974609375" /><quaternion qx="0" qy="-0.7071068287" qz="0" qw="0.7071067691" /></offset>
+        <macro ref="props_anc_gate_01_blocked_macro" connection="space"><properties><identification description="{20001,702}" /></properties></macro>
+      </connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_cluster_29_sector001_zone003_macro" class="zone">
+    <component ref="standardzone" connection="sector" />
+    <properties><identification name="{20006,601}" /></properties>
+    <connections>
+      <connection ref="Highway01Connection01_gate"><offset><position x="-9223.3662109375" y="0" z="-13045.0361328125" /></offset></connection>
+      <connection ref="Highway02Connection02_gate"><offset><position x="-10089.4013671875" y="0" z="-12545.06640625" /></offset></connection>
+      <connection name="connection_ClusterGate029To014" ref="gates">
+        <offset><position x="-9656.3720703125" y="500" z="-12795.0517578125" /><quaternion qx="0" qy="0.2588191032" qz="0" qw="0.9659258127" /></offset>
+        <macro ref="props_anc_gate_01_blocked_macro" connection="space"><properties><identification description="{20001,702}" /></properties></macro>
+      </connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_cluster_29_sector001_zone004_macro" class="zone"><component ref="standardzone" connection="sector" /><properties><identification name="{20006,601}" /></properties></macro>
+  <macro name="gatefall_scenario_05_cluster_29_sector001_zone005_macro" class="zone"><component ref="standardzone" connection="sector" /><properties><identification name="{20006,601}" /></properties></macro>
+  <macro name="gatefall_scenario_05_cluster_29_sector001_zone006_macro" class="zone"><component ref="standardzone" connection="sector" /><properties><identification name="{20006,601}" /></properties></macro>
+
+  <!-- The two directions of the local ring highway between the Morning Star and Argon Prime gates. -->
+  <macro name="gatefall_scenario_05_cluster_29_sector001_highway01_macro" class="highway">
+    <component ref="standardzonehighway" />
+    <connections>
+      <connection ref="entrypoint"><offset><position x="-178583.15625" y="0" z="-235480.28125" /></offset></connection>
+      <connection ref="exitpoint"><offset><position x="114891.5078125" y="0" z="70760.984375" /></offset></connection>
+    </connections>
+    <properties>
+      <boundaries><boundary class="splinetube">
+        <splineposition x="-178583.15625" y="0" z="-235480.28125" tx="0.455021321773529" ty="0" tz="0.890480577945709" weight="0" inlength="3550.42993164063" outlength="4598.2099609375" />
+        <splineposition x="-165929.53125" y="0" z="-212584.140625" tx="0.445625960826874" ty="0" tz="0.895219266414642" weight="1" inlength="8116.93017578125" outlength="50794" />
+        <splineposition x="-88046.59375" y="0" z="-81569.7734375" tx="0.588665366172791" ty="0" tz="0.808376789093018" weight="1" inlength="51233.80078125" outlength="3341.4599609375" />
+        <splineposition x="-82108.0703125" y="0" z="-73600.765625" tx="0.593387842178345" ty="0" tz="0.804916679859161" weight="0" inlength="3419.5400390625" outlength="7299.06005859375" />
+        <splineposition x="-68680.5234375" y="0" z="-57283.3984375" tx="0.638481795787811" ty="0" tz="0.769636929035187" weight="0" inlength="7562.2998046875" outlength="3542.8701171875" />
+        <splineposition x="-62390.92578125" y="0" z="-49806.44140625" tx="0.641701102256775" ty="0" tz="0.766954839229584" weight="1" inlength="2818.44995117188" outlength="53095.19921875" />
+        <splineposition x="85828.5234375" y="0" z="70771.9453125" tx="0.999855756759644" ty="0" tz="0.0169834326952696" weight="1" inlength="56875.19921875" outlength="5849.509765625" />
+        <splineposition x="114891.5078125" y="0" z="70760.984375" tx="0.999980807304382" ty="0" tz="-0.00619234796613455" weight="0" inlength="6495.4599609375" outlength="77.0070037841797" />
+        <size r="200" />
+      </boundary></boundaries>
+      <controls><linear><time /></linear><angular><roll /></angular></controls>
+      <configuration ref="ringlocalhighwayconfiguration" ring="1" />
+    </properties>
+  </macro>
+  <macro name="gatefall_scenario_05_cluster_29_sector001_highway02_macro" class="highway">
+    <component ref="standardzonehighway" />
+    <connections>
+      <connection ref="entrypoint"><offset><position x="90883.6640625" y="0" z="68680.1484375" /></offset></connection>
+      <connection ref="exitpoint"><offset><position x="-203457.015625" y="0" z="-238061.140625" /></offset></connection>
+    </connections>
+    <properties>
+      <boundaries><boundary class="splinetube">
+        <splineposition x="90883.6640625" y="0" z="68680.1484375" tx="-0.999961316585541" ty="0" tz="-0.00879779271781445" weight="0" inlength="0" outlength="6301.0400390625" />
+        <splineposition x="60249.20703125" y="0" z="68683.046875" tx="-0.999981760978699" ty="0" tz="-0.00603877473622561" weight="1" inlength="6141.60009765625" outlength="60938.19921875" />
+        <splineposition x="-85258.6796875" y="0" z="-45937.8203125" tx="-0.694816708564758" ty="0" tz="-0.719186902046204" weight="1" inlength="55873.6015625" outlength="3019.13989257813" />
+        <splineposition x="-91539.09375" y="0" z="-53429.20703125" tx="-0.638251543045044" ty="0" tz="-0.769827902317047" weight="0" inlength="3317.01000976563" outlength="7088.68994140625" />
+        <splineposition x="-104995.0703125" y="0" z="-69761.859375" tx="-0.634558260440826" ty="0" tz="-0.772875070571899" weight="0" inlength="6694.2099609375" outlength="3132.419921875" />
+        <splineposition x="-110956.3671875" y="0" z="-77716.8671875" tx="-0.598889172077179" ty="0" tz="-0.800831913948059" weight="1" inlength="3313.60009765625" outlength="50235.3984375" />
+        <splineposition x="-187691" y="0" z="-207424.828125" tx="-0.451919287443161" ty="0" tz="-0.892058849334717" weight="1" inlength="50441.1015625" outlength="8525.25" />
+        <splineposition x="-203457.015625" y="0" z="-238061.140625" tx="-0.510480761528015" ty="0" tz="-0.859889149665833" weight="0" inlength="8838.919921875" outlength="0" />
+        <size r="200" />
+      </boundary></boundaries>
+      <controls><linear><time /></linear><angular><roll /></angular></controls>
+      <configuration ref="ringlocalhighwayconfiguration" ring="1" />
+    </properties>
+  </macro>
+
+  <macro name="gatefall_scenario_05_cluster_29_sector001_macro" class="sector">
+    <component ref="standardsector" connection="cluster" />
+    <properties>
+      <identification name="{20004,290011}" description="{20004,290012}" />
+      <sounds><music ref="music_soundtrack_argon" /></sounds>
+      <area sunlight="1.12" economy="0.75" security="0.75" tags="allowrandomanomaly" />
+    </properties>
+    <connections>
+      <connection name="tzoneCluster_29_Sector001SHCon11_GateZone_connection" ref="zones"><offset><position x="200000" y="0" z="168237.359375" /></offset><macro ref="gatefall_scenario_05_cluster_29_sector001_shcon11_zone_macro" connection="sector" /></connection>
+      <connection name="tzoneCluster_29_Sector001SHCon12_GateZone_connection" ref="zones"><offset><position x="200000" y="0" z="158286.40625" /></offset><macro ref="gatefall_scenario_05_cluster_29_sector001_shcon12_zone_macro" connection="sector" /></connection>
+      <connection name="Zone001_Cluster_29_Sector001_connection" ref="zones"><offset><position x="2506.1494140625" y="0" z="25444.236328125" /></offset><macro ref="gatefall_scenario_05_cluster_29_sector001_zone001_macro" connection="sector" /></connection>
+      <connection name="Zone002_Cluster_29_Sector001_connection" ref="zones"><offset><position x="174058.4375" y="0" z="160956.125" /></offset><macro ref="gatefall_scenario_05_cluster_29_sector001_zone002_macro" connection="sector" /></connection>
+      <connection name="Zone003_Cluster_29_Sector001_connection" ref="zones"><offset><position x="-95523.7265625" y="0" z="-115834.1171875" /></offset><macro ref="gatefall_scenario_05_cluster_29_sector001_zone003_macro" connection="sector" /></connection>
+      <connection name="Zone004_Cluster_29_Sector001_connection" ref="zones"><offset><position x="120718.640625" y="0" z="-134575.140625" /></offset><macro ref="gatefall_scenario_05_cluster_29_sector001_zone004_macro" connection="sector" /></connection>
+      <connection name="Highway01_Cluster_29_Sector001_connection" ref="zonehighways">
+        <offset><position x="73836.0625" y="0" z="106601.1328125" /></offset>
+        <macro ref="gatefall_scenario_05_cluster_29_sector001_highway01_macro" connection="sector"><connections>
+          <connection ref="exitpoint"><macro path="../../Zone002_Cluster_29_Sector001_connection" connection="Highway01Connection02_gate" /></connection>
+          <connection ref="entrypoint"><macro path="../../Zone003_Cluster_29_Sector001_connection" connection="Highway01Connection01_gate" /></connection>
+        </connections></macro>
+      </connection>
+      <connection name="Highway02_Cluster_29_Sector001_connection" ref="zonehighways">
+        <offset><position x="97843.890625" y="0" z="109681.9609375" /></offset>
+        <macro ref="gatefall_scenario_05_cluster_29_sector001_highway02_macro" connection="sector"><connections>
+          <connection ref="entrypoint"><macro path="../../Zone002_Cluster_29_Sector001_connection" connection="Highway02Connection01_gate" /></connection>
+          <connection ref="exitpoint"><macro path="../../Zone003_Cluster_29_Sector001_connection" connection="Highway02Connection02_gate" /></connection>
+        </connections></macro>
+      </connection>
+      <connection name="Zone005_Cluster_29_Sector001_connection" ref="zones"><offset><position x="71458.6171875" y="0" z="122953.5546875" /></offset><macro ref="gatefall_scenario_05_cluster_29_sector001_zone005_macro" connection="sector" /></connection>
+      <connection name="Zone006_Cluster_29_Sector001_connection" ref="zones"><offset><position x="-60428.28515625" y="0" z="-42453.796875" /></offset><macro ref="gatefall_scenario_05_cluster_29_sector001_zone006_macro" connection="sector" /></connection>
+    </connections>
+  </macro>
+
+  <!-- Hatikvah's Choice III and both superhighway portal zones. -->
+  <macro name="gatefall_scenario_05_cluster_29_sector002_shcon7_zone_macro" class="zone"><component ref="standardzone" connection="sector" /><properties><identification name="{20006,601}" /></properties><connections><connection ref="SHCon7_gate" /></connections></macro>
+  <macro name="gatefall_scenario_05_cluster_29_sector002_shcon8_zone_macro" class="zone"><component ref="standardzone" connection="sector" /><properties><identification name="{20006,601}" /></properties><connections><connection ref="SHCon8_gate" /></connections></macro>
+  <macro name="gatefall_scenario_05_cluster_29_sector002_zone001_macro" class="zone"><component ref="standardzone" connection="sector" /><properties><identification name="{20006,601}" /></properties></macro>
+  <macro name="gatefall_scenario_05_cluster_29_sector002_zone002_macro" class="zone"><component ref="standardzone" connection="sector" /><properties><identification name="{20006,601}" /></properties></macro>
+  <macro name="gatefall_scenario_05_cluster_29_sector002_zone003_macro" class="zone"><component ref="standardzone" connection="sector" /><properties><identification name="{20006,601}" /></properties></macro>
+
+  <macro name="gatefall_scenario_05_cluster_29_sector002_macro" class="sector">
+    <component ref="standardsector" connection="cluster" />
+    <properties>
+      <identification name="{20004,290021}" description="{20004,290022}" />
+      <resourceareas>
+        <resourcearea amount="2" ref="sphere_medium_helium_medium_veryslow" /><resourcearea amount="2" ref="sphere_medium_hydrogen_medium_veryslow" />
+        <resourcearea amount="1" ref="sphere_small_methane_low_veryslow" /><resourcearea amount="1" ref="sphere_tiny_ore_high_slow" />
+        <resourcearea amount="1" ref="sphere_tiny_ore_medium_average" /><resourcearea amount="1" ref="sphere_tiny_ore_low_fast" />
+        <resourcearea amount="2" ref="sphere_tiny_silicon_high_slow" /><resourcearea amount="3" ref="sphere_tiny_silicon_medium_average" />
+        <resourcearea amount="1" ref="sphere_tiny_silicon_low_fast" /><resourcearea amount="2" ref="sphere_tiny_ice_medium_average" />
+        <resourcearea amount="1" ref="sphere_tiny_ice_low_fast" /><resourcearea amount="1" ref="sphere_tiny_nividium_low_veryslow" />
+      </resourceareas>
+      <area sunlight="0.91" economy="0.75" security="0.75" tags="allowrandomanomaly" />
+    </properties>
+    <connections>
+      <connection name="tzoneCluster_29_Sector002SHCon7_GateZone_connection" ref="zones"><offset><position x="-200000" y="0" z="-40050.78125" /></offset><macro ref="gatefall_scenario_05_cluster_29_sector002_shcon7_zone_macro" connection="sector" /></connection>
+      <connection name="tzoneCluster_29_Sector002SHCon8_GateZone_connection" ref="zones"><offset><position x="-200000" y="0" z="-50000" /></offset><macro ref="gatefall_scenario_05_cluster_29_sector002_shcon8_zone_macro" connection="sector" /></connection>
+      <connection name="Zone001_Cluster_29_Sector002_connection" ref="zones"><offset><position x="-156171.875" y="0" z="-47625" /></offset><macro ref="gatefall_scenario_05_cluster_29_sector002_zone001_macro" connection="sector" /></connection>
+      <connection name="Zone002_Cluster_29_Sector002_connection" ref="zones"><offset><position x="95609.375" y="0" z="-43546.875" /></offset><macro ref="gatefall_scenario_05_cluster_29_sector002_zone002_macro" connection="sector" /></connection>
+      <connection name="Zone003_Cluster_29_Sector002_connection" ref="zones"><offset><position x="119062.5" y="0" z="125664.0625" /></offset><macro ref="gatefall_scenario_05_cluster_29_sector002_zone003_macro" connection="sector" /></connection>
+    </connections>
+  </macro>
+
+  <macro name="gatefall_scenario_05_cluster_29_superhighway001_macro" class="highway">
+    <component ref="standardsechighway" />
+    <connections><connection ref="entrypoint"><offset><position x="-39988500" y="0" z="-13475048" /></offset></connection><connection ref="exitpoint"><offset><position x="39988500" y="0" z="13475047" /></offset></connection></connections>
+    <properties><boundaries><boundary class="splinetube">
+      <splineposition x="-39988500" y="0" z="-13475048" tx="0.947643458843231" ty="0" tz="0.319330275058746" weight="0" inlength="0" outlength="7032970" />
+      <splineposition x="-19994250" y="0" z="-6737524.5" tx="0.947603225708008" ty="0" tz="0.319449752569199" weight="1" inlength="7032970" outlength="7032970" />
+      <splineposition x="0" y="0" z="0" tx="0.947643458843231" ty="0" tz="0.319330334663391" weight="1" inlength="7032970" outlength="7032970" />
+      <splineposition x="19994250" y="0" z="6737523.5" tx="0.947603225708008" ty="0" tz="0.319449752569199" weight="1" inlength="7032970" outlength="7032970" />
+      <splineposition x="39988500" y="0" z="13475047" tx="0.947643458843231" ty="0" tz="0.319330394268036" weight="0" inlength="7032970" outlength="0" /><size r="1000" />
+    </boundary></boundaries><controls><linear><time /></linear><angular><roll /></angular></controls></properties>
+  </macro>
+  <macro name="gatefall_scenario_05_cluster_29_superhighway002_macro" class="highway">
+    <component ref="standardsechighway" />
+    <connections><connection ref="entrypoint"><offset><position x="39988500" y="0" z="13475046" /></offset></connection><connection ref="exitpoint"><offset><position x="-39988500" y="0" z="-13475047" /></offset></connection></connections>
+    <properties><boundaries><boundary class="splinetube">
+      <splineposition x="39988500" y="0" z="13475046" tx="-0.947643458843231" ty="0" tz="-0.319330275058746" weight="0" inlength="0" outlength="7032970" />
+      <splineposition x="19994250" y="0" z="6737522.5" tx="-0.947603225708008" ty="0" tz="-0.319449752569199" weight="1" inlength="7032970" outlength="7032970" />
+      <splineposition x="0" y="0" z="-0.9765625" tx="-0.947643458843231" ty="0" tz="-0.319330275058746" weight="1" inlength="7032970" outlength="7032970" />
+      <splineposition x="-19994250" y="0" z="-6737523.5" tx="-0.947603225708008" ty="0" tz="-0.319449752569199" weight="1" inlength="7032970" outlength="7032970" />
+      <splineposition x="-39988500" y="0" z="-13475047" tx="-0.947643458843231" ty="0" tz="-0.319330394268036" weight="0" inlength="7032970" outlength="0" /><size r="1000" />
+    </boundary></boundaries><controls><linear><time /></linear><angular><roll /></angular></controls></properties>
+  </macro>
+
+  <macro name="gatefall_scenario_05_cluster_29_macro" class="cluster">
+    <component ref="standardcluster" connection="galaxy" />
+    <properties>
+      <identification name="{20003,290001}" description="{20003,290002}" image="enc_cluster29" />
+      <area factionlogic="false" />
+      <system><space environment="{1042,12011}" /><suns><sun class="{1042,13101}" /></suns><planets><planet name="{20003,290001} {20403,102}" class="{1042,14091}" geology="{1042,10011}" atmosphere="{1042,11111}" population="{1042,10011}" settlements="{1042,10011}" part="planet001" /></planets></system>
+    </properties>
+    <connections>
+      <connection name="Cluster_29_Sector001_connection" ref="sectors"><macro ref="gatefall_scenario_05_cluster_29_sector001_macro" connection="cluster" /></connection>
+      <connection name="Cluster_29_Sector002_connection" ref="sectors"><offset><position x="80377000" y="0" z="27158380" /></offset><macro ref="gatefall_scenario_05_cluster_29_sector002_macro" connection="cluster" /></connection>
+      <connection name="SuperHighway001_Cluster_29_connection" ref="sechighways">
+        <offset><position x="40188500" y="0" z="13633334" /></offset>
+        <macro ref="gatefall_scenario_05_cluster_29_superhighway001_macro" connection="cluster"><connections>
+          <connection ref="entrypoint"><macro ref="gatefall_scenario_05_cluster_29_sector001_shcon12_zone_macro" path="../../Cluster_29_Sector001_connection/tzoneCluster_29_Sector001SHCon12_GateZone_connection" connection="exitpoint1" /></connection>
+          <connection ref="exitpoint"><macro ref="gatefall_scenario_05_cluster_29_sector002_shcon8_zone_macro" path="../../Cluster_29_Sector002_connection/tzoneCluster_29_Sector002SHCon8_GateZone_connection" connection="entrypoint1" /></connection>
+        </connections></macro>
+      </connection>
+      <connection name="SuperHighway002_Cluster_29_connection" ref="sechighways">
+        <offset><position x="40188500" y="0" z="13643284" /></offset>
+        <macro ref="gatefall_scenario_05_cluster_29_superhighway002_macro" connection="cluster"><connections>
+          <connection ref="exitpoint"><macro ref="gatefall_scenario_05_cluster_29_sector001_shcon11_zone_macro" path="../../Cluster_29_Sector001_connection/tzoneCluster_29_Sector001SHCon11_GateZone_connection" connection="entrypoint1" /></connection>
+          <connection ref="entrypoint"><macro ref="gatefall_scenario_05_cluster_29_sector002_shcon7_zone_macro" path="../../Cluster_29_Sector002_connection/tzoneCluster_29_Sector002SHCon7_GateZone_connection" connection="exitpoint1" /></connection>
+        </connections></macro>
+      </connection>
+      <connection name="C29S01_Region001_connection" ref="regions"><macro name="gatefall_scenario_05_c29s01_region001_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="audioregion_cluster_29_sector_001" /></properties></macro></connection>
+      <connection name="C29S02_Region012_connection" ref="regions"><offset><position x="80247192" y="0" z="27073088" /></offset><macro name="gatefall_scenario_05_c29s02_region012_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="p1_40km_methane_field" /></properties></macro></connection>
+      <connection name="C29S02_Region001_connection" ref="regions"><offset><position x="80221616" y="0" z="27084740" /></offset><macro name="gatefall_scenario_05_c29s02_region001_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="p1_40km_asteroid_field" /></properties></macro></connection>
+      <connection name="C29S02_Region011_connection" ref="regions"><offset><position x="80212520" y="0" z="27072986" /></offset><macro name="gatefall_scenario_05_c29s02_region011_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="p1_40km_helium_field" /></properties></macro></connection>
+      <connection name="C29S02_Region008_connection" ref="regions"><offset><position x="80503608" y="0" z="27089850" /></offset><macro name="gatefall_scenario_05_c29s02_region008_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="p1_40km_ice_field" /></properties></macro></connection>
+      <connection name="C29S02_Region009_connection" ref="regions"><offset><position x="80495600" y="0" z="27074078" /></offset><macro name="gatefall_scenario_05_c29s02_region009_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="p1_40km_hydrogen_field" /></properties></macro></connection>
+      <connection name="C29S02_Region007_connection" ref="regions"><offset><position x="80483856" y="0" z="27061262" /></offset><macro name="gatefall_scenario_05_c29s02_region007_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="p1_40km_ice_field" /></properties></macro></connection>
+      <connection name="C29S02_Region010_connection" ref="regions"><offset><position x="80505256" y="0" z="27286098" /></offset><macro name="gatefall_scenario_05_c29s02_region010_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="p1_40km_helium_field" /></properties></macro></connection>
+      <connection name="C29S02_Region004_connection" ref="regions"><offset><position x="80377000" y="-20000" z="27158380" /></offset><macro name="gatefall_scenario_05_c29s02_region004_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="region_cluster_29_sector_002" /></properties></macro></connection>
+      <connection name="C29S02_Region013_connection" ref="regions"><offset><position x="80377000" y="-20000" z="27158380" /></offset><macro name="gatefall_scenario_05_c29s02_region013_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="audioregion_cluster_29_sector_002" /></properties></macro></connection>
+      <connection ref="content"><macro><component connection="space" ref="Cluster_29" /></macro></connection>
+    </connections>
+  </macro>
+
+  <!-- Argon Prime: scenario-local copy of the complete Cluster 14 sandbox sector. -->
+  <macro name="gatefall_scenario_05_cluster_14_sector001_zone001_macro" class="zone">
+    <component ref="standardzone" connection="sector" />
+    <connections>
+      <connection ref="Highway02Connection01_gate"><offset><position x="-39482.4921875" y="0" z="-9901.8330078125" /></offset></connection>
+      <connection ref="Highway01Connection02_gate"><offset><position x="-40482.4921875" y="0" z="-9901.8330078125" /></offset></connection>
+      <connection name="connection_ClusterGate014To013" ref="gates"><offset><position x="-39982.49609375" y="500" z="-9901.8251953125" /><quaternion qx="0" qy="0" qz="0" qw="1" /></offset><macro ref="props_anc_gate_01_blocked_macro" connection="space"><properties><identification description="{20001,702}" /></properties></macro></connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_cluster_14_sector001_zone002_macro" class="zone">
+    <component ref="standardzone" connection="sector" />
+    <connections>
+      <connection name="connection_ClusterGate014To007" ref="gates"><offset><position x="-33563.359375" y="0" z="34544.76953125" /><quaternion qx="0" qy="0.8433914185" qz="0" qw="0.537299633" /></offset><macro ref="props_gates_anc_gate_macro" connection="space" /></connection>
+      <connection name="connection_ClusterGate014To705" ref="gates"><offset><position x="-37914.6171875" y="0" z="-40058.72265625" /><quaternion qx="0" qy="0.3007056713" qz="0" qw="0.9537169933" /></offset><macro ref="props_gates_anc_gate_macro" connection="space" /></connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_cluster_14_sector001_zone003_macro" class="zone">
+    <component ref="standardzone" connection="sector" />
+    <connections>
+      <connection ref="Highway01Connection01_gate"><offset><position x="3928.0090332031" y="0" z="11863.6171875" /></offset></connection>
+      <connection ref="Highway02Connection02_gate"><offset><position x="4928.0087890625" y="0" z="11855.560546875" /></offset></connection>
+      <connection ref="Highway03Connection02_gate"><offset><position x="902.4124145508" y="0" z="20513.3828125" /></offset></connection>
+      <connection ref="Highway03Connection01_gate"><offset><position x="-1010.1547241211" y="0" z="20513.3828125" /></offset></connection>
+      <connection name="connection_ClusterGate014To029" ref="gates"><offset><position x="4428.0126953125" y="500" z="11862.2890625" /><quaternion qx="0" qy="-1" qz="0" qw="0" /></offset><macro ref="props_anc_gate_01_blocked_macro" connection="space"><properties><identification description="{20001,702}" /></properties></macro></connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_cluster_14_sector001_zone004_macro" class="zone"><component ref="standardzone" connection="sector" /></macro>
+
+  <macro name="gatefall_scenario_05_cluster_14_sector001_highway02_macro" class="highway">
+    <component ref="standardzonehighway" />
+    <connections><connection ref="entrypoint"><offset><position x="-12353.7021484375" y="0" z="-102809.1015625" /></offset></connection><connection ref="exitpoint"><offset><position x="-12353.7021484375" y="0" z="127184.1640625" /></offset></connection></connections>
+    <properties><boundaries><boundary class="splinetube">
+      <splineposition x="-12353.6416015625" y="0" z="-102809.109375" tx="-7.48399997974047e-07" ty="0" tz="1" weight="0" inlength="0" outlength="6385.490234375" />
+      <splineposition x="-12353.6533203125" y="0" z="-78650.375" tx="3.25799987876962e-07" ty="0" tz="1" weight="1" inlength="6385.47998046875" outlength="35119.1015625" />
+      <splineposition x="-12353.671875" y="0" z="26706.91015625" tx="8.02700014901347e-07" ty="0" tz="1" weight="1" inlength="35119.1015625" outlength="27418.400390625" />
+      <splineposition x="-12353.68359375" y="0" z="108962.09375" tx="2.7099999897473e-06" ty="0" tz="1" weight="1" inlength="27418.400390625" outlength="4407.35986328125" />
+      <splineposition x="-12353.85546875" y="0" z="127190.8984375" tx="-1.27011999211391e-05" ty="0" tz="1" weight="0" inlength="4407.35986328125" outlength="0" /><size r="200" />
+    </boundary></boundaries><controls><linear><time /></linear><angular><roll /></angular></controls><configuration ref="ringlocalhighwayconfiguration" ring="1" /></properties>
+  </macro>
+  <macro name="gatefall_scenario_05_cluster_14_sector001_highway01_macro" class="highway">
+    <component ref="standardzonehighway" />
+    <connections><connection ref="entrypoint"><offset><position x="-5765.8310546875" y="0" z="126268.90625" /></offset></connection><connection ref="exitpoint"><offset><position x="-5765.8310546875" y="0" z="-103732.421875" /></offset></connection></connections>
+    <properties><boundaries><boundary class="splinetube">
+      <splineposition x="-5765.8310546875" y="0" z="126268.90625" tx="3.19049991048814e-06" ty="0" tz="-1" weight="0" inlength="0" outlength="7216.5400390625" />
+      <splineposition x="-5765.72412109375" y="0" z="107119.28125" tx="1.18335001388914e-05" ty="0" tz="-1" weight="1" inlength="4716.5400390625" outlength="27418.400390625" />
+      <splineposition x="-5765.712890625" y="0" z="24864.08984375" tx="1.50999994730228e-07" ty="0" tz="-1" weight="1" inlength="27418.400390625" outlength="35119.1015625" />
+      <splineposition x="-5765.697265625" y="0" z="-80493.1953125" tx="1.1047000043618e-06" ty="0" tz="-1" weight="1" inlength="35119.1015625" outlength="6080.39990234375" />
+      <splineposition x="-5765.8310546875" y="0" z="-103732.421875" tx="-7.85239990364062e-06" ty="0" tz="-1" weight="0" inlength="8579.41015625" outlength="0" /><size r="200" />
+    </boundary></boundaries><controls><linear><time /></linear><angular><roll /></angular></controls><configuration ref="ringlocalhighwayconfiguration" ring="1" /></properties>
+  </macro>
+
+  <macro name="gatefall_scenario_05_cluster_14_sector001_macro" class="sector">
+    <component ref="standardsector" connection="cluster" />
+    <properties><identification name="{20004,140011}" description="{20004,140012}" /><area sunlight="1" economy="0.75" security="0.75" tags="allowrandomanomaly" /><worlds><world part="planet001c" /></worlds></properties>
+    <connections>
+      <connection name="Zone001_Cluster_14_Sector001_connection" ref="zones"><offset><position x="89982.4921875" y="0" z="-100098.1640625" /></offset><macro ref="gatefall_scenario_05_cluster_14_sector001_zone001_macro" connection="sector" /></connection>
+      <connection name="Zone002_Cluster_14_Sector001_connection" ref="zones"><offset><position x="-57062.328125" y="0" z="61362.80859375" /></offset><macro ref="gatefall_scenario_05_cluster_14_sector001_zone002_macro" connection="sector" /></connection>
+      <connection name="Zone003_Cluster_14_Sector001_connection" ref="zones"><offset><position x="45571.9921875" y="0" z="108137.7109375" /></offset><macro ref="gatefall_scenario_05_cluster_14_sector001_zone003_macro" connection="sector" /></connection>
+      <connection name="Highway02_Cluster_14_Sector001_connection" ref="zonehighways"><offset><position x="62853.703125" y="0" z="-7190.8930664062" /></offset><macro ref="gatefall_scenario_05_cluster_14_sector001_highway02_macro" connection="sector"><connections><connection ref="entrypoint"><macro path="../../Zone001_Cluster_14_Sector001_connection" connection="Highway02Connection01_gate" /></connection><connection ref="exitpoint"><macro path="../../Zone003_Cluster_14_Sector001_connection" connection="Highway02Connection02_gate" /></connection></connections></macro></connection>
+      <connection name="Highway01_Cluster_14_Sector001_connection" ref="zonehighways"><offset><position x="55265.83203125" y="0" z="-6267.576171875" /></offset><macro ref="gatefall_scenario_05_cluster_14_sector001_highway01_macro" connection="sector"><connections><connection ref="exitpoint"><macro path="../../Zone001_Cluster_14_Sector001_connection" connection="Highway01Connection02_gate" /></connection><connection ref="entrypoint"><macro path="../../Zone003_Cluster_14_Sector001_connection" connection="Highway01Connection01_gate" /></connection></connections></macro></connection>
+      <connection name="Zone004_Cluster_14_Sector001_connection" ref="zones"><offset><position x="50742.0078125" y="0" z="5897.970703125" /></offset><macro ref="gatefall_scenario_05_cluster_14_sector001_zone004_macro" connection="sector" /></connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_cluster_14_macro" class="cluster">
+    <component ref="standardcluster" connection="galaxy" />
+    <properties><identification name="{20003,140001}" description="{20003,140002}" image="enc_cluster14" /><sounds><music ref="music_soundtrack_argon" /></sounds><area factionlogic="false" /><system><space environment="{1042,12011}" /><suns><sun class="{1042,13021}" /></suns><planets><planet name="{20003,140001}" class="{1042,14101}" geology="{1042,15131}" atmosphere="{1042,11071}" population="{1042,10021}" maxpopulation="8524100000" settlements="{1042,16051}" part="planet001c"><moons><moon name="{20005,1050}" geology="{1042,15071}" atmosphere="{1042,11081}" population="{1042,16011}" settlements="{1042,10011}" part="sphere003" /></moons></planet></planets></system></properties>
+    <connections>
+      <connection name="Cluster_14_Sector001_connection" ref="sectors"><macro ref="gatefall_scenario_05_cluster_14_sector001_macro" connection="cluster" /></connection>
+      <connection name="C14S01_Region001_connection" ref="regions"><macro name="gatefall_scenario_05_c14s01_region001_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="region_cluster_14_sector_001" /></properties></macro></connection>
+      <connection name="C14S01_Region002_connection" ref="regions"><macro name="gatefall_scenario_05_c14s01_region002_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="audioregion_cluster_14_sector_001" /></properties></macro></connection>
+      <connection ref="content"><macro><component connection="space" ref="Cluster_14" /></macro></connection>
+    </connections>
+  </macro>
+
+  <!-- The Reach: scenario-local copy of the complete vanilla Cluster 07 sandbox sector. -->
+  <macro name="gatefall_scenario_05_cluster_07_sector001_zone002_macro" class="zone"><component ref="standardzone" connection="sector" /></macro>
+  <macro name="gatefall_scenario_05_cluster_07_sector001_zone001_macro" class="zone"><component ref="standardzone" connection="sector" /></macro>
+  <macro name="gatefall_scenario_05_cluster_07_sector001_zone003_macro" class="zone">
+    <component ref="standardzone" connection="sector" />
+    <connections><connection name="connection_ClusterGate007To014" ref="gates"><offset><position x="37640.83984375" y="0" z="-22841.751953125" /><quaternion qx="0" qy="-0.5" qz="0" qw="0.8660253882" /></offset><macro ref="props_gates_anc_gate_macro" connection="space" /></connection></connections>
+  </macro>
+  <macro name="gatefall_scenario_05_cluster_07_sector001_macro" class="sector">
+    <component ref="standardsector" connection="cluster" />
+    <properties><identification name="{20004,70011}" description="{20004,70012}" /><resourceareas><resourcearea amount="9" ref="sphere_small_ore_high_slow" /><resourcearea amount="7" ref="sphere_tiny_ore_medium_average" /><resourcearea amount="3" ref="sphere_tiny_ore_low_fast" /></resourceareas><area sunlight="3.67" economy="0.5" security="0.25" tags="allowrandomanomaly" /><worlds><world part="planet001c" /></worlds></properties>
+    <connections>
+      <connection name="Zone002_Cluster_07_Sector001_connection" ref="zones"><offset><position x="-869.4458007812" y="0" z="84464.859375" /></offset><macro ref="gatefall_scenario_05_cluster_07_sector001_zone002_macro" connection="sector" /></connection>
+      <connection name="Zone001_Cluster_07_Sector001_connection" ref="zones"><offset><position x="8304.947265625" y="0" z="-124507.3125" /></offset><macro ref="gatefall_scenario_05_cluster_07_sector001_zone001_macro" connection="sector" /></connection>
+      <connection name="Zone003_Cluster_07_Sector001_connection" ref="zones"><offset><position x="173159.984375" y="0" z="6001.0317382812" /></offset><macro ref="gatefall_scenario_05_cluster_07_sector001_zone003_macro" connection="sector" /></connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_cluster_07_macro" class="cluster">
+    <component ref="standardcluster" connection="galaxy" />
+    <properties><identification name="{20003,70001}" description="{20003,70002}" image="enc_cluster07" /><sounds><music ref="music_soundtrack_argon" /></sounds><area factionlogic="false" /><system><space environment="{1042,12011}" /><suns><sun class="{1042,13051}" /></suns><planets><planet name="{20003,70001} {20403,103}" class="{1042,14101}" geology="{1042,15131}" atmosphere="{1042,11071}" population="{1042,10021}" maxpopulation="7160250000" settlements="{1042,16051}" part="planet001c"><moons><moon name="{20003,70001} {20403,103} {20402,1}" geology="{1042,15091}" atmosphere="{1042,11051}" population="{1042,16011}" settlements="{1042,10011}" /></moons></planet></planets></system></properties>
+    <connections><connection name="Cluster_07_Sector001_connection" ref="sectors"><macro ref="gatefall_scenario_05_cluster_07_sector001_macro" connection="cluster" /></connection><connection name="C07S01_Region001_connection" ref="regions"><macro name="gatefall_scenario_05_c07s01_region001_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="audioregion_cluster_07_sector_001" /></properties></macro></connection><connection name="C07S01_Region002_connection" ref="regions"><offset><position x="0" y="-15000" z="0" /></offset><macro name="gatefall_scenario_05_c07s01_region002_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="region_cluster_07_sector_001" /></properties></macro></connection><connection ref="content"><macro><component connection="space" ref="Cluster_07" /></macro></connection></connections>
+  </macro>
+
+  <!-- Nopileos' Memorial: scenario-local copy of the Timelines sandbox addition. -->
+  <macro name="gatefall_scenario_05_cluster_705_sector001_zone004_macro" class="zone"><component ref="standardzone" connection="sector" /><connections><connection name="connection_ClusterGate705To0b" ref="gates"><offset><position x="-42857.7" y="500" z="-13633.59" /><quaternion qx="0" qy="0.7071066" qz="0" qw="0.7071069" /></offset><macro ref="props_anc_gate_01_blocked_macro" connection="space"><properties><identification description="{20001,702}" /></properties></macro></connection></connections></macro>
+  <macro name="gatefall_scenario_05_cluster_705_sector001_zone001_macro" class="zone"><component ref="standardzone" connection="sector" /><connections /></macro>
+  <macro name="gatefall_scenario_05_cluster_705_sector001_zone002_macro" class="zone"><component ref="standardzone" connection="sector" /><connections><connection name="connection_ClusterGate705To014" ref="gates"><offset><position x="32564.56" y="500" z="-18029.35" /><quaternion qx="0" qy="-0.4226183" qz="0" qw="0.9063078" /></offset><macro ref="props_gates_anc_gate_macro" connection="space" /></connection></connections></macro>
+  <macro name="gatefall_scenario_05_cluster_705_sector001_zone003_macro" class="zone"><component ref="standardzone" connection="sector" /><connections><connection name="connection_ClusterGate705To0a" ref="gates"><offset><position x="-44681.45" y="500" z="-39865.01" /><quaternion qx="0" qy="-5.96e-08" qz="0" qw="1" /></offset><macro ref="props_anc_gate_01_blocked_macro" connection="space"><properties><identification description="{20001,702}" /></properties></macro></connection></connections></macro>
+  <macro name="gatefall_scenario_05_cluster_705_sector001_zone005_macro" class="zone"><component ref="standardzone" connection="sector" /><connections /></macro>
+  <macro name="gatefall_scenario_05_cluster_705_sector001_macro" class="sector">
+    <component ref="standardsector" connection="cluster" />
+    <properties><identification name="{20004,7050011}" description="{20004,7050012}" /><resourceareas><resourcearea amount="5" ref="sphere_medium_ore_high_slow" /><resourcearea amount="5" ref="sphere_tiny_ore_medium_average" /><resourcearea amount="2" ref="sphere_tiny_ore_low_fast" /><resourcearea amount="5" ref="sphere_medium_silicon_high_slow" /><resourcearea amount="3" ref="sphere_small_silicon_medium_average" /><resourcearea amount="1" ref="sphere_tiny_silicon_low_fast" /><resourcearea amount="5" ref="sphere_large_ice_high_slow" /><resourcearea amount="6" ref="sphere_small_ice_medium_average" /><resourcearea amount="3" ref="sphere_tiny_ice_low_fast" /><resourcearea amount="3" ref="sphere_small_nividium_verylow_veryslow" /></resourceareas><area sunlight="1.63" economy="0.25" security="0.25" tags="noaggressivespawn" jobs="false" /><worlds><world factor="1" part="part_nopileosmemorial" /></worlds></properties>
+    <connections>
+      <connection name="Zone004_Cluster_705_Sector001_connection" ref="zones"><offset><position x="-127517.8" y="0" z="34255.37" /></offset><macro ref="gatefall_scenario_05_cluster_705_sector001_zone004_macro" connection="sector" /></connection>
+      <connection name="Zone001_Cluster_705_Sector001_connection" ref="zones"><offset><position x="85.55412" y="0" z="115545.4" /></offset><macro ref="gatefall_scenario_05_cluster_705_sector001_zone001_macro" connection="sector" /></connection>
+      <connection name="Zone002_Cluster_705_Sector001_connection" ref="zones"><offset><position x="130142" y="0" z="-16349.69" /></offset><macro ref="gatefall_scenario_05_cluster_705_sector001_zone002_macro" connection="sector" /></connection>
+      <connection name="Zone003_Cluster_705_Sector001_connection" ref="zones"><offset><position x="105554.4" y="0" z="-127903.8" /></offset><macro ref="gatefall_scenario_05_cluster_705_sector001_zone003_macro" connection="sector" /></connection>
+      <connection name="Zone005_Cluster_705_Sector001_connection" ref="zones"><offset><position x="-129500.2" y="0" z="-126969.5" /></offset><macro ref="gatefall_scenario_05_cluster_705_sector001_zone005_macro" connection="sector" /></connection>
+    </connections>
+  </macro>
+  <macro name="gatefall_scenario_05_cluster_705_macro" class="cluster">
+    <component ref="standardcluster" connection="galaxy" />
+    <properties><identification name="{20003,7050001}" description="{20003,7050002}" image="enc_cluster705" /><sounds><music ref="music_dlc_timelines_cluster_nopileos_memorial" /></sounds><area factionlogic="false" /><system><space environment="{1042,12031}" /><suns><sun class="{1042,13091}" /></suns><planets><planet name="{20003,7050001} {20403,101}" class="{1042,14061}" geology="{1042,15111}" atmosphere="{1042,11111}" population="{1042,10011}" settlements="{1042,16011}" part="part_nopileosmemorial"><moons><moon name="{20003,7050001} {20403,101} {20402,1}" geology="{1042,15081}" atmosphere="{1042,10011}" population="{1042,10011}" settlements="{1042,16011}" /></moons></planet></planets></system></properties>
+    <connections>
+      <connection name="Cluster_705_Sector001_connection" ref="sectors"><macro ref="gatefall_scenario_05_cluster_705_sector001_macro" connection="cluster" /></connection>
+      <connection name="C705S01_Region01_connection" ref="regions"><offset><position x="-50000" y="-10000" z="160000" /></offset><macro name="gatefall_scenario_05_c705s01_region01_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="region_cluster_705_sector_001_asteroids_1" /></properties></macro></connection>
+      <connection name="C705S01_Region02_connection" ref="regions"><offset><position x="-150000" y="-15000" z="-100000" /></offset><macro name="gatefall_scenario_05_c705s01_region02_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="region_cluster_705_sector_001_asteroids_2" /></properties></macro></connection>
+      <connection name="C705S01_Region03_connection" ref="regions"><offset><position x="100000" y="-10000" z="-130000" /></offset><macro name="gatefall_scenario_05_c705s01_region03_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="region_cluster_705_sector_001_asteroids_3" /></properties></macro></connection>
+      <connection name="C705S01_Region04_connection" ref="regions"><offset><position x="0" y="-20000" z="0" /></offset><macro name="gatefall_scenario_05_c705s01_region04_macro"><component connection="cluster" ref="standardregion" /><properties><region ref="region_cluster_705_sector_001_nebula_1" /></properties></macro></connection>
+      <connection ref="content"><macro><component ref="cluster_705_v1" connection="space" /></macro></connection>
+    </connections>
+  </macro>
+
+  <macro name="gatefall_scenario_05_galaxy_macro" class="galaxy">
+    <component ref="standardgalaxy" />
+    <connections>
+      <connection name="Cluster_29_connection" ref="clusters"><offset><position x="-60000000" y="0" z="69280000" /></offset><macro ref="gatefall_scenario_05_cluster_29_macro" connection="galaxy" /></connection>
+      <connection name="Cluster_07_connection" ref="clusters"><offset><position x="-105000000" y="0" z="43300000" /></offset><macro ref="gatefall_scenario_05_cluster_07_macro" connection="galaxy" /></connection>
+      <connection name="Cluster_14_connection" ref="clusters"><offset><position x="-90000000" y="0" z="34640000" /></offset><macro ref="gatefall_scenario_05_cluster_14_macro" connection="galaxy" /></connection>
+      <connection name="Cluster_705_connection" ref="clusters"><offset><position x="-120000000" y="0" z="34640000" /></offset><macro ref="gatefall_scenario_05_cluster_705_macro" connection="galaxy" /></connection>
+      <!-- Phase 7 isolated set-piece sectors, positioned at their vanilla sandbox galaxy coordinates. -->
+      <connection name="Phase7_Cluster_606_connection" ref="clusters"><offset><position x="-225000000" y="0" z="129900000" /></offset><macro ref="gatefall_scenario_05_phase7_cluster_606_macro" connection="galaxy" /></connection>
+      <connection name="Phase7_Cluster_34_connection" ref="clusters"><offset><position x="45000000" y="0" z="77940000" /></offset><macro ref="gatefall_scenario_05_phase7_cluster_34_macro" connection="galaxy" /></connection>
+      <connection name="Phase7_Cluster_18_connection" ref="clusters"><offset><position x="75000000" y="0" z="25980000" /></offset><macro ref="gatefall_scenario_05_phase7_cluster_18_macro" connection="galaxy" /></connection>
+      <connection name="Phase7_Cluster_405_connection" ref="clusters"><offset><position x="45000000" y="0" z="147220000" /></offset><macro ref="gatefall_scenario_05_phase7_cluster_405_macro" connection="galaxy" /></connection>
+      <connection name="Phase7_Cluster_48_connection" ref="clusters"><offset><position x="-150000000" y="0" z="51960000" /></offset><macro ref="gatefall_scenario_05_phase7_cluster_48_macro" connection="galaxy" /></connection>
+      <connection name="ClusterGate007To014" ref="destination" path="../Cluster_07_connection/Cluster_07_Sector001_connection/Zone003_Cluster_07_Sector001_connection/connection_ClusterGate007To014"><macro connection="destination" path="../../../../../Cluster_14_connection/Cluster_14_Sector001_connection/Zone002_Cluster_14_Sector001_connection/connection_ClusterGate014To007" /></connection>
+      <connection name="ClusterGate705To014" ref="destination" path="../Cluster_705_connection/Cluster_705_Sector001_connection/Zone002_Cluster_705_Sector001_connection/connection_ClusterGate705To014"><macro connection="destination" path="../../../../../Cluster_14_connection/Cluster_14_Sector001_connection/Zone002_Cluster_14_Sector001_connection/connection_ClusterGate014To705" /></connection>
+    </connections>
+  </macro>
 </macros>

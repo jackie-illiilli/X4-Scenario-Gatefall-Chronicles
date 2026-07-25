@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s05_phase7_station_reveal_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_station" />
+    <object_group name="targets"><reference object="target_station" /></object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="Phase7StationWideOrbit" environment="scenezone" duration="65000">
+          <camera_orbit reference="target_station" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="20000" angle="-55" elevation="15" />
+            <end distance="20000" angle="55" elevation="10" time="64000" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

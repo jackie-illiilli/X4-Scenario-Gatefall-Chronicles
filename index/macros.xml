@@ -3,5 +3,17 @@
   <entry name="gatefall_scenario_01_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_01_galaxy_macro.xml" />
   <entry name="gatefall_scenario_02_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_02_galaxy_macro.xml" />
   <entry name="gatefall_scenario_04_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_04_galaxy_macro.xml" />
+  <!-- Phase 7 set-piece sectors live in separate sandbox-derived map files.
+       Exact entries must precede the broad scenario-05 wildcard below. -->
+  <entry name="gatefall_scenario_05_phase7_cluster_606_macro" value="extensions\gatefall_chronicles\maps\gatefall_scenario_05_phase7_kingdom_end_macro.xml" />
+  <entry name="gatefall_scenario_05_phase7_cluster_606_sector001_macro" value="extensions\gatefall_chronicles\maps\gatefall_scenario_05_phase7_kingdom_end_macro.xml" />
+  <entry name="gatefall_scenario_05_phase7_cluster_34_macro" value="extensions\gatefall_chronicles\maps\gatefall_scenario_05_phase7_profit_center_macro.xml" />
+  <entry name="gatefall_scenario_05_phase7_cluster_34_sector001_macro" value="extensions\gatefall_chronicles\maps\gatefall_scenario_05_phase7_profit_center_macro.xml" />
+  <entry name="gatefall_scenario_05_phase7_cluster_18_macro" value="extensions\gatefall_chronicles\maps\gatefall_scenario_05_phase7_trinity_sanctum_macro.xml" />
+  <entry name="gatefall_scenario_05_phase7_cluster_18_sector001_macro" value="extensions\gatefall_chronicles\maps\gatefall_scenario_05_phase7_trinity_sanctum_macro.xml" />
+  <entry name="gatefall_scenario_05_phase7_cluster_405_macro" value="extensions\gatefall_chronicles\maps\gatefall_scenario_05_phase7_zyarth_dominion_macro.xml" />
+  <entry name="gatefall_scenario_05_phase7_cluster_405_sector001_macro" value="extensions\gatefall_chronicles\maps\gatefall_scenario_05_phase7_zyarth_dominion_macro.xml" />
+  <entry name="gatefall_scenario_05_phase7_cluster_48_macro" value="extensions\gatefall_chronicles\maps\gatefall_scenario_05_phase7_getsu_fune_macro.xml" />
+  <entry name="gatefall_scenario_05_phase7_cluster_48_sector001_macro" value="extensions\gatefall_chronicles\maps\gatefall_scenario_05_phase7_getsu_fune_macro.xml" />
   <entry name="gatefall_scenario_05_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_05_test_galaxy_macro.xml" />
 </index>

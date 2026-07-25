@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s05_phase3_c_gate_distant_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_gate" />
+    <object_group name="targets"><reference object="target_gate" /></object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="CGateFleetDistantReveal" environment="scenezone" duration="24000">
+          <camera_orbit reference="target_gate" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="48000" angle="-22" elevation="12" />
+            <end distance="40000" angle="-5" elevation="14" time="23000" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>
