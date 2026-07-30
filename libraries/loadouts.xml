@@ -400,4 +400,55 @@
       <thruster macro="thruster_gen_l_allround_01_mk3_macro" />
     </virtualmacros>
   </loadout>
+
+  <!--
+    Scenario 03 Phi Squadron Rattlesnake. Equipment mods are applied by the MD after creation,
+    because loadout definitions describe installed equipment but not deterministic workbench mods.
+  -->
+  <loadout id="gatefall_scenario_03_phi_rattlesnake" macro="ship_spl_l_destroyer_01_a_macro">
+    <macros>
+      <engine macro="engine_spl_l_allround_01_mk1_macro" path="../con_engine_03" />
+      <engine macro="engine_spl_l_allround_01_mk1_macro" path="../con_engine_02" />
+      <engine macro="engine_spl_l_allround_01_mk1_macro" path="../con_engine_01" />
+      <weapon macro="weapon_spl_l_destroyer_01_mk1_macro" path="../con_weapon_04" />
+      <weapon macro="weapon_spl_l_destroyer_01_mk1_macro" path="../con_weapon_03" />
+      <weapon macro="weapon_spl_l_destroyer_01_mk1_macro" path="../con_weapon_02" />
+      <weapon macro="weapon_spl_l_destroyer_01_mk1_macro" path="../con_weapon_01" />
+      <shield macro="shield_spl_l_standard_01_mk2_macro" path="../con_shieldgenerator_l_01" />
+    </macros>
+    <groups>
+      <shields macro="shield_spl_m_standard_02_mk2_macro" group="group_back_up_mid" />
+      <shields macro="shield_spl_m_standard_02_mk2_macro" group="group_down_back_mid" />
+      <shields macro="shield_spl_m_standard_02_mk2_macro" group="group_down_back_mid_2" />
+      <shields macro="shield_spl_m_standard_02_mk2_macro" group="group_front_down_mid" />
+      <shields macro="shield_spl_m_standard_02_mk2_macro" group="group_front_up_mid" />
+      <shields macro="shield_spl_m_standard_02_mk2_macro" group="group_mid_down_mid" exact="4" />
+      <shields macro="shield_spl_m_standard_02_mk2_macro" group="group_mid_up_mid" exact="4" />
+      <shields macro="shield_spl_m_standard_02_mk2_macro" group="group_up_back_mid" />
+      <shields macro="shield_spl_m_standard_02_mk2_macro" group="group_up_back_mid_2" />
+
+      <turrets macro="turret_spl_l_plasma_01_mk1_macro" group="group_down_back_mid" weaponmode="attackcapital" />
+      <turrets macro="turret_spl_l_plasma_01_mk1_macro" group="group_mid_down_mid" exact="2" weaponmode="attackcapital" />
+      <turrets macro="turret_spl_l_plasma_01_mk1_macro" group="group_mid_up_mid" exact="2" weaponmode="attackcapital" />
+      <turrets macro="turret_spl_l_plasma_01_mk1_macro" group="group_up_back_mid_2" weaponmode="attackcapital" />
+
+      <turrets macro="turret_spl_m_flak_02_mk1_macro" group="group_down_back_mid_2" exact="2" weaponmode="attackfighters" />
+      <turrets macro="turret_spl_m_flak_02_mk1_macro" group="group_front_down_mid" exact="4" weaponmode="attackfighters" />
+      <turrets macro="turret_spl_m_flak_02_mk1_macro" group="group_front_up_mid" exact="4" weaponmode="attackfighters" />
+      <turrets macro="turret_spl_m_flak_02_mk1_macro" group="group_up_back_mid" exact="2" weaponmode="attackfighters" />
+    </groups>
+    <ammunition>
+      <unit macro="ship_gen_xs_repairdrone_01_a_macro" exact="10" />
+    </ammunition>
+    <software>
+      <software ware="software_dockmk2" />
+      <software ware="software_flightassistmk1" />
+      <software ware="software_scannerlongrangemk2" />
+      <software ware="software_scannerobjectmk2" />
+      <software ware="software_targetmk1" />
+    </software>
+    <virtualmacros>
+      <thruster macro="thruster_gen_l_allround_01_mk3_macro" />
+    </virtualmacros>
+  </loadout>
 </loadouts>

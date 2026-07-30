@@ -2,26 +2,26 @@
 
 One-line summary: Gatefall Chronicles is an original hidden Timelines campaign for X4, built around anomalous Xenon jump technology, a collapsing gate front, and a chain of desperate alliances forged under extinction-level pressure.
 
-The current public build contains four scenarios that can be played through to their results screens:
+The current public build contains five scenarios that can be played through to their results screens:
 
 - `Gatefall 01: Under the Surface`
 - `Gatefall 02: Passing the Buck`
+- `Gatefall 03: Fight for Survival`
 - `Gatefall 04: In the Same Boat`
 - `Gatefall 05: Judgement Day`
 
 Chinese version: [README.md](README.md)
 
-## Latest Update: Judgement Day
+## Latest Update: Fight for Survival
 
-This update adds the complete fifth scenario, `Gatefall 05: Judgement Day`:
+This update completes the third scenario, `Gatefall 03: Fight for Survival`:
 
-- Pilot a Xenon F through an Argon expeditionary fleet review and infiltrate Argon Prime.
-- Evade identification by an Argon security scout, compromise the communications and power hubs, and deploy a strategic beacon in Nopileos' Memorial.
-- Take command of a transmitted Xenon CPU Ship and use repeatable mission orders to assemble I, K, PE, B, and F units in a pseudo-RTS production system.
-- Intercept twelve Argon construction ships, destroy the Communications Hub within ten minutes, and bring down the shipyard, wharf, and Administrative Centre.
-- Deploy a defence station at gate A and fight three returning expeditionary waves under Commander Syme.
-- Watch four successful strikes unfold in Kingdom End, Profit Center Alpha, Trinity Sanctum III, and Zyarth's Dominion IV, followed by the failed Solar System beacon observed from Getsu Fune.
-- Experience full Chinese and English subtitles, multi-stage cutscenes, custom music, explicit failure conditions, detailed scoring, and one-to-five-star ratings.
+- Play as a female Split engineer returning from Family Zhin aboard a failing Asp, then claim the abandoned Rattlesnake `Phi Six` in the ruins of Family Phi.
+- Relieve the Hull Parts Factory, Weapon Component Factory, and the last refugee carrier, `Autumn of Phi`, while searching for your missing parents and joining Phi Squadron.
+- Escort the carrier through Family Phi, Family Valka, Family Zhin, and Family Nhuut while facing Xenon I, K, and H capital ships and recurring reinforcements.
+- Command a squadron of Rattlesnakes, survive the pursuit of the Kha'ak Annihilator `Long Night`, and make a final stand at an abandoned Antimatter Cell Factory.
+- Experience a complete six-phase campaign with Chinese and English subtitles, multi-stage cutscenes, custom music, scripted sacrifices, explicit failure conditions, and five-star scoring.
+- The final score combines the hull of `Autumn of Phi`, Xenon capital-ship kills, the hull of `Phi Six`, and completion time.
 
 ## Requirements
 
@@ -66,7 +66,7 @@ If you have already accessed the official hidden scenarios, the process is essen
 
 ### Scenario 01: Under the Surface
 
-Status: Public demo complete and fully playable with end-of-scenario results
+Status: Complete scenario, fully playable with end-of-scenario results
 
 - Enter the Mists of Artemis with a Terran wingman to deploy a long-range reconnaissance satellite.
 - Discover a destroyed Kha'ak hive and an anomalous spatial-fold signal.
@@ -77,7 +77,7 @@ Key features: frigate combat, capital-ship engine attacks, outpost defence, mult
 
 ### Scenario 02: Passing the Buck
 
-Status: Complete campaign demo, fully playable with end-of-scenario results
+Status: Complete scenario, fully playable with end-of-scenario results
 
 - Play as an Argon rear commander directing HAT's 86th Escort Fleet from Hatikvah's Choice.
 - Use the map for OOS fleet command while responding to overlapping attacks on a freighter, miner, and station.
@@ -85,6 +85,18 @@ Status: Complete campaign demo, fully playable with end-of-scenario results
 - When Argon chooses to sacrifice the 86th, redirect the Xenon capital offensive into Family Zhin to give the fleet a chance to escape.
 
 Key features: station-interior sequences, OOS remote command, multi-front defence, database infiltration, navigation-beacon deployment, and scored results.
+
+### Scenario 03: Fight for Survival
+
+Status: Complete scenario, fully playable with end-of-scenario results
+
+- Play as a female Split engineer returning to Family Phi aboard a disabled Asp and take command of the abandoned Rattlesnake `Phi Six`.
+- Relieve two refugee factories, join Carter, Kat, Jun, Emile, and Jorge, and discover that your parents are aboard `Autumn of Phi`.
+- Escort the refugee carrier through Family Valka and Family Zhin while surviving capital-ship ambushes and recurring Xenon K reinforcements.
+- Evade the Kha'ak Annihilator `Long Night`, rescue civilians in Family Nhuut, and turn an abandoned Antimatter Cell Factory into the final trap.
+- Earn points from the carrier's hull, Phi Six's hull, registered Xenon L/XL kills, and completion time; losing a critical objective immediately produces a zero-star result.
+
+Key features: Rattlesnake destroyer combat, refugee-carrier escort, squadron command, recurring capital-ship reinforcements, a six-phase story, dynamic custom music, explicit failure conditions, and five-star scoring.
 
 ### Scenario 04: In the Same Boat
 
@@ -114,9 +126,9 @@ Note: The released scenarios currently use Chinese and English subtitles and do 
 
 | Scenario | Title                | Main content                                                                                | Status                                     |
 | -------- | -------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------ |
-| 01       | Under the Surface    | Terran reconnaissance, anomalous jump, Savage Spur escape, and outpost defence              | Public demo complete                       |
-| 02       | Passing the Buck     | Argon remote command, defence and recon, redirecting the Xenon offensive into ZYA territory | Complete campaign demo                     |
-| 03       | Escape Alive         | Zyarth evacuation escort through fallen sectors                                             | Story details not locked; paused           |
+| 01       | Under the Surface    | Terran reconnaissance, anomalous jump, Savage Spur escape, and outpost defence              | Complete scenario                          |
+| 02       | Passing the Buck     | Argon remote command, defence and recon, redirecting the Xenon offensive into ZYA territory | Complete scenario                          |
+| 03       | Fight for Survival   | Escort the last Split refugee carrier through Family Phi, Valka, Zhin and Nhuut             | Complete scenario                          |
 | 04       | In the Same Boat     | Boron–Terran offensive through Heretic's End culminating in the destruction of a Xenon M0  | Complete scenario                          |
 | 05       | Judgement Day        | Xenon infiltration, pseudo-RTS production, the assault on Argon Prime, and a gate battle     | Complete scenario                          |
 | 06       | Last Stand           | Trinity defence of seed ships escaping towards the Sol system                               | Concept stage                              |
@@ -125,11 +137,13 @@ Note: The released scenarios currently use Chinese and English subtitles and do 
 
 ## Notes
 
-- All four released scenarios can be played independently from start to finish and produce scored results.
+- All five released scenarios can be played independently from start to finish and produce scored results.
 - The mod uses the hidden Timelines scenario interface and does not replace the official Timelines storyline.
 - Development is ongoing. Later scenarios, presentation, art, balance, and localization will continue to evolve.
 
 ## Tribute
+
+`Gatefall 03: Fight for Survival` pays tribute to `Halo: Reach` and `Halo: Combat Evolved` through its ship names, character names, and story presentation, and features music from both games' original soundtracks.
 
 The structure and presentation of `Gatefall 04: In the Same Boat` pay tribute to the fifth Allied mission from Command & Conquer: Red Alert 3, `North Sea: The Unfathomable Fortress`. The scenario also makes extensive use of the Red Alert 3 original soundtrack, recreating the atmosphere and pacing of that classic mission through X4 fleet combat, base construction, and multi-stage objectives.
 

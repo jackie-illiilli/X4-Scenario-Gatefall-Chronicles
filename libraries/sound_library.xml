@@ -11,6 +11,73 @@
       <sample start="extensions\ego_dlc_timelines\music\x4_timelines_ost_02_redemption" />
     </sound>
 
+    <!-- Gatefall Chronicles mission 03: authored full-campaign Halo soundtrack. -->
+    <sound id="gfc_music_m03_phase1_opening_suite" description="Gatefall mission 03 opening - Opening Suite" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_03\opening_suite" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m03_phase1_perilous_journey" description="Gatefall mission 03 hull-parts battle - Perilous Journey" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_03\perilous_journey" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m03_phase1_under_cover_of_night" description="Gatefall mission 03 Jorge dialogue - Under Cover of Night" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_03\under_cover_of_night" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m03_phase1_rock_anthem" description="Gatefall mission 03 weapon-components battle - Rock Anthem for Saving the World" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_03\rock_anthem_for_saving_the_world" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m03_phase1_truth_and_reconciliation" description="Gatefall mission 03 refugee-carrier battle - Truth and Reconciliation Suite" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_03\truth_and_reconciliation_suite" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m03_phase2_halo" description="Gatefall mission 03 Phase 2 - Halo" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_03\halo" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m03_phase2_the_package" description="Gatefall mission 03 Phase 2 arrival - The Package" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_03\the_package" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m03_phase3_pillar_of_autumn" description="Gatefall mission 03 Phase 3 - The Pillar of Autumn" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_03\the_pillar_of_autumn" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m03_phase3_epilogue" description="Gatefall mission 03 Phase 3 finale - Epilogue" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_03\epilogue" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m03_phase4_new_alexandria" description="Gatefall mission 03 Phase 4 - New Alexandria" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_03\new_alexandria" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m03_phase4_winter_contingency" description="Gatefall mission 03 Phase 4 gate run - Winter Contingency" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_03\winter_contingency" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m03_phase5_oni_sword_base" description="Gatefall mission 03 Phase 5 defence - ONI Sword Base" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_03\oni_sword_base" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m03_phase5_ashes" description="Gatefall mission 03 finale - Ashes (Bonus Track)" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_03\ashes_bonus_track" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+
     <!-- Gatefall Chronicles mission 05: Phase 1-2 continuous loop. -->
     <sound id="gfc_music_m05_phase12_soviet_march" description="Gatefall mission 05 Phase 1-2 - Soviet March" repeat="-1" is3d="0" preload="0">
       <sample start="extensions\gatefall_chronicles\music\mission_05\mission_e13_soviet_march" />

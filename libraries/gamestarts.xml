@@ -71,6 +71,54 @@
         </scores>
       </scenario>
     </gamestart>
+    <gamestart id="gatefall_scenario_03" name="{899904,1}" description="{899904,2}" image="gamestart_scenario_seek_and_destroy" group="11" tags="nosave">
+      <info startyear="3040" startmonth="8" startday="2" />
+      <type name="Timelines Scenario" description="Gatefall Chronicles scenario 03 complete campaign" />
+      <loadingscreen>
+        <text text="{899904,101}" />
+        <text text="{899904,102}" />
+        <text text="{899904,103}" />
+        <info text="{899904,111}" />
+        <info text="{899904,112}" />
+        <info text="{899904,113}" />
+      </loadingscreen>
+      <!--
+        Gate A is the vanilla Cluster 403 Zone003 accelerator at (34289.199, 0, -12465.408)
+        in zone-local coordinates. The start is 7.5 km beyond its mouth, facing away from it,
+        matching the gate-exit setup used by Scenario 01.
+      -->
+      <location galaxy="gatefall_scenario_03_galaxy_macro" zone="gatefall_scenario_03_cluster_403_sector001_zone_003_macro">
+        <position x="27794.01" y="0" z="-16215.41" />
+        <rotation yaw="-120" pitch="0" roll="0" />
+      </location>
+      <player macro="character_player_scenario_combat_split_macro" female="true" money="0" name="{899904,14}">
+        <ship macro="ship_spl_s_fighter_02_a_macro" name="{899904,22}">
+          <!-- The escape craft is intentionally stripped: no engines, shields, weapons, or thrusters. -->
+          <loadout>
+            <macros />
+          </loadout>
+        </ship>
+        <inventory>
+          <ware ware="weapon_gen_spacesuit_repairlaser_01_mk1" amount="1" />
+          <ware ware="software_scannerobjectmk3" amount="1" />
+          <ware ware="engine_gen_spacesuit_01_mk2" amount="1" />
+        </inventory>
+      </player>
+      <universe ventures="false" visitors="false" onlineinventory="false">
+        <jobs enabled="false" />
+        <god enabled="false" />
+        <masstraffic enabled="false" />
+      </universe>
+      <scenario chapter="0" description="{899904,3}">
+        <scores description="{899904,4}">
+          <score value="150" rating="1" />
+          <score value="200" rating="2" />
+          <score value="250" rating="3" />
+          <score value="300" rating="4" />
+          <score value="350" rating="5" />
+        </scores>
+      </scenario>
+    </gamestart>
     <gamestart id="gatefall_scenario_04" name="{899902,1}" description="{899902,2}" image="gamestart_scenario_m0_boss_battle" group="11" tags="nosave">
       <info startyear="3040" startmonth="8" startday="18" />
       <type name="Timelines Scenario" description="Gatefall Chronicles hidden scenario" />

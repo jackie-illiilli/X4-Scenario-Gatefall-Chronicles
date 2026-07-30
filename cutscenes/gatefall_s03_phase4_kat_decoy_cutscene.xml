@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s03_phase4_kat_decoy_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_kat" />
+    <object_group name="targets">
+      <reference object="target_kat" />
+      <reference object="target_carrier" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="KatVolunteersAsDecoy" environment="scenezone" duration="22000">
+          <camera_orbit reference="target_kat" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="2100" angle="180" elevation="3" />
+            <end distance="2700" angle="162" elevation="7" time="21500" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

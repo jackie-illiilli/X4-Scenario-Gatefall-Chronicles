@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s03_phase1_departure_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_carrier" />
+    <object_group name="targets">
+      <reference object="target_carrier" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <!-- Enter the cinematic only when Carter begins the route briefing: close frontal view. -->
+        <shot name="CarrierBriefing" environment="scenezone" duration="18000">
+          <camera_orbit reference="target_carrier" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="1250" angle="-5" elevation="8" />
+            <end distance="1450" angle="4" elevation="9" time="17500" />
+          </camera_orbit>
+        </shot>
+        <!-- On "Move out", rotate front-to-rear and continuously pull away in about three seconds. -->
+        <shot name="SquadDeparture" environment="scenezone" duration="3500">
+          <camera_orbit reference="target_carrier" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="1450" angle="4" elevation="9" />
+            <end distance="5200" angle="176" elevation="12" time="3300" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

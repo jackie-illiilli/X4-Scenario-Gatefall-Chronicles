@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s03_phase4_long_night_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_long_night" />
+    <object_group name="targets">
+      <reference object="target_long_night" />
+      <reference object="target_gate" />
+      <reference object="target_carrier" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="LongNightReturnsThroughNhuutGate" environment="scenezone" duration="24000">
+          <camera_orbit reference="target_long_night" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="10500" angle="-18" elevation="8" />
+            <end distance="7600" angle="12" elevation="5" time="23500" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

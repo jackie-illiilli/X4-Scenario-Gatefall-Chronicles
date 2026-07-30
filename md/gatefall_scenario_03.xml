@@ -1,0 +1,2769 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="Gatefall_Scenario_03" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd">
+  <cues>
+    <!-- Apply the four deterministic exceptional mods requested for every Phi Squadron Rattlesnake. -->
+    <library name="ApplyPhiRattlesnakeMods" purpose="run_actions">
+      <params>
+        <param name="Ship" />
+      </params>
+      <actions>
+        <add_equipment_mods object="$Ship">
+          <ship ware="ware.mod_ship_mass_01_mk3" />
+        </add_equipment_mods>
+        <add_equipment_mods object="$Ship">
+          <engine ware="ware.mod_engine_travelthrust_01_mk3" />
+        </add_equipment_mods>
+        <do_for_each name="$Weapon" in="$Ship.weapons.all.list">
+          <do_if value="$Weapon.grouptag">
+            <add_equipment_mods object="$Ship">
+              <weapon ware="ware.mod_weapon_damage_01_mk3" context="'..'" group="$Weapon.grouptag" />
+            </add_equipment_mods>
+          </do_if>
+          <do_else>
+            <add_equipment_mods object="$Ship">
+              <weapon ware="ware.mod_weapon_damage_01_mk3" macro="$Weapon.macro" />
+            </add_equipment_mods>
+          </do_else>
+        </do_for_each>
+        <do_for_each name="$Shield" in="$Ship.shields.all.list">
+          <do_if value="$Shield.grouptag">
+            <add_equipment_mods object="$Ship">
+              <shield ware="ware.mod_shield_capacity_01_mk3" context="'..'" group="$Shield.grouptag" />
+            </add_equipment_mods>
+          </do_if>
+          <do_else>
+            <add_equipment_mods object="$Ship">
+              <shield ware="ware.mod_shield_capacity_01_mk3" />
+            </add_equipment_mods>
+          </do_else>
+        </do_for_each>
+      </actions>
+    </library>
+
+    <!-- Operational scenario stations need explicit module loadouts because jobs and GOD are disabled. -->
+    <library name="InitialiseSplitStation" purpose="run_actions">
+      <params>
+        <param name="Station" />
+      </params>
+      <actions>
+        <set_module_loadout_level object="$Station" exact="1" />
+        <find_object_component name="$StationModules" object="$Station" class="class.module" multiple="true" />
+        <do_for_each name="$StationModule" in="$StationModules">
+          <generate_loadout result="$StationModuleLoadout" macro="$Station.macro" module="$StationModule.macro" faction="faction.split" level="1.0" variation="0" />
+          <do_if value="$StationModuleLoadout.count">
+            <apply_loadout object="$StationModule" loadout="$StationModuleLoadout.{1}" />
+          </do_if>
+        </do_for_each>
+        <signal_objects object="player.galaxy" param="'init station'" param2="$Station" param3="true" />
+        <!-- Plot stations can be badly damaged but cannot disappear and deadlock an approach objective. -->
+        <set_object_min_hull object="$Station" exact="15" />
+      </actions>
+    </library>
+
+    <cue name="Start" namespace="this" module="gatefall_scenario_03">
+      <conditions>
+        <event_cue_signalled cue="md.Setup.Start" />
+      </conditions>
+      <actions>
+        <set_value name="md.GenericMissions.Manager.$Disabled" exact="true" />
+        <set_value name="$MissionCue" exact="namespace" />
+        <set_value name="$ScenarioEnded" exact="false" />
+        <set_value name="$ScenarioStartTime" exact="player.age" />
+        <set_value name="$ClaimObjectiveActive" exact="false" />
+        <set_value name="$HullApproachActive" exact="false" />
+        <set_value name="$HullCombatActive" exact="false" />
+        <set_value name="$WeaponApproachActive" exact="false" />
+        <set_value name="$WeaponCombatActive" exact="false" />
+        <set_value name="$CarrierApproachActive" exact="false" />
+        <set_value name="$CarrierCombatActive" exact="false" />
+        <set_value name="$Phase1Completed" exact="false" />
+        <set_value name="$Phase2Active" exact="false" />
+        <set_value name="$Phase2InitialCombatActive" exact="false" />
+        <set_value name="$Phase2AmbushActive" exact="false" />
+        <set_value name="$Phase2EscortActive" exact="false" />
+        <set_value name="$Phase2RouteWave1Active" exact="false" />
+        <set_value name="$Phase2RouteWave2Active" exact="false" />
+        <set_value name="$Phase2RouteWave3Active" exact="false" />
+        <set_value name="$Phase3Active" exact="false" />
+        <set_value name="$Phase3EscortActive" exact="false" />
+        <set_value name="$Phase3FinaleActive" exact="false" />
+        <set_value name="$Phase3FinalImpactDone" exact="false" />
+        <set_value name="$Phase3NextReinforcementTime" exact="0" />
+        <set_value name="$Phase4Active" exact="false" />
+        <set_value name="$Phase4CarrierApproachActive" exact="false" />
+        <set_value name="$Phase4GateRunActive" exact="false" />
+        <set_value name="$Phase5Active" exact="false" />
+        <set_value name="$Phase5FactoryApproachActive" exact="false" />
+        <set_value name="$Phase5FactoryDefenceActive" exact="false" />
+        <set_value name="$Phase5WaveNumber" exact="0" />
+        <set_value name="$Phase5NextWaveTime" exact="0" />
+        <set_value name="$Phase5EngineRoomObjectiveActive" exact="false" />
+        <set_value name="$Phase5DetonationDone" exact="false" />
+        <set_value name="$Phase5DetonationAuthorized" exact="false" />
+        <set_value name="$Phase6Active" exact="false" />
+        <set_value name="$XenonCapitalShipsDestroyed" exact="0" />
+        <set_value name="$RescueCraftRetired" exact="false" />
+        <set_value name="$RescueCraft" exact="player.ship" />
+
+        <find_sector name="$FamilyPhi" macro="macro.gatefall_scenario_03_cluster_403_sector001_macro" required="true" />
+        <find_zone name="$GateAZone" macro="macro.gatefall_scenario_03_cluster_403_sector001_zone_003_macro" required="true" />
+        <find_zone name="$GateBZone" macro="macro.gatefall_scenario_03_cluster_403_sector001_zone_002_macro" required="true" />
+        <find_zone name="$GateCZone" macro="macro.gatefall_scenario_03_cluster_403_sector001_zone_005_macro" required="true" />
+        <find_gate name="$GateA" space="$GateAZone" required="true" />
+        <find_gate name="$GateB" space="$GateBZone" required="true" />
+        <find_gate name="$GateC" space="$GateCZone" required="true" />
+
+        <find_sector name="$FamilyValka" macro="macro.gatefall_scenario_03_cluster_400_sector001_macro" required="true" />
+        <find_zone name="$ValkaGateAZone" macro="macro.gatefall_scenario_03_cluster_400_sector001_zone_001_macro" required="true" />
+        <find_zone name="$ValkaGateBZone" macro="macro.gatefall_scenario_03_cluster_400_sector001_zone_004_macro" required="true" />
+        <find_gate name="$ValkaGateA" space="$ValkaGateAZone" required="true" />
+        <find_gate name="$ValkaGateB" space="$ValkaGateBZone" required="true" />
+
+        <find_sector name="$FamilyZhin" macro="macro.gatefall_scenario_03_cluster_401_sector001_macro" required="true" />
+        <find_zone name="$ZhinGateAZone" macro="macro.gatefall_scenario_03_cluster_401_sector001_zone_001_macro" required="true" />
+        <find_zone name="$ZhinGateBZone" macro="macro.gatefall_scenario_03_cluster_401_sector001_zone_005_macro" required="true" />
+        <find_zone name="$ZhinGateCZone" macro="macro.gatefall_scenario_03_cluster_401_sector001_zone_003_macro" required="true" />
+        <find_zone name="$ZhinGateDZone" macro="macro.gatefall_scenario_03_cluster_401_sector001_zone_002_macro" required="true" />
+        <find_gate name="$ZhinGateA" space="$ZhinGateAZone" required="true" />
+        <find_gate name="$ZhinGateB" space="$ZhinGateBZone" required="true" />
+        <find_gate name="$ZhinGateC" space="$ZhinGateCZone" required="true" />
+        <find_gate name="$ZhinGateD" space="$ZhinGateDZone" required="true" />
+
+        <find_sector name="$FamilyNhuut" macro="macro.gatefall_scenario_03_cluster_418_sector001_macro" required="true" />
+        <find_zone name="$NhuutGateAZone" macro="macro.gatefall_scenario_03_cluster_418_sector001_zone_001_macro" required="true" />
+        <find_zone name="$NhuutGateBZone" macro="macro.gatefall_scenario_03_cluster_418_sector001_zone_002_macro" required="true" />
+        <find_gate name="$NhuutGateA" space="$NhuutGateAZone" required="true" />
+        <find_gate name="$NhuutGateB" space="$NhuutGateBZone" required="true" />
+
+        <find_sector name="$ZyarthDominionI" macro="macro.gatefall_scenario_03_cluster_404_sector001_macro" required="true" />
+        <find_zone name="$ZyarthNhuutGateZone" macro="macro.gatefall_scenario_03_cluster_404_sector001_zone_005_macro" required="true" />
+        <find_gate name="$ZyarthNhuutGate" space="$ZyarthNhuutGateZone" required="true" />
+
+        <create_group groupname="$HullAttackers" />
+        <create_group groupname="$WeaponAttackers" />
+        <create_group groupname="$CarrierAttackers" />
+        <create_group groupname="$PhiSquad" />
+        <create_group groupname="$PhiCarrierDefenders" />
+        <create_group groupname="$Phase2InitialEnemies" />
+        <create_group groupname="$Phase2AmbushEnemies" />
+        <create_group groupname="$Phase2RouteEnemies" />
+        <create_group groupname="$Phase3GateBEnemies" />
+        <create_group groupname="$Phase3Reinforcements" />
+        <create_group groupname="$Phase4StationAttackers" />
+        <create_group groupname="$Phase5FactoryAttackers" />
+        <create_group groupname="$ScoreXenonCapitalTargets" />
+
+        <!-- ZYA and the player are forced allies for this isolated scenario. -->
+        <set_faction_relation faction="faction.split" otherfaction="faction.player" value="1.0" />
+        <set_faction_relation faction="faction.player" otherfaction="faction.split" value="1.0" />
+        <set_faction_relation faction="faction.xenon" otherfaction="faction.player" value="faction.xenon.relation.enemy.min" />
+        <set_faction_relation faction="faction.player" otherfaction="faction.xenon" value="faction.xenon.relation.enemy.min" />
+        <set_faction_relation faction="faction.xenon" otherfaction="faction.split" value="faction.xenon.relation.enemy.min" />
+        <set_faction_relation faction="faction.split" otherfaction="faction.xenon" value="faction.split.relation.enemy.min" />
+        <set_faction_relation_locked faction="faction.split" locked="true" />
+        <set_faction_relation_locked faction="faction.player" locked="true" />
+
+        <set_entity_traits entity="player.entity" subtitlename="true" />
+        <set_entity_overrides entity="player.entity" title="'{899904,14}'" />
+        <set_object_name object="$RescueCraft" name="{899904,22}" />
+        <set_object_min_hull object="$RescueCraft" exact="0" />
+
+        <set_known object="$FamilyPhi" known="true" />
+        <set_known object="$FamilyPhi.cluster" known="true" />
+        <set_known object="$GateA" known="true" />
+        <set_known object="$GateB" known="true" />
+        <set_known object="$GateC" known="true" />
+
+        <!--
+          Vanilla gate world positions in Cluster 403:
+            A = (171.288, 0, 81.271) km
+            B = (-120.702, 0, 44.553) km
+            C = (87.573, 0, -157.543) km
+          All authored placements below are the requested gate midpoints or short combat offsets.
+        -->
+        <create_position name="$HullStationPos" space="$FamilyPhi" x="129.430km" y="0km" z="-38.136km" />
+        <create_position name="$HullEnemyPos" space="$FamilyPhi" x="137.430km" y="0km" z="-30.136km" />
+        <create_position name="$JorgePos" space="$FamilyPhi" x="126.430km" y="500m" z="-35.136km" />
+
+        <create_position name="$WeaponStationPos" space="$FamilyPhi" x="25.293km" y="0km" z="62.912km" />
+        <create_position name="$WeaponEnemyPos" space="$FamilyPhi" x="17.293km" y="0km" z="70.912km" />
+        <create_position name="$EmilePos" space="$FamilyPhi" x="28.293km" y="500m" z="59.912km" />
+
+        <create_position name="$CarrierPos" space="$FamilyPhi" x="-16.565km" y="0km" z="-56.495km" />
+        <!-- Mirrored through the carrier from the original (+8 km, +8 km) approach-side spawn. -->
+        <create_position name="$CarrierEnemyPos" space="$FamilyPhi" x="-24.565km" y="0km" z="-64.495km" />
+
+        <!-- Phi Six sits 300 m directly below the escape craft: identical X/Z, offset only on Y. -->
+        <create_position name="$PhiSixSpawnPos" object="$RescueCraft" space="$FamilyPhi" x="0m" y="-300m" z="0m" />
+
+        <!--
+          Family Valka gate world positions:
+            A = (-135.852, 0, -66.269) km
+            B = (127.988, 0, -35.322) km
+          The A->B unit vector is (0.993191, 0, 0.116494), yaw 83.310 degrees.
+          Every Phase 2 landmark below is measured exactly along that gate reference line.
+        -->
+        <create_position name="$Phase2CarrierPos" space="$FamilyValka" x="-129.893330km" y="0km" z="-65.569725km" />
+        <create_position name="$Phase2PlayerPos" space="$FamilyValka" x="-126.913756km" y="0km" z="-65.220242km" />
+        <create_position name="$Phase2AbandonedStationPos" space="$FamilyValka" x="-106.056738km" y="0km" z="-62.773861km" />
+        <create_position name="$Phase2InitialEnemyPos" space="$FamilyValka" x="-102.083972km" y="0km" z="-62.307884km" />
+        <!-- Route force: 1 K at A+70 km, 2 K another 50 km ahead, then 1 I another 60 km ahead. -->
+        <create_position name="$Phase2RouteWave1Pos" space="$FamilyValka" x="-66.329084km" y="0km" z="-58.114088km" />
+        <create_position name="$Phase2RouteWave2Pos" space="$FamilyValka" x="-16.669516km" y="0km" z="-52.289371km" />
+        <create_position name="$Phase2RouteWave3Pos" space="$FamilyValka" x="42.921966km" y="0km" z="-45.299711km" />
+        <create_position name="$Phase2GateBPos" space="$FamilyValka" x="127.987980km" y="0km" z="-35.322068km" />
+
+        <!-- Family Zhin's Valka gate faces +X; these are 5 km and 8 km inside the sector. -->
+        <create_position name="$Phase2ZhinCarrierPos" space="$FamilyZhin" x="-150.744443km" y="0km" z="31.451957km" />
+        <create_position name="$Phase2ZhinPlayerPos" space="$FamilyZhin" x="-147.744443km" y="0km" z="31.451957km" />
+
+        <!--
+          Family Zhin gate world positions:
+            A (Family Valka)      = (-155.744443, 0,   31.451957) km
+            B (Tharka's Cascade) = (  79.559348, 0, -152.934830) km
+            C (Family Nhuut)     = ( 139.185229, 0,   31.451957) km
+            D (Family Kritt)     = ( -18.121698, 0,  144.041535) km
+          The A->C route runs due east, yaw 90 degrees.
+          Gates B and D remain landmarks only: their sandbox destination connections are absent.
+        -->
+        <create_position name="$Phase3CarterVanguardPos" space="$FamilyZhin" x="-125.744443km" y="0km" z="31.451957km" />
+        <create_position name="$Phase3LongNightPos" space="$FamilyZhin" x="-8.279607km" y="0km" z="31.451957km" />
+        <create_position name="$Phase3GateBEnemyPos" space="$FamilyZhin" x="79.559348km" y="0km" z="-144.934830km" />
+        <create_position name="$Phase3GateBPlayerPos" space="$FamilyZhin" x="79.559348km" y="0km" z="-136.934830km" />
+        <create_position name="$Phase3LongNightViewPos" space="$FamilyZhin" x="-8.279607km" y="1km" z="59.451957km" />
+        <create_position name="$Phase3GateCPos" space="$FamilyZhin" x="139.185229km" y="0km" z="31.451957km" />
+        <create_position name="$Phase3CarrierFinalPos" space="$FamilyZhin" x="119.185229km" y="0km" z="31.451957km" />
+        <create_position name="$Phase3LongNightFinalPos" space="$FamilyZhin" x="94.185229km" y="0km" z="31.451957km" />
+        <create_position name="$Phase3JorgeChargePos" space="$FamilyZhin" x="96.185229km" y="0km" z="31.451957km" />
+
+        <!--
+          Family Nhuut gate world positions:
+            A (Family Zhin)         = (-170.853258, 0,  11.654672) km
+            B (Zyarth's Dominion I) = (  23.807775, 0, 155.135703) km
+          Scripted offsets use those gates as the absolute reference frame.
+        -->
+        <create_position name="$Phase4CarrierArrivalPos" space="$FamilyNhuut" x="-170.853258km" y="0km" z="17.654672km" />
+        <create_position name="$Phase4PlayerArrivalPos" space="$FamilyNhuut" x="-167.853258km" y="500m" z="19.654672km" />
+        <create_position name="$Phase4WeaponFactoryPos" space="$FamilyNhuut" x="-170.853258km" y="0km" z="41.654672km" />
+        <create_position name="$Phase4StationEnemyPos" space="$FamilyNhuut" x="-160.853258km" y="0km" z="41.654672km" />
+        <create_position name="$Phase4LongNightGatePos" space="$FamilyNhuut" x="-170.853258km" y="0km" z="11.654672km" />
+        <create_position name="$Phase4KatDecoyPos" space="$FamilyNhuut" x="-170.853258km" y="0km" z="-58.345328km" />
+        <create_position name="$Phase4GateBPos" space="$FamilyNhuut" x="23.807775km" y="0km" z="155.135703km" />
+
+        <!-- The factory is exactly 50 km behind gate B on world Z. -->
+        <create_position name="$Phase5AntimatterFactoryPos" space="$FamilyNhuut" x="23.807775km" y="0km" z="105.135703km" />
+        <create_position name="$Phase5PlayerSafePos" space="$FamilyNhuut" x="53.807775km" y="0km" z="105.135703km" />
+
+        <!-- Zyarth's Dominion I Nhuut-gate world position = (20.143142, 0, -153.902967) km. -->
+        <create_position name="$Phase5CarrierSafePos" space="$ZyarthDominionI" x="20.143142km" y="0km" z="-159.902967km" />
+        <create_position name="$Phase6PlayerPos" space="$ZyarthDominionI" x="24.143142km" y="500m" z="-161.902967km" />
+
+        <create_cue_actor name="$CarterActor" cue="namespace">
+          <select faction="faction.split" race="race.split" tags="tag.commander" />
+          <owner exact="faction.split" />
+          <page exact="899904" />
+          <name name="'{899904,15}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$CarterActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$CarterActor" title="'{899904,15}'" icon="'mission'" />
+
+        <!-- A separate radio-only Carter actor survives the scripted destruction long enough for his final transmission. -->
+        <create_cue_actor name="$CarterFinalActor" cue="namespace">
+          <select faction="faction.split" race="race.split" tags="tag.commander" />
+          <owner exact="faction.split" />
+          <page exact="899904" />
+          <name name="'{899904,15}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$CarterFinalActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$CarterFinalActor" title="'{899904,15}'" icon="'mission'" />
+
+        <create_cue_actor name="$KatActor" cue="namespace">
+          <select faction="faction.split" race="race.split" tags="tag.commander" />
+          <owner exact="faction.split" />
+          <page exact="899904" />
+          <name name="'{899904,16}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$KatActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$KatActor" title="'{899904,16}'" icon="'mission'" />
+
+        <create_cue_actor name="$JunActor" cue="namespace">
+          <select faction="faction.split" race="race.split" tags="tag.commander" />
+          <owner exact="faction.split" />
+          <page exact="899904" />
+          <name name="'{899904,17}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$JunActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$JunActor" title="'{899904,17}'" icon="'mission'" />
+
+        <create_cue_actor name="$EmileActor" cue="namespace">
+          <select faction="faction.split" race="race.split" tags="tag.commander" />
+          <owner exact="faction.split" />
+          <page exact="899904" />
+          <name name="'{899904,18}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$EmileActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$EmileActor" title="'{899904,18}'" icon="'mission'" />
+
+        <create_cue_actor name="$JorgeActor" cue="namespace">
+          <select faction="faction.split" race="race.split" tags="tag.commander" />
+          <owner exact="faction.split" />
+          <page exact="899904" />
+          <name name="'{899904,19}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$JorgeActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$JorgeActor" title="'{899904,19}'" icon="'mission'" />
+
+        <create_cue_actor name="$MotherActor" cue="namespace">
+          <select faction="faction.split" race="race.split" tags="tag.crew" />
+          <owner exact="faction.split" />
+          <page exact="899904" />
+          <name name="'{899904,20}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$MotherActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$MotherActor" title="'{899904,20}'" />
+
+        <create_cue_actor name="$FatherActor" cue="namespace">
+          <select faction="faction.split" race="race.split" tags="tag.crew" />
+          <owner exact="faction.split" />
+          <page exact="899904" />
+          <name name="'{899904,21}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$FatherActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$FatherActor" title="'{899904,21}'" />
+
+        <create_cue_actor name="$PhiSquadActor" cue="namespace">
+          <select faction="faction.split" race="race.split" tags="tag.commander" />
+          <owner exact="faction.split" />
+          <page exact="899904" />
+          <name name="'{899904,23}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$PhiSquadActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$PhiSquadActor" title="'{899904,23}'" />
+
+        <create_cue_actor name="$StationBroadcastActor" cue="namespace">
+          <select faction="faction.split" race="race.split" tags="tag.crew" />
+          <owner exact="faction.split" />
+          <page exact="899904" />
+          <name name="'{899904,36}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$StationBroadcastActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$StationBroadcastActor" title="'{899904,36}'" />
+
+        <create_cue_actor name="$NhuutCivilianActor" cue="namespace">
+          <select faction="faction.split" race="race.split" tags="tag.crew" />
+          <owner exact="faction.split" />
+          <page exact="899904" />
+          <name name="'{899904,37}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$NhuutCivilianActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$NhuutCivilianActor" title="'{899904,37}'" />
+
+        <create_cue_actor name="$ZyarthFleetActor" cue="namespace">
+          <select faction="faction.split" race="race.split" tags="tag.commander" />
+          <owner exact="faction.split" />
+          <page exact="899904" />
+          <name name="'{899904,38}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$ZyarthFleetActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$ZyarthFleetActor" title="'{899904,38}'" icon="'mission'" />
+
+        <!-- Radio-only Kat survives the physical ship long enough to deliver her final transmission. -->
+        <create_cue_actor name="$KatFinalActor" cue="namespace">
+          <select faction="faction.split" race="race.split" tags="tag.commander" />
+          <owner exact="faction.split" />
+          <page exact="899904" />
+          <name name="'{899904,16}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$KatFinalActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$KatFinalActor" title="'{899904,16}'" icon="'mission'" />
+
+        <create_cue_actor name="$AutumnCaptainActor" cue="namespace">
+          <select faction="faction.split" race="race.split" tags="tag.commander" />
+          <owner exact="faction.split" />
+          <page exact="899904" />
+          <name name="'{899904,39}'" />
+        </create_cue_actor>
+        <set_entity_traits entity="$AutumnCaptainActor" missionactor="true" customhandler="true" subtitlename="true" />
+        <set_entity_overrides entity="$AutumnCaptainActor" title="'{899904,39}'" icon="'mission'" />
+
+        <!-- Fixed directly below the player rather than at a random point 1.5-2 km away. -->
+        <create_ship name="$PhiSix" macro="macro.ship_spl_l_destroyer_01_a_macro" sector="$FamilyPhi" capturable="true" commandeerable="true">
+          <owner exact="faction.ownerless" overridenpc="true" />
+          <loadout ref="gatefall_scenario_03_phi_rattlesnake" />
+          <position value="$PhiSixSpawnPos" />
+          <rotation yaw="-120deg" />
+        </create_ship>
+        <run_actions ref="ApplyPhiRattlesnakeMods">
+          <param name="Ship" value="$PhiSix" />
+        </run_actions>
+        <set_object_name object="$PhiSix" name="{899904,31}" />
+        <set_object_shield object="$PhiSix" exact="0" />
+        <set_object_hull object="$PhiSix" exact="20" />
+        <set_known object="$PhiSix" known="true" />
+        <set_object_forced_radar_visible object="$PhiSix" visible="true" />
+
+        <create_mission cue="$MissionCue" abortable="false"
+                        name="{899904,201}" description="{899904,202}"
+                        icon="'briefing_mission_director_01'" difficulty="level.hard"
+                        type="missiontype.fight" faction="faction.split">
+          <briefing>
+            <objective step="1" action="objective.claim" object="$PhiSix" text="{899904,211}" />
+          </briefing>
+        </create_mission>
+
+        <fade_screen fadeout="0s" fadein="1s" realtime="true" />
+      </actions>
+      <cues>
+        <!-- Count every registered Xenon L/XL ship destroyed in combat. Scripted cleanup has no killer
+             and therefore cannot inflate the score. -->
+        <cue name="Score_XenonCapitalDestroyed" instantiate="true">
+          <conditions>
+            <event_object_destroyed group="$ScoreXenonCapitalTargets" />
+          </conditions>
+          <actions>
+            <do_if value="not @$ScenarioEnded and event.param and (event.object.isclass.ship_l or event.object.isclass.ship_xl)">
+              <set_value name="$XenonCapitalShipsDestroyed" operation="add" exact="1" />
+            </do_if>
+            <remove_from_group group="$ScoreXenonCapitalTargets" object="event.object" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_Intro">
+          <delay exact="500ms" />
+          <actions>
+            <stop_music />
+            <play_music music="'gfc_music_m03_phase1_opening_suite'" loop="true" />
+            <set_playership_throttle value="0" />
+            <play_cutscene result="$IntroCutscene" key="'gatefall_s03_phase1_intro_cutscene'" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_player_ship" object="$RescueCraft" />
+              <param name="target_phi_six" object="$PhiSix" />
+              <param name="target_gate_a" object="$GateA" />
+            </play_cutscene>
+            <signal_cue cue="Phase1_GateExitEffect" />
+            <signal_cue cue="Phase1_Intro_501" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_GateExitEffect">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="750ms" />
+          <actions>
+            <trigger_animation object="$GateA" trigger="activate" immediate="true" />
+            <add_effect object="$GateA" effect="'jump_gateeffect'" />
+            <add_effect object="$RescueCraft" effect="'jump_gateeffect'" />
+            <play_sound sound="'gate_flythrough'" object="$RescueCraft" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_Intro_501">
+          <conditions><event_cue_signalled /></conditions>
+          <actions>
+            <speak actor="player.entity" page="899904" line="501" priority="100" />
+            <signal_cue cue="Phase1_Intro_502" />
+          </actions>
+        </cue>
+        <cue name="Phase1_Intro_502">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="4s" />
+          <actions>
+            <speak actor="player.entity" page="899904" line="502" priority="100" />
+            <signal_cue cue="Phase1_Intro_503" />
+          </actions>
+        </cue>
+        <cue name="Phase1_Intro_503">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="5s" />
+          <actions>
+            <speak actor="player.entity" page="899904" line="503" priority="100" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_IntroEnded">
+          <conditions>
+            <event_cutscene_stopped cutscene="$IntroCutscene" />
+          </conditions>
+          <actions>
+            <set_value name="$ClaimObjectiveActive" exact="true" />
+            <set_objective_from_briefing cue="$MissionCue" step="1" />
+          </actions>
+        </cue>
+
+        <!-- Requiring both ownership and control ensures the next combat cannot start while the player is still in a spacesuit. -->
+        <cue name="Phase1_PhiSixClaimed" checkinterval="1s">
+          <conditions>
+            <check_all>
+              <check_value value="$ClaimObjectiveActive and not @$ScenarioEnded" />
+              <check_value value="$PhiSix.owner == faction.player" />
+              <check_value value="player.ship == $PhiSix" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$ClaimObjectiveActive" exact="false" />
+            <set_objective cue="$MissionCue" step="1" action="objective.none" updatebriefing="true" silent="true" />
+            <set_object_min_hull object="$PhiSix" exact="0" />
+            <set_value name="$RescueCraftRetired" exact="true" />
+            <destroy_object object="$RescueCraft" explosion="false" />
+            <signal_cue cue="Phase1_CreateHullBattle" />
+            <speak actor="player.entity" page="899904" line="511" priority="100" />
+            <signal_cue cue="Phase1_PostClaim_512" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_CreateHullBattle">
+          <conditions><event_cue_signalled /></conditions>
+          <actions>
+            <create_station name="$HullStation" macro="macro.station_gen_factory_base_01_macro" sector="$FamilyPhi" state="componentstate.operational" owner="faction.split" constructionplan="'gatefall_scenario_03_split_hullparts'">
+              <position value="$HullStationPos" />
+              <rotation yaw="35deg" />
+            </create_station>
+            <set_object_name object="$HullStation" name="{899904,24}" />
+            <set_known object="$HullStation" known="true" />
+            <run_actions ref="InitialiseSplitStation">
+              <param name="Station" value="$HullStation" />
+            </run_actions>
+
+            <create_ship name="$HullHLead" macro="macro.ship_xen_l_terraformer_01_a_macro" sector="$FamilyPhi" groupname="$HullAttackers" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <position value="$HullEnemyPos" />
+              <rotation yaw="225deg" />
+            </create_ship>
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$HullHLead" />
+            <create_ship name="$HullH" macro="macro.ship_xen_l_terraformer_01_a_macro" sector="$FamilyPhi" groupname="$HullAttackers" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <safepos object="$HullHLead" min="2km" max="5km" />
+              <rotation yaw="225deg" />
+            </create_ship>
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$HullH" />
+            <do_all exact="2">
+              <create_ship name="$HullPE" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$FamilyPhi" groupname="$HullAttackers" capturable="false" commandeerable="false">
+                <owner exact="faction.xenon" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                <safepos object="$HullHLead" min="1km" max="5km" />
+                <rotation yaw="225deg" />
+              </create_ship>
+            </do_all>
+            <do_all exact="4">
+              <create_ship name="$HullM" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$FamilyPhi" groupname="$HullAttackers" capturable="false" commandeerable="false">
+                <owner exact="faction.xenon" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                <safepos object="$HullHLead" min="800m" max="4km" />
+                <rotation yaw="225deg" />
+              </create_ship>
+            </do_all>
+            <do_for_each name="$HullEnemy" in="$HullAttackers">
+              <set_known object="$HullEnemy" known="true" />
+              <set_object_forced_radar_visible object="$HullEnemy" visible="true" />
+              <cancel_all_orders object="$HullEnemy" />
+              <create_order id="'Attack'" object="$HullEnemy" immediate="true" default="true">
+                <param name="primarytarget" value="$HullStation" />
+                <param name="forceprimarytarget" value="true" />
+                <param name="pursuetargets" value="true" />
+                <param name="allowothertargets" value="false" />
+                <param name="checkrelation" value="false" />
+              </create_order>
+            </do_for_each>
+          </actions>
+        </cue>
+
+        <cue name="Phase1_PostClaim_512">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="6s" />
+          <actions><speak actor="player.entity" page="899904" line="512" priority="100" /><signal_cue cue="Phase1_PostClaim_513" /></actions>
+        </cue>
+        <cue name="Phase1_PostClaim_513">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="7s" />
+          <actions><speak actor="player.entity" page="899904" line="513" priority="100" /><signal_cue cue="Phase1_PostClaim_514" /></actions>
+        </cue>
+        <cue name="Phase1_PostClaim_514">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="6s" />
+          <actions><speak actor="$JorgeActor" page="899904" line="514" priority="100" /><signal_cue cue="Phase1_PostClaim_515" /></actions>
+        </cue>
+        <cue name="Phase1_PostClaim_515">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="6s" />
+          <actions>
+            <speak actor="player.entity" page="899904" line="515" priority="100" />
+            <set_value name="$HullApproachActive" exact="true" />
+            <set_objective cue="$MissionCue" step="2" action="objective.flyto" object="$HullStation" radius="20km" text="{899904,212}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_HullStationApproached" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$HullApproachActive and not @$ScenarioEnded" />
+              <check_value value="player.ship.bboxdistanceto.{$HullStation} le 20km" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$HullApproachActive" exact="false" />
+            <set_value name="$HullCombatActive" exact="true" />
+            <stop_music />
+            <play_music music="'gfc_music_m03_phase1_perilous_journey'" loop="true" />
+            <set_objective cue="$MissionCue" step="2" action="objective.none" updatebriefing="true" silent="true" />
+            <set_objective cue="$MissionCue" step="3" action="objective.destroy" group="$HullAttackers" text="{899904,213}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_HullAttackersCleared" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$HullCombatActive and not @$ScenarioEnded" />
+              <check_value value="$HullAttackers.count == 0" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$HullCombatActive" exact="false" />
+            <set_objective cue="$MissionCue" step="3" action="objective.none" updatebriefing="true" silent="true" />
+            <stop_music />
+            <play_music music="'gfc_music_m03_phase1_under_cover_of_night'" loop="true" />
+            <create_ship name="$JorgeShip" macro="macro.ship_spl_l_destroyer_01_a_macro" sector="$FamilyPhi" groupname="$PhiSquad" capturable="false" commandeerable="false">
+              <owner exact="faction.split" overridenpc="true" />
+              <pilot actor="$JorgeActor" />
+              <loadout ref="gatefall_scenario_03_phi_rattlesnake" />
+              <position value="$JorgePos" />
+              <rotation yaw="305deg" />
+            </create_ship>
+            <run_actions ref="ApplyPhiRattlesnakeMods"><param name="Ship" value="$JorgeShip" /></run_actions>
+            <set_object_name object="$JorgeShip" name="{899904,32}" />
+            <set_object_shield object="$JorgeShip" exact="0" />
+            <set_object_hull object="$JorgeShip" exact="30" />
+            <set_object_min_hull object="$JorgeShip" exact="1" />
+            <set_known object="$JorgeShip" known="true" />
+            <set_object_forced_radar_visible object="$JorgeShip" visible="true" />
+            <speak actor="$JorgeActor" page="899904" line="521" priority="100" />
+            <signal_cue cue="Phase1_Jorge_522" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_Jorge_522"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="522" priority="100" /><signal_cue cue="Phase1_Jorge_523" /></actions></cue>
+        <cue name="Phase1_Jorge_523"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$JorgeActor" page="899904" line="523" priority="100" /><signal_cue cue="Phase1_Jorge_524" /></actions></cue>
+        <cue name="Phase1_Jorge_524"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="524" priority="100" /><signal_cue cue="Phase1_Jorge_525" /></actions></cue>
+        <cue name="Phase1_Jorge_525"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$JorgeActor" page="899904" line="525" priority="100" /><signal_cue cue="Phase1_Jorge_526" /></actions></cue>
+        <cue name="Phase1_Jorge_526"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="526" priority="100" /><signal_cue cue="Phase1_Jorge_527" /></actions></cue>
+        <cue name="Phase1_Jorge_527"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$JorgeActor" page="899904" line="527" priority="100" /><signal_cue cue="Phase1_Jorge_528" /></actions></cue>
+        <cue name="Phase1_Jorge_528">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="6s" />
+          <actions>
+            <speak actor="$JorgeActor" page="899904" line="528" priority="100" />
+            <cancel_all_orders object="$JorgeShip" />
+            <create_order id="'ProtectShip'" object="$JorgeShip" immediate="true" default="true">
+              <param name="target" value="$PhiSix" />
+            </create_order>
+            <signal_cue cue="Phase1_CreateWeaponBattle" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_CreateWeaponBattle">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="1s" />
+          <actions>
+            <create_station name="$WeaponStation" macro="macro.station_gen_factory_base_01_macro" sector="$FamilyPhi" state="componentstate.operational" owner="faction.split" constructionplan="'gatefall_scenario_03_split_weaponcomponents'">
+              <position value="$WeaponStationPos" />
+              <rotation yaw="145deg" />
+            </create_station>
+            <set_object_name object="$WeaponStation" name="{899904,25}" />
+            <set_known object="$WeaponStation" known="true" />
+            <run_actions ref="InitialiseSplitStation"><param name="Station" value="$WeaponStation" /></run_actions>
+
+            <create_ship name="$WeaponK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyPhi" groupname="$WeaponAttackers" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <position value="$WeaponEnemyPos" />
+              <rotation yaw="45deg" />
+            </create_ship>
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$WeaponK" />
+            <do_all exact="2">
+              <create_ship name="$WeaponPE" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$FamilyPhi" groupname="$WeaponAttackers" capturable="false" commandeerable="false">
+                <owner exact="faction.xenon" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                <safepos object="$WeaponK" min="1km" max="5km" />
+                <rotation yaw="45deg" />
+              </create_ship>
+            </do_all>
+            <do_all exact="4">
+              <create_ship name="$WeaponM" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$FamilyPhi" groupname="$WeaponAttackers" capturable="false" commandeerable="false">
+                <owner exact="faction.xenon" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                <safepos object="$WeaponK" min="800m" max="4km" />
+                <rotation yaw="45deg" />
+              </create_ship>
+            </do_all>
+            <do_for_each name="$WeaponEnemy" in="$WeaponAttackers">
+              <set_known object="$WeaponEnemy" known="true" />
+              <set_object_forced_radar_visible object="$WeaponEnemy" visible="true" />
+              <cancel_all_orders object="$WeaponEnemy" />
+              <create_order id="'Attack'" object="$WeaponEnemy" immediate="true" default="true">
+                <param name="primarytarget" value="$WeaponStation" />
+                <param name="forceprimarytarget" value="true" />
+                <param name="pursuetargets" value="true" />
+                <param name="allowothertargets" value="false" />
+                <param name="checkrelation" value="false" />
+              </create_order>
+            </do_for_each>
+            <set_value name="$WeaponApproachActive" exact="true" />
+            <set_objective cue="$MissionCue" step="4" action="objective.flyto" object="$WeaponStation" radius="20km" text="{899904,214}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_WeaponStationApproached" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$WeaponApproachActive and not @$ScenarioEnded" />
+              <check_value value="player.ship.bboxdistanceto.{$WeaponStation} le 20km" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$WeaponApproachActive" exact="false" />
+            <set_value name="$WeaponCombatActive" exact="true" />
+            <stop_music />
+            <play_music music="'gfc_music_m03_phase1_rock_anthem'" loop="true" />
+            <set_objective cue="$MissionCue" step="4" action="objective.none" updatebriefing="true" silent="true" />
+            <set_objective cue="$MissionCue" step="5" action="objective.destroy" group="$WeaponAttackers" text="{899904,215}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_WeaponAttackersCleared" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$WeaponCombatActive and not @$ScenarioEnded" />
+              <check_value value="$WeaponAttackers.count == 0" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$WeaponCombatActive" exact="false" />
+            <set_objective cue="$MissionCue" step="5" action="objective.none" updatebriefing="true" silent="true" />
+            <stop_music />
+            <play_music music="'gfc_music_m03_phase1_truth_and_reconciliation'" loop="true" />
+            <create_ship name="$EmileShip" macro="macro.ship_spl_l_destroyer_01_a_macro" sector="$FamilyPhi" groupname="$PhiSquad" capturable="false" commandeerable="false">
+              <owner exact="faction.split" overridenpc="true" />
+              <pilot actor="$EmileActor" />
+              <loadout ref="gatefall_scenario_03_phi_rattlesnake" />
+              <position value="$EmilePos" />
+              <rotation yaw="230deg" />
+            </create_ship>
+            <run_actions ref="ApplyPhiRattlesnakeMods"><param name="Ship" value="$EmileShip" /></run_actions>
+            <set_object_name object="$EmileShip" name="{899904,30}" />
+            <set_object_shield object="$EmileShip" exact="0" />
+            <set_object_hull object="$EmileShip" exact="40" />
+            <set_object_min_hull object="$EmileShip" exact="1" />
+            <set_known object="$EmileShip" known="true" />
+            <set_object_forced_radar_visible object="$EmileShip" visible="true" />
+            <speak actor="$EmileActor" page="899904" line="541" priority="100" />
+            <signal_cue cue="Phase1_Emile_542" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_Emile_542"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$JorgeActor" page="899904" line="542" priority="100" /><signal_cue cue="Phase1_Emile_543" /></actions></cue>
+        <cue name="Phase1_Emile_543"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="543" priority="100" /><signal_cue cue="Phase1_Emile_544" /></actions></cue>
+        <cue name="Phase1_Emile_544"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="544" priority="100" /><signal_cue cue="Phase1_Emile_545" /></actions></cue>
+        <cue name="Phase1_Emile_545"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$JorgeActor" page="899904" line="545" priority="100" /><signal_cue cue="Phase1_Emile_546" /></actions></cue>
+        <cue name="Phase1_Emile_546"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$EmileActor" page="899904" line="546" priority="100" /><signal_cue cue="Phase1_Emile_547" /></actions></cue>
+        <cue name="Phase1_Emile_547"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$JorgeActor" page="899904" line="547" priority="100" /><signal_cue cue="Phase1_Emile_548" /></actions></cue>
+        <cue name="Phase1_Emile_548"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="548" priority="100" /><signal_cue cue="Phase1_Emile_549" /></actions></cue>
+        <cue name="Phase1_Emile_549"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="549" priority="100" /><signal_cue cue="Phase1_Emile_550" /></actions></cue>
+        <cue name="Phase1_Emile_550"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$CarterActor" page="899904" line="550" priority="100" /><signal_cue cue="Phase1_Emile_551" /></actions></cue>
+        <cue name="Phase1_Emile_551"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$EmileActor" page="899904" line="551" priority="100" /><signal_cue cue="Phase1_Emile_552" /></actions></cue>
+        <cue name="Phase1_Emile_552">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="6s" />
+          <actions>
+            <speak actor="$EmileActor" page="899904" line="552" priority="100" />
+            <cancel_all_orders object="$JorgeShip" />
+            <create_order id="'ProtectShip'" object="$JorgeShip" immediate="true" default="true"><param name="target" value="$PhiSix" /></create_order>
+            <cancel_all_orders object="$EmileShip" />
+            <create_order id="'ProtectShip'" object="$EmileShip" immediate="true" default="true"><param name="target" value="$PhiSix" /></create_order>
+            <signal_cue cue="Phase1_CreateCarrier" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_CreateCarrier">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="1s" />
+          <actions>
+            <create_ship name="$AutumnOfPhi" macro="macro.ship_spl_xl_carrier_01_a_macro" sector="$FamilyPhi" capturable="false" commandeerable="false">
+              <owner exact="faction.split" overridenpc="true" />
+              <pilot><select faction="faction.split" race="race.split" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.split" /></loadout>
+              <position value="$CarrierPos" />
+              <rotation yaw="315deg" />
+            </create_ship>
+            <set_object_name object="$AutumnOfPhi" name="{899904,26}" />
+            <set_object_min_hull object="$AutumnOfPhi" exact="0" />
+            <set_known object="$AutumnOfPhi" known="true" />
+            <set_object_forced_radar_visible object="$AutumnOfPhi" visible="true" />
+            <signal_cue_instantly cue="EnableAutumnOfPhiFailure" />
+            <cancel_all_orders object="$AutumnOfPhi" />
+            <create_order id="'Wait'" object="$AutumnOfPhi" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <set_value name="$CarrierApproachActive" exact="true" />
+            <set_objective cue="$MissionCue" step="6" action="objective.flyto" object="$AutumnOfPhi" radius="30km" text="{899904,216}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_CarrierApproached" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$CarrierApproachActive and not @$ScenarioEnded" />
+              <check_value value="player.ship.bboxdistanceto.{$AutumnOfPhi} le 30km" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$CarrierApproachActive" exact="false" />
+            <set_value name="$CarrierCombatActive" exact="true" />
+            <set_objective cue="$MissionCue" step="6" action="objective.none" updatebriefing="true" silent="true" />
+
+            <create_ship name="$CarterShip" macro="macro.ship_spl_l_destroyer_01_a_macro" sector="$FamilyPhi" groupname="$PhiCarrierDefenders" capturable="false" commandeerable="false">
+              <owner exact="faction.split" overridenpc="true" />
+              <pilot actor="$CarterActor" />
+              <loadout ref="gatefall_scenario_03_phi_rattlesnake" />
+              <safepos object="$AutumnOfPhi" min="2km" max="5km" />
+              <rotation yaw="315deg" />
+            </create_ship>
+            <run_actions ref="ApplyPhiRattlesnakeMods"><param name="Ship" value="$CarterShip" /></run_actions>
+            <set_object_name object="$CarterShip" name="{899904,27}" />
+
+            <create_ship name="$KatShip" macro="macro.ship_spl_l_destroyer_01_a_macro" sector="$FamilyPhi" groupname="$PhiCarrierDefenders" capturable="false" commandeerable="false">
+              <owner exact="faction.split" overridenpc="true" />
+              <pilot actor="$KatActor" />
+              <loadout ref="gatefall_scenario_03_phi_rattlesnake" />
+              <safepos object="$AutumnOfPhi" min="3km" max="6km" />
+              <rotation yaw="315deg" />
+            </create_ship>
+            <run_actions ref="ApplyPhiRattlesnakeMods"><param name="Ship" value="$KatShip" /></run_actions>
+            <set_object_name object="$KatShip" name="{899904,28}" />
+
+            <create_ship name="$JunShip" macro="macro.ship_spl_l_destroyer_01_a_macro" sector="$FamilyPhi" groupname="$PhiCarrierDefenders" capturable="false" commandeerable="false">
+              <owner exact="faction.split" overridenpc="true" />
+              <pilot actor="$JunActor" />
+              <loadout ref="gatefall_scenario_03_phi_rattlesnake" />
+              <safepos object="$AutumnOfPhi" min="3km" max="6km" />
+              <rotation yaw="315deg" />
+            </create_ship>
+            <run_actions ref="ApplyPhiRattlesnakeMods"><param name="Ship" value="$JunShip" /></run_actions>
+            <set_object_name object="$JunShip" name="{899904,29}" />
+
+            <do_for_each name="$PhiDefender" in="$PhiCarrierDefenders">
+              <set_object_min_hull object="$PhiDefender" exact="1" />
+              <set_known object="$PhiDefender" known="true" />
+              <set_object_forced_radar_visible object="$PhiDefender" visible="true" />
+              <cancel_all_orders object="$PhiDefender" />
+              <create_order id="'ProtectShip'" object="$PhiDefender" immediate="true" default="true">
+                <param name="target" value="$AutumnOfPhi" />
+              </create_order>
+            </do_for_each>
+
+            <create_ship name="$CarrierKLead" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyPhi" groupname="$CarrierAttackers" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <position value="$CarrierEnemyPos" />
+              <rotation yaw="45deg" />
+            </create_ship>
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$CarrierKLead" />
+            <do_all exact="1">
+              <create_ship name="$CarrierK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyPhi" groupname="$CarrierAttackers" capturable="false" commandeerable="false">
+                <owner exact="faction.xenon" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                <safepos object="$CarrierKLead" min="2km" max="6km" />
+                <rotation yaw="45deg" />
+              </create_ship>
+              <add_to_group groupname="$ScoreXenonCapitalTargets" object="$CarrierK" />
+            </do_all>
+            <do_all exact="2">
+              <create_ship name="$CarrierPE" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$FamilyPhi" groupname="$CarrierAttackers" capturable="false" commandeerable="false">
+                <owner exact="faction.xenon" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                <safepos object="$CarrierKLead" min="1km" max="5km" />
+                <rotation yaw="45deg" />
+              </create_ship>
+            </do_all>
+            <do_all exact="5">
+              <create_ship name="$CarrierM" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$FamilyPhi" groupname="$CarrierAttackers" capturable="false" commandeerable="false">
+                <owner exact="faction.xenon" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                <safepos object="$CarrierKLead" min="800m" max="4km" />
+                <rotation yaw="45deg" />
+              </create_ship>
+            </do_all>
+            <do_for_each name="$CarrierEnemy" in="$CarrierAttackers">
+              <set_known object="$CarrierEnemy" known="true" />
+              <set_object_forced_radar_visible object="$CarrierEnemy" visible="true" />
+              <cancel_all_orders object="$CarrierEnemy" />
+              <create_order id="'Attack'" object="$CarrierEnemy" immediate="true" default="true">
+                <param name="primarytarget" value="$AutumnOfPhi" />
+                <param name="forceprimarytarget" value="true" />
+                <param name="pursuetargets" value="true" />
+                <param name="allowothertargets" value="false" />
+                <param name="checkrelation" value="false" />
+              </create_order>
+            </do_for_each>
+            <set_objective cue="$MissionCue" step="7" action="objective.destroy" group="$CarrierAttackers" text="{899904,217}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_CarrierAttackersCleared" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$CarrierCombatActive and not @$ScenarioEnded" />
+              <check_value value="$CarrierAttackers.count == 0" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$CarrierCombatActive" exact="false" />
+            <set_value name="$Phase1Completed" exact="true" />
+            <set_objective cue="$MissionCue" step="7" action="objective.none" updatebriefing="true" silent="true" />
+            <stop_music />
+            <play_music music="'gfc_music_m03_phase1_opening_suite'" loop="true" />
+            <do_for_each name="$BriefingShip" in="$PhiCarrierDefenders">
+              <cancel_all_orders object="$BriefingShip" />
+              <create_order id="'Wait'" object="$BriefingShip" default="true">
+                <param name="skipalignment" value="true" />
+                <param name="noattackresponse" value="true" />
+              </create_order>
+            </do_for_each>
+            <cancel_all_orders object="$JorgeShip" />
+            <create_order id="'Wait'" object="$JorgeShip" default="true"><param name="skipalignment" value="true" /><param name="noattackresponse" value="true" /></create_order>
+            <cancel_all_orders object="$EmileShip" />
+            <create_order id="'Wait'" object="$EmileShip" default="true"><param name="skipalignment" value="true" /><param name="noattackresponse" value="true" /></create_order>
+            <cancel_all_orders object="$AutumnOfPhi" />
+            <create_order id="'Wait'" object="$AutumnOfPhi" default="true"><param name="skipalignment" value="true" /><param name="noattackresponse" value="true" /></create_order>
+            <speak actor="$CarterActor" page="899904" line="571" priority="100" />
+            <signal_cue cue="Phase1_Final_572" />
+          </actions>
+        </cue>
+
+        <cue name="Phase1_Final_572"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$EmileActor" page="899904" line="572" priority="100" /><signal_cue cue="Phase1_Final_573" /></actions></cue>
+        <cue name="Phase1_Final_573"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$KatActor" page="899904" line="573" priority="100" /><signal_cue cue="Phase1_Final_574" /></actions></cue>
+        <cue name="Phase1_Final_574"><conditions><event_cue_signalled /></conditions><delay exact="4s" /><actions><speak actor="$CarterActor" page="899904" line="574" priority="100" /><signal_cue cue="Phase1_Final_575" /></actions></cue>
+        <cue name="Phase1_Final_575"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$KatActor" page="899904" line="575" priority="100" /><signal_cue cue="Phase1_Final_576" /></actions></cue>
+        <cue name="Phase1_Final_576"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$CarterActor" page="899904" line="576" priority="100" /><signal_cue cue="Phase1_Final_577" /></actions></cue>
+        <cue name="Phase1_Final_577"><conditions><event_cue_signalled /></conditions><delay exact="4s" /><actions><speak actor="player.entity" page="899904" line="577" priority="100" /><signal_cue cue="Phase1_Final_578" /></actions></cue>
+        <cue name="Phase1_Final_578"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$MotherActor" page="899904" line="578" priority="100" /><signal_cue cue="Phase1_Final_579" /></actions></cue>
+        <cue name="Phase1_Final_579"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$FatherActor" page="899904" line="579" priority="100" /><signal_cue cue="Phase1_Final_580" /></actions></cue>
+        <cue name="Phase1_Final_580"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$JunActor" page="899904" line="580" priority="100" /><signal_cue cue="Phase1_Final_581" /></actions></cue>
+        <cue name="Phase1_Final_581"><conditions><event_cue_signalled /></conditions><delay exact="4s" /><actions><speak actor="$CarterActor" page="899904" line="581" priority="100" /><signal_cue cue="Phase1_Final_582" /></actions></cue>
+        <cue name="Phase1_Final_582"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$CarterActor" page="899904" line="582" priority="100" /><signal_cue cue="Phase1_Final_583" /></actions></cue>
+        <cue name="Phase1_Final_583"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$JunActor" page="899904" line="583" priority="100" /><signal_cue cue="Phase1_Final_584" /></actions></cue>
+        <cue name="Phase1_Final_584"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$CarterActor" page="899904" line="584" priority="100" /><signal_cue cue="Phase1_Final_585" /></actions></cue>
+        <cue name="Phase1_Final_585"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="player.entity" page="899904" line="585" priority="100" /><signal_cue cue="Phase1_Final_586" /></actions></cue>
+        <cue name="Phase1_Final_586"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$CarterActor" page="899904" line="586" priority="100" /><signal_cue cue="Phase1_Final_591" /></actions></cue>
+        <cue name="Phase1_Final_591">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="8s" />
+          <actions>
+            <!-- The cutscene now starts exactly at the screenplay's close frontal carrier shot. -->
+            <play_cutscene result="$DepartureCutscene" key="'gatefall_s03_phase1_departure_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_carrier" object="$AutumnOfPhi" />
+            </play_cutscene>
+            <speak actor="$CarterActor" page="899904" line="591" priority="100" />
+            <signal_cue cue="Phase1_Final_592" />
+          </actions>
+        </cue>
+        <cue name="Phase1_Final_592"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$CarterActor" page="899904" line="592" priority="100" /><signal_cue cue="Phase1_Final_593" /></actions></cue>
+        <cue name="Phase1_Final_593"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$CarterActor" page="899904" line="593" priority="100" /><signal_cue cue="Phase1_Final_594" /></actions></cue>
+        <cue name="Phase1_Final_594"><conditions><event_cue_signalled /></conditions><delay exact="4s" /><actions><speak actor="$PhiSquadActor" page="899904" line="594" priority="100" /><signal_cue cue="Phase1_Final_595" /></actions></cue>
+        <cue name="Phase1_Final_595">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="3s" />
+          <actions>
+            <speak actor="$CarterActor" page="899904" line="595" priority="100" />
+          </actions>
+        </cue>
+
+        <!-- Phase 2 starts only after the Phase 1 close shot and departure move have fully finished. -->
+        <cue name="Phase1_DepartureCutsceneEnded">
+          <conditions>
+            <event_cutscene_stopped cutscene="$DepartureCutscene" />
+            <check_value value="$Phase1Completed and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <signal_cue cue="Phase2_Start" />
+          </actions>
+        </cue>
+
+        <cue name="Phase2_Start">
+          <conditions><event_cue_signalled /></conditions>
+          <actions>
+            <set_value name="$Phase2Active" exact="true" />
+            <stop_music />
+            <play_music music="'gfc_music_m03_phase2_the_package'" loop="true" />
+            <set_known object="$FamilyValka" known="true" />
+            <set_known object="$FamilyValka.cluster" known="true" />
+            <set_known object="$ValkaGateA" known="true" />
+            <set_known object="$ValkaGateB" known="true" />
+            <set_objective cue="$MissionCue" step="7" action="objective.none" updatebriefing="true" silent="true" />
+
+            <!-- Snapshot the five NPC ships before leaving Family Phi; do not iterate sector-sensitive groups after the player warps. -->
+            <set_value name="$Phase2NpcShips" exact="[$CarterShip, $KatShip, $JunShip, $EmileShip, $JorgeShip]" />
+
+            <!-- Restore the carrier and all six squadron ships to 100% structure on entering Valka. -->
+            <set_object_hull object="$AutumnOfPhi" exact="100" />
+            <set_object_hull object="player.ship" exact="100" />
+            <do_for_each name="$Phase2RestoredShip" in="$Phase2NpcShips">
+              <set_object_hull object="$Phase2RestoredShip" exact="100" />
+              <cancel_all_orders object="$Phase2RestoredShip" />
+            </do_for_each>
+
+            <cancel_all_orders object="$AutumnOfPhi" />
+            <create_order id="'Wait'" object="$AutumnOfPhi" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+
+            <!-- Put the carrier and all six squadron members at Valka gate A, facing gate B. -->
+            <warp object="$AutumnOfPhi" sector="$FamilyValka">
+              <position value="$Phase2CarrierPos" />
+              <rotation yaw="83.310deg" />
+            </warp>
+            <signal_cue cue="Phase2_StageValkaConvoyAfterCarrierWarp" />
+          </actions>
+        </cue>
+
+        <cue name="Phase2_StageValkaConvoyAfterCarrierWarp">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="1s" />
+          <actions>
+            <!-- Resolve the carrier's actual post-warp coordinates before moving any squadron ship. -->
+            <create_position name="$Phase2ResolvedValkaCarrierPos" space="$FamilyValka" object="$AutumnOfPhi" x="0m" y="0m" z="0m" />
+            <!-- Move every NPC before the player so Family Phi cannot unload between their warp actions. -->
+            <do_for_each name="$Phase2WarpShip" in="$Phase2NpcShips">
+              <warp object="$Phase2WarpShip" sector="$FamilyValka">
+                <safepos value="$Phase2ResolvedValkaCarrierPos" min="2km" max="6km" />
+                <rotation yaw="83.310deg" />
+              </warp>
+              <create_order id="'Wait'" object="$Phase2WarpShip" default="true">
+                <param name="skipalignment" value="true" />
+                <param name="noattackresponse" value="true" />
+              </create_order>
+            </do_for_each>
+            <warp object="player.ship" sector="$FamilyValka">
+              <position value="$Phase2PlayerPos" />
+              <rotation yaw="83.310deg" />
+            </warp>
+            <trigger_animation object="$ValkaGateA" trigger="activate" immediate="true" />
+            <add_effect object="$ValkaGateA" effect="'jump_gateeffect'" />
+            <add_effect object="$AutumnOfPhi" effect="'jump_gateeffect'" />
+            <add_effect object="player.ship" effect="'jump_gateeffect'" />
+
+            <!-- The abandoned station remains operational enough to serve as a stable combat and camera landmark. -->
+            <create_station name="$Phase2AbandonedStation" macro="macro.station_gen_factory_base_01_macro" sector="$FamilyValka" state="componentstate.operational" owner="faction.split" constructionplan="'gatefall_scenario_03_split_scanningarrays_abandoned'">
+              <position value="$Phase2AbandonedStationPos" />
+              <rotation yaw="83.310deg" pitch="4deg" roll="-7deg" />
+            </create_station>
+            <set_object_name object="$Phase2AbandonedStation" name="{899904,33}" />
+            <run_actions ref="InitialiseSplitStation">
+              <param name="Station" value="$Phase2AbandonedStation" />
+            </run_actions>
+            <find_object_component name="$Phase2AbandonedStationModules" object="$Phase2AbandonedStation" class="class.module" multiple="true" />
+            <do_for_each name="$Phase2AbandonedStationModule" in="$Phase2AbandonedStationModules">
+              <set_object_min_hull object="$Phase2AbandonedStationModule" exact="10" />
+              <set_object_hull object="$Phase2AbandonedStationModule" exact="10" />
+            </do_for_each>
+            <set_object_min_hull object="$Phase2AbandonedStation" exact="10" />
+            <set_object_shield object="$Phase2AbandonedStation" exact="0" />
+            <set_object_hull object="$Phase2AbandonedStation" exact="10" />
+            <set_known object="$Phase2AbandonedStation" known="true" />
+            <set_object_forced_radar_visible object="$Phase2AbandonedStation" visible="true" />
+
+            <create_ship name="$Phase2InitialI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$FamilyValka" groupname="$Phase2InitialEnemies" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <position value="$Phase2InitialEnemyPos" />
+              <rotation yaw="263.310deg" />
+            </create_ship>
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase2InitialI" />
+            <create_ship name="$Phase2InitialK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyValka" groupname="$Phase2InitialEnemies" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <safepos object="$Phase2InitialI" min="4km" max="7km" />
+              <rotation yaw="263.310deg" />
+            </create_ship>
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase2InitialK" />
+            <do_for_each name="$Phase2InitialEnemy" in="$Phase2InitialEnemies">
+              <set_known object="$Phase2InitialEnemy" known="true" />
+              <set_object_forced_radar_visible object="$Phase2InitialEnemy" visible="true" />
+              <cancel_all_orders object="$Phase2InitialEnemy" />
+              <create_order id="'Attack'" object="$Phase2InitialEnemy" immediate="true" default="true">
+                <param name="primarytarget" value="$Phase2AbandonedStation" />
+                <param name="forceprimarytarget" value="true" />
+                <param name="pursuetargets" value="true" />
+                <param name="allowothertargets" value="false" />
+                <param name="checkrelation" value="false" />
+              </create_order>
+            </do_for_each>
+
+            <play_cutscene result="$Phase2ArrivalCutscene" key="'gatefall_s03_phase2_arrival_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_carrier" object="$AutumnOfPhi" />
+              <param name="target_xenon_i" object="$Phase2InitialI" />
+            </play_cutscene>
+            <signal_cue cue="Phase2_Arrival_601" />
+          </actions>
+        </cue>
+
+        <cue name="Phase2_Arrival_601"><conditions><event_cue_signalled /></conditions><delay exact="4s" /><actions><speak actor="$CarterActor" page="899904" line="601" priority="100" /><signal_cue cue="Phase2_Arrival_602" /></actions></cue>
+        <cue name="Phase2_Arrival_602"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$KatActor" page="899904" line="602" priority="100" /><signal_cue cue="Phase2_Arrival_603" /></actions></cue>
+        <cue name="Phase2_Arrival_603"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$CarterActor" page="899904" line="603" priority="100" /><signal_cue cue="Phase2_Arrival_604" /></actions></cue>
+        <cue name="Phase2_Arrival_604"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$JunActor" page="899904" line="604" priority="100" /><signal_cue cue="Phase2_Arrival_605" /></actions></cue>
+        <cue name="Phase2_Arrival_605"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$CarterActor" page="899904" line="605" priority="100" /></actions></cue>
+
+        <cue name="Phase2_ArrivalCutsceneEnded">
+          <conditions>
+            <event_cutscene_stopped cutscene="$Phase2ArrivalCutscene" />
+            <check_value value="$Phase2Active and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <!-- Never reuse the two ships staged before the fullscreen reveal as live combat targets.
+                 Preserve their settled positions, retire the cinematic props silently, and register
+                 completely new Xenon ships that have never participated in a cutscene. -->
+            <create_position name="$Phase2ResolvedInitialIPos" space="$FamilyValka" object="$Phase2InitialI" x="0m" y="0m" z="0m" />
+            <create_position name="$Phase2ResolvedInitialKPos" space="$FamilyValka" object="$Phase2InitialK" x="0m" y="0m" z="0m" />
+            <remove_from_group group="$Phase2InitialEnemies" object="$Phase2InitialI" />
+            <remove_from_group group="$Phase2InitialEnemies" object="$Phase2InitialK" />
+            <remove_from_group group="$ScoreXenonCapitalTargets" object="$Phase2InitialI" />
+            <remove_from_group group="$ScoreXenonCapitalTargets" object="$Phase2InitialK" />
+            <set_object_forced_radar_visible object="$Phase2InitialI" visible="false" />
+            <set_object_forced_radar_visible object="$Phase2InitialK" visible="false" />
+            <set_object_min_shield object="$Phase2InitialI" exact="0" />
+            <set_object_min_hull object="$Phase2InitialI" exact="0" />
+            <set_object_min_shield object="$Phase2InitialK" exact="0" />
+            <set_object_min_hull object="$Phase2InitialK" exact="0" />
+            <destroy_object object="$Phase2InitialI" explosion="false" />
+            <destroy_object object="$Phase2InitialK" explosion="false" />
+
+            <create_ship name="$Phase2ReplacementI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$FamilyValka" groupname="$Phase2InitialEnemies" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <position value="$Phase2ResolvedInitialIPos" />
+              <rotation yaw="263.310deg" />
+            </create_ship>
+            <create_ship name="$Phase2ReplacementK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyValka" groupname="$Phase2InitialEnemies" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <position value="$Phase2ResolvedInitialKPos" />
+              <rotation yaw="263.310deg" />
+            </create_ship>
+            <set_value name="$Phase2InitialI" exact="$Phase2ReplacementI" />
+            <set_value name="$Phase2InitialK" exact="$Phase2ReplacementK" />
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase2InitialI" />
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase2InitialK" />
+
+            <!-- Carter, Kat and Jun screen the carrier; Emile and Jorge are transferred to Six's wing. -->
+            <do_for_each name="$Phase2Defender" in="[$CarterShip, $KatShip, $JunShip]">
+              <cancel_all_orders object="$Phase2Defender" />
+              <create_order id="'ProtectShip'" object="$Phase2Defender" immediate="true" default="true">
+                <param name="target" value="$AutumnOfPhi" />
+              </create_order>
+            </do_for_each>
+            <do_for_each name="$Phase2PlayerWingShip" in="[$EmileShip, $JorgeShip]">
+              <do_if value="$Phase2PlayerWingShip.commander">
+                <remove_object_commander object="$Phase2PlayerWingShip" />
+              </do_if>
+              <set_owner object="$Phase2PlayerWingShip" faction="faction.player" overridenpc="true" />
+              <cancel_all_orders object="$Phase2PlayerWingShip" />
+              <set_object_commander object="$Phase2PlayerWingShip" commander="player.ship" assignment="assignment.bombardment" />
+            </do_for_each>
+            <do_for_each name="$Phase2InitialEnemy" in="$Phase2InitialEnemies">
+              <!-- Clear any stale protection inherited from an earlier MD definition or cutscene state. -->
+              <set_object_min_hull object="$Phase2InitialEnemy" exact="0" />
+              <set_object_min_shield object="$Phase2InitialEnemy" exact="0" />
+              <cancel_all_orders object="$Phase2InitialEnemy" />
+              <create_order id="'Attack'" object="$Phase2InitialEnemy" immediate="true" default="true">
+                <param name="primarytarget" value="$Phase2AbandonedStation" />
+                <param name="forceprimarytarget" value="true" />
+                <param name="pursuetargets" value="true" />
+                <param name="allowothertargets" value="false" />
+                <param name="checkrelation" value="false" />
+              </create_order>
+            </do_for_each>
+            <set_value name="$Phase2InitialCombatActive" exact="true" />
+            <set_objective cue="$MissionCue" step="8" action="objective.destroy" group="$Phase2InitialEnemies" text="{899904,218}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+
+        <cue name="Phase2_InitialEnemiesCleared" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$Phase2InitialCombatActive and not @$ScenarioEnded" />
+              <check_value value="$Phase2InitialEnemies.count == 0" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$Phase2InitialCombatActive" exact="false" />
+            <set_objective cue="$MissionCue" step="8" action="objective.none" updatebriefing="true" silent="true" />
+
+            <create_ship name="$Phase2AmbushKLead" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyValka" groupname="$Phase2AmbushEnemies" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <safepos object="$AutumnOfPhi" min="10km" max="15km" />
+              <rotation yaw="263.310deg" />
+            </create_ship>
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase2AmbushKLead" />
+            <do_all exact="2">
+              <create_ship name="$Phase2AmbushK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyValka" groupname="$Phase2AmbushEnemies" capturable="false" commandeerable="false">
+                <owner exact="faction.xenon" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                <safepos object="$AutumnOfPhi" min="10km" max="15km" />
+                <rotation yaw="263.310deg" />
+              </create_ship>
+              <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase2AmbushK" />
+            </do_all>
+            <do_all exact="2">
+              <create_ship name="$Phase2AmbushPE" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$FamilyValka" groupname="$Phase2AmbushEnemies" capturable="false" commandeerable="false">
+                <owner exact="faction.xenon" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                <safepos object="$AutumnOfPhi" min="10km" max="15km" />
+                <rotation yaw="263.310deg" />
+              </create_ship>
+            </do_all>
+            <do_all exact="5">
+              <create_ship name="$Phase2AmbushM" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$FamilyValka" groupname="$Phase2AmbushEnemies" capturable="false" commandeerable="false">
+                <owner exact="faction.xenon" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot>
+                <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                <safepos object="$AutumnOfPhi" min="10km" max="15km" />
+                <rotation yaw="263.310deg" />
+              </create_ship>
+            </do_all>
+            <do_for_each name="$Phase2AmbushEnemy" in="$Phase2AmbushEnemies">
+              <set_known object="$Phase2AmbushEnemy" known="true" />
+              <set_object_forced_radar_visible object="$Phase2AmbushEnemy" visible="true" />
+              <set_object_min_hull object="$Phase2AmbushEnemy" exact="100" />
+              <cancel_all_orders object="$Phase2AmbushEnemy" />
+              <create_order id="'Attack'" object="$Phase2AmbushEnemy" immediate="true" default="true">
+                <param name="primarytarget" value="$AutumnOfPhi" />
+                <param name="forceprimarytarget" value="true" />
+                <param name="pursuetargets" value="true" />
+                <param name="allowothertargets" value="false" />
+                <param name="checkrelation" value="false" />
+              </create_order>
+            </do_for_each>
+            <play_cutscene result="$Phase2AmbushCutscene" key="'gatefall_s03_phase2_ambush_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_xenon_k" object="$Phase2AmbushKLead" />
+            </play_cutscene>
+            <speak actor="$KatActor" page="899904" line="611" priority="100" />
+            <signal_cue cue="Phase2_Ambush_612" />
+          </actions>
+        </cue>
+
+        <cue name="Phase2_Ambush_612"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$CarterActor" page="899904" line="612" priority="100" /></actions></cue>
+
+        <cue name="Phase2_AmbushCutsceneEnded">
+          <conditions>
+            <event_cutscene_stopped cutscene="$Phase2AmbushCutscene" />
+            <check_value value="$Phase2Active and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <do_for_each name="$Phase2AmbushEnemy" in="$Phase2AmbushEnemies">
+              <set_object_min_hull object="$Phase2AmbushEnemy" exact="0" />
+            </do_for_each>
+            <set_value name="$Phase2AmbushActive" exact="true" />
+            <set_objective cue="$MissionCue" step="9" action="objective.destroy" group="$Phase2AmbushEnemies" text="{899904,219}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+
+        <cue name="Phase2_AmbushCleared" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$Phase2AmbushActive and not @$ScenarioEnded" />
+              <check_value value="$Phase2AmbushEnemies.count == 0" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$Phase2AmbushActive" exact="false" />
+            <set_objective cue="$MissionCue" step="9" action="objective.none" updatebriefing="true" silent="true" />
+            <speak actor="$CarterActor" page="899904" line="621" priority="100" />
+            <signal_cue cue="Phase2_PostAmbush_622" />
+          </actions>
+        </cue>
+
+        <cue name="Phase2_PostAmbush_622"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$JunActor" page="899904" line="622" priority="100" /><signal_cue cue="Phase2_PostAmbush_623" /></actions></cue>
+        <cue name="Phase2_PostAmbush_623"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$JorgeActor" page="899904" line="623" priority="100" /><signal_cue cue="Phase2_PostAmbush_624" /></actions></cue>
+        <cue name="Phase2_PostAmbush_624"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$JunActor" page="899904" line="624" priority="100" /><signal_cue cue="Phase2_PostAmbush_625" /></actions></cue>
+        <cue name="Phase2_PostAmbush_625"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$CarterActor" page="899904" line="625" priority="100" /><signal_cue cue="Phase2_PostAmbush_626" /></actions></cue>
+        <cue name="Phase2_PostAmbush_626"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$CarterActor" page="899904" line="626" priority="100" /><signal_cue cue="Phase2_PostAmbush_627" /></actions></cue>
+        <cue name="Phase2_PostAmbush_627"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$CarterActor" page="899904" line="627" priority="100" /><signal_cue cue="Phase2_PostAmbush_628" /></actions></cue>
+        <cue name="Phase2_PostAmbush_628"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$KatActor" page="899904" line="628" priority="100" /><signal_cue cue="Phase2_EscortStart" /></actions></cue>
+
+        <cue name="Phase2_EscortStart">
+          <conditions><event_cue_signalled /></conditions>
+          <actions>
+            <set_value name="$Phase2EscortActive" exact="true" />
+            <stop_music />
+            <play_music music="'gfc_music_m03_phase2_halo'" loop="true" />
+            <cancel_all_orders object="$AutumnOfPhi" />
+            <create_order id="'MoveWait'" object="$AutumnOfPhi" immediate="true" default="true">
+              <param name="destination" value="[$FamilyValka, $Phase2GateBPos]" />
+              <param name="precise" value="false" />
+              <param name="noattackresponse" value="false" />
+            </create_order>
+            <set_objective cue="$MissionCue" step="10" action="objective.escort" object="$AutumnOfPhi" text="{899904,220}" insert="true" updatebriefing="true" />
+            <!-- The entire authored route force is present as soon as the post-ambush briefing ends. -->
+            <signal_cue cue="Phase2_RouteWave1" />
+            <signal_cue cue="Phase2_RouteWave2" />
+            <signal_cue cue="Phase2_RouteWave3" />
+          </actions>
+        </cue>
+
+        <cue name="Phase2_RouteWave1">
+          <conditions><event_cue_signalled /></conditions>
+          <actions>
+            <set_value name="$Phase2RouteWave1Active" exact="true" />
+            <create_ship name="$Phase2RouteK1" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyValka" groupname="$Phase2RouteEnemies" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <position value="$Phase2RouteWave1Pos" />
+              <rotation yaw="263.310deg" />
+            </create_ship>
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase2RouteK1" />
+            <set_known object="$Phase2RouteK1" known="true" />
+            <set_object_forced_radar_visible object="$Phase2RouteK1" visible="true" />
+            <create_order id="'Attack'" object="$Phase2RouteK1" immediate="true" default="true">
+              <param name="primarytarget" value="$AutumnOfPhi" />
+              <param name="forceprimarytarget" value="true" />
+              <param name="pursuetargets" value="true" />
+              <param name="allowothertargets" value="false" />
+              <param name="checkrelation" value="false" />
+            </create_order>
+          </actions>
+        </cue>
+
+        <cue name="Phase2_RouteWave2">
+          <conditions><event_cue_signalled /></conditions>
+          <actions>
+            <set_value name="$Phase2RouteWave2Active" exact="true" />
+            <create_ship name="$Phase2RouteK2Lead" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyValka" groupname="$Phase2RouteEnemies" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <position value="$Phase2RouteWave2Pos" />
+              <rotation yaw="263.310deg" />
+            </create_ship>
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase2RouteK2Lead" />
+            <create_ship name="$Phase2RouteK2" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyValka" groupname="$Phase2RouteEnemies" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <safepos object="$Phase2RouteK2Lead" min="3km" max="6km" />
+              <rotation yaw="263.310deg" />
+            </create_ship>
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase2RouteK2" />
+            <do_for_each name="$Phase2RouteEnemy" in="[$Phase2RouteK2Lead, $Phase2RouteK2]">
+              <set_known object="$Phase2RouteEnemy" known="true" />
+              <set_object_forced_radar_visible object="$Phase2RouteEnemy" visible="true" />
+              <create_order id="'Attack'" object="$Phase2RouteEnemy" immediate="true" default="true">
+                <param name="primarytarget" value="$AutumnOfPhi" />
+                <param name="forceprimarytarget" value="true" />
+                <param name="pursuetargets" value="true" />
+                <param name="allowothertargets" value="false" />
+                <param name="checkrelation" value="false" />
+              </create_order>
+            </do_for_each>
+          </actions>
+        </cue>
+
+        <cue name="Phase2_RouteWave3">
+          <conditions><event_cue_signalled /></conditions>
+          <actions>
+            <set_value name="$Phase2RouteWave3Active" exact="true" />
+            <create_ship name="$Phase2RouteI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$FamilyValka" groupname="$Phase2RouteEnemies" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <position value="$Phase2RouteWave3Pos" />
+              <rotation yaw="263.310deg" />
+            </create_ship>
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase2RouteI" />
+            <set_known object="$Phase2RouteI" known="true" />
+            <set_object_forced_radar_visible object="$Phase2RouteI" visible="true" />
+            <create_order id="'Attack'" object="$Phase2RouteI" immediate="true" default="true">
+              <param name="primarytarget" value="$AutumnOfPhi" />
+              <param name="forceprimarytarget" value="true" />
+              <param name="pursuetargets" value="true" />
+              <param name="allowothertargets" value="false" />
+              <param name="checkrelation" value="false" />
+            </create_order>
+          </actions>
+        </cue>
+
+        <cue name="Phase2_ValkaCrossed" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$Phase2EscortActive and not @$ScenarioEnded" />
+              <check_value value="$AutumnOfPhi.bboxdistanceto.{$ValkaGateB} le 20km" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$Phase2EscortActive" exact="false" />
+            <set_value name="$Phase2Active" exact="false" />
+            <stop_music />
+            <set_objective cue="$MissionCue" step="10" action="objective.none" updatebriefing="true" silent="true" />
+            <destroy_group group="$Phase2RouteEnemies" explosion="false" />
+            <cancel_all_orders object="$AutumnOfPhi" />
+
+            <set_known object="$FamilyZhin" known="true" />
+            <set_known object="$FamilyZhin.cluster" known="true" />
+            <set_known object="$ZhinGateA" known="true" />
+            <warp object="$AutumnOfPhi" sector="$FamilyZhin">
+              <position value="$Phase2ZhinCarrierPos" />
+              <rotation yaw="90deg" />
+            </warp>
+            <create_order id="'Wait'" object="$AutumnOfPhi" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <signal_cue cue="Phase2_StageZhinConvoyAfterCarrierWarp" />
+          </actions>
+        </cue>
+
+        <cue name="Phase2_StageZhinConvoyAfterCarrierWarp">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="1s" />
+          <actions>
+            <!-- Read back the settled carrier position before transferring the rest of Phi Squadron. -->
+            <create_position name="$Phase2ResolvedZhinCarrierPos" space="$FamilyZhin" object="$AutumnOfPhi" x="0m" y="0m" z="0m" />
+            <!-- As at the start of Phase 2, move all five NPC ships before moving the player. -->
+            <do_for_each name="$Phase2ArrivalShip" in="$Phase2NpcShips">
+              <warp object="$Phase2ArrivalShip" sector="$FamilyZhin">
+                <safepos value="$Phase2ResolvedZhinCarrierPos" min="2km" max="6km" />
+                <rotation yaw="90deg" />
+              </warp>
+              <cancel_all_orders object="$Phase2ArrivalShip" />
+              <do_if value="$Phase2ArrivalShip == $EmileShip or $Phase2ArrivalShip == $JorgeShip">
+                <do_if value="$Phase2ArrivalShip.commander">
+                  <remove_object_commander object="$Phase2ArrivalShip" />
+                </do_if>
+                <set_object_commander object="$Phase2ArrivalShip" commander="player.ship" assignment="assignment.bombardment" />
+              </do_if>
+              <do_else>
+                <create_order id="'ProtectShip'" object="$Phase2ArrivalShip" immediate="true" default="true"><param name="target" value="$AutumnOfPhi" /></create_order>
+              </do_else>
+            </do_for_each>
+            <warp object="player.ship" sector="$FamilyZhin">
+              <position value="$Phase2ZhinPlayerPos" />
+              <rotation yaw="90deg" />
+            </warp>
+            <trigger_animation object="$ZhinGateA" trigger="activate" immediate="true" />
+            <add_effect object="$ZhinGateA" effect="'jump_gateeffect'" />
+            <add_effect object="$AutumnOfPhi" effect="'jump_gateeffect'" />
+            <add_effect object="player.ship" effect="'jump_gateeffect'" />
+            <signal_cue cue="Phase3_Start" />
+          </actions>
+        </cue>
+
+        <cue name="Phase3_Start">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="3s" />
+          <actions>
+            <set_value name="$Phase3Active" exact="true" />
+            <stop_music />
+            <play_music music="'gfc_music_m03_phase3_pillar_of_autumn'" loop="true" />
+            <set_known object="$ZhinGateB" known="true" />
+            <set_known object="$ZhinGateC" known="true" />
+            <set_known object="$ZhinGateD" known="true" />
+            <set_playership_throttle value="0" />
+
+            <!-- Freeze the convoy for the scripted reconnaissance sequence. -->
+            <set_object_min_hull object="player.ship" exact="100" />
+            <set_object_min_shield object="player.ship" exact="100" />
+            <cancel_all_orders object="$AutumnOfPhi" />
+            <create_order id="'Wait'" object="$AutumnOfPhi" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <set_value name="$Phase3NpcShips" exact="[$CarterShip, $KatShip, $JunShip, $EmileShip, $JorgeShip]" />
+            <do_for_each name="$Phase3StagedShip" in="$Phase3NpcShips">
+              <do_if value="$Phase3StagedShip.commander">
+                <remove_object_commander object="$Phase3StagedShip" />
+              </do_if>
+              <cancel_all_orders object="$Phase3StagedShip" />
+              <create_order id="'Wait'" object="$Phase3StagedShip" default="true">
+                <param name="skipalignment" value="true" />
+                <param name="noattackresponse" value="true" />
+              </create_order>
+            </do_for_each>
+
+            <play_cutscene result="$Phase3CarterBriefingCutscene" key="'gatefall_s03_phase3_carter_briefing_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_carter" object="$CarterShip" />
+            </play_cutscene>
+            <speak actor="$CarterActor" page="899904" line="701" priority="100" />
+            <signal_cue cue="Phase3_Briefing_702" />
+          </actions>
+        </cue>
+
+        <cue name="Phase3_Briefing_702"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$CarterActor" page="899904" line="702" priority="100" /><signal_cue cue="Phase3_Briefing_703" /></actions></cue>
+        <cue name="Phase3_Briefing_703"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="703" priority="100" /></actions></cue>
+
+        <cue name="Phase3_CarterBriefingEnded">
+          <conditions>
+            <event_cutscene_stopped cutscene="$Phase3CarterBriefingCutscene" />
+            <check_value value="$Phase3Active and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <!-- Once the briefing ends, Carter takes point exactly 30 km from gate A on the A-C line. -->
+            <warp object="$CarterShip" sector="$FamilyZhin">
+              <position value="$Phase3CarterVanguardPos" />
+              <rotation yaw="90deg" />
+            </warp>
+
+            <!-- Long Night is a Kha'ak Annihilator; the reveal keeps it staged until the escort objective begins. -->
+            <create_ship name="$LongNight" macro="macro.ship_kha_xl_battleship_01_a_macro" sector="$FamilyZhin" capturable="false" commandeerable="false">
+              <owner exact="faction.khaak" overridenpc="true" />
+              <pilot><select faction="faction.khaak" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" /></loadout>
+              <position value="$Phase3LongNightPos" />
+              <rotation yaw="25deg" />
+            </create_ship>
+            <generate_loadout result="$LongNightLoadout" macro="$LongNight.macro" faction="faction.khaak" level="1.0" variation="0" />
+            <do_if value="$LongNightLoadout.count">
+              <apply_loadout object="$LongNight" loadout="$LongNightLoadout.{1}" />
+            </do_if>
+            <set_object_name object="$LongNight" name="{899904,34}" />
+            <set_ship_safepos_allowed ship="$LongNight" allow="false" />
+            <set_object_min_hull object="$LongNight" exact="100" />
+            <set_object_min_shield object="$LongNight" exact="100" />
+            <cancel_all_orders object="$LongNight" />
+            <create_order id="'Wait'" object="$LongNight" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+
+            <!-- Gate B remains disconnected from Tharka's Cascade, but is used as the reinforcement landmark. -->
+            <create_ship name="$Phase3GateBKLead" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyZhin" groupname="$Phase3GateBEnemies" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <position value="$Phase3GateBEnemyPos" />
+              <rotation yaw="270deg" />
+            </create_ship>
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase3GateBKLead" />
+            <create_ship name="$Phase3GateBK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyZhin" groupname="$Phase3GateBEnemies" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <safepos object="$Phase3GateBKLead" min="4km" max="7km" />
+              <rotation yaw="270deg" />
+            </create_ship>
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase3GateBK" />
+            <do_for_each name="$Phase3GateBEnemy" in="$Phase3GateBEnemies">
+              <set_known object="$Phase3GateBEnemy" known="true" />
+              <set_object_forced_radar_visible object="$Phase3GateBEnemy" visible="true" />
+              <set_object_min_hull object="$Phase3GateBEnemy" exact="100" />
+              <cancel_all_orders object="$Phase3GateBEnemy" />
+              <create_order id="'Wait'" object="$Phase3GateBEnemy" default="true">
+                <param name="skipalignment" value="true" />
+                <param name="noattackresponse" value="true" />
+              </create_order>
+            </do_for_each>
+            <warp object="player.ship" sector="$FamilyZhin">
+              <position value="$Phase3GateBPlayerPos" />
+              <orientation orientation="look_at" refobject="$Phase3GateBKLead" />
+            </warp>
+            <play_cutscene result="$Phase3GateBCutscene" key="'gatefall_s03_phase3_gate_b_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_xenon_k" object="$Phase3GateBKLead" />
+              <param name="target_gate_b" object="$ZhinGateB" />
+            </play_cutscene>
+            <speak actor="$KatActor" page="899904" line="711" priority="100" />
+          </actions>
+        </cue>
+
+        <cue name="Phase3_GateBSceneEnded">
+          <conditions>
+            <event_cutscene_stopped cutscene="$Phase3GateBCutscene" />
+            <check_value value="$Phase3Active and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <set_known object="$LongNight" known="true" />
+            <set_object_forced_radar_visible object="$LongNight" visible="true" />
+            <warp object="player.ship" sector="$FamilyZhin">
+              <position value="$Phase3LongNightViewPos" />
+              <orientation orientation="look_at" refobject="$LongNight" />
+            </warp>
+            <play_cutscene result="$Phase3LongNightCutscene" key="'gatefall_s03_phase3_long_night_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_long_night" object="$LongNight" />
+            </play_cutscene>
+            <speak actor="$KatActor" page="899904" line="712" priority="100" />
+            <signal_cue cue="Phase3_LongNight_713" />
+          </actions>
+        </cue>
+
+        <cue name="Phase3_LongNight_713"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="713" priority="100" /><signal_cue cue="Phase3_LongNight_714" /></actions></cue>
+        <cue name="Phase3_LongNight_714"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="714" priority="100" /><signal_cue cue="Phase3_LongNight_715" /></actions></cue>
+        <cue name="Phase3_LongNight_715"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="715" priority="100" /><signal_cue cue="Phase3_LongNight_716" /></actions></cue>
+        <cue name="Phase3_LongNight_716"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$KatActor" page="899904" line="716" priority="100" /></actions></cue>
+
+        <cue name="Phase3_LongNightSceneEnded">
+          <conditions>
+            <event_cutscene_stopped cutscene="$Phase3LongNightCutscene" />
+            <check_value value="$Phase3Active and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <!-- Long Night finishes turning towards the convoy while the player returns to it. -->
+            <warp object="$LongNight" sector="$FamilyZhin">
+              <position value="$Phase3LongNightPos" />
+              <rotation yaw="270deg" />
+            </warp>
+            <warp object="player.ship" sector="$FamilyZhin">
+              <safepos object="$AutumnOfPhi" min="3km" max="5km" />
+              <orientation orientation="look_at" refobject="$CarterShip" />
+            </warp>
+            <play_cutscene result="$Phase3CarterLastStandCutscene" key="'gatefall_s03_phase3_carter_last_stand_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_carter" object="$CarterShip" />
+              <param name="target_long_night" object="$LongNight" />
+            </play_cutscene>
+            <speak actor="$CarterActor" page="899904" line="721" priority="100" />
+          </actions>
+        </cue>
+
+        <cue name="Phase3_CarterLastStandEnded">
+          <conditions>
+            <event_cutscene_stopped cutscene="$Phase3CarterLastStandCutscene" />
+            <check_value value="$Phase3Active and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <destroy_object object="$CarterShip" explosion="true" />
+            <create_ship name="$CarterWreck" macro="macro.ship_spl_l_destroyer_01_a_macro" sector="$FamilyZhin" state="componentstate.wreck" capturable="false" commandeerable="false">
+              <owner exact="faction.ownerless" overridenpc="true" />
+              <position value="$Phase3CarterVanguardPos" />
+              <rotation yaw="90deg" pitch="-5deg" roll="11deg" />
+            </create_ship>
+            <set_object_name object="$CarterWreck" name="{899904,35}" />
+            <set_known object="$CarterWreck" known="true" />
+            <set_object_forced_radar_visible object="$CarterWreck" visible="true" />
+            <play_cutscene result="$Phase3CarterWreckCutscene" key="'gatefall_s03_phase3_carter_wreck_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_wreck" object="$CarterWreck" />
+            </play_cutscene>
+            <speak actor="$CarterFinalActor" page="899904" line="722" priority="100" />
+            <signal_cue cue="Phase3_CarterWreck_723" />
+          </actions>
+        </cue>
+
+        <cue name="Phase3_CarterWreck_723"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$JorgeActor" page="899904" line="723" priority="100" /></actions></cue>
+
+        <cue name="Phase3_CarterWreckSceneEnded">
+          <conditions>
+            <event_cutscene_stopped cutscene="$Phase3CarterWreckCutscene" />
+            <check_value value="$Phase3Active and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <play_cutscene result="$Phase3CommandTransferCutscene" key="'gatefall_s03_phase3_command_transfer_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_carrier" object="$AutumnOfPhi" />
+            </play_cutscene>
+            <speak actor="$KatActor" page="899904" line="724" priority="100" />
+            <signal_cue cue="Phase3_CommandTransfer_725" />
+          </actions>
+        </cue>
+
+        <cue name="Phase3_CommandTransfer_725"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$PhiSquadActor" page="899904" line="725" priority="100" /><signal_cue cue="Phase3_CommandTransfer_726" /></actions></cue>
+        <cue name="Phase3_CommandTransfer_726"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$KatActor" page="899904" line="726" priority="100" /></actions></cue>
+
+        <cue name="Phase3_CommandTransferSceneEnded">
+          <conditions>
+            <event_cutscene_stopped cutscene="$Phase3CommandTransferCutscene" />
+            <check_value value="$Phase3Active and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <!-- Six formally receives the carrier and every surviving member of Phi Squadron. -->
+            <set_owner object="$AutumnOfPhi" faction="faction.player" overridenpc="true" />
+            <set_value name="$Phase3Survivors" exact="[$KatShip, $JunShip, $EmileShip, $JorgeShip]" />
+            <do_for_each name="$Phase3TransferredShip" in="$Phase3Survivors">
+              <do_if value="$Phase3TransferredShip.commander">
+                <remove_object_commander object="$Phase3TransferredShip" />
+              </do_if>
+              <set_owner object="$Phase3TransferredShip" faction="faction.player" overridenpc="true" />
+              <cancel_all_orders object="$Phase3TransferredShip" />
+              <set_value name="$Phase3TransferredShip.pilot.$noattackresponse" exact="false" />
+              <set_object_commander object="$Phase3TransferredShip" commander="$AutumnOfPhi" assignment="assignment.bombardment" />
+            </do_for_each>
+            <set_object_min_hull object="player.ship" exact="0" />
+            <set_object_min_shield object="player.ship" exact="0" />
+
+            <cancel_all_orders object="$AutumnOfPhi" />
+            <set_value name="$AutumnOfPhi.pilot.$noattackresponse" exact="false" />
+            <create_order id="'MoveWait'" object="$AutumnOfPhi" immediate="true" default="true">
+              <param name="destination" value="[$FamilyZhin, $Phase3GateCPos]" />
+              <param name="precise" value="false" />
+              <param name="noattackresponse" value="false" />
+            </create_order>
+
+            <!-- Activate Long Night and the two gate-B destroyers only after the scripted handover. -->
+            <set_value name="$LongNight.pilot.$noattackresponse" exact="false" />
+            <set_value name="$LongNightTurrets" exact="$LongNight.turrets.operational.list" />
+            <do_all exact="$LongNightTurrets.count" counter="$LongNightTurretIndex">
+              <set_weapon_mode weapon="$LongNightTurrets.{$LongNightTurretIndex}" weaponmode="weaponmode.attackenemies" />
+            </do_all>
+            <cancel_all_orders object="$LongNight" />
+            <create_order id="'Attack'" object="$LongNight" immediate="true" default="true">
+              <param name="primarytarget" value="$AutumnOfPhi" />
+              <param name="forceprimarytarget" value="true" />
+              <param name="pursuetargets" value="true" />
+              <param name="allowothertargets" value="false" />
+              <param name="checkrelation" value="false" />
+            </create_order>
+            <do_for_each name="$Phase3ActivatedGateBEnemy" in="$Phase3GateBEnemies">
+              <set_object_min_hull object="$Phase3ActivatedGateBEnemy" exact="0" />
+              <set_value name="$Phase3ActivatedGateBEnemy.pilot.$noattackresponse" exact="false" />
+              <cancel_all_orders object="$Phase3ActivatedGateBEnemy" />
+              <create_order id="'Attack'" object="$Phase3ActivatedGateBEnemy" immediate="true" default="true">
+                <param name="primarytarget" value="$AutumnOfPhi" />
+                <param name="forceprimarytarget" value="true" />
+                <param name="pursuetargets" value="true" />
+                <param name="allowothertargets" value="false" />
+                <param name="checkrelation" value="false" />
+              </create_order>
+            </do_for_each>
+
+            <set_value name="$Phase3EscortActive" exact="true" />
+            <set_value name="$Phase3NextReinforcementTime" exact="player.age + 1min" />
+            <set_objective cue="$MissionCue" step="11" action="objective.escort" object="$AutumnOfPhi" text="{899904,221}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+
+        <!-- A time-gated pulse is reliable across repeated waves; self-signalling an active instance is not. -->
+        <cue name="Phase3_GateBReinforcementLoop" checkinterval="1s" instantiate="true">
+          <conditions>
+            <check_value value="$Phase3EscortActive and not @$ScenarioEnded and $Phase3NextReinforcementTime gt 0 and player.age ge $Phase3NextReinforcementTime" />
+          </conditions>
+          <actions>
+            <do_if value="$Phase3EscortActive and not @$ScenarioEnded">
+              <set_value name="$Phase3NextReinforcementTime" exact="player.age + 1min" />
+              <create_ship name="$Phase3ReinforcementK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyZhin" groupname="$Phase3Reinforcements" capturable="false" commandeerable="false">
+                <owner exact="faction.xenon" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                <safepos object="$ZhinGateB" min="3km" max="6km" />
+                <rotation yaw="270deg" />
+              </create_ship>
+              <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase3ReinforcementK" />
+              <set_known object="$Phase3ReinforcementK" known="true" />
+              <set_object_forced_radar_visible object="$Phase3ReinforcementK" visible="true" />
+              <create_order id="'Attack'" object="$Phase3ReinforcementK" immediate="true" default="true">
+                <param name="primarytarget" value="$AutumnOfPhi" />
+                <param name="forceprimarytarget" value="true" />
+                <param name="pursuetargets" value="true" />
+                <param name="allowothertargets" value="false" />
+                <param name="checkrelation" value="false" />
+              </create_order>
+              <trigger_animation object="$ZhinGateB" trigger="activate" immediate="true" />
+              <add_effect object="$ZhinGateB" effect="'jump_gateeffect'" />
+              <add_effect object="$Phase3ReinforcementK" effect="'jump_gateeffect'" />
+            </do_if>
+          </actions>
+        </cue>
+
+        <cue name="Phase3_ZhinCrossed" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$Phase3EscortActive and not @$ScenarioEnded" />
+              <check_value value="$AutumnOfPhi.bboxdistanceto.{$ZhinGateC} le 20km" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$Phase3EscortActive" exact="false" />
+            <set_value name="$Phase3NextReinforcementTime" exact="0" />
+            <set_value name="$Phase3FinaleActive" exact="true" />
+            <set_objective cue="$MissionCue" step="11" action="objective.none" updatebriefing="true" silent="true" />
+            <stop_music />
+            <play_music music="'gfc_music_m03_phase3_epilogue'" loop="true" />
+
+            <!-- Freeze all pursuers before repositioning the finale, and stop the one-minute loop. -->
+            <do_for_each name="$Phase3FrozenGateBEnemy" in="$Phase3GateBEnemies">
+              <do_if value="$Phase3FrozenGateBEnemy.exists">
+                <cancel_all_orders object="$Phase3FrozenGateBEnemy" />
+                <create_order id="'Wait'" object="$Phase3FrozenGateBEnemy" default="true">
+                  <param name="skipalignment" value="true" />
+                  <param name="noattackresponse" value="true" />
+                </create_order>
+              </do_if>
+            </do_for_each>
+            <do_for_each name="$Phase3FrozenReinforcement" in="$Phase3Reinforcements">
+              <do_if value="$Phase3FrozenReinforcement.exists">
+                <cancel_all_orders object="$Phase3FrozenReinforcement" />
+                <create_order id="'Wait'" object="$Phase3FrozenReinforcement" default="true">
+                  <param name="skipalignment" value="true" />
+                  <param name="noattackresponse" value="true" />
+                </create_order>
+              </do_if>
+            </do_for_each>
+            <cancel_all_orders object="$LongNight" />
+            <create_order id="'Wait'" object="$LongNight" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+
+            <!-- Lock the finale to the authored C-gate reference line. -->
+            <cancel_all_orders object="$AutumnOfPhi" />
+            <warp object="$AutumnOfPhi" sector="$FamilyZhin">
+              <position value="$Phase3CarrierFinalPos" />
+              <rotation yaw="90deg" />
+            </warp>
+            <create_order id="'Wait'" object="$AutumnOfPhi" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <signal_cue cue="Phase3_StageFinaleAfterCarrierWarp" />
+          </actions>
+        </cue>
+
+        <cue name="Phase3_StageFinaleAfterCarrierWarp">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="1s" />
+          <actions>
+            <!-- Keep the finale formation anchored to the carrier's resolved post-warp position. -->
+            <create_position name="$Phase3ResolvedCarrierFinalPos" space="$FamilyZhin" object="$AutumnOfPhi" x="0m" y="0m" z="0m" />
+            <do_for_each name="$Phase3FinaleShip" in="$Phase3Survivors">
+              <do_if value="$Phase3FinaleShip.commander">
+                <remove_object_commander object="$Phase3FinaleShip" />
+              </do_if>
+              <warp object="$Phase3FinaleShip" sector="$FamilyZhin">
+                <safepos value="$Phase3ResolvedCarrierFinalPos" min="2km" max="6km" />
+                <rotation yaw="90deg" />
+              </warp>
+              <cancel_all_orders object="$Phase3FinaleShip" />
+              <create_order id="'Wait'" object="$Phase3FinaleShip" default="true">
+                <param name="skipalignment" value="true" />
+                <param name="noattackresponse" value="true" />
+              </create_order>
+            </do_for_each>
+            <warp object="$LongNight" sector="$FamilyZhin">
+              <position value="$Phase3LongNightFinalPos" />
+              <rotation yaw="90deg" />
+            </warp>
+            <warp object="player.ship" sector="$FamilyZhin">
+              <safepos value="$Phase3ResolvedCarrierFinalPos" min="4km" max="7km" />
+              <orientation orientation="look_at" refobject="$LongNight" />
+            </warp>
+
+            <!-- Jorge begins two kilometres in front of Long Night, facing back into its main battery. -->
+            <warp object="$JorgeShip" sector="$FamilyZhin">
+              <position value="$Phase3JorgeChargePos" />
+              <rotation yaw="270deg" />
+            </warp>
+            <cancel_all_orders object="$JorgeShip" />
+            <create_order id="'MoveWait'" object="$JorgeShip" immediate="true" default="true">
+              <param name="destination" value="[$FamilyZhin, $Phase3LongNightFinalPos]" />
+              <param name="precise" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+
+            <play_cutscene result="$Phase3JorgeSacrificeCutscene" key="'gatefall_s03_phase3_jorge_sacrifice_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_long_night" object="$LongNight" />
+              <param name="target_jorge" object="$JorgeShip" />
+              <param name="target_carrier" object="$AutumnOfPhi" />
+            </play_cutscene>
+            <speak actor="$KatActor" page="899904" line="731" priority="100" />
+            <signal_cue cue="Phase3_JorgeSacrifice_732" />
+          </actions>
+        </cue>
+
+        <cue name="Phase3_JorgeSacrifice_732"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="732" priority="100" /><signal_cue cue="Phase3_JorgeSacrifice_733" /></actions></cue>
+        <cue name="Phase3_JorgeSacrifice_733"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$JorgeActor" page="899904" line="733" priority="100" /><signal_cue cue="Phase3_JorgeSacrifice_734" /></actions></cue>
+        <cue name="Phase3_JorgeSacrifice_734"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="734" priority="100" /><signal_cue cue="Phase3_JorgeImpact" /></actions></cue>
+
+        <cue name="Phase3_JorgeImpact">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="4s" />
+          <actions>
+            <destroy_object object="$JorgeShip" explosion="true" />
+            <set_object_min_shield object="$LongNight" exact="0" />
+            <set_object_shield object="$LongNight" exact="0" />
+            <set_object_min_hull object="$LongNight" exact="90" />
+            <set_object_hull object="$LongNight" exact="90" />
+            <cancel_all_orders object="$LongNight" />
+            <create_order id="'Wait'" object="$LongNight" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <set_value name="$Phase3FinalImpactDone" exact="true" />
+          </actions>
+        </cue>
+
+        <cue name="Phase3_JorgeSacrificeSceneEnded">
+          <conditions>
+            <event_cutscene_stopped cutscene="$Phase3JorgeSacrificeCutscene" />
+            <check_value value="$Phase3FinaleActive and $Phase3FinalImpactDone and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <set_value name="$Phase3FinaleActive" exact="false" />
+            <set_value name="$Phase3Active" exact="false" />
+            <signal_cue cue="Phase4_Start" />
+          </actions>
+        </cue>
+
+        <!-- Phase 4: evacuate the civilians at the Nhuut weapon-component factory. -->
+        <cue name="Phase4_Start">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="3s" />
+          <actions>
+            <set_value name="$Phase4Active" exact="true" />
+            <stop_music />
+            <play_music music="'gfc_music_m03_phase4_new_alexandria'" loop="true" />
+            <set_known object="$FamilyNhuut" known="true" />
+            <set_known object="$FamilyNhuut.cluster" known="true" />
+            <set_known object="$NhuutGateA" known="true" />
+            <set_known object="$NhuutGateB" known="true" />
+            <set_objective cue="$MissionCue" step="11" action="objective.none" updatebriefing="true" silent="true" />
+
+            <!-- The earlier pursuit forces never cross the intentionally disconnected gate. -->
+            <destroy_group group="$Phase3GateBEnemies" explosion="false" />
+            <destroy_group group="$Phase3Reinforcements" explosion="false" />
+
+            <cancel_all_orders object="$AutumnOfPhi" />
+            <warp object="$AutumnOfPhi" sector="$FamilyNhuut">
+              <position value="$Phase4CarrierArrivalPos" />
+              <rotation yaw="180deg" />
+            </warp>
+            <create_order id="'Wait'" object="$AutumnOfPhi" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <signal_cue cue="Phase4_StageNhuutConvoyAfterCarrierWarp" />
+          </actions>
+        </cue>
+
+        <cue name="Phase4_StageNhuutConvoyAfterCarrierWarp">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="1s" />
+          <actions>
+            <!-- Resolve the Nhuut arrival around the carrier only after its sector transfer has settled. -->
+            <create_position name="$Phase4ResolvedCarrierArrivalPos" space="$FamilyNhuut" object="$AutumnOfPhi" x="0m" y="0m" z="0m" />
+            <warp object="$PhiSix" sector="$FamilyNhuut">
+              <position value="$Phase4PlayerArrivalPos" />
+              <orientation orientation="look_at" refposition="$Phase4WeaponFactoryPos" />
+            </warp>
+            <do_for_each name="$Phase4SquadShip" in="[$KatShip, $JunShip, $EmileShip]">
+              <do_if value="$Phase4SquadShip.exists">
+                <do_if value="$Phase4SquadShip.commander">
+                  <remove_object_commander object="$Phase4SquadShip" />
+                </do_if>
+                <warp object="$Phase4SquadShip" sector="$FamilyNhuut">
+                  <safepos value="$Phase4ResolvedCarrierArrivalPos" min="2km" max="6km" />
+                  <rotation yaw="180deg" />
+                </warp>
+                <cancel_all_orders object="$Phase4SquadShip" />
+                <set_object_commander object="$Phase4SquadShip" commander="$AutumnOfPhi" assignment="assignment.bombardment" />
+              </do_if>
+            </do_for_each>
+            <trigger_animation object="$NhuutGateA" trigger="activate" immediate="true" />
+            <add_effect object="$NhuutGateA" effect="'jump_gateeffect'" />
+            <add_effect object="$AutumnOfPhi" effect="'jump_gateeffect'" />
+            <add_effect object="$PhiSix" effect="'jump_gateeffect'" />
+
+            <create_station name="$NhuutWeaponFactory" macro="macro.station_gen_factory_base_01_macro" sector="$FamilyNhuut" state="componentstate.operational" owner="faction.split" constructionplan="'gatefall_scenario_03_split_weaponcomponents'">
+              <position value="$Phase4WeaponFactoryPos" />
+              <rotation yaw="180deg" />
+            </create_station>
+            <set_object_name object="$NhuutWeaponFactory" name="{899904,40}" />
+            <run_actions ref="InitialiseSplitStation"><param name="Station" value="$NhuutWeaponFactory" /></run_actions>
+            <set_object_hull object="$NhuutWeaponFactory" exact="100" />
+            <set_object_min_hull object="$NhuutWeaponFactory" exact="1" />
+            <find_object_component name="$NhuutWeaponFactoryModules" object="$NhuutWeaponFactory" class="class.module" multiple="true" />
+            <do_for_each name="$NhuutWeaponFactoryModule" in="$NhuutWeaponFactoryModules">
+              <set_object_min_hull object="$NhuutWeaponFactoryModule" exact="1" />
+            </do_for_each>
+            <set_known object="$NhuutWeaponFactory" known="true" />
+            <set_object_forced_radar_visible object="$NhuutWeaponFactory" visible="true" />
+            <signal_cue_instantly cue="EnableNhuutWeaponFactoryFailure" />
+
+            <create_ship name="$Phase4StationI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$FamilyNhuut" groupname="$Phase4StationAttackers" capturable="false" commandeerable="false">
+              <owner exact="faction.xenon" overridenpc="true" />
+              <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+              <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+              <position value="$Phase4StationEnemyPos" />
+              <rotation yaw="270deg" />
+            </create_ship>
+            <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase4StationI" />
+            <do_all exact="4">
+              <create_ship name="$Phase4StationK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyNhuut" groupname="$Phase4StationAttackers" capturable="false" commandeerable="false">
+                <owner exact="faction.xenon" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                <safepos object="$Phase4StationI" min="3km" max="8km" />
+                <rotation yaw="270deg" />
+              </create_ship>
+              <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase4StationK" />
+            </do_all>
+            <do_for_each name="$Phase4StationEnemy" in="$Phase4StationAttackers">
+              <set_known object="$Phase4StationEnemy" known="true" />
+              <set_object_forced_radar_visible object="$Phase4StationEnemy" visible="true" />
+              <create_order id="'Attack'" object="$Phase4StationEnemy" immediate="true" default="true">
+                <param name="primarytarget" value="$NhuutWeaponFactory" />
+                <param name="forceprimarytarget" value="true" />
+                <param name="pursuetargets" value="true" />
+                <param name="allowothertargets" value="false" />
+                <param name="checkrelation" value="false" />
+              </create_order>
+            </do_for_each>
+
+            <speak actor="$StationBroadcastActor" page="899904" line="801" priority="100" />
+            <signal_cue cue="Phase4_Briefing_802" />
+          </actions>
+        </cue>
+
+        <cue name="Phase4_Briefing_802"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$KatActor" page="899904" line="802" priority="100" /><signal_cue cue="Phase4_Briefing_803" /></actions></cue>
+        <cue name="Phase4_Briefing_803"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$JunActor" page="899904" line="803" priority="100" /><signal_cue cue="Phase4_Briefing_804" /></actions></cue>
+        <cue name="Phase4_Briefing_804"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="$KatActor" page="899904" line="804" priority="100" /><signal_cue cue="Phase4_Briefing_805" /></actions></cue>
+        <cue name="Phase4_Briefing_805"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$JunActor" page="899904" line="805" priority="100" /><signal_cue cue="Phase4_Briefing_806" /></actions></cue>
+        <cue name="Phase4_Briefing_806"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$JunActor" page="899904" line="806" priority="100" /><signal_cue cue="Phase4_Briefing_807" /></actions></cue>
+        <cue name="Phase4_Briefing_807"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="807" priority="100" /><signal_cue cue="Phase4_Briefing_808" /></actions></cue>
+        <cue name="Phase4_Briefing_808">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="6s" />
+          <actions>
+            <speak actor="player.entity" page="899904" line="808" priority="100" />
+            <set_value name="$Phase4CarrierApproachActive" exact="true" />
+            <cancel_all_orders object="$AutumnOfPhi" />
+            <create_order id="'MoveWait'" object="$AutumnOfPhi" immediate="true" default="true">
+              <param name="destination" value="[$FamilyNhuut, $Phase4WeaponFactoryPos]" />
+              <param name="precise" value="false" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <set_objective cue="$MissionCue" step="12" action="objective.escort" object="$AutumnOfPhi" text="{899904,222}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+
+        <cue name="Phase4_StationApproached" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$Phase4CarrierApproachActive and not @$ScenarioEnded" />
+              <check_value value="$AutumnOfPhi.bboxdistanceto.{$NhuutWeaponFactory} le 10km" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$Phase4CarrierApproachActive" exact="false" />
+            <set_objective cue="$MissionCue" step="12" action="objective.none" updatebriefing="true" silent="true" />
+            <cancel_all_orders object="$AutumnOfPhi" />
+            <create_order id="'Wait'" object="$AutumnOfPhi" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+
+            <cancel_all_orders object="$LongNight" />
+            <warp object="$LongNight" sector="$FamilyNhuut">
+              <position value="$Phase4LongNightGatePos" />
+              <orientation orientation="look_at" refobject="$AutumnOfPhi" />
+            </warp>
+            <set_known object="$LongNight" known="true" />
+            <set_object_forced_radar_visible object="$LongNight" visible="true" />
+            <trigger_animation object="$NhuutGateA" trigger="activate" immediate="true" />
+            <add_effect object="$NhuutGateA" effect="'jump_gateeffect'" />
+            <add_effect object="$LongNight" effect="'jump_gateeffect'" />
+            <speak actor="$NhuutCivilianActor" page="899904" line="811" priority="100" />
+          </actions>
+        </cue>
+
+        <cue name="Phase4_Reveal_812">
+          <conditions>
+            <event_speak_finished actor="$NhuutCivilianActor" page="899904" line="811" />
+            <check_value value="$Phase4Active and not @$ScenarioEnded" />
+          </conditions>
+          <delay exact="500ms" />
+          <actions>
+            <!-- Start the reveal only after the civilian line and Long Night's warp have both settled. -->
+            <play_cutscene result="$Phase4LongNightCutscene" key="'gatefall_s03_phase4_long_night_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_long_night" object="$LongNight" />
+              <param name="target_gate" object="$NhuutGateA" />
+              <param name="target_carrier" object="$AutumnOfPhi" />
+            </play_cutscene>
+            <speak actor="$KatActor" page="899904" line="812" priority="100" />
+            <signal_cue cue="Phase4_Reveal_813" />
+          </actions>
+        </cue>
+        <cue name="Phase4_Reveal_813"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="813" priority="100" /><signal_cue cue="Phase4_Reveal_814" /></actions></cue>
+        <cue name="Phase4_Reveal_814"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="814" priority="100" /></actions></cue>
+
+        <cue name="Phase4_LongNightSceneEnded">
+          <conditions>
+            <event_cutscene_stopped cutscene="$Phase4LongNightCutscene" />
+            <check_value value="$Phase4Active and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <do_if value="$KatShip.commander">
+              <remove_object_commander object="$KatShip" />
+            </do_if>
+            <set_owner object="$KatShip" faction="faction.split" overridenpc="true" />
+            <cancel_all_orders object="$KatShip" />
+            <create_order id="'Wait'" object="$KatShip" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <play_cutscene result="$Phase4KatCutscene" key="'gatefall_s03_phase4_kat_decoy_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_kat" object="$KatShip" />
+              <param name="target_carrier" object="$AutumnOfPhi" />
+            </play_cutscene>
+            <speak actor="$KatActor" page="899904" line="815" priority="100" />
+            <signal_cue cue="Phase4_Kat_816" />
+          </actions>
+        </cue>
+
+        <cue name="Phase4_Kat_816"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$KatActor" page="899904" line="816" priority="100" /><signal_cue cue="Phase4_Kat_817" /></actions></cue>
+        <cue name="Phase4_Kat_817"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$KatActor" page="899904" line="817" priority="100" /></actions></cue>
+
+        <cue name="Phase4_KatSceneEnded">
+          <conditions>
+            <event_cutscene_stopped cutscene="$Phase4KatCutscene" />
+            <check_value value="$Phase4Active and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <set_object_min_hull object="$KatShip" exact="100" />
+            <set_object_min_shield object="$KatShip" exact="100" />
+            <cancel_all_orders object="$KatShip" />
+            <create_order id="'MoveWait'" object="$KatShip" immediate="true" default="true">
+              <param name="destination" value="[$FamilyNhuut, $Phase4KatDecoyPos]" />
+              <param name="precise" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <set_value name="$LongNight.pilot.$noattackresponse" exact="false" />
+            <cancel_all_orders object="$LongNight" />
+            <create_order id="'Attack'" object="$LongNight" immediate="true" default="true">
+              <param name="primarytarget" value="$KatShip" />
+              <param name="forceprimarytarget" value="true" />
+              <param name="pursuetargets" value="true" />
+              <param name="allowothertargets" value="false" />
+              <param name="checkrelation" value="false" />
+            </create_order>
+            <stop_music />
+            <play_music music="'gfc_music_m03_phase4_winter_contingency'" loop="true" />
+            <speak actor="player.entity" page="899904" line="818" priority="100" />
+
+            <set_value name="$Phase4GateRunActive" exact="true" />
+            <cancel_all_orders object="$AutumnOfPhi" />
+            <create_order id="'MoveWait'" object="$AutumnOfPhi" immediate="true" default="true">
+              <param name="destination" value="[$FamilyNhuut, $Phase4GateBPos]" />
+              <param name="precise" value="false" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <set_objective cue="$MissionCue" step="13" action="objective.escort" object="$AutumnOfPhi" text="{899904,223}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+
+        <!-- Phase 5: hold the antimatter-cell factory and turn it into the final demolition charge. -->
+        <cue name="Phase5_Start" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$Phase4GateRunActive and not @$ScenarioEnded" />
+              <check_value value="$AutumnOfPhi.bboxdistanceto.{$NhuutGateB} le 20km" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$Phase4GateRunActive" exact="false" />
+            <set_value name="$Phase4Active" exact="false" />
+            <set_value name="$Phase5Active" exact="true" />
+            <set_objective cue="$MissionCue" step="13" action="objective.none" updatebriefing="true" silent="true" />
+            <cancel_all_orders object="$AutumnOfPhi" />
+            <create_order id="'Wait'" object="$AutumnOfPhi" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+
+            <create_object name="$ZyarthCommunicationsBeacon" macro="macro.env_deco_nav_beacon_t1_macro" owner="faction.split" sector="$FamilyNhuut">
+              <position value="$Phase4GateBPos" />
+            </create_object>
+            <set_object_name object="$ZyarthCommunicationsBeacon" name="{899904,41}" />
+            <set_known object="$ZyarthCommunicationsBeacon" known="true" />
+
+            <set_object_min_hull object="$KatShip" exact="0" />
+            <set_object_min_shield object="$KatShip" exact="0" />
+            <destroy_object object="$KatShip" explosion="true" />
+            <cancel_all_orders object="$LongNight" />
+            <create_order id="'MoveWait'" object="$LongNight" immediate="true" default="true">
+              <param name="destination" value="[$FamilyNhuut, $Phase4GateBPos]" />
+              <param name="precise" value="false" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+
+            <speak actor="$KatFinalActor" page="899904" line="821" priority="100" />
+            <signal_cue cue="Phase5_Briefing_822" />
+          </actions>
+        </cue>
+
+        <cue name="Phase5_Briefing_822"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="822" priority="100" /><signal_cue cue="Phase5_Briefing_823" /></actions></cue>
+        <cue name="Phase5_Briefing_823"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$JunActor" page="899904" line="823" priority="100" /><signal_cue cue="Phase5_Briefing_824" /></actions></cue>
+        <cue name="Phase5_Briefing_824"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="824" priority="100" /><signal_cue cue="Phase5_Briefing_825" /></actions></cue>
+        <cue name="Phase5_Briefing_825"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="825" priority="100" /><signal_cue cue="Phase5_Briefing_826" /></actions></cue>
+        <cue name="Phase5_Briefing_826"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="player.entity" page="899904" line="826" priority="100" /><signal_cue cue="Phase5_Briefing_827" /></actions></cue>
+        <cue name="Phase5_Briefing_827"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$ZyarthFleetActor" page="899904" line="827" priority="100" /><signal_cue cue="Phase5_Briefing_828" /></actions></cue>
+        <cue name="Phase5_Briefing_828"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$ZyarthFleetActor" page="899904" line="828" priority="100" /><signal_cue cue="Phase5_Briefing_829" /></actions></cue>
+        <cue name="Phase5_Briefing_829"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$ZyarthFleetActor" page="899904" line="829" priority="100" /><signal_cue cue="Phase5_Briefing_830" /></actions></cue>
+        <cue name="Phase5_Briefing_830"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="830" priority="100" /><signal_cue cue="Phase5_Briefing_831" /></actions></cue>
+        <cue name="Phase5_Briefing_831"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$ZyarthFleetActor" page="899904" line="831" priority="100" /><signal_cue cue="Phase5_Briefing_832" /></actions></cue>
+        <cue name="Phase5_Briefing_832"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$ZyarthFleetActor" page="899904" line="832" priority="100" /><signal_cue cue="Phase5_Briefing_833" /></actions></cue>
+        <cue name="Phase5_Briefing_833"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$JunActor" page="899904" line="833" priority="100" /><signal_cue cue="Phase5_Briefing_834" /></actions></cue>
+        <cue name="Phase5_Briefing_834"><conditions><event_cue_signalled /></conditions><delay exact="5s" /><actions><speak actor="player.entity" page="899904" line="834" priority="100" /><signal_cue cue="Phase5_Briefing_835" /></actions></cue>
+        <cue name="Phase5_Briefing_835"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="835" priority="100" /><signal_cue cue="Phase5_Briefing_836" /></actions></cue>
+        <cue name="Phase5_Briefing_836"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="836" priority="100" /><signal_cue cue="Phase5_Briefing_837" /></actions></cue>
+        <cue name="Phase5_Briefing_837"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="837" priority="100" /><signal_cue cue="Phase5_Briefing_838" /></actions></cue>
+        <cue name="Phase5_Briefing_838"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$NhuutCivilianActor" page="899904" line="838" priority="100" /><signal_cue cue="Phase5_Briefing_839" /></actions></cue>
+        <cue name="Phase5_Briefing_839"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="839" priority="100" /><signal_cue cue="Phase5_Briefing_840" /></actions></cue>
+        <cue name="Phase5_Briefing_840"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$JunActor" page="899904" line="840" priority="100" /><signal_cue cue="Phase5_Briefing_841" /></actions></cue>
+        <cue name="Phase5_Briefing_841"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="841" priority="100" /><signal_cue cue="Phase5_Briefing_842" /></actions></cue>
+        <cue name="Phase5_Briefing_842"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$ZyarthFleetActor" page="899904" line="842" priority="100" /><signal_cue cue="Phase5_Briefing_843" /></actions></cue>
+        <cue name="Phase5_Briefing_843"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="843" priority="100" /><signal_cue cue="Phase5_CreateFactory" /></actions></cue>
+
+        <cue name="Phase5_CreateFactory">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="5s" />
+          <actions>
+            <create_station name="$AntimatterFactory" macro="macro.station_gen_factory_base_01_macro" sector="$FamilyNhuut" state="componentstate.operational" owner="faction.split" constructionplan="'gatefall_scenario_03_split_antimattercells'">
+              <position value="$Phase5AntimatterFactoryPos" />
+              <rotation yaw="180deg" />
+            </create_station>
+            <set_object_name object="$AntimatterFactory" name="{899904,42}" />
+            <run_actions ref="InitialiseSplitStation"><param name="Station" value="$AntimatterFactory" /></run_actions>
+            <set_object_shield object="$AntimatterFactory" exact="0" />
+            <!-- This is a genuine failure target, so its 20% starting structure must be fully destructible. -->
+            <set_object_min_hull object="$AntimatterFactory" exact="0" />
+            <find_object_component name="$AntimatterFactoryModules" object="$AntimatterFactory" class="class.module" multiple="true" />
+            <do_for_each name="$AntimatterFactoryModule" in="$AntimatterFactoryModules">
+              <set_object_min_hull object="$AntimatterFactoryModule" exact="0" />
+            </do_for_each>
+            <set_object_hull object="$AntimatterFactory" exact="20" />
+            <set_known object="$AntimatterFactory" known="true" />
+            <set_object_forced_radar_visible object="$AntimatterFactory" visible="true" />
+            <signal_cue_instantly cue="EnableAntimatterFactoryFailure" />
+
+            <!-- Once the demolition site exists, Long Night abandons the gate and hunts Phi Six. -->
+            <set_value name="$LongNight.pilot.$noattackresponse" exact="false" />
+            <cancel_all_orders object="$LongNight" />
+            <create_order id="'Attack'" object="$LongNight" immediate="true" default="true">
+              <param name="primarytarget" value="$PhiSix" />
+              <param name="forceprimarytarget" value="true" />
+              <param name="pursuetargets" value="true" />
+              <param name="allowothertargets" value="false" />
+              <param name="checkrelation" value="false" />
+            </create_order>
+
+            <set_known object="$ZyarthDominionI" known="true" />
+            <set_known object="$ZyarthDominionI.cluster" known="true" />
+            <set_known object="$ZyarthNhuutGate" known="true" />
+            <warp object="$AutumnOfPhi" sector="$ZyarthDominionI">
+              <position value="$Phase5CarrierSafePos" />
+              <rotation yaw="0deg" />
+            </warp>
+            <cancel_all_orders object="$AutumnOfPhi" />
+            <create_order id="'Wait'" object="$AutumnOfPhi" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <signal_cue cue="Phase5_ResolveCarrierTransferAfterWarp" />
+          </actions>
+        </cue>
+
+        <cue name="Phase5_ResolveCarrierTransferAfterWarp">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="1s" />
+          <actions>
+            <!-- Apply the same settled-position handoff even though the carrier leaves the active squadron alone here. -->
+            <create_position name="$Phase5ResolvedCarrierSafePos" space="$ZyarthDominionI" object="$AutumnOfPhi" x="0m" y="0m" z="0m" />
+            <trigger_animation object="$ZyarthNhuutGate" trigger="activate" immediate="true" />
+            <add_effect object="$ZyarthNhuutGate" effect="'jump_gateeffect'" />
+            <add_effect object="$AutumnOfPhi" effect="'jump_gateeffect'" />
+
+            <do_for_each name="$Phase5WingShip" in="[$JunShip, $EmileShip]">
+              <do_if value="$Phase5WingShip.exists">
+                <do_if value="$Phase5WingShip.commander">
+                  <remove_object_commander object="$Phase5WingShip" />
+                </do_if>
+                <cancel_all_orders object="$Phase5WingShip" />
+                <set_object_commander object="$Phase5WingShip" commander="$PhiSix" assignment="assignment.bombardment" />
+              </do_if>
+            </do_for_each>
+            <set_value name="$Phase5FactoryApproachActive" exact="true" />
+            <set_objective cue="$MissionCue" step="14" action="objective.flyto" object="$AntimatterFactory" text="{899904,224}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+
+        <cue name="Phase5_FactoryApproached" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$Phase5FactoryApproachActive and not @$ScenarioEnded" />
+              <check_value value="$PhiSix.bboxdistanceto.{$AntimatterFactory} le 10km" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$Phase5FactoryApproachActive" exact="false" />
+            <set_objective cue="$MissionCue" step="14" action="objective.none" updatebriefing="true" silent="true" />
+            <stop_music />
+            <play_music music="'gfc_music_m03_phase5_oni_sword_base'" loop="true" />
+            <speak actor="player.entity" page="899904" line="851" priority="100" />
+            <signal_cue cue="Phase5_Factory_852" />
+          </actions>
+        </cue>
+
+        <cue name="Phase5_Factory_852"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="852" priority="100" /><signal_cue cue="Phase5_Factory_853" /></actions></cue>
+        <cue name="Phase5_Factory_853"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$PhiSquadActor" page="899904" line="853" priority="100" /><signal_cue cue="Phase5_DefenceStart" /></actions></cue>
+
+        <cue name="Phase5_DefenceStart">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="5s" />
+          <actions>
+            <set_value name="$Phase5FactoryDefenceActive" exact="true" />
+            <set_value name="$Phase5DefenceEndTime" exact="player.age + 5min" />
+            <set_value name="$Phase5WaveNumber" exact="1" />
+            <set_value name="$Phase5NextWaveTime" exact="player.age + 1min" />
+            <set_object_min_hull object="$JunShip" exact="1" />
+            <set_object_min_hull object="$EmileShip" exact="1" />
+            <do_for_each name="$Phase5Defender" in="[$JunShip, $EmileShip]">
+              <do_if value="$Phase5Defender.commander">
+                <remove_object_commander object="$Phase5Defender" />
+              </do_if>
+              <cancel_all_orders object="$Phase5Defender" />
+              <create_order id="'ProtectStation'" object="$Phase5Defender" immediate="true" default="true">
+                <param name="target" value="$AntimatterFactory" />
+              </create_order>
+            </do_for_each>
+            <do_all exact="2">
+              <create_ship name="$Phase5InitialK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyNhuut" groupname="$Phase5FactoryAttackers" capturable="false" commandeerable="false">
+                <owner exact="faction.xenon" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                <safepos object="$AntimatterFactory" min="12km" max="18km" />
+                <rotation yaw="180deg" />
+              </create_ship>
+              <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase5InitialK" />
+            </do_all>
+            <do_for_each name="$Phase5InitialEnemy" in="$Phase5FactoryAttackers">
+              <set_known object="$Phase5InitialEnemy" known="true" />
+              <set_object_forced_radar_visible object="$Phase5InitialEnemy" visible="true" />
+              <create_order id="'Attack'" object="$Phase5InitialEnemy" immediate="true" default="true">
+                <param name="primarytarget" value="$AntimatterFactory" />
+                <param name="forceprimarytarget" value="true" />
+                <param name="pursuetargets" value="true" />
+                <param name="allowothertargets" value="false" />
+                <param name="checkrelation" value="false" />
+              </create_order>
+            </do_for_each>
+            <set_objective cue="$MissionCue" step="15" action="objective.protect" object="$AntimatterFactory" text="{899904,225}" insert="true" endtime="$Phase5DefenceEndTime" updatebriefing="true" />
+          </actions>
+        </cue>
+
+        <!-- Pulse at elapsed minutes 1-4, corresponding to four through one minutes remaining. -->
+        <cue name="Phase5_DefenceWaveLoop" checkinterval="500ms" instantiate="true">
+          <conditions>
+            <check_value value="$Phase5FactoryDefenceActive and $Phase5WaveNumber lt 5 and not @$ScenarioEnded and $Phase5NextWaveTime gt 0 and player.age ge $Phase5NextWaveTime" />
+          </conditions>
+          <actions>
+            <do_if value="$Phase5FactoryDefenceActive and $Phase5WaveNumber lt 5 and not @$ScenarioEnded">
+              <set_value name="$Phase5NextWaveTime" exact="player.age + 1min" />
+              <do_all exact="2">
+                <create_ship name="$Phase5WaveK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyNhuut" groupname="$Phase5FactoryAttackers" capturable="false" commandeerable="false">
+                  <owner exact="faction.xenon" overridenpc="true" />
+                  <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                  <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                  <safepos object="$AntimatterFactory" min="12km" max="18km" />
+                  <rotation yaw="180deg" />
+                </create_ship>
+                <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase5WaveK" />
+                <set_known object="$Phase5WaveK" known="true" />
+                <set_object_forced_radar_visible object="$Phase5WaveK" visible="true" />
+                <create_order id="'Attack'" object="$Phase5WaveK" immediate="true" default="true">
+                  <param name="primarytarget" value="$AntimatterFactory" />
+                  <param name="forceprimarytarget" value="true" />
+                  <param name="pursuetargets" value="true" />
+                  <param name="allowothertargets" value="false" />
+                  <param name="checkrelation" value="false" />
+                </create_order>
+              </do_all>
+              <set_value name="$Phase5WaveNumber" operation="add" exact="1" />
+            </do_if>
+          </actions>
+        </cue>
+
+        <cue name="Phase5_DefenceComplete" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$Phase5FactoryDefenceActive and not @$ScenarioEnded" />
+              <check_value value="player.age ge $Phase5DefenceEndTime" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$Phase5FactoryDefenceActive" exact="false" />
+            <set_value name="$Phase5NextWaveTime" exact="0" />
+            <set_objective cue="$MissionCue" step="15" action="objective.none" updatebriefing="true" silent="true" />
+            <stop_music />
+            <play_music music="'gfc_music_m03_phase5_ashes'" loop="true" />
+            <do_all exact="5">
+              <create_ship name="$Phase5FinalK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$FamilyNhuut" groupname="$Phase5FactoryAttackers" capturable="false" commandeerable="false">
+                <owner exact="faction.xenon" overridenpc="true" />
+                <pilot><select faction="faction.xenon" tags="tag.commander" /></pilot>
+                <loadout><level exact="1.0" faction="faction.xenon" /></loadout>
+                <safepos object="$JunShip" min="4km" max="9km" />
+                <rotation yaw="180deg" />
+              </create_ship>
+              <add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase5FinalK" />
+              <set_known object="$Phase5FinalK" known="true" />
+              <set_object_forced_radar_visible object="$Phase5FinalK" visible="true" />
+              <create_order id="'Attack'" object="$Phase5FinalK" immediate="true" default="true">
+                <param name="primarytarget" value="$JunShip" />
+                <param name="forceprimarytarget" value="true" />
+                <param name="pursuetargets" value="true" />
+                <param name="allowothertargets" value="false" />
+                <param name="checkrelation" value="false" />
+              </create_order>
+            </do_all>
+            <cancel_all_orders object="$LongNight" />
+            <warp object="$LongNight" sector="$FamilyNhuut">
+              <safepos object="$AntimatterFactory" min="5km" max="8km" />
+              <orientation orientation="look_at" refobject="$AntimatterFactory" />
+            </warp>
+            <create_order id="'Wait'" object="$LongNight" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <speak actor="$JunActor" page="899904" line="861" priority="100" />
+            <signal_cue cue="Phase5_Finale_862" />
+          </actions>
+        </cue>
+
+        <cue name="Phase5_Finale_862"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="862" priority="100" /><signal_cue cue="Phase5_Finale_863" /></actions></cue>
+        <cue name="Phase5_Finale_863"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="863" priority="100" /><signal_cue cue="Phase5_DestroyJun" /></actions></cue>
+
+        <cue name="Phase5_DestroyJun">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="5s" />
+          <actions>
+            <set_object_min_hull object="$JunShip" exact="0" />
+            <destroy_object object="$JunShip" explosion="true" />
+            <cancel_all_orders object="$EmileShip" />
+            <create_order id="'MoveWait'" object="$EmileShip" immediate="true" default="true">
+              <param name="destination" value="[$FamilyNhuut, $Phase4GateBPos]" />
+              <param name="precise" value="false" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <speak actor="player.entity" page="899904" line="864" priority="100" />
+            <signal_cue cue="Phase5_Finale_865" />
+          </actions>
+        </cue>
+
+        <cue name="Phase5_Finale_865"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="865" priority="100" /><signal_cue cue="Phase5_EngineRoomObjective" /></actions></cue>
+
+        <cue name="Phase5_EngineRoomObjective">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="6s" />
+          <actions>
+            <set_value name="$Phase5EngineeringSlot" exact="@$PhiSix.controlroom.controlposition.{controlposition.engineering}.roomslot" />
+            <do_if value="not $Phase5EngineeringSlot">
+              <set_value name="$Phase5EngineeringSlot" exact="@$PhiSix.controlroom.controlposition.{controlposition.navigation}.roomslot" />
+            </do_if>
+            <do_if value="not $Phase5EngineeringSlot">
+              <set_value name="$Phase5EngineeringSlot" exact="$PhiSix.controlroom.controlposition.{controlposition.flight}.roomslot" />
+            </do_if>
+            <set_value name="$Phase5EngineRoomObjectiveActive" exact="true" />
+            <set_objective cue="$MissionCue" step="16" action="objective.custom" slot="$Phase5EngineeringSlot" customaction="{899904,226}" text="{899904,226}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+
+        <cue name="Phase5_EngineRoomReached" checkinterval="500ms">
+          <conditions>
+            <check_all>
+              <check_value value="$Phase5EngineRoomObjectiveActive and not @$ScenarioEnded" />
+              <check_value value="player.entity.hascontext.{$PhiSix}" />
+              <check_value value="player.entity.distanceto.{$Phase5EngineeringSlot} le 2m" />
+            </check_all>
+          </conditions>
+          <actions>
+            <set_value name="$Phase5EngineRoomObjectiveActive" exact="false" />
+            <set_objective cue="$MissionCue" step="16" action="objective.none" updatebriefing="true" silent="true" />
+            <do_if value="$EmileShip.commander">
+              <remove_object_commander object="$EmileShip" />
+            </do_if>
+            <set_owner object="$PhiSix" faction="faction.split" overridenpc="true" />
+            <set_owner object="$EmileShip" faction="faction.split" overridenpc="true" />
+            <set_object_min_hull object="$PhiSix" exact="100" />
+            <cancel_all_orders object="$PhiSix" />
+            <warp object="$PhiSix" sector="$FamilyNhuut">
+              <position value="$Phase5PlayerSafePos" />
+              <orientation orientation="look_at" refobject="$AntimatterFactory" />
+            </warp>
+            <cancel_all_orders object="$EmileShip" />
+            <warp object="$EmileShip" sector="$FamilyNhuut">
+              <position value="$Phase5AntimatterFactoryPos" />
+              <orientation orientation="look_at" refobject="$LongNight" />
+            </warp>
+            <create_order id="'Wait'" object="$EmileShip" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <play_cutscene result="$Phase5SacrificeCutscene" key="'gatefall_s03_phase5_antimatter_sacrifice_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_station" object="$AntimatterFactory" />
+              <param name="target_emile" object="$EmileShip" />
+              <param name="target_long_night" object="$LongNight" />
+            </play_cutscene>
+            <speak actor="player.entity" page="899904" line="871" priority="100" />
+            <signal_cue cue="Phase5_Sacrifice_872" />
+          </actions>
+        </cue>
+
+        <cue name="Phase5_Sacrifice_872"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="872" priority="100" /><signal_cue cue="Phase5_Sacrifice_873" /></actions></cue>
+        <cue name="Phase5_Sacrifice_873"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="873" priority="100" /><signal_cue cue="Phase5_Sacrifice_874" /></actions></cue>
+        <cue name="Phase5_Sacrifice_874"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="874" priority="100" /><signal_cue cue="Phase5_Sacrifice_875" /></actions></cue>
+        <cue name="Phase5_Sacrifice_875"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="875" priority="100" /><signal_cue cue="Phase5_Sacrifice_876" /></actions></cue>
+        <cue name="Phase5_Sacrifice_876"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="876" priority="100" /><signal_cue cue="Phase5_Sacrifice_877" /></actions></cue>
+        <cue name="Phase5_Sacrifice_877"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$EmileActor" page="899904" line="877" priority="100" /><signal_cue cue="Phase5_ArmDetonation" /></actions></cue>
+
+        <cue name="Phase5_ArmDetonation">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="5s" />
+          <actions>
+            <add_effect object="$AntimatterFactory.zone" effect="'hq_warpin'">
+              <position object="$AntimatterFactory" />
+            </add_effect>
+            <signal_cue cue="Phase5_AntimatterDetonation" />
+          </actions>
+        </cue>
+
+        <cue name="Phase5_AntimatterDetonation">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="3s" />
+          <actions>
+            <set_value name="$Phase5DetonationAuthorized" exact="true" />
+            <do_for_each name="$Phase5BlastEnemy" in="$Phase5FactoryAttackers">
+              <do_if value="$Phase5BlastEnemy.exists and $Phase5BlastEnemy.bboxdistanceto.{$AntimatterFactory} le 20km">
+                <set_object_min_hull object="$Phase5BlastEnemy" exact="0" />
+                <destroy_object object="$Phase5BlastEnemy" explosion="true" />
+              </do_if>
+            </do_for_each>
+            <set_object_min_hull object="$EmileShip" exact="0" />
+            <destroy_object object="$EmileShip" explosion="true" />
+            <set_object_min_hull object="$LongNight" exact="0" />
+            <destroy_object object="$LongNight" explosion="true" />
+            <set_object_min_hull object="$AntimatterFactory" exact="0" />
+            <destroy_object object="$AntimatterFactory" explosion="true" />
+            <set_value name="$Phase5DetonationDone" exact="true" />
+          </actions>
+        </cue>
+
+        <cue name="Phase5_SacrificeSceneEnded" checkinterval="500ms">
+          <conditions>
+            <check_value value="$Phase5DetonationDone and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <do_if value="$Phase5SacrificeCutscene?">
+              <stop_cutscene cutscene="$Phase5SacrificeCutscene" />
+            </do_if>
+            <set_value name="$Phase5Active" exact="false" />
+            <signal_cue cue="Phase6_Start" />
+          </actions>
+        </cue>
+
+        <!-- Phase 6: the surviving player rejoins the carrier for the epilogue. -->
+        <cue name="Phase6_Start">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="3s" />
+          <actions>
+            <set_value name="$Phase6Active" exact="true" />
+            <set_owner object="$AutumnOfPhi" faction="faction.split" overridenpc="true" />
+            <set_object_min_hull object="$PhiSix" exact="0" />
+            <set_object_min_shield object="$PhiSix" exact="0" />
+            <warp object="$PhiSix" sector="$ZyarthDominionI">
+              <position value="$Phase6PlayerPos" />
+              <orientation orientation="look_at" refobject="$AutumnOfPhi" />
+            </warp>
+            <cancel_all_orders object="$AutumnOfPhi" />
+            <create_order id="'Wait'" object="$AutumnOfPhi" default="true">
+              <param name="skipalignment" value="true" />
+              <param name="noattackresponse" value="true" />
+            </create_order>
+            <play_cutscene result="$Phase6EpilogueCutscene" key="'gatefall_s03_phase6_epilogue_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false">
+              <param name="target_carrier" object="$AutumnOfPhi" />
+              <param name="target_player_ship" object="$PhiSix" />
+            </play_cutscene>
+            <speak actor="$AutumnCaptainActor" page="899904" line="881" priority="100" />
+            <signal_cue cue="Phase6_Epilogue_882" />
+          </actions>
+        </cue>
+
+        <cue name="Phase6_Epilogue_882"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="882" priority="100" /><signal_cue cue="Phase6_Epilogue_883" /></actions></cue>
+        <cue name="Phase6_Epilogue_883"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$AutumnCaptainActor" page="899904" line="883" priority="100" /><signal_cue cue="Phase6_Epilogue_884" /></actions></cue>
+        <cue name="Phase6_Epilogue_884"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899904" line="884" priority="100" /></actions></cue>
+
+        <cue name="Phase6_EpilogueEnded">
+          <conditions>
+            <event_cutscene_stopped cutscene="$Phase6EpilogueCutscene" />
+            <check_value value="$Phase6Active and not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <set_value name="$Phase6Active" exact="false" />
+            <signal_cue cue="Phase6_MissionComplete" />
+          </actions>
+        </cue>
+
+        <cue name="Phase6_MissionComplete">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="2s" />
+          <actions>
+            <set_value name="$ScenarioEnded" exact="true" />
+            <stop_music />
+            <remove_mission cue="$MissionCue" type="completed" />
+            <show_notification text="{899904,1001}" sound="notification_generic" />
+            <set_value name="$RescueCarrierHullPercent" exact="[$AutumnOfPhi.hullpercentage, 100].min" />
+            <set_value name="$PhiSixHullPercent" exact="[$PhiSix.hullpercentage, 100].min" />
+            <set_value name="$ScenarioDuration" exact="player.age - $ScenarioStartTime" />
+            <set_value name="$ScoreRescueCarrierHull" exact="($RescueCarrierHullPercent)i" />
+            <set_value name="$ScoreXenonCapitalShips" exact="$XenonCapitalShipsDestroyed * 5" />
+            <set_value name="$ScorePhiSixHull" exact="((($PhiSixHullPercent * 20.0 / 100.0) + 0.5)i)" />
+            <!-- 40 minutes or less = 100; 140 minutes or more = 0; linear and rounded in between. -->
+            <set_value name="$ScoreTime" exact="0" />
+            <do_if value="$ScenarioDuration le 2400s">
+              <set_value name="$ScoreTime" exact="100" />
+            </do_if>
+            <do_elseif value="$ScenarioDuration lt 8400s">
+              <set_value name="$ScoreTime" exact="((((8400s - $ScenarioDuration)f * 100.0 / 6000.0) + 0.5)i)" />
+            </do_elseif>
+            <set_value name="$FinalScore" exact="$ScoreRescueCarrierHull + $ScoreXenonCapitalShips + $ScorePhiSixHull + $ScoreTime" />
+            <set_value name="$ResultData" exact="table[]" />
+            <set_value name="$ResultData.$PlayerDied" exact="false" />
+            <set_value name="$ResultData.$Score" exact="$FinalScore" />
+            <set_userdata name="'gatefall_scenario_03_phase6_completed'" value="1" />
+            <add_scenario_stat id="'rescue_carrier_hull'" name="{899904,1005}" description="{899904,1006}" uivalue="($RescueCarrierHullPercent)i + '%'" score="$ScoreRescueCarrierHull" maxscore="100" />
+            <add_scenario_stat id="'xenon_capital_kills'" name="{899904,1007}" description="{899904,1008}" uivalue="$XenonCapitalShipsDestroyed" score="$ScoreXenonCapitalShips" maxscore="325" />
+            <add_scenario_stat id="'phi_six_hull'" name="{899904,1009}" description="{899904,1010}" uivalue="($PhiSixHullPercent)i + '%'" score="$ScorePhiSixHull" maxscore="20" />
+            <add_scenario_stat id="'scenario_duration'" name="{899904,1011}" description="{899904,1012}" uivalue="$ScenarioDuration.formatted.default" score="$ScoreTime" maxscore="100" />
+            <add_scenario_stat id="'gatefall_scenario_03_phase6_complete'" name="{899904,1001}" description="{899904,1002}" uivalue="$FinalScore" score="$FinalScore" maxscore="545" />
+            <signal_cue cue="Phase6_ShowResults" />
+          </actions>
+        </cue>
+
+        <cue name="Phase6_ShowResults">
+          <conditions><event_cue_signalled /></conditions>
+          <delay exact="1s" />
+          <cues>
+            <cue name="Finished_Ref" ref="md.Gatefall_Lib_Scenario.ScenarioFinished">
+              <param name="ResultData" value="$ResultData" />
+            </cue>
+          </cues>
+        </cue>
+
+        <cue name="ZeroStarFailure" instantiate="true">
+          <conditions>
+            <event_cue_signalled />
+            <check_value value="not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <set_value name="$ScenarioEnded" exact="true" />
+            <set_value name="$Phase2Active" exact="false" />
+            <set_value name="$Phase3Active" exact="false" />
+            <set_value name="$Phase3EscortActive" exact="false" />
+            <set_value name="$Phase4Active" exact="false" />
+            <set_value name="$Phase5Active" exact="false" />
+            <set_value name="$Phase5FactoryDefenceActive" exact="false" />
+            <stop_music />
+            <remove_mission cue="$MissionCue" type="failed" />
+            <show_notification text="{899904,1003}" sound="notification_negative" />
+            <set_value name="$ResultData" exact="table[]" />
+            <set_value name="$ResultData.$PlayerDied" exact="event.param == 'player'" />
+            <set_value name="$ResultData.$Score" exact="0" />
+            <add_scenario_stat id="'gatefall_scenario_03_failed'" name="{899904,1003}" description="{899904,1004}" uivalue="{1001,2618}" score="0" maxscore="1" />
+          </actions>
+          <cues>
+            <cue name="Failed_Ref" ref="md.Gatefall_Lib_Scenario.ScenarioFinished">
+              <param name="ResultData" value="$ResultData" />
+            </cue>
+          </cues>
+        </cue>
+
+        <cue name="RescueCraftDestroyed">
+          <conditions>
+            <check_all>
+              <event_object_destroyed object="$RescueCraft" />
+              <check_value value="not @$ScenarioEnded and not $RescueCraftRetired" />
+            </check_all>
+          </conditions>
+          <actions>
+            <signal_cue_instantly cue="ZeroStarFailure" param="'player'" />
+          </actions>
+        </cue>
+
+        <cue name="PhiSixDestroyed">
+          <conditions>
+            <event_object_destroyed object="$PhiSix" />
+            <check_value value="not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <signal_cue_instantly cue="ZeroStarFailure" param="'player'" />
+          </actions>
+        </cue>
+
+        <cue name="PlayerDeath">
+          <conditions>
+            <event_object_destroyed object="player.entity" />
+            <check_value value="not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <signal_cue_instantly cue="ZeroStarFailure" param="'player'" />
+          </actions>
+        </cue>
+
+        <cue name="EnableAutumnOfPhiFailure">
+          <conditions><event_cue_signalled /></conditions>
+          <cues>
+            <cue name="AutumnOfPhiDestroyed">
+              <conditions>
+                <event_object_destroyed object="$AutumnOfPhi" />
+                <check_value value="not @$ScenarioEnded" />
+              </conditions>
+              <actions>
+                <signal_cue_instantly cue="ZeroStarFailure" param="'carrier'" />
+              </actions>
+            </cue>
+          </cues>
+        </cue>
+
+        <cue name="EnableAntimatterFactoryFailure">
+          <conditions><event_cue_signalled /></conditions>
+          <cues>
+            <cue name="AntimatterFactoryDestroyed">
+              <conditions>
+                <event_object_destroyed object="$AntimatterFactory" />
+                <check_value value="not @$ScenarioEnded and not @$Phase5DetonationAuthorized" />
+              </conditions>
+              <actions>
+                <signal_cue_instantly cue="ZeroStarFailure" param="'factory'" />
+              </actions>
+            </cue>
+          </cues>
+        </cue>
+
+        <cue name="EnableNhuutWeaponFactoryFailure">
+          <conditions><event_cue_signalled /></conditions>
+          <cues>
+            <cue name="NhuutWeaponFactoryDestroyed">
+              <conditions>
+                <event_object_destroyed object="$NhuutWeaponFactory" />
+                <check_value value="$Phase4Active and not @$ScenarioEnded" />
+              </conditions>
+              <actions>
+                <signal_cue_instantly cue="ZeroStarFailure" param="'weaponfactory'" />
+              </actions>
+            </cue>
+          </cues>
+        </cue>
+      </cues>
+    </cue>
+  </cues>
+</mdscript>

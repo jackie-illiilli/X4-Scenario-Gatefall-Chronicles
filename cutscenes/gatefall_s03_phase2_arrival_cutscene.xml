@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s03_phase2_arrival_cutscene" />
+  <environments>
+    <environment_implicit name="carrierzone" zone="@auto:target_carrier" />
+    <environment_implicit name="enemyzone" zone="@auto:target_xenon_i" />
+    <object_group name="targets">
+      <reference object="target_carrier" />
+      <reference object="target_xenon_i" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <!-- Stable distant establishing shot orbiting the refugee carrier. -->
+        <shot name="CarrierDistantOrbit" environment="carrierzone" duration="10000">
+          <camera_orbit reference="target_carrier" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="9500" angle="-32" elevation="13" />
+            <end distance="8500" angle="36" elevation="15" time="9500" />
+          </camera_orbit>
+        </shot>
+        <shot name="XenonCapitalReveal" environment="enemyzone" duration="18000">
+          <camera_orbit reference="target_xenon_i" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="4500" angle="-18" elevation="7" />
+            <end distance="3200" angle="14" elevation="10" time="17500" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

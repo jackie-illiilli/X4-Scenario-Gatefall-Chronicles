@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s03_phase1_intro_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_player_ship" />
+    <object_group name="targets">
+      <reference object="target_player_ship" />
+      <reference object="target_phi_six" />
+      <reference object="target_gate_a" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="GateExitClose" environment="scenezone" duration="8000">
+          <camera_orbit reference="target_player_ship" orient_to="object" cycle="none" interpolation="smooth">
+            <begin distance="145" angle="-22" elevation="9" />
+            <end distance="210" angle="18" elevation="7" time="7600" />
+          </camera_orbit>
+        </shot>
+        <shot name="RevealPhiSix" environment="scenezone" duration="6000">
+          <camera_flyfromto reference="target_player_ship" distance="240"
+                            flyto_reference="target_phi_six" flyto_distance="1050"
+                            interpolation="smooth" time_firstobject="900" time_fly="4200"
+                            cycle="none" orient_to="object"
+                            orbit1_yaw_start="-18" orbit1_yaw_end="-18" orbit1_elevation="9"
+                            orbit2_yaw_start="-28" orbit2_yaw_end="-28" orbit2_pitch="10" />
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

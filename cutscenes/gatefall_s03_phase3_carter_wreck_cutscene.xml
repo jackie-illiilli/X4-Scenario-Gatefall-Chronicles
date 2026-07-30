@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s03_phase3_carter_wreck_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_wreck" />
+    <object_group name="targets">
+      <reference object="target_wreck" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="CarterWreckSurvey" environment="scenezone" duration="14000">
+          <camera_orbit reference="target_wreck" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="3100" angle="-24" elevation="10" />
+            <end distance="2500" angle="20" elevation="7" time="13500" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

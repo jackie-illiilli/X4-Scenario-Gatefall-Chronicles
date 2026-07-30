@@ -4,7 +4,7 @@
     <t id="1">Gatefall 01: Under the Surface</t>
     <t id="2">Background: The Xenon have seized Kha'ak jump technology and are using it to funnel forces from beyond the gate network into known space, setting a chain of disasters in motion. You are about to uncover the first piece of their plot.\n\nGameplay: Pilot a frigate against fighter-class ships, defend a station, and cripple the engines of enemy capital ships.</t>
     <t id="3">You are a pilot with the Sunborn Militia, entering the Mists of Artemis to deploy a long-range reconnaissance satellite.</t>
-    <t id="4">Phase 1 Demo</t>
+    <t id="4">Star thresholds: 5 / 15 / 30 / 45 / 60 points</t>
 
     <t id="11">Mission</t>
     <t id="12">Wingman</t>
@@ -111,7 +111,7 @@
     <t id="1">Gatefall 02: Passing the Buck</t>
     <t id="2">Background: Using stolen jump technology, the Xenon are funnelling ever more forces into the gate network, and Tharka's Cascade is taking the brunt of it.\nSince HAT needed ARG's help to resolve the Scale Plate Pact crisis, it has effectively become an Argon vassal—one expected to pay in blood when asked. The 86th Escort Fleet is one such payment.\nThe 86th once saved your life. Now ARG means to spend them as cannon fodder, and you are determined to keep them alive, whatever the cost.\nGameplay: Command a frigate fleet remotely (OOS) and put its anti-fighter and anti-capital capabilities to the test.</t>
     <t id="3">Play as ARG commander Syme, directing HAT's 86th Escort Fleet from a rear command platform in Hatikvah's Choice as one crisis after another erupts in Tharka's Cascade.</t>
-    <t id="4">Full Campaign Demo</t>
+    <t id="4">Star thresholds: 200 / 250 / 300 / 350 / 400 points</t>
 
     <t id="11">ARG Rear Command Platform</t>
     <t id="12">Captain Rayna</t>
@@ -292,7 +292,7 @@
     <t id="1">Gatefall 04: In the Same Boat</t>
     <t id="2">Background: The Xenon have pushed out of ZYA territory and seized Heretic's End. To reopen the lifeline to Morning Star's ice reserves, the Boron have entered a temporary alliance with the Terrans, who have come forward to suppress the anomalous Xenon threat.\n\nGameplay: Pilot a Boron Hydra Regal and protect the salvage ship as it recovers intelligence on a Xenon long-range weapon from a wrecked Guppy carrier. Build ships at the Tactical Production Platform, then command capital ships and fighters in an RTS-style assault on Xenon installations.\nNote: This scenario pays homage to the fifth Allied mission in Command &amp; Conquer: Red Alert 3 and makes extensive use of its soundtrack.</t>
     <t id="3">You are the Boron ambassador to Earth, trained in Terran military doctrine. In this operation, you serve as tactical officer of the Boron-Terran joint fleet, leading Terran expeditionary firepower and Boron escorts into Watchful Gaze.</t>
-    <t id="4">Full Scenario</t>
+    <t id="4">Star thresholds: 300 / 400 / 500 / 600 / 700 points</t>
 
     <t id="13">Ship AI</t>
     <t id="14">Player</t>
@@ -761,5 +761,240 @@
     <t id="1024">The player's ship was destroyed. The scenario ends at zero stars.</t>
     <t id="1025">Yes</t>
     <t id="1026">No</t>
+  </page>
+  <page id="899904" title="Gatefall Chronicles" descr="Gatefall Chronicles campaign 03" voice="no">
+    <t id="1">Gatefall 03: Fight for Survival</t>
+    <t id="2">Background: The Xenon invasion has torn apart the northern Split territories. You return to Family Phi aboard a failing escape ship, searching for your missing parents.\n\nGameplay: Command a Rattlesnake against enemy capital ships and lead a destroyer squadron through the mission objectives.\nThis scenario pays tribute to Halo: Reach and Halo: Combat Evolved through its ship and character names, and features music from both games' original soundtracks.</t>
+    <t id="3">You are a female Split engineer. After escaping Family Zhin, you return to Family Phi through the gate from Family Valka and find an abandoned Rattlesnake waiting in the wreckage. That ship will carry you through a desperate evacuation across four war-torn sectors.</t>
+    <t id="4">Star thresholds: 150 / 200 / 250 / 300 / 350 points</t>
+
+    <t id="14">Player</t>
+    <t id="15">Phi One Carter</t>
+    <t id="16">Phi Two Kat</t>
+    <t id="17">Phi Three Jun</t>
+    <t id="18">Phi Four Emile</t>
+    <t id="19">Phi Five Jorge</t>
+    <t id="20">Mother</t>
+    <t id="21">Father</t>
+    <t id="22">Disabled Asp</t>
+    <t id="23">Phi Squadron</t>
+    <t id="24">Phi Hull Parts Factory</t>
+    <t id="25">Phi Weapon Component Factory</t>
+    <t id="26">Autumn of Phi</t>
+    <t id="27">Phi One</t>
+    <t id="28">Phi Two</t>
+    <t id="29">Phi Three</t>
+    <t id="30">Phi Four</t>
+    <t id="31">Phi Six</t>
+    <t id="32">Phi Five</t>
+    <t id="33">ZYA Abandoned Scanning Array Station</t>
+    <t id="34">Long Night</t>
+    <t id="35">Wreck of Phi One</t>
+    <t id="36">Nhuut Station Broadcast</t>
+    <t id="37">Family Nhuut Civilian</t>
+    <t id="38">ZYA Fleet Command</t>
+    <t id="39">Captain of Autumn of Phi</t>
+    <t id="40">Nhuut Weapon Component Factory</t>
+    <t id="41">ZYA Communications Beacon</t>
+    <t id="42">Nhuut Antimatter Cell Factory</t>
+
+    <t id="101">Search the ruins of Family Phi for your family</t>
+    <t id="102">Help Phi Squadron escort the last refugee carrier</t>
+    <t id="103">Escape Long Night's pursuit</t>
+    <t id="111">You are a female Split engineer serving aboard a Rattlesnake in Family Zhin.</t>
+    <t id="112">The Xenon vessel “Long Night” destroyed your ship, but you escaped aboard a lifeboat.</t>
+    <t id="113">Your parents are in Family Phi. Join the local Phi Squadron and protect them from the Xenon invasion.</t>
+
+    <t id="201">Fight for Survival</t>
+    <t id="202">Claim the abandoned Rattlesnake, relieve Family Phi's factories and defend its refugee carrier.</t>
+    <t id="211">Claim the abandoned Rattlesnake “Phi Six”</t>
+    <t id="212">Approach the Hull Parts Factory</t>
+    <t id="213">Eliminate the Xenon attacking the Hull Parts Factory</t>
+    <t id="214">Approach the Weapon Component Factory</t>
+    <t id="215">Eliminate the Xenon attacking the Weapon Component Factory</t>
+    <t id="216">Approach the refugee carrier “Autumn of Phi”</t>
+    <t id="217">Eliminate the Xenon near the refugee carrier</t>
+    <t id="218">Destroy the Xenon capital ships blocking the route</t>
+    <t id="219">Destroy the Xenon closing on the refugee carrier</t>
+    <t id="220">Protect the refugee carrier through Family Valka</t>
+    <t id="221">Lead the refugee carrier through Family Zhin</t>
+    <t id="222">Escort the refugee carrier close to the Nhuut weapon factory</t>
+    <t id="223">Escort the refugee carrier to gate B, leading to ZYA core territory</t>
+    <t id="224">Approach the Nhuut antimatter cell factory</t>
+    <t id="225">Protect the antimatter cell factory for five minutes</t>
+    <t id="226">Leave your seat and proceed to the ship engineering console</t>
+
+    <t id="501">...Finally... home... I wonder how Mum and Dad are...</t>
+    <t id="502">This escape ship will not hold together much longer... Wait... what is that?</t>
+    <t id="503">An abandoned Rattlesnake... Well, anything is better than drifting through space.</t>
+    <t id="511">Engines normal... weapons normal... the hull is in bad shape, but the repair drones can handle it.</t>
+    <t id="512">Ship log... Captain Thom... Phi Squadron... holding off Xenon... life support failure...</t>
+    <t id="513">I think the blinking light is the radio... Someone is calling.</t>
+    <t id="514">This is Phi Five! The Hull Parts Factory is under Xenon attack. We cannot hold them!</t>
+    <t id="515">I should take a look. Maybe someone there knows where my parents are...</t>
+
+    <t id="521">Thank the stars, someone came to save them... Thom! You are alive!</t>
+    <t id="522">I am not Thom. I found this ship abandoned by the gate after my ship failed...</t>
+    <t id="523">It does not matter. You saved us, and that flying would put you among the best in Phi Squadron!</t>
+    <t id="524">I have something urgent to ask. Here is my parents' information. Do you know where they are?</t>
+    <t id="525">Not aboard this station. Another teammate is at the Weapon Component Factory, and they sheltered many people there...</t>
+    <t id="526">Calling Phi Squadron! Xenon capital ship sighted. Requesting support!</t>
+    <t id="527">Hold on, I am coming! Damn it, my teammate is in trouble.</t>
+    <t id="528">You're a better pilot than me. Help a brother out, and I'll help you find your parents!</t>
+
+    <t id="541">Jorge, Thom, thank the stars! Especially you, Thom. A few days apart and you are a different pilot!</t>
+    <t id="542">She is not Thom. She is looking for her parents and found Thom's abandoned ship.</t>
+    <t id="543">What? You're awfully trusting. What if someone from the FAF has infiltrated us?</t>
+    <t id="544">You know what happens if somebody sabotages the refugee carrier...</t>
+    <t id="545">Sorry, Emile, I...</t>
+    <t id="546">No harm done. I checked the database. She should be clear, but...</t>
+    <t id="547">Her skill in combat is better than ours. You cannot hold being a woman against her...</t>
+    <t id="548">I care whether the hunter catches its prey, not what it looks like. That is not my concern...</t>
+    <t id="549">Her parents are not on this station, but the refugee carrier took many more people aboard...</t>
+    <t id="550">Jorge, Emile... are you there? A large Xenon force has been detected near the refugee carrier!</t>
+    <t id="551">Damn it. The evacuees here are secure. We need to return to the carrier!</t>
+    <t id="552">Your tactical skill is obvious. If you want to save your parents, follow us!</t>
+
+    <t id="571">Excellent! Emile! Jorge! You made it back... but am I seeing things?</t>
+    <t id="572">That is not Thom aboard Six. She is an engineer searching for her parents...</t>
+    <t id="573">Looks like Phi Squadron has another woman in its ranks!</t>
+    <t id="574">All right. I have your parents' records. Kat, take a look...</t>
+    <t id="575">Found them. Cargo bay eleven; the records match. We brought them aboard not long ago!</t>
+    <t id="576">Excellent. Open a channel and let her speak to them.</t>
+    <t id="577">Mum... Dad... are you all right?</t>
+    <t id="578">Thank the stars... You are safe... After what happened in Family Zhin, I thought...</t>
+    <t id="579">I told you not to become an engineer... Look at you, you almost... almost...</t>
+    <t id="580">We cannot delay any longer, Captain.</t>
+    <t id="581">Right. A quick introduction to Phi Squadron...</t>
+    <t id="582">Phi Squadron was formed to hold back the Boron and Argon. After the Xenon invasion, our task became protecting Family Phi's civilians and escorting them into ZYA's core sectors.</t>
+    <t id="583">Or, put another way, protecting the refugee carrier holding your parents.</t>
+    <t id="584">Your skill exceeds ours. Phi Squadron needs you!</t>
+    <t id="585">All right. If it means protecting my parents, I am in!</t>
+    <t id="586">Good! We'll call you Six, then. I'm Captain Carter. No need to introduce everyone else right now.</t>
+    <t id="591">We will leave Family Phi and cross Family Valka, Family Zhin...</t>
+    <t id="592">...then Family Nhuut before we reach ZYA territory.</t>
+    <t id="593">No time to waste. Is everyone ready?</t>
+    <t id="594">Ready!</t>
+    <t id="595">Move out!</t>
+
+    <t id="601">This is Family Valka, currently bearing the full force of the Xenon advance.</t>
+    <t id="602">Careful. There are Xenon warships around the abandoned station ahead.</t>
+    <t id="603">Damn it, a big one right out of the gate. We should send more ships to deal with it.</t>
+    <t id="604">But the refugee carrier needs protection too...</t>
+    <t id="605">I used our last spare parts to patch up every ship. Phi Six, you've got the skills—take Emile and Jorge and eliminate it!</t>
+
+    <t id="611">Multiple Xenon warships detected nearby. They are coming straight at us!</t>
+    <t id="612">Phi Six, get back here as soon as you finish. We have been ambushed!</t>
+
+    <t id="621">Good work! We should still assign more ships to the vanguard...</t>
+    <t id="622">But Captain, what if the refugee carrier runs into another ambush like that...</t>
+    <t id="623">Jun, if we do not clear the obstacles ahead, the refugee carrier cannot move!</t>
+    <t id="624">I know, but if we lose the carrier, everything we have done is for nothing.</t>
+    <t id="625">All right, enough. Phi Six, your skill saved us this time.</t>
+    <t id="626">Take Emile and Jorge and stay thirty kilometres ahead, clearing the enemy from our route.</t>
+    <t id="627">If you can't hold them, draw those Xenon away.</t>
+    <t id="628">Be careful, Six. I am detecting plenty of hostiles ahead!</t>
+
+    <t id="701">This is Family Zhin, the heart of the Xenon invasion. Expect heavy resistance!</t>
+    <t id="702">Phi Six, your command skills are remarkable, but you must be tired too. I'll take over this time!</t>
+    <t id="703">Copy that.</t>
+
+    <t id="711">Warning: Xenon capital ships are still pouring through the gate from Tharka's Cascade.</t>
+
+    <t id="712">...I am detecting an unusual vessel... What is that...</t>
+    <t id="713">No—Long Night! Everyone, get away from it or keep moving!</t>
+    <t id="714">What is that thing?</t>
+    <t id="715">Our captain named it. It can destroy a Rattlesnake in one shot, and we cannot even scratch it!</t>
+    <t id="716">No... the electromagnetic signature says it is charging... and turning towards the refugee carrier!</t>
+
+    <t id="721">Damn it. I have to stop it!</t>
+    <t id="722">Phi Six... I can't go on... Damn it... the refugee carrier...</t>
+    <t id="723">Captain! Carter! Damn it... there is no response!</t>
+    <t id="724">Six, you are the best among us. I nominate you to take command. Squadron, vote!</t>
+    <t id="725">Agreed!</t>
+    <t id="726">Six! Phi Squadron and the refugee carrier are now under your command. Complete the mission.</t>
+
+    <t id="731">Captain, Long Night is closing in! The refugee carrier is about to enter its firing range!</t>
+    <t id="732">Jorge! What are you doing?</t>
+    <t id="733">Turn its own spear against its shield... I will make it choke on the detonation of its main battery!</t>
+    <t id="734">No!</t>
+
+    <t id="801">This is the Family Nhuut Weapon Factory. We are under Xenon attack and request immediate civilian evacuation!</t>
+    <t id="802">Captain, a station is asking us for help! The refugee carrier still has room!</t>
+    <t id="803">Kat! Xenon are still pursuing us. The carrier cannot stop again!</t>
+    <t id="804">But Long Night has already...</t>
+    <t id="805">Even without Long Night, there are other Xenon capital ships. They are every bit as dangerous!</t>
+    <t id="806">You do not want Carter and Jorge to have died for nothing—or the Captain's effort to be wasted!</t>
+    <t id="807">All right, all right. Family Nhuut helped us before. We're going to rescue them.</t>
+    <t id="808">Kat, use your shipboard radar to watch the gate. If you detect anything at all, stop the evacuation immediately!</t>
+
+    <t id="811">Thank the stars! It is Family Zhin! Thank you!</t>
+    <t id="812">Unidentified contact at the gate... no... It is Long Night! It was not destroyed!</t>
+    <t id="813">Refugee carrier, stop the evacuation immediately and get moving!</t>
+    <t id="814">Too late! It is closing fast. We are already in range!</t>
+    <t id="815">I have an idea. At school, I studied electromagnetic-spectrum masking for ships.</t>
+    <t id="816">I ran tests before. Pretending to be a refugee carrier should fool it.</t>
+    <t id="817">I will transmit the technique to you, but I need to prove for myself that it works.</t>
+    <t id="818">Take care, Kat! We'll use this chance to get the carrier out!</t>
+
+    <t id="821">Captain... I cannot hold much longer... Get... the carrier... away...</t>
+    <t id="822">Captain... honestly... Kat never expected to come back alive...</t>
+    <t id="823">She gave up precious fuel capacity to install the electronic reconnaissance equipment.</t>
+    <t id="824">She planned to refuel during our last stop... but the Xenon arrived too quickly...</t>
+    <t id="825">I'm sorry for your loss... This is Phi Squadron. We are escorting a civilian refugee carrier into ZYA core territory!</t>
+    <t id="826">Dispatch a relief force to take over immediately!</t>
+    <t id="827">This is the Zyarth Defence Fleet. We are also under attack from Matrix #598.</t>
+    <t id="828">We will spare whatever support we can, provided you...</t>
+    <t id="829">...turn that Xenon super-battleship outside into wreckage!</t>
+    <t id="830">But we have no way to destroy it!</t>
+    <t id="831">We use the same weapons you do. If you cannot destroy it, neither can we!</t>
+    <t id="832">It is fixed on the refugee carrier. If it enters ZYA core space, neither of us can answer for the consequences!</t>
+    <t id="833">Damn these people...</t>
+    <t id="834">We cannot blame them. Long Night must be destroyed, or sooner or later it will catch the carrier...</t>
+    <t id="835">Another battery detonation would only slow it down. A decoy would buy us only a little time...</t>
+    <t id="836">Unless we make one colossal explosion... Fusion... antimatter... antimatter cells...</t>
+    <t id="837">Family Nhuut civilians, is there an antimatter cell factory nearby?</t>
+    <t id="838">There is... one factory... but all of its personnel have evacuated...</t>
+    <t id="839">That's enough... Jun, Emile, I have a new plan: disguise ourselves as the refugee carrier and head for the Antimatter Cell Factory.</t>
+    <t id="840">Lead Long Night into the trap, then detonate the antimatter cells?</t>
+    <t id="841">Exactly! ZYA Fleet Command, if we can guarantee that ship's destruction, will you let the refugee carrier through first?</t>
+    <t id="842">Yes, but it must remain on this side of the gate until you succeed before proceeding deeper into the sector.</t>
+    <t id="843">Understood! Jun, Emile, with me.</t>
+
+    <t id="851">There are enough antimatter cells... Phi Six can serve as the detonator and keep Long Night's attention the entire time...</t>
+    <t id="852">Jun, Emile, the drones need time to position the antimatter cells. Hold the line for five minutes!</t>
+    <t id="853">No problem!</t>
+
+    <t id="861">Captain... I cannot hold much longer...</t>
+    <t id="862">The work is complete... Emile, head for the gate. The refugee carrier still needs protection!</t>
+    <t id="863">As ordered... Commander...</t>
+    <t id="864">At last... The drones have arranged the antimatter cells. Now all that remains is...</t>
+    <t id="865">...to overload Phi Six's antimatter engines as the detonator, and end this.</t>
+
+    <t id="871">What is happening? Why is my ship not responding... Emile!</t>
+    <t id="872">I planted a back door in your ship. Do not worry—the autopilot will take you somewhere safe...</t>
+    <t id="873">Right... activate the electromagnetic disguise... Long Night is tracking me now... Kat's instructions really are simple...</t>
+    <t id="874">Emile! What are you doing? Stop!</t>
+    <t id="875">Someone... has to make the sacrifice... and it should not be you, with your parents aboard that carrier...</t>
+    <t id="876">It should not be... someone as... capable as you... Found the antimatter engines... overloading...</t>
+    <t id="877">Goodbye... Phi Six... Go and be with your parents...</t>
+
+    <t id="881">Captain, Long Night's signal is gone. It is no longer following us?</t>
+    <t id="882">Yes... they are no longer following us...</t>
+    <t id="883">Then... what about the others?</t>
+    <t id="884">...They cannot follow us any more, either...</t>
+
+    <t id="1001">Mission Complete</t>
+    <t id="1002">You brought Autumn of Phi safely into Zyarth's Dominion I. Carter, Jorge, Kat, Jun and Emile gave their lives to stop Long Night and save the refugees. Star thresholds: 150 for 1 star, 200 for 2, 250 for 3, 300 for 4 and 350 for 5.</t>
+    <t id="1003">Mission Failed</t>
+    <t id="1004">The scenario immediately ends at zero stars if the player character or current ship, Autumn of Phi, the Nhuut Weapon Component Factory, or the Antimatter Cell Factory is destroyed.</t>
+    <t id="1005">Autumn of Phi Hull</t>
+    <t id="1006">The rescue carrier's final hull from 100% to 0% maps directly to 100 to 0 points.</t>
+    <t id="1007">Xenon Capital Ships Destroyed</t>
+    <t id="1008">Each registered Xenon L/XL capital ship destroyed in combat adds 5 points. Scripted cleanup does not count.</t>
+    <t id="1009">Phi Six Hull</t>
+    <t id="1010">Phi Six's final hull from 100% to 0% maps directly to 20 to 0 points.</t>
+    <t id="1011">Scenario Time</t>
+    <t id="1012">A time of 40 minutes or less scores 100; 140 minutes or more scores 0; times in between are mapped linearly.</t>
   </page>
 </language>

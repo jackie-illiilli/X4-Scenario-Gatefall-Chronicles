@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s03_phase3_command_transfer_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_carrier" />
+    <object_group name="targets">
+      <reference object="target_carrier" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="CarrierCommandTransfer" environment="scenezone" duration="22000">
+          <camera_orbit reference="target_carrier" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="6400" angle="-28" elevation="10" />
+            <end distance="4700" angle="24" elevation="8" time="21500" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

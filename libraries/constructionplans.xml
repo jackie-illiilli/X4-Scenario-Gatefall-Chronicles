@@ -85,4 +85,115 @@
       </offset>
     </entry>
   </plan>
+
+  <!-- Scenario 03 Phase 1: compact Split factories based on the vanilla Split refinery layout. -->
+  <plan id="gatefall_scenario_03_split_hullparts" name="{899904,24}" useplanname="false" fixed="1">
+    <entry index="1" macro="pier_spl_harbor_01_macro">
+      <offset><position x="-858.687" y="89.665" z="0.000848" /></offset>
+    </entry>
+    <entry index="2" macro="prod_gen_hullparts_macro" connection="connectionsnap001">
+      <predecessor index="1" connection="connectionsnap003" />
+      <offset><position x="-858.687" y="489.665" z="0.000848" /></offset>
+    </entry>
+    <entry index="3" macro="dockarea_arg_m_station_01_hightech_macro" connection="connectionsnap004">
+      <predecessor index="1" connection="connectionsnap001" />
+      <offset><position x="-58.731" y="89.665" z="-0.04321" /></offset>
+    </entry>
+    <entry index="4" macro="struct_spl_cross_01_macro" connection="connectionsnap002">
+      <predecessor index="3" connection="connectionsnap003" />
+      <offset><position x="341.313" y="89.665" z="-0.08723" /><rotation yaw="89.99998" /></offset>
+    </entry>
+    <entry index="5" macro="hab_spl_l_01_macro" connection="connectionsnap001">
+      <predecessor index="4" connection="connectionsnap004" />
+      <offset><position x="341.313" y="1089.665" z="-0.0875" /><rotation yaw="179.99998" /></offset>
+    </entry>
+    <entry index="6" macro="storage_spl_l_container_01_macro" connection="connectionsnap002">
+      <predecessor index="4" connection="connectionsnap003" />
+      <offset><position x="341.313" y="-910.335" z="-0.08691" /></offset>
+    </entry>
+    <entry index="7" macro="storage_spl_l_solid_01_macro" connection="connectionsnap002">
+      <predecessor index="1" connection="connectionsnap008" />
+      <offset><position x="-858.687" y="-910.335" z="0.0006096" /><rotation yaw="90" /></offset>
+    </entry>
+  </plan>
+
+  <plan id="gatefall_scenario_03_split_weaponcomponents" name="{899904,25}" useplanname="false" fixed="1">
+    <entry index="1" macro="pier_spl_harbor_01_macro">
+      <offset><position x="-858.687" y="89.665" z="0.000848" /></offset>
+    </entry>
+    <entry index="2" macro="prod_gen_weaponcomponents_macro" connection="connectionsnap001">
+      <predecessor index="1" connection="connectionsnap003" />
+      <offset><position x="-858.687" y="489.665" z="0.000848" /></offset>
+    </entry>
+    <entry index="3" macro="dockarea_arg_m_station_01_hightech_macro" connection="connectionsnap004">
+      <predecessor index="1" connection="connectionsnap001" />
+      <offset><position x="-58.731" y="89.665" z="-0.04321" /></offset>
+    </entry>
+    <entry index="4" macro="struct_spl_cross_01_macro" connection="connectionsnap002">
+      <predecessor index="3" connection="connectionsnap003" />
+      <offset><position x="341.313" y="89.665" z="-0.08723" /><rotation yaw="89.99998" /></offset>
+    </entry>
+    <entry index="5" macro="hab_spl_l_01_macro" connection="connectionsnap001">
+      <predecessor index="4" connection="connectionsnap004" />
+      <offset><position x="341.313" y="1089.665" z="-0.0875" /><rotation yaw="179.99998" /></offset>
+    </entry>
+    <entry index="6" macro="storage_spl_l_container_01_macro" connection="connectionsnap002">
+      <predecessor index="4" connection="connectionsnap003" />
+      <offset><position x="341.313" y="-910.335" z="-0.08691" /></offset>
+    </entry>
+    <entry index="7" macro="storage_spl_l_solid_01_macro" connection="connectionsnap002">
+      <predecessor index="1" connection="connectionsnap008" />
+      <offset><position x="-858.687" y="-910.335" z="0.0006096" /><rotation yaw="90" /></offset>
+    </entry>
+  </plan>
+
+  <!-- Scenario 03 Phase 2: the ruined ZYA scanning-array factory landmark in Family Valka. -->
+  <plan id="gatefall_scenario_03_split_scanningarrays_abandoned" name="{899904,33}" useplanname="false" fixed="1">
+    <entry index="1" macro="pier_spl_harbor_01_macro">
+      <offset><position x="-858.687" y="89.665" z="0.000848" /></offset>
+    </entry>
+    <entry index="2" macro="prod_gen_scanningarrays_macro" connection="connectionsnap001">
+      <predecessor index="1" connection="connectionsnap003" />
+      <offset><position x="-858.687" y="489.665" z="0.000848" /></offset>
+    </entry>
+    <entry index="3" macro="dockarea_arg_m_station_01_hightech_macro" connection="connectionsnap004">
+      <predecessor index="1" connection="connectionsnap001" />
+      <offset><position x="-58.731" y="89.665" z="-0.04321" /></offset>
+    </entry>
+    <entry index="4" macro="struct_spl_cross_01_macro" connection="connectionsnap002">
+      <predecessor index="3" connection="connectionsnap003" />
+      <offset><position x="341.313" y="89.665" z="-0.08723" /><rotation yaw="89.99998" /></offset>
+    </entry>
+    <entry index="5" macro="storage_spl_l_container_01_macro" connection="connectionsnap002">
+      <predecessor index="4" connection="connectionsnap003" />
+      <offset><position x="341.313" y="-910.335" z="-0.08691" /></offset>
+    </entry>
+  </plan>
+
+  <!-- Scenario 03 Phase 5: damaged Split antimatter-cell factory used as the final demolition site. -->
+  <plan id="gatefall_scenario_03_split_antimattercells" name="{899904,42}" useplanname="false" fixed="1">
+    <entry index="1" macro="pier_spl_harbor_01_macro">
+      <offset><position x="-858.687" y="89.665" z="0.000848" /></offset>
+    </entry>
+    <entry index="2" macro="prod_gen_antimattercells_macro" connection="connectionsnap001">
+      <predecessor index="1" connection="connectionsnap003" />
+      <offset><position x="-858.687" y="489.665" z="0.000848" /></offset>
+    </entry>
+    <entry index="3" macro="dockarea_arg_m_station_01_hightech_macro" connection="connectionsnap004">
+      <predecessor index="1" connection="connectionsnap001" />
+      <offset><position x="-58.731" y="89.665" z="-0.04321" /></offset>
+    </entry>
+    <entry index="4" macro="struct_spl_cross_01_macro" connection="connectionsnap002">
+      <predecessor index="3" connection="connectionsnap003" />
+      <offset><position x="341.313" y="89.665" z="-0.08723" /><rotation yaw="89.99998" /></offset>
+    </entry>
+    <entry index="5" macro="hab_spl_l_01_macro" connection="connectionsnap001">
+      <predecessor index="4" connection="connectionsnap004" />
+      <offset><position x="341.313" y="1089.665" z="-0.0875" /><rotation yaw="179.99998" /></offset>
+    </entry>
+    <entry index="6" macro="storage_spl_l_container_01_macro" connection="connectionsnap002">
+      <predecessor index="4" connection="connectionsnap003" />
+      <offset><position x="341.313" y="-910.335" z="-0.08691" /></offset>
+    </entry>
+  </plan>
 </plans>

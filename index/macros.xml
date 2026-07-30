@@ -2,6 +2,7 @@
 <index>
   <entry name="gatefall_scenario_01_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_01_galaxy_macro.xml" />
   <entry name="gatefall_scenario_02_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_02_galaxy_macro.xml" />
+  <entry name="gatefall_scenario_03_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_03_galaxy_macro.xml" />
   <entry name="gatefall_scenario_04_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_04_galaxy_macro.xml" />
   <!-- Phase 7 set-piece sectors live in separate sandbox-derived map files.
        Exact entries must precede the broad scenario-05 wildcard below. -->
