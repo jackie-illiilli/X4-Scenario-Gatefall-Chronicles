@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s06_phase1_delta_a_cutscene" />
+  <environments><environment_implicit name="scenezone" zone="@auto:target_bargre" /><object_group name="targets"><reference object="target_bargre" /><reference object="target_hayate" /></object_group></environments>
+  <presentation><actions><sequence name="Main" start="0">
+    <shot name="BargreArrival" environment="scenezone" duration="9000"><camera_orbit reference="target_bargre" orient_to="object" cycle="none" interpolation="smooth"><begin distance="5200" angle="-15" elevation="5" /><end distance="4200" angle="14" elevation="8" time="8500" /></camera_orbit></shot>
+    <shot name="HayateReveal" environment="scenezone" duration="15000"><camera_orbit reference="target_hayate" orient_to="object" cycle="none" interpolation="smooth"><begin distance="850" angle="-24" elevation="10" /><end distance="580" angle="20" elevation="7" time="14500" /></camera_orbit></shot>
+  </sequence></actions></presentation>
+</cutscene>

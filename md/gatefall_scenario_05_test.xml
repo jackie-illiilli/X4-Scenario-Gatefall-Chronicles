@@ -110,8 +110,8 @@
         <set_entity_traits entity="$ArgonWarzoneActor" missionactor="true" customhandler="true" subtitlename="true" /><set_entity_overrides entity="$ArgonWarzoneActor" title="'{899903,28}'" icon="'mission'" />
         <create_cue_actor name="$UnknownCommanderActor" cue="namespace" macro="character_argon_male_cau_base_01_macro"><owner exact="faction.argon" /><page exact="899903" /><name name="'{899903,29}'" /></create_cue_actor>
         <set_entity_traits entity="$UnknownCommanderActor" missionactor="true" customhandler="true" subtitlename="true" /><set_entity_overrides entity="$UnknownCommanderActor" title="'{899903,29}'" icon="'mission'" />
-        <create_cue_actor name="$SymeActor" cue="namespace" macro="character_argon_male_cau_base_01_macro"><owner exact="faction.argon" /><page exact="899903" /><name name="'{899903,30}'" /></create_cue_actor>
-        <set_entity_traits entity="$SymeActor" missionactor="true" customhandler="true" subtitlename="true" /><set_entity_overrides entity="$SymeActor" title="'{899903,30}'" icon="'mission'" />
+        <create_cue_actor name="$ShinActor" cue="namespace" macro="character_argon_male_cau_base_01_macro"><owner exact="faction.argon" /><page exact="899903" /><name name="'{899903,30}'" /></create_cue_actor>
+        <set_entity_traits entity="$ShinActor" missionactor="true" customhandler="true" subtitlename="true" /><set_entity_overrides entity="$ShinActor" title="'{899903,30}'" icon="'mission'" />
         <create_cue_actor name="$ArgonDestroyerActor" cue="namespace" macro="character_argon_male_cau_base_01_macro"><owner exact="faction.argon" /><page exact="899903" /><name name="'{899903,37}'" /></create_cue_actor>
         <set_entity_traits entity="$ArgonDestroyerActor" missionactor="true" customhandler="true" subtitlename="true" /><set_entity_overrides entity="$ArgonDestroyerActor" title="'{899903,37}'" icon="'mission'" />
         <create_cue_actor name="$ArgonCarrierActor" cue="namespace" macro="character_argon_female_cau_base_01_macro"><owner exact="faction.argon" /><page exact="899903" /><name name="'{899903,38}'" /></create_cue_actor>
@@ -218,6 +218,54 @@
         <fade_screen color="black" fadeout="0s" holdtime="500ms" fadein="3s" realtime="true" />
       </actions>
       <cues>
+        <!-- Resume the saved authored score. The Phase 3 rotation stores both the selected track and
+             measured duration, so replay that same choice from the beginning and restart its timer. -->
+        <cue name="ResumeMusicAfterLoad" instantiate="true">
+          <conditions>
+            <event_universe_generated />
+            <check_value value="not @$ScenarioEnded" />
+          </conditions>
+          <delay exact="1s" />
+          <actions>
+            <stop_music />
+            <do_if value="$Phase3MusicSequenceActive">
+              <do_if value="$Phase3LastMusicChoice == 0">
+                <play_music music="'gfc_music_m05_phase3_godsend'" loop="false" />
+                <set_value name="$Phase3CurrentMusicEndTime" exact="player.age + 195s" />
+              </do_if>
+              <do_elseif value="$Phase3LastMusicChoice == 1">
+                <play_music music="'gfc_music_m05_phase3_duality'" loop="false" />
+                <set_value name="$Phase3CurrentMusicEndTime" exact="player.age + 354s" />
+              </do_elseif>
+              <do_elseif value="$Phase3LastMusicChoice == 2">
+                <play_music music="'gfc_music_m05_phase3_inside_your_soul'" loop="false" />
+                <set_value name="$Phase3CurrentMusicEndTime" exact="player.age + 284s" />
+              </do_elseif>
+              <do_elseif value="$Phase3LastMusicChoice == 3">
+                <play_music music="'gfc_music_m05_phase3_nine_realms'" loop="false" />
+                <set_value name="$Phase3CurrentMusicEndTime" exact="player.age + 289s" />
+              </do_elseif>
+              <do_elseif value="$Phase3LastMusicChoice == 4">
+                <play_music music="'gfc_music_m05_phase3_outbreak'" loop="false" />
+                <set_value name="$Phase3CurrentMusicEndTime" exact="player.age + 317s" />
+              </do_elseif>
+              <do_else>
+                <play_music music="'gfc_music_m05_phase3_virus_versus_predator'" loop="false" />
+                <set_value name="$Phase3CurrentMusicEndTime" exact="player.age + 365s" />
+              </do_else>
+            </do_if>
+            <do_elseif value="$Phase5AllWavesSpawned or $Phase6Active or $Phase7Active">
+              <play_music music="'gfc_music_m05_phase5_frostburn'" loop="true" />
+            </do_elseif>
+            <do_elseif value="$Phase3Active or $Phase4Active or $Phase5Active">
+              <play_music music="'gfc_music_m05_phase3_treachery'" loop="true" />
+            </do_elseif>
+            <do_elseif value="$Phase1Active or $Phase2Active">
+              <play_music music="'gfc_music_m05_phase12_soviet_march'" loop="true" />
+            </do_elseif>
+          </actions>
+        </cue>
+
         <!-- Start must finish before this child cue runs; otherwise the sibling dialogue cue misses its signal. -->
         <cue name="Phase01Intro">
           <delay exact="1s" />
@@ -1072,7 +1120,7 @@
           </cues>
         </cue>
 
-        <!-- Phase 4: the recovered Argon key reveals Syme's breakout. The player receives ten minutes
+        <!-- Phase 4: the recovered Argon key reveals Shin's breakout. The player receives ten minutes
              to fortify gate A before the expedition reaches Argon Prime. -->
         <cue name="Phase4Start">
           <conditions><event_cue_signalled /></conditions>
@@ -1087,7 +1135,7 @@
         <cue name="Phase4Dialogue758"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ArgonCommanderActor" page="899903" line="758" priority="100" /><signal_cue cue="Phase4Dialogue759" /></actions></cue>
         <cue name="Phase4Dialogue759"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ArgonAdjutantActor" page="899903" line="759" priority="100" /><signal_cue cue="Phase4Dialogue760" /></actions></cue>
         <cue name="Phase4Dialogue760"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ArgonAdjutantActor" page="899903" line="760" priority="100" /><signal_cue cue="Phase4Dialogue761" /></actions></cue>
-        <cue name="Phase4Dialogue761"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SymeActor" page="899903" line="761" priority="100" /><signal_cue cue="Phase4Dialogue762" /></actions></cue>
+        <cue name="Phase4Dialogue761"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ShinActor" page="899903" line="761" priority="100" /><signal_cue cue="Phase4Dialogue762" /></actions></cue>
         <cue name="Phase4Dialogue762"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899903" line="762" priority="100" /><signal_cue cue="Phase4Dialogue763" /></actions></cue>
         <cue name="Phase4Dialogue763"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SupervisorActor" page="899903" line="763" priority="100" /><signal_cue cue="Phase4Dialogue764" /></actions></cue>
         <cue name="Phase4Dialogue764"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899903" line="764" priority="100" /><signal_cue cue="Phase4Dialogue765" /></actions></cue>
@@ -1106,35 +1154,35 @@
         </cue>
 
         <cue name="Phase4AtEightMinutes"><conditions><event_cue_signalled /></conditions><delay exact="2min" /><actions><speak actor="$ArgonAdjutantActor" page="899903" line="681" priority="100" /><signal_cue cue="Phase4Dialogue682" /></actions></cue>
-        <cue name="Phase4Dialogue682"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SymeActor" page="899903" line="682" priority="100" /><signal_cue cue="Phase4Dialogue683" /></actions></cue>
+        <cue name="Phase4Dialogue682"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ShinActor" page="899903" line="682" priority="100" /><signal_cue cue="Phase4Dialogue683" /></actions></cue>
         <cue name="Phase4Dialogue683"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ArgonDestroyerActor" page="899903" line="683" priority="100" /><signal_cue cue="Phase4Dialogue684" /></actions></cue>
-        <cue name="Phase4Dialogue684"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SymeActor" page="899903" line="684" priority="100" /><signal_cue cue="Phase4Dialogue685" /></actions></cue>
+        <cue name="Phase4Dialogue684"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ShinActor" page="899903" line="684" priority="100" /><signal_cue cue="Phase4Dialogue685" /></actions></cue>
         <cue name="Phase4Dialogue685"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899903" line="685" priority="100" /><signal_cue cue="Phase4Dialogue686" /></actions></cue>
         <cue name="Phase4Dialogue686"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SupervisorActor" page="899903" line="686" priority="100" /></actions></cue>
 
-        <cue name="Phase4AtSixMinutes"><conditions><event_cue_signalled /></conditions><delay exact="4min" /><actions><speak actor="$SymeActor" page="899903" line="691" priority="100" /><signal_cue cue="Phase4Dialogue692" /></actions></cue>
+        <cue name="Phase4AtSixMinutes"><conditions><event_cue_signalled /></conditions><delay exact="4min" /><actions><speak actor="$ShinActor" page="899903" line="691" priority="100" /><signal_cue cue="Phase4Dialogue692" /></actions></cue>
         <cue name="Phase4Dialogue692"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ArgonCarrierActor" page="899903" line="692" priority="100" /><signal_cue cue="Phase4Dialogue693" /></actions></cue>
         <cue name="Phase4Dialogue693"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ArgonAdjutantActor" page="899903" line="693" priority="100" /><signal_cue cue="Phase4Dialogue694" /></actions></cue>
-        <cue name="Phase4Dialogue694"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SymeActor" page="899903" line="694" priority="100" /><signal_cue cue="Phase4Dialogue695" /></actions></cue>
-        <cue name="Phase4Dialogue695"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SymeActor" page="899903" line="695" priority="100" /><signal_cue cue="Phase4Dialogue696" /></actions></cue>
+        <cue name="Phase4Dialogue694"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ShinActor" page="899903" line="694" priority="100" /><signal_cue cue="Phase4Dialogue695" /></actions></cue>
+        <cue name="Phase4Dialogue695"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ShinActor" page="899903" line="695" priority="100" /><signal_cue cue="Phase4Dialogue696" /></actions></cue>
         <cue name="Phase4Dialogue696"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899903" line="696" priority="100" /><signal_cue cue="Phase4Dialogue697" /></actions></cue>
         <cue name="Phase4Dialogue697"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SupervisorActor" page="899903" line="697" priority="100" /></actions></cue>
 
-        <cue name="Phase4AtFourMinutes"><conditions><event_cue_signalled /></conditions><delay exact="6min" /><actions><speak actor="$SymeActor" page="899903" line="701" priority="100" /><signal_cue cue="Phase4Dialogue702" /></actions></cue>
+        <cue name="Phase4AtFourMinutes"><conditions><event_cue_signalled /></conditions><delay exact="6min" /><actions><speak actor="$ShinActor" page="899903" line="701" priority="100" /><signal_cue cue="Phase4Dialogue702" /></actions></cue>
         <cue name="Phase4Dialogue702"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ArgonAdjutantActor" page="899903" line="702" priority="100" /><signal_cue cue="Phase4Dialogue703" /></actions></cue>
-        <cue name="Phase4Dialogue703"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SymeActor" page="899903" line="703" priority="100" /><signal_cue cue="Phase4Dialogue704" /></actions></cue>
+        <cue name="Phase4Dialogue703"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ShinActor" page="899903" line="703" priority="100" /><signal_cue cue="Phase4Dialogue704" /></actions></cue>
         <cue name="Phase4Dialogue704"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ArgonAdjutantActor" page="899903" line="704" priority="100" /><signal_cue cue="Phase4Dialogue705" /></actions></cue>
-        <cue name="Phase4Dialogue705"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SymeActor" page="899903" line="705" priority="100" /><signal_cue cue="Phase4Dialogue706" /></actions></cue>
+        <cue name="Phase4Dialogue705"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ShinActor" page="899903" line="705" priority="100" /><signal_cue cue="Phase4Dialogue706" /></actions></cue>
         <cue name="Phase4Dialogue706"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899903" line="706" priority="100" /><signal_cue cue="Phase4Dialogue707" /></actions></cue>
         <cue name="Phase4Dialogue707"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SupervisorActor" page="899903" line="707" priority="100" /><signal_cue cue="Phase4Dialogue708" /></actions></cue>
         <cue name="Phase4Dialogue708"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SupervisorActor" page="899903" line="708" priority="100" /></actions></cue>
 
-        <cue name="Phase4AtTwoMinutes"><conditions><event_cue_signalled /></conditions><delay exact="8min" /><actions><speak actor="$SymeActor" page="899903" line="711" priority="100" /><signal_cue cue="Phase4Dialogue712" /></actions></cue>
+        <cue name="Phase4AtTwoMinutes"><conditions><event_cue_signalled /></conditions><delay exact="8min" /><actions><speak actor="$ShinActor" page="899903" line="711" priority="100" /><signal_cue cue="Phase4Dialogue712" /></actions></cue>
         <cue name="Phase4Dialogue712"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ArgonAdjutantActor" page="899903" line="712" priority="100" /><signal_cue cue="Phase4Dialogue713" /></actions></cue>
         <cue name="Phase4Dialogue713"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ArgonAdjutantActor" page="899903" line="713" priority="100" /><signal_cue cue="Phase4Dialogue714" /></actions></cue>
-        <cue name="Phase4Dialogue714"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SymeActor" page="899903" line="714" priority="100" /><signal_cue cue="Phase4Dialogue715" /></actions></cue>
-        <cue name="Phase4Dialogue715"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SymeActor" page="899903" line="715" priority="100" /><signal_cue cue="Phase4Dialogue716" /></actions></cue>
-        <cue name="Phase4Dialogue716"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SymeActor" page="899903" line="716" priority="100" /><signal_cue cue="Phase4Dialogue717" /></actions></cue>
+        <cue name="Phase4Dialogue714"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ShinActor" page="899903" line="714" priority="100" /><signal_cue cue="Phase4Dialogue715" /></actions></cue>
+        <cue name="Phase4Dialogue715"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ShinActor" page="899903" line="715" priority="100" /><signal_cue cue="Phase4Dialogue716" /></actions></cue>
+        <cue name="Phase4Dialogue716"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ShinActor" page="899903" line="716" priority="100" /><signal_cue cue="Phase4Dialogue717" /></actions></cue>
         <cue name="Phase4Dialogue717"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899903" line="717" priority="100" /><signal_cue cue="Phase4Dialogue718" /></actions></cue>
         <cue name="Phase4Dialogue718"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899903" line="718" priority="100" /><signal_cue cue="Phase4Dialogue719" /></actions></cue>
         <cue name="Phase4Dialogue719"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SupervisorActor" page="899903" line="719" priority="100" /></actions></cue>
@@ -1171,7 +1219,7 @@
           <actions>
             <set_value name="$Phase3MusicSequenceActive" exact="false" /><set_value name="$Phase3CurrentMusicEndTime" exact="0" /><stop_music /><play_music music="'gfc_music_m05_phase5_frostburn'" loop="true" />
             <do_if value="@$PrimeGateA.exists"><add_effect object="$PrimeGateA" effect="'jump_gateeffect'" /></do_if>
-            <create_position name="$SymeSpawnPos" space="$ArgonPrime" value="$PrimeEntry" min="6km" max="12km" /><create_ship name="$SymeFlagship" macro="macro.ship_arg_l_destroyer_01_a_macro" sector="$ArgonPrime" groupname="$Phase5Wave3" capturable="false" commandeerable="false"><owner exact="faction.argon" /><pilot><select faction="faction.argon" tags="tag.commander" /></pilot><loadout><level exact="1.0" /></loadout><position value="$SymeSpawnPos" /><rotation yaw="180deg" /></create_ship><generate_loadout result="$SymeLoadout" macro="$SymeFlagship.macro" faction="faction.argon" level="1.0" variation="0" /><do_if value="$SymeLoadout.count"><apply_loadout object="$SymeFlagship" loadout="$SymeLoadout.{1}" /></do_if><set_object_name object="$SymeFlagship" name="{899903,61}" /><set_object_min_hull object="$SymeFlagship" exact="10" /><add_to_group groupname="$Phase5EnemyFleet" object="$SymeFlagship" /><add_to_group groupname="$ScoreArgonDestroyerTargets" object="$SymeFlagship" /><set_value name="$ScoreArgonDestroyersSpawned" operation="add" exact="1" /><create_order id="'Attack'" object="$SymeFlagship" immediate="true"><param name="primarytarget" value="$CPUShip" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /></create_order>
+            <create_position name="$ShinSpawnPos" space="$ArgonPrime" value="$PrimeEntry" min="6km" max="12km" /><create_ship name="$ShinFlagship" macro="macro.ship_arg_l_destroyer_01_a_macro" sector="$ArgonPrime" groupname="$Phase5Wave3" capturable="false" commandeerable="false"><owner exact="faction.argon" /><pilot><select faction="faction.argon" tags="tag.commander" /></pilot><loadout><level exact="1.0" /></loadout><position value="$ShinSpawnPos" /><rotation yaw="180deg" /></create_ship><generate_loadout result="$ShinLoadout" macro="$ShinFlagship.macro" faction="faction.argon" level="1.0" variation="0" /><do_if value="$ShinLoadout.count"><apply_loadout object="$ShinFlagship" loadout="$ShinLoadout.{1}" /></do_if><set_object_name object="$ShinFlagship" name="{899903,61}" /><set_object_min_hull object="$ShinFlagship" exact="10" /><add_to_group groupname="$Phase5EnemyFleet" object="$ShinFlagship" /><add_to_group groupname="$ScoreArgonDestroyerTargets" object="$ShinFlagship" /><set_value name="$ScoreArgonDestroyersSpawned" operation="add" exact="1" /><create_order id="'Attack'" object="$ShinFlagship" immediate="true"><param name="primarytarget" value="$CPUShip" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /></create_order>
             <do_all exact="13"><create_position name="$WaveSpawnPos" space="$ArgonPrime" value="$PrimeEntry" min="4km" max="15km" /><create_ship name="$WaveShip" macro="macro.ship_arg_l_destroyer_01_a_macro" sector="$ArgonPrime" groupname="$Phase5Wave3" capturable="false" commandeerable="false"><owner exact="faction.argon" /><pilot><select faction="faction.argon" tags="tag.commander" /></pilot><loadout><level exact="1.0" /></loadout><position value="$WaveSpawnPos" /><rotation yaw="180deg" /></create_ship><generate_loadout result="$WaveLoadout" macro="$WaveShip.macro" faction="faction.argon" level="1.0" variation="0" /><do_if value="$WaveLoadout.count"><apply_loadout object="$WaveShip" loadout="$WaveLoadout.{1}" /></do_if><set_object_hull object="$WaveShip" exact="60" /><add_to_group groupname="$Phase5EnemyFleet" object="$WaveShip" /><add_to_group groupname="$ScoreArgonDestroyerTargets" object="$WaveShip" /><set_value name="$ScoreArgonDestroyersSpawned" operation="add" exact="1" /><create_order id="'Attack'" object="$WaveShip" immediate="true"><param name="primarytarget" value="$CPUShip" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /></create_order></do_all>
             <do_all exact="2"><create_position name="$WaveSpawnPos" space="$ArgonPrime" value="$PrimeEntry" min="3km" max="11km" /><create_ship name="$WaveShip" macro="macro.ship_arg_m_frigate_01_a_macro" sector="$ArgonPrime" groupname="$Phase5Wave3" capturable="false" commandeerable="false"><owner exact="faction.hatikvah" /><pilot><select faction="faction.hatikvah" tags="tag.pilot" /></pilot><loadout><level exact="1.0" /></loadout><position value="$WaveSpawnPos" /><rotation yaw="180deg" /></create_ship><generate_loadout result="$WaveLoadout" macro="$WaveShip.macro" faction="faction.hatikvah" level="1.0" variation="0" /><do_if value="$WaveLoadout.count"><apply_loadout object="$WaveShip" loadout="$WaveLoadout.{1}" /></do_if><add_to_group groupname="$Phase5EnemyFleet" object="$WaveShip" /><create_order id="'Attack'" object="$WaveShip" immediate="true"><param name="primarytarget" value="$CPUShip" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /></create_order></do_all>
             <do_all exact="5"><create_position name="$WaveSpawnPos" space="$ArgonPrime" value="$PrimeEntry" min="2km" max="10km" /><create_ship name="$WaveShip" macro="macro.ship_arg_s_heavyfighter_01_a_macro" sector="$ArgonPrime" groupname="$Phase5Wave3" capturable="false" commandeerable="false"><owner exact="faction.argon" /><pilot><select faction="faction.argon" tags="tag.pilot" /></pilot><loadout><level exact="1.0" /></loadout><position value="$WaveSpawnPos" /><rotation yaw="180deg" /></create_ship><generate_loadout result="$WaveLoadout" macro="$WaveShip.macro" faction="faction.argon" level="1.0" variation="0" /><do_if value="$WaveLoadout.count"><apply_loadout object="$WaveShip" loadout="$WaveLoadout.{1}" /></do_if><add_to_group groupname="$Phase5EnemyFleet" object="$WaveShip" /><create_order id="'Attack'" object="$WaveShip" immediate="true"><param name="primarytarget" value="$CPUShip" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /></create_order></do_all>
@@ -1186,23 +1234,23 @@
           <actions><remove_from_group group="$Phase5EnemyFleet" object="event.object" /></actions>
         </cue>
 
-        <!-- Phase 6: Syme's protected command node opens a direct channel at 15% hull. This dialogue does
+        <!-- Phase 6: Shin's protected command node opens a direct channel at 15% hull. This dialogue does
              not replace the expedition-fleet objective with a single-ship objective. -->
-        <cue name="Phase6SymeThreshold" checkinterval="1s">
-          <conditions><check_value value="$Phase5Active and not $Phase6Triggered and @$SymeFlagship.exists and $SymeFlagship.hullpercentage lt 15" /></conditions>
-          <actions><set_value name="$Phase6Triggered" exact="true" /><set_value name="$Phase5Active" exact="false" /><set_value name="$Phase6Active" exact="true" /><speak actor="$SymeActor" page="899903" line="901" priority="100" /><signal_cue cue="Phase6Dialogue902" /></actions>
+        <cue name="Phase6ShinThreshold" checkinterval="1s">
+          <conditions><check_value value="$Phase5Active and not $Phase6Triggered and @$ShinFlagship.exists and $ShinFlagship.hullpercentage lt 15" /></conditions>
+          <actions><set_value name="$Phase6Triggered" exact="true" /><set_value name="$Phase5Active" exact="false" /><set_value name="$Phase6Active" exact="true" /><speak actor="$ShinActor" page="899903" line="901" priority="100" /><signal_cue cue="Phase6Dialogue902" /></actions>
         </cue>
-        <cue name="Phase6Dialogue902"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SymeActor" page="899903" line="902" priority="100" /><signal_cue cue="Phase6Dialogue903" /></actions></cue>
-        <cue name="Phase6Dialogue903"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SymeActor" page="899903" line="903" priority="100" /><signal_cue cue="Phase6Dialogue904" /></actions></cue>
+        <cue name="Phase6Dialogue902"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ShinActor" page="899903" line="902" priority="100" /><signal_cue cue="Phase6Dialogue903" /></actions></cue>
+        <cue name="Phase6Dialogue903"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ShinActor" page="899903" line="903" priority="100" /><signal_cue cue="Phase6Dialogue904" /></actions></cue>
         <cue name="Phase6Dialogue904">
           <conditions><event_cue_signalled /></conditions><delay exact="7s" />
-          <actions><speak actor="$SymeActor" page="899903" line="904" priority="100" /><do_if value="@$SymeFlagship.exists"><set_object_min_hull object="$SymeFlagship" exact="0" /></do_if><set_value name="$Phase6ThresholdDialogueComplete" exact="true" /></actions>
+          <actions><speak actor="$ShinActor" page="899903" line="904" priority="100" /><do_if value="@$ShinFlagship.exists"><set_object_min_hull object="$ShinFlagship" exact="0" /></do_if><set_value name="$Phase6ThresholdDialogueComplete" exact="true" /></actions>
         </cue>
         <cue name="Phase6AllExpeditionTargetsDestroyed" checkinterval="1s">
           <conditions><check_value value="$Phase5AllWavesSpawned and not $Phase6AftermathStarted and $Phase5EnemyFleet.count == 0 and ($Phase5Active or $Phase6Active) and (not $Phase6Triggered or $Phase6ThresholdDialogueComplete)" /></conditions>
-          <actions><set_value name="$Phase6AftermathStarted" exact="true" /><set_value name="$Phase6Triggered" exact="true" /><set_value name="$Phase5Active" exact="false" /><set_value name="$Phase6Active" exact="true" /><set_objective cue="$MissionCue" action="objective.none" /><speak actor="$SymeActor" page="899903" line="905" priority="100" /><signal_cue cue="Phase6Dialogue906" /></actions>
+          <actions><set_value name="$Phase6AftermathStarted" exact="true" /><set_value name="$Phase6Triggered" exact="true" /><set_value name="$Phase5Active" exact="false" /><set_value name="$Phase6Active" exact="true" /><set_objective cue="$MissionCue" action="objective.none" /><speak actor="$ShinActor" page="899903" line="905" priority="100" /><signal_cue cue="Phase6Dialogue906" /></actions>
         </cue>
-        <cue name="Phase6Dialogue906"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SymeActor" page="899903" line="906" priority="100" /><signal_cue cue="Phase6Dialogue907" /></actions></cue>
+        <cue name="Phase6Dialogue906"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$ShinActor" page="899903" line="906" priority="100" /><signal_cue cue="Phase6Dialogue907" /></actions></cue>
         <cue name="Phase6Dialogue907"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899903" line="907" priority="100" /><signal_cue cue="Phase6Dialogue908" /></actions></cue>
         <cue name="Phase6Dialogue908"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SupervisorActor" page="899903" line="908" priority="100" /><signal_cue cue="Phase6Dialogue909" /></actions></cue>
         <cue name="Phase6Dialogue909"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899903" line="909" priority="100" /><signal_cue cue="Phase6Dialogue910" /></actions></cue>

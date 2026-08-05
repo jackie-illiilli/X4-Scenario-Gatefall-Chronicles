@@ -496,6 +496,43 @@
         <create_mission cue="$MissionCue" abortable="false" name="{899901,201}" description="{899901,202}" icon="'briefing_mission_director_01'" difficulty="level.medium" type="missiontype.fight" faction="faction.argon" />
       </actions>
       <cues>
+        <!-- Restore the last persistent phase score after loading. Use the saved progression flags in
+             newest-to-oldest order because completed phase flags intentionally remain set. -->
+        <cue name="ResumeMusicAfterLoad" instantiate="true">
+          <conditions>
+            <event_universe_generated />
+            <check_value value="not @$ScenarioEnded" />
+          </conditions>
+          <delay exact="1s" />
+          <actions>
+            <stop_music />
+            <do_if value="$Phase8NavBeaconComplete">
+              <play_music music="'x4_timelines_ost_02_redemption'" loop="true" />
+            </do_if>
+            <do_elseif value="$Phase9NavBeaconObjectiveStarted">
+              <play_music music="'x4_timelines_ost_07_ashes'" loop="true" />
+            </do_elseif>
+            <do_elseif value="$Phase6Started">
+              <play_music music="'music_soundtrack_argon'" loop="true" />
+            </do_elseif>
+            <do_elseif value="$Phase5Started">
+              <play_music music="'gatefall_music_age_of_deceivers'" loop="true" />
+            </do_elseif>
+            <do_elseif value="$Phase4DeployStarted">
+              <play_music music="'x4_timelines_ost_10_gamma_epsilon'" loop="true" />
+            </do_elseif>
+            <do_elseif value="$Phase4Started">
+              <play_music music="'music_soundtrack_argon'" loop="true" />
+            </do_elseif>
+            <do_elseif value="$Phase3Started or $Phase2Started">
+              <play_music music="'music_soundtrack_xenon'" loop="true" />
+            </do_elseif>
+            <do_else>
+              <play_music music="'music_soundtrack_argon'" loop="true" />
+            </do_else>
+          </actions>
+        </cue>
+
         <cue name="PromptOpenMap">
           <delay exact="1s" />
           <actions>

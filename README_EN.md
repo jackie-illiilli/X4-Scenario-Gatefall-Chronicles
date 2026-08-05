@@ -2,26 +2,34 @@
 
 One-line summary: Gatefall Chronicles is an original hidden Timelines campaign for X4, built around anomalous Xenon jump technology, a collapsing gate front, and a chain of desperate alliances forged under extinction-level pressure.
 
-The current public build contains five scenarios that can be played through to their results screens:
+The current public build contains six scenarios that can be played through to their results screens:
 
 - `Gatefall 01: Under the Surface`
 - `Gatefall 02: Passing the Buck`
 - `Gatefall 03: Fight for Survival`
 - `Gatefall 04: In the Same Boat`
 - `Gatefall 05: Judgement Day`
+- `Gatefall 06: Lifeline`
 
 Chinese version: [README.md](README.md)
 
-## Latest Update: Fight for Survival
+## Latest Update: Lifeline and Campaign Saving
 
-This update completes the third scenario, `Gatefall 03: Fight for Survival`:
+This update completes `Gatefall 06: Lifeline` and introduces an in-scenario saving system implemented by this mod:
 
-- Play as a female Split engineer returning from Family Zhin aboard a failing Asp, then claim the abandoned Rattlesnake `Phi Six` in the ruins of Family Phi.
-- Relieve the Hull Parts Factory, Weapon Component Factory, and the last refugee carrier, `Autumn of Phi`, while searching for your missing parents and joining Phi Squadron.
-- Escort the carrier through Family Phi, Family Valka, Family Zhin, and Family Nhuut while facing Xenon I, K, and H capital ships and recurring reinforcements.
-- Command a squadron of Rattlesnakes, survive the pursuit of the Kha'ak Annihilator `Long Night`, and make a final stand at an abandoned Antimatter Cell Factory.
-- Experience a complete six-phase campaign with Chinese and English subtitles, multi-stage cutscenes, custom music, scripted sacrifices, explicit failure conditions, and five-star scoring.
-- The final score combines the hull of `Autumn of Phi`, Xenon capital-ship kills, the hull of `Phi Six`, and completion time.
+- Command the modified Odysseus `Domel III`, four ageing Zeus carriers, and four Delta air groups while Xenon fleets push into Second Contact II Flashpoint.
+- Escort the TRI, TEL, and Split evacuation fleets through sustained capital-ship attacks, fighter interception, torpedo strikes, emergency repairs, and refugee transfers.
+- Join forces with Rayna and the 86th Escort Fleet, destroy a Xenon jump beacon and CPU Ship, and cover the final Split convoy as Flashpoint is abandoned.
+- Play a complete seven-phase scenario with Chinese and English subtitles, staged cutscenes, recurring reinforcements, timed objectives, failure conditions, and five-star scoring.
+- Lead the battered coalition fleet into Getsu Fune and rendezvous with the arriving Terran Intervention Corps.
+- Save and continue during campaign scenarios. Loading a campaign save now restores the BGM assigned to the current phase, so music is no longer lost or left silent after loading.
+- The final score combines mission completion with the number of surviving TRI and TEL evacuation ships.
+
+## Campaign Saving
+
+The original X4: Timelines campaign format does not natively support saving during a scenario. Gatefall Chronicles now includes its own in-scenario saving system, allowing players to save and continue partway through a mission.
+
+The music restoration logic has also been completed: after loading a campaign save, the game resumes the BGM assigned to the current phase instead of leaving combat or story music silent.
 
 ## Requirements
 
@@ -120,6 +128,18 @@ Status: Complete scenario, fully playable with end-of-scenario results
 
 Key features: infiltration and identification evasion, mission-driven pseudo-RTS production, CPU Ship command, large station assaults, gate defence, a multi-sector finale, custom music, failure conditions, and five-star scoring.
 
+### Scenario 06: Lifeline
+
+Status: Complete scenario, fully playable with end-of-scenario results
+
+- Play as Domel, a Paranid commander whose former Flashpoint battle group was destroyed during the Gatefall, and rebuild the defence around `Domel III` and four hastily assembled Zeus carriers.
+- Direct Delta air groups in fighter interception and torpedo attacks while escorting TRI, TEL, and Split evacuation fleets towards The Void and Getsu Fune.
+- Reunite with Rayna and the 86th Escort Fleet, rescue crippled civilian transports, and transfer refugees onto surviving warships and auxiliaries.
+- Locate a Xenon jump beacon and launch a four-squadron decapitation strike against a CPU Ship that continuously assembles reinforcements.
+- Abandon Flashpoint after the final Split convoy arrives, covering Phi Six, `Autumn of Phi`, and the surviving coalition fleet on their retreat into the Solar System.
+
+Key features: carrier aviation command, VF-31 interception and VF-29 torpedo strikes, multi-faction refugee escorts, recurring capital-ship assaults, emergency repairs and personnel transfers, a CPU Ship decapitation strike, dynamic custom music, explicit failure conditions, and five-star scoring.
+
 Note: The released scenarios currently use Chinese and English subtitles and do not include voice acting.
 
 ## Campaign Progress
@@ -131,15 +151,16 @@ Note: The released scenarios currently use Chinese and English subtitles and do 
 | 03       | Fight for Survival   | Escort the last Split refugee carrier through Family Phi, Valka, Zhin and Nhuut             | Complete scenario                          |
 | 04       | In the Same Boat     | Boron–Terran offensive through Heretic's End culminating in the destruction of a Xenon M0  | Complete scenario                          |
 | 05       | Judgement Day        | Xenon infiltration, pseudo-RTS production, the assault on Argon Prime, and a gate battle     | Complete scenario                          |
-| 06       | Last Stand           | Trinity defence of seed ships escaping towards the Sol system                               | Concept stage                              |
+| 06       | Lifeline              | Hold Flashpoint and escort TRI, TEL and Split refugee fleets into the Sol system            | Complete scenario                          |
 | 07       | A Faint Hope         | Terran defence of the Sol approach and a deep strike towards Savage Spur                    | Concept stage                              |
 | 08       | Crime and Punishment | Multi-faction counteroffensive into Savage Spur I to destroy the Xenon jump facility        | Concept stage                              |
 
 ## Notes
 
-- All five released scenarios can be played independently from start to finish and produce scored results.
+- All six released scenarios can be played independently from start to finish and produce scored results.
+- Campaign scenarios now support saving and loading through a system implemented by this mod; loading restores the BGM assigned to the current phase.
 - The mod uses the hidden Timelines scenario interface and does not replace the official Timelines storyline.
-- Development is ongoing. Later scenarios, presentation, art, balance, and localization will continue to evolve.
+- Development is ongoing. Later scenarios, presentation, art, balance, and localisation will continue to evolve.
 
 ## Tribute
 
@@ -148,6 +169,15 @@ Note: The released scenarios currently use Chinese and English subtitles and do 
 The structure and presentation of `Gatefall 04: In the Same Boat` pay tribute to the fifth Allied mission from Command & Conquer: Red Alert 3, `North Sea: The Unfathomable Fortress`. The scenario also makes extensive use of the Red Alert 3 original soundtrack, recreating the atmosphere and pacing of that classic mission through X4 fleet combat, base construction, and multi-stage objectives.
 
 `Gatefall 05: Judgement Day` pays tribute to Epsilon Mission 13, `The Conqueror`, from `Mental Omega 3.3.6`, a mod for Command & Conquer: Red Alert 2. It also uses music composed by Black Ice 9 for the Epsilon faction.
+
+`Gatefall 06: Lifeline` is built as a broad tribute to carrier aviation, refugee fleets, and last-stand evacuation stories across several anime and game series:
+
+- Domel, `Domel III`, and the carrier names Balgray, Lambea, Darold, and Schderg pay tribute to the Battle of the Rainbow Star Cluster in `Space Battleship Yamato 2199`.
+- Delta Squadron, the VF-31/VF-29 designations, and the names Hayate, Mirage, Arad, and Messer pay tribute to `Macross Delta`. The scenario also uses a substantial selection of music from `Macross Delta`, including `Walküre ga Tomaranai ~without Freyja~`, `Bokura no Senjō`, `AXIA ~Daisuki de Daikirai~`, `GIRAFFE BLUES`, `Ikenai Borderline`, `Kirei na Hana ni wa Doku ga Aru`, `Walküre wa Uragiranai`, and `ALIVE ~Inori no Uta~`.
+- The CPU Ship decapitation phase uses `Lion` from `Macross Frontier`, the scenario's only song from Macross F.
+- Rayna, Shin, and the 86th Escort Fleet continue the tribute to `86—Eighty-Six`; the ANT flagship `Sidonia` pays tribute to `Knights of Sidonia`; and Takeru Shirogane's appearance in the finale pays tribute to the `Muv-Luv` series.
+
+All referenced names, music, and original works remain the property of their respective creators and rights holders. This is a non-commercial fan project and is not officially affiliated with any of those works or rights holders.
 
 ## Credits
 

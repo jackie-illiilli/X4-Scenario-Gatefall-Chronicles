@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<diff>
+  <add sel="/wares">
+    <!--
+      Campaign/sandbox special ship:
+      - no regular faction owner or blueprint seller;
+      - intentionally lacks the nocustomgamestart tag;
+      - intentionally remains eligible as a player ship so Custom Game Start can list it;
+      - the ownerless owner keeps it out of NPC shipyards and jobs.
+    -->
+    <ware id="ship_par_m_corvette_gatefall_bomber_01" name="{899905,1}" description="{899905,2}" transport="ship" volume="1" tags="ship">
+      <price min="634372" average="746320" max="858268" />
+      <production time="24" amount="1" method="default" name="{20206,101}">
+        <primary>
+          <ware ware="energycells" amount="133" />
+          <ware ware="hullparts" amount="704" />
+        </primary>
+      </production>
+      <component ref="ship_par_m_corvette_gatefall_bomber_01_macro" />
+      <restriction licence="militaryship" />
+      <owner faction="ownerless" />
+    </ware>
+
+    <!--
+      Experimental campaign ordnance:
+      - uses the current small/light launcher compatibility and flight profiles;
+      - replaces only explosion damage with the matching legacy heavy value;
+      - remains ownerless and outside normal faction production and sales.
+    -->
+    <ware id="missile_gen_s_torpedo_gatefall_experimental_heavy_mk1" name="{899905,11}" description="{899905,12}" group="missiles" transport="equipment" volume="1" tags="equipment missile">
+      <price min="1975" average="2324" max="2672" />
+      <production time="3" amount="1" method="default" name="{20206,101}">
+        <primary>
+          <ware ware="energycells" amount="15" />
+        </primary>
+      </production>
+      <component ref="missile_gen_s_torpedo_gatefall_experimental_heavy_mk1_macro" />
+      <container ref="sm_gen_pickup_equipment_01_macro" />
+      <use threshold="0" />
+      <owner faction="ownerless" />
+    </ware>
+
+    <ware id="missile_gen_s_guided_gatefall_experimental_heavy_mk1" name="{899905,21}" description="{899905,22}" group="missiles" transport="equipment" volume="1" tags="equipment missile">
+      <price min="858" average="1009" max="1160" />
+      <production time="3" amount="1" method="default" name="{20206,101}">
+        <primary>
+          <ware ware="energycells" amount="10" />
+        </primary>
+      </production>
+      <component ref="missile_gen_s_guided_gatefall_experimental_heavy_mk1_macro" />
+      <container ref="sm_gen_pickup_equipment_01_macro" />
+      <use threshold="0" />
+      <owner faction="ownerless" />
+    </ware>
+  </add>
+</diff>

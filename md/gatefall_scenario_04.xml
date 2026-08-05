@@ -412,6 +412,135 @@
         <fade_screen fadeout="0s" fadein="1s" realtime="true" />
       </actions>
       <cues>
+        <!-- Rebuild transient music state after loading. Persistent loops are selected from phase state;
+             the Phase 6/8 one-shot rotations replay the saved choice and restart its measured timer. -->
+        <cue name="ResumeMusicAfterLoad" instantiate="true">
+          <conditions>
+            <event_universe_generated />
+            <check_value value="not @$ScenarioEnded" />
+          </conditions>
+          <delay exact="1s" />
+          <actions>
+            <stop_music />
+            <do_if value="$Phase8Completed">
+              <play_music music="'gfc_music_m04_victory'" loop="true" />
+            </do_if>
+            <do_elseif value="$Phase8Started and not $Phase8Completed">
+              <do_if value="Phase8_PlayFinalCombatMusic.state != cuestate.complete">
+                <play_music music="'gfc_music_m04_final_tension'" />
+              </do_if>
+              <do_elseif value="@$Phase8MusicChoice?">
+                <do_if value="$Phase8MusicChoice == 1">
+                  <play_music music="'gfc_music_m04_final_combat_japan_uprising'" />
+                  <set_value name="$Phase8CurrentMusicEndTime" exact="player.age + 203s" />
+                </do_if>
+                <do_elseif value="$Phase8MusicChoice == 2">
+                  <play_music music="'gfc_music_m04_final_combat_japan_2'" />
+                  <set_value name="$Phase8CurrentMusicEndTime" exact="player.age + 86s" />
+                </do_elseif>
+                <do_elseif value="$Phase8MusicChoice == 3">
+                  <play_music music="'gfc_music_m04_final_combat_allied_2'" />
+                  <set_value name="$Phase8CurrentMusicEndTime" exact="player.age + 113s" />
+                </do_elseif>
+                <do_elseif value="$Phase8MusicChoice == 4">
+                  <play_music music="'gfc_music_m04_final_combat_eminent'" />
+                  <set_value name="$Phase8CurrentMusicEndTime" exact="player.age + 75s" />
+                </do_elseif>
+                <do_else>
+                  <play_music music="'gfc_music_m04_final_combat_soviet_2'" />
+                  <set_value name="$Phase8CurrentMusicEndTime" exact="player.age + 101s" />
+                </do_else>
+              </do_elseif>
+              <do_else>
+                <set_value name="$Phase8CurrentMusicEndTime" exact="0" />
+                <signal_cue cue="Phase8_PlayNextCombatMusic" />
+              </do_else>
+            </do_elseif>
+            <do_elseif value="$Phase6Started and not $Phase6Completed">
+              <do_if value="$Phase6MusicMode == 'calm' and @$Phase6MusicChoice?">
+                <do_if value="$Phase6MusicChoice == 1">
+                  <play_music music="'gfc_music_m04_phase6_calm_gamma_epsilon'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 228s" />
+                </do_if>
+                <do_elseif value="$Phase6MusicChoice == 2">
+                  <play_music music="'gfc_music_m04_phase6_calm_floating_island'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 118s" />
+                </do_elseif>
+                <do_elseif value="$Phase6MusicChoice == 3">
+                  <play_music music="'gfc_music_m04_phase6_calm_easter_island'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 68s" />
+                </do_elseif>
+                <do_else>
+                  <play_music music="'gfc_music_m04_phase6_calm_shinigaprovince'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 130s" />
+                </do_else>
+              </do_if>
+              <do_elseif value="$Phase6MusicMode == 'combat' and @$Phase6MusicChoice?">
+                <do_if value="$Phase6MusicChoice == 1">
+                  <play_music music="'gfc_music_m04_phase6_combat_japan_uprising'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 202s" />
+                </do_if>
+                <do_elseif value="$Phase6MusicChoice == 2">
+                  <play_music music="'gfc_music_m04_phase6_combat_perseverance'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 115s" />
+                </do_elseif>
+                <do_elseif value="$Phase6MusicChoice == 3">
+                  <play_music music="'gfc_music_m04_phase6_combat_allied_uprising'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 61s" />
+                </do_elseif>
+                <do_elseif value="$Phase6MusicChoice == 4">
+                  <play_music music="'gfc_music_m04_phase6_combat_allied_1'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 104s" />
+                </do_elseif>
+                <do_else>
+                  <play_music music="'gfc_music_m04_phase6_combat_tokyo_harbor'" />
+                  <set_value name="$Phase6CurrentMusicEndTime" exact="player.age + 119s" />
+                </do_else>
+              </do_elseif>
+              <do_else>
+                <set_value name="$Phase6CurrentMusicEndTime" exact="0" />
+                <signal_cue cue="Phase6_PlayNextMusic" />
+              </do_else>
+            </do_elseif>
+            <do_elseif value="$Phase5Started and not $Phase5Completed">
+              <do_if value="Phase5_RevealStrategicTargets.state == cuestate.complete">
+                <play_music music="'gfc_music_m04_solar_reveal'" loop="true" />
+              </do_if>
+              <do_else>
+                <play_music music="'gfc_music_m04_carrier_arrival'" />
+              </do_else>
+            </do_elseif>
+            <do_elseif value="$Phase4Started and not $Phase4Completed">
+              <do_if value="$Phase4DefenceStarted and $Phase4Wave2Spawned">
+                <play_music music="'gfc_music_m04_base_defence'" loop="true" />
+              </do_if>
+              <do_elseif value="$Phase4DefenceStarted">
+                <play_music music="'gfc_music_m04_base_deployment'" />
+              </do_elseif>
+              <do_else>
+                <play_music music="'gfc_music_m04_m0_reveal'" />
+              </do_else>
+            </do_elseif>
+            <do_elseif value="$Phase2Started and not $Phase2Completed">
+              <play_music music="'gfc_music_m04_radar_assault'" loop="true" />
+            </do_elseif>
+            <do_elseif value="$Phase1Started and not $Phase1Completed">
+              <do_if value="$Phase1InitialCleared and Phase1_PlayComingAshoreMusic.state == cuestate.complete">
+                <play_music music="'gfc_music_m04_phase1_coming_ashore'" loop="true" />
+              </do_if>
+              <do_elseif value="$Phase1InitialCleared">
+                <play_music music="'gfc_music_m04_phase1_building_defenses'" />
+              </do_elseif>
+              <do_else>
+                <play_music music="'gfc_music_m04_intro_downloading'" loop="true" />
+              </do_else>
+            </do_elseif>
+            <do_elseif value="not $Phase1Completed">
+              <play_music music="'gfc_music_m04_intro_downloading'" loop="true" />
+            </do_elseif>
+          </actions>
+        </cue>
+
         <!-- Count only combat destruction of the scenario's registered Xenon L/XL ships. Objects removed
              by scripted cleanup have no killer and therefore do not inflate the practice score. -->
         <cue name="Score_XenonCapitalDestroyed" instantiate="true">

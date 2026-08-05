@@ -263,5 +263,58 @@
       <volume start="0.76" />
       <effects><fade in="1.0" out="1.5" /></effects>
     </sound>
+
+    <!-- Gatefall Chronicles mission 06: Lifeline authored soundtrack. Rhapsody is
+         the only one-shot; MD changes to the following Phase 1 loop after 166 seconds. -->
+    <sound id="gfc_music_m06_phase1_rhapsody" description="Gatefall mission 06 carrier arrival - Rhapsody in C Minor" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_06\rhapsody_in_c_minor" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m06_phase1_walkure_ga_tomaranai" description="Gatefall mission 06 Phase 1 - Walkure ga Tomaranai" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_06\walkure_ga_tomaranai_without_freyja" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m06_phase2_bokura_no_senjou" description="Gatefall mission 06 TRI convoy - Bokura no Senjou" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_06\bokura_no_senjou" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m06_phase3_axia" description="Gatefall mission 06 Xenon station assault - AXIA" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_06\axia" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m06_phase3_giraffe_blues" description="Gatefall mission 06 wreck scene - GIRAFFE BLUES" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_06\giraffe_blues" />
+      <volume start="0.74" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m06_phase4_ikenai_borderline" description="Gatefall mission 06 TEL convoy - Ikenai Borderline" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_06\ikenai_borderline" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m06_phase4_kireina_hana" description="Gatefall mission 06 TEL rescue - Kireina Hana niwa Doku ga Aru" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_06\kireina_hana_niwa_doku_ga_aru" />
+      <volume start="0.76" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m06_phase5_lion" description="Gatefall mission 06 decapitation strike - Lion" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_06\lion" />
+      <volume start="0.78" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m06_phase6_walkure_wa_uragiranai" description="Gatefall mission 06 Split convoy - Walkure wa Uragiranai" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_06\walkure_wa_uragiranai" />
+      <volume start="0.78" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m06_phase6_alive" description="Gatefall mission 06 final rescue - ALIVE Inori no Uta" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_06\alive_inori_no_uta" />
+      <volume start="0.78" />
+      <effects><fade in="1.0" out="1.5" /></effects>
+    </sound>
   </add>
 </diff>

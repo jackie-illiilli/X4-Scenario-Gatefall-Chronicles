@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s06_phase5_cpu_fleet_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_beacon" />
+    <object_group name="targets"><reference object="target_beacon" /></object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="CPUFleetDistantReveal" environment="scenezone" duration="36000">
+          <camera_orbit reference="target_beacon" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="52000" angle="-28" elevation="15" />
+            <end distance="41000" angle="18" elevation="11" time="35500" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

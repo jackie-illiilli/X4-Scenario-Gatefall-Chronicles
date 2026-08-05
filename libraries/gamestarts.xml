@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <diff>
   <add sel="/gamestarts">
-    <gamestart id="gatefall_scenario_01" name="{899900,1}" description="{899900,2}" image="gamestart_scenario_seek_and_destroy" group="11" tags="nosave">
+    <gamestart id="gatefall_scenario_01" name="{899900,1}" description="{899900,2}" image="gamestart_scenario_seek_and_destroy" group="11">
       <info startyear="3040" startmonth="6" startday="30" />
       <type name="Timelines Scenario" description="Gatefall Chronicles hidden scenario" />
       <loadingscreen>
@@ -37,7 +37,7 @@
         </scores>
       </scenario>
     </gamestart>
-    <gamestart id="gatefall_scenario_02" name="{899901,1}" description="{899901,2}" image="gamestart_scenario_seek_and_destroy" group="11" tags="nosave">
+    <gamestart id="gatefall_scenario_02" name="{899901,1}" description="{899901,2}" image="gamestart_scenario_seek_and_destroy" group="11">
       <info startyear="3040" startmonth="7" startday="5" />
       <type name="Timelines Scenario" description="Gatefall Chronicles hidden scenario" />
       <loadingscreen>
@@ -71,7 +71,7 @@
         </scores>
       </scenario>
     </gamestart>
-    <gamestart id="gatefall_scenario_03" name="{899904,1}" description="{899904,2}" image="gamestart_scenario_seek_and_destroy" group="11" tags="nosave">
+    <gamestart id="gatefall_scenario_03" name="{899904,1}" description="{899904,2}" image="gamestart_scenario_seek_and_destroy" group="11">
       <info startyear="3040" startmonth="8" startday="2" />
       <type name="Timelines Scenario" description="Gatefall Chronicles scenario 03 complete campaign" />
       <loadingscreen>
@@ -119,7 +119,7 @@
         </scores>
       </scenario>
     </gamestart>
-    <gamestart id="gatefall_scenario_04" name="{899902,1}" description="{899902,2}" image="gamestart_scenario_m0_boss_battle" group="11" tags="nosave">
+    <gamestart id="gatefall_scenario_04" name="{899902,1}" description="{899902,2}" image="gamestart_scenario_m0_boss_battle" group="11">
       <info startyear="3040" startmonth="8" startday="18" />
       <type name="Timelines Scenario" description="Gatefall Chronicles hidden scenario" />
       <loadingscreen>
@@ -154,7 +154,7 @@
         </scores>
       </scenario>
     </gamestart>
-    <gamestart id="gatefall_scenario_05" name="{899903,1}" description="{899903,2}" image="gamestart_scenario_m0_boss_battle" group="11" tags="nosave">
+    <gamestart id="gatefall_scenario_05" name="{899903,1}" description="{899903,2}" image="gamestart_scenario_m0_boss_battle" group="11">
       <info startyear="3040" startmonth="9" startday="1" />
       <type name="Timelines Scenario" description="Gatefall Chronicles scenario 05" />
       <loadingscreen>
@@ -173,6 +173,42 @@
           <score value="700" rating="3" />
           <score value="900" rating="4" />
           <score value="1100" rating="5" />
+        </scores>
+      </scenario>
+    </gamestart>
+    <gamestart id="gatefall_scenario_06" name="{899906,1}" description="{899906,2}" image="gamestart_scenario_seek_and_destroy" group="11">
+      <info startyear="3040" startmonth="8" startday="25" />
+      <type name="Timelines Scenario" description="Gatefall Chronicles scenario 06 complete campaign" />
+      <loadingscreen>
+        <text text="{899906,101}" />
+        <text text="{899906,102}" />
+        <text text="{899906,103}" />
+        <info text="{899906,3}" />
+        <info text="{899906,5}" />
+      </loadingscreen>
+      <!-- Zone002-local coordinates resolving to A-gate world position minus 10 km X/Z. -->
+      <location galaxy="gatefall_scenario_06_galaxy_macro" zone="gatefall_scenario_06_zone002_cluster_13_sector001_macro">
+        <position x="7251.082m" y="500m" z="-17188.969m" />
+        <rotation yaw="45" pitch="0" roll="0" />
+      </location>
+      <player macro="character_player_timelines_weaken_fleet_macro" money="0" name="{899906,10}">
+        <ship macro="ship_par_l_destroyer_02_a_macro" name="{899906,30}">
+          <!-- Full vanilla Paranid combat fit for the requested default Odysseus E. -->
+          <loadout ref="story_paranid_stranded_odysseus_E" />
+        </ship>
+      </player>
+      <universe ventures="false" visitors="false" onlineinventory="false">
+        <jobs enabled="false" />
+        <god enabled="false" />
+        <masstraffic enabled="false" />
+      </universe>
+      <scenario chapter="0" description="{899906,3}">
+        <scores description="{899906,4}">
+          <score value="200" rating="1" />
+          <score value="300" rating="2" />
+          <score value="400" rating="3" />
+          <score value="500" rating="4" />
+          <score value="600" rating="5" />
         </scores>
       </scenario>
     </gamestart>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="Gatefall_Ship_Registration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd">
+  <cues>
+    <!--
+      The ship is intentionally absent from normal faction and job pools, so it
+      cannot become known through ordinary encounters. Register its encyclopedia
+      entry explicitly for both new games and loaded sandbox saves.
+    -->
+    <cue name="Start" namespace="this" version="1">
+      <conditions>
+        <event_cue_signalled cue="md.Setup.Start" />
+      </conditions>
+      <delay exact="1ms" />
+      <actions>
+        <add_encyclopedia_entry type="shiptypes_m" item="'ship_par_m_corvette_gatefall_bomber_01_macro'" />
+      </actions>
+    </cue>
+
+    <!-- Separate cue so updating an existing v007 save also registers the new ordnance. -->
+    <cue name="Register_Experimental_Ordnance" version="1">
+      <conditions>
+        <event_cue_signalled cue="md.Setup.Start" />
+      </conditions>
+      <delay exact="1ms" />
+      <actions>
+        <add_encyclopedia_entry type="missiletypes" item="'missile_gen_s_torpedo_gatefall_experimental_heavy_mk1_macro'" />
+        <add_encyclopedia_entry type="missiletypes" item="'missile_gen_s_guided_gatefall_experimental_heavy_mk1_macro'" />
+      </actions>
+    </cue>
+  </cues>
+</mdscript>

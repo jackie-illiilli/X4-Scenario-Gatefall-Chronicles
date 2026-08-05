@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s06_intro_player_cutscene" />
+  <environments><environment_implicit name="scenezone" zone="@auto:target_player_ship" /><object_group name="targets"><reference object="target_player_ship" /></object_group></environments>
+  <presentation><actions><sequence name="Main" start="0"><shot name="DomelIII" environment="scenezone" duration="20000"><camera_orbit reference="target_player_ship" orient_to="object" cycle="none" interpolation="smooth"><begin distance="2300" angle="-28" elevation="9" /><end distance="1650" angle="26" elevation="5" time="19500" /></camera_orbit></shot></sequence></actions></presentation>
+</cutscene>

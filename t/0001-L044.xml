@@ -110,7 +110,7 @@
   <page id="899901" title="Gatefall Chronicles" descr="Gatefall Chronicles custom Timelines campaign 02" voice="no">
     <t id="1">Gatefall 02: Passing the Buck</t>
     <t id="2">Background: Using stolen jump technology, the Xenon are funnelling ever more forces into the gate network, and Tharka's Cascade is taking the brunt of it.\nSince HAT needed ARG's help to resolve the Scale Plate Pact crisis, it has effectively become an Argon vassal—one expected to pay in blood when asked. The 86th Escort Fleet is one such payment.\nThe 86th once saved your life. Now ARG means to spend them as cannon fodder, and you are determined to keep them alive, whatever the cost.\nGameplay: Command a frigate fleet remotely (OOS) and put its anti-fighter and anti-capital capabilities to the test.</t>
-    <t id="3">Play as ARG commander Syme, directing HAT's 86th Escort Fleet from a rear command platform in Hatikvah's Choice as one crisis after another erupts in Tharka's Cascade.</t>
+    <t id="3">Play as ARG commander Shin, directing HAT's 86th Escort Fleet from a rear command platform in Hatikvah's Choice as one crisis after another erupts in Tharka's Cascade.</t>
     <t id="4">Star thresholds: 200 / 250 / 300 / 350 / 400 points</t>
 
     <t id="11">ARG Rear Command Platform</t>
@@ -214,12 +214,12 @@
     <t id="565">Capital-ship raids are practically routine now. Come to think of it, thank goodness for those plasma guns you somehow got hold of.</t>
     <t id="566">I get the feeling the Xenon are gearing up for something big. Even Argon patrols are being reinforced. We need more ships.</t>
 
-    <t id="567">Frontier Commander, this is Syme, commander of the 86th Escort Fleet. I have an urgent report.</t>
+    <t id="567">Frontier Commander, this is Shin, commander of the 86th Escort Fleet. I have an urgent report.</t>
     <t id="568">Oh? HAT's escort commander? Go on, then.</t>
     <t id="569">Xenon attacks on Tharka's Cascade are escalating. The threat to the core sectors, even Argon Prime, cannot be ignored.</t>
     <t id="570">HAT's still holding, isn't it? The sky hasn't fallen yet.</t>
     <t id="571">Yes, sir. But even limited support for the 86th would take enormous pressure off Argon's rear-area fleet.</t>
-    <t id="572">Syme, I understand what the 86th means to you. They did save your life.</t>
+    <t id="572">Shin, I understand what the 86th means to you. They did save your life.</t>
     <t id="573">But this isn't something I can fix for you. I can't talk the Defence Ministry into supporting HAT, and you already knew that.</t>
     <t id="574">Still, you've done well lately, so here's some advice: bring them proof of a Xenon threat they can't ignore—and a little "gift" to sweeten it—and you might have a chance.</t>
 
@@ -236,7 +236,7 @@
 
     <t id="586">Bad news, Commander! The station can't take much more!</t>
     <t id="587">Frontier Command, the Xenon capital fleet is on top of us! We can't hold much longer!</t>
-    <t id="588">Syme, the Defence Ministry's order is for the 86th Escort Fleet to hold Tharka's Cascade to the last ship.</t>
+    <t id="588">Shin, the Defence Ministry's order is for the 86th Escort Fleet to hold Tharka's Cascade to the last ship.</t>
     <t id="589">Your sacrifice will buy time for the Argon fleet to assemble and establish defences beyond the gate.</t>
     <t id="590">...</t>
     <t id="591">I'm sorry. I can't help you. One other thing—I seem to have left my classified-database key tucked under the lip of a table in the bar. Fetch it and return it to me.</t>
@@ -270,7 +270,7 @@
     <t id="618">No. The cameras outside the database and the access logs will confirm it.</t>
     <t id="619">Good. And the 86th?</t>
     <t id="620">Lost with all hands. They destroyed a large Xenon force and bought Argon the time it needed. It's all in the combat logs.</t>
-    <t id="621">A job well done, then... What's wrong, Syme? The 86th are gone, Rayna with them. Not happy?</t>
+    <t id="621">A job well done, then... What's wrong, Shin? The 86th are gone, Rayna with them. Not happy?</t>
     <t id="622">(shakes head)</t>
     <t id="623">Or did switching on the killing machine yourself leave a bad taste, even with our oldest enemy on the receiving end?</t>
     <t id="624">(remains silent)</t>
@@ -473,7 +473,7 @@
     <t id="27">Memorial Beacon</t>
     <t id="28">Argon Warzone Command</t>
     <t id="29">Unknown Commander</t>
-    <t id="30">Commander Syme</t>
+    <t id="30">Commander Shin</t>
     <t id="31">Argon Wharf</t>
     <t id="32">Argon Shipyard</t>
     <t id="33">Argon Administrative Centre</t>
@@ -545,7 +545,7 @@
     <t id="519">It'll be fine. Any Xenon trying to get through will be skinned alive by those defence stations!</t>
     <t id="521">Argon Prime identified. Shipbuilding and administrative targets recorded.</t>
     <t id="522">Transit to Hatikvah's Faith complete. Maintain low power.</t>
-    <t id="523">What about that fellow who used to command HAT... Syme, was it?</t>
+    <t id="523">What about that fellow who used to command HAT... Shin, was it?</t>
     <t id="524">He has finally gone quiet. No more demands to cancel the operation.</t>
     <t id="525">Exactly. Argon Prime has a defence force. Forget a Xenon F—even an I would be no problem...</t>
     <t id="526">Can the Xenon in Family Zhin stop a fleet this large...? If they turn back early...</t>
@@ -643,11 +643,11 @@
     <t id="757">Withdraw? Do you know how much Argon has invested in this expedition?</t>
     <t id="758">How could we face our country if we returned now? Our careers would be over*#$%@*</t>
     <t id="759">The command tower was hit. The commander... deputy commander... damn it, everyone in the tower is gone...</t>
-    <t id="760">You are alive... Syme! Everyone ahead of you in the command order is dead. Take command of the expedition!</t>
+    <t id="760">You are alive... Shin! Everyone ahead of you in the command order is dead. Take command of the expedition!</t>
     <t id="761">Understood! All ships prepare to break out. Save whoever you can!</t>
     <t id="762">There is an old Earth saying suited to this situation...</t>
     <t id="763">One incompetent general can work an entire army to death.</t>
-    <t id="764">This “Commander Syme” does not look like the usual brainless Argon commander...</t>
+    <t id="764">This “Commander Shin” does not look like the usual brainless Argon commander...</t>
     <t id="765">He introduces a substantial variable. Prepare the defences—this time, we are the ones blockading the gate!</t>
     <t id="766">You can also build a defence station near the gate. The CPU Ship has exactly the construction materials we need.</t>
     <t id="767">Gate-defence-station production authorised.</t>
@@ -692,14 +692,14 @@
     <t id="58">TRI Commander</t>
     <t id="59">ZYA Commander</t>
     <t id="60">TER Defence Network</t>
-    <t id="61">Syme Temporary Command Ship</t>
+    <t id="61">Shin Temporary Command Ship</t>
     <t id="62">Boron Shipyard</t>
     <t id="63">TEL Shipyard</t>
     <t id="64">TRI Shipyard</t>
     <t id="65">ZYA Shipyard</t>
     <t id="66">TER Defence Station</t>
     <t id="330">Destroy all three waves of the Argon relief fleet.</t>
-    <t id="331">Destroy Syme's command ship.</t>
+    <t id="331">Destroy Shin's command ship.</t>
     <t id="901">Who are you? You have been using the administration key to listen to us!</t>
     <t id="902">Whoever you are, human or AI, you can understand what we are saying!</t>
     <t id="903">You destroyed the Argon shipyard, destroyed the Administrative Centre, and slaughtered countless innocent civilians!</t>
@@ -996,5 +996,195 @@
     <t id="1010">Phi Six's final hull from 100% to 0% maps directly to 20 to 0 points.</t>
     <t id="1011">Scenario Time</t>
     <t id="1012">A time of 40 minutes or less scores 100; 140 minutes or more scores 0; times in between are mapped linearly.</t>
+  </page>
+  <page id="899905" title="Gatefall Special Equipment" descr="Gatefall Chronicles special ship and ordnance text" voice="no">
+    <t id="1">Nemesis Bombardment</t>
+    <t id="2">A campaign bomber conversion of the Nemesis Vanguard. Its five primary hardpoints accept only missile and torpedo launchers; all other performance, turret, and interior characteristics remain those of the prototype. The ship is not part of normal faction production or sales.</t>
+    <t id="3">Bombardment</t>
+    <t id="4">BOM</t>
+    <t id="11">Experimental Heavy Torpedo</t>
+    <t id="12">Experimental ordnance that fits a legacy heavy-torpedo warhead to the current light-torpedo body. Range, guidance, flight performance, reload time, and launcher compatibility remain those of the light torpedo, while explosive damage is raised to the legacy Heavy Torpedo level. This ammunition is not part of normal faction production or sales.</t>
+    <t id="13">Experimental Heavy Torpedo</t>
+    <t id="21">Experimental Heavy Guided Missile</t>
+    <t id="22">Experimental ordnance that fits a legacy heavy guided-missile warhead to the current light guided-missile body. Range, guidance, flight performance, lock and reload times, and launcher compatibility remain those of the light guided missile, while explosive damage is raised to the legacy Heavy Guided Missile level. This ammunition is not part of normal faction production or sales.</t>
+    <t id="23">Experimental Heavy Guided Missile</t>
+  </page>
+  <page id="899906" title="Gatefall 06: Lifeline" descr="Gatefall 06: Lifeline" voice="no">
+    <t id="1">Gatefall 06: Lifeline</t>
+    <t id="2">Background: In the wake of the Gatefall, the Commonwealth's defences have collapsed. Xenon forces are jumping directly into the major sectors of every faction. The refugee corridor into the Solar System runs through Second Contact II Flashpoint—a lifeline for civilisation, and the main route of advance from the Xenon-held Argon Prime.\n\nGameplay: Command Paranid carrier groups, laser corvettes and torpedo bombers. Hold Flashpoint and escort each faction's evacuation fleet towards the Solar System.</t>
+    <t id="3">You are Domel, the Paranid commander who led TRI forces in the campaign for Flashpoint. Now, aboard Domel III, you must rally the surviving fleet and hold open the lifeline to the Solar System.</t>
+    <t id="4">Scoring: each carrier that survives under your command earns 50 points; each surviving Delta Squadron fighter earns 5 points; each surviving 86th Escort Fleet fighter earns 5 points; and each surviving ship from the TRI, TEL and Split evacuation waves earns 5 points. Star thresholds: 200 / 300 / 400 / 500 / 600 points.</t>
+    <t id="5">Story protection: designated flight leaders cannot fall below 1% hull. The Xenon Defence Station is invulnerable during Phase 1 and will be replaced by a destructible combat station when the Phase 3 assault begins.</t>
+
+    <t id="10">Player</t><t id="11">TER Command Centre</t><t id="12">ANT Command</t><t id="13">TRI High Command</t>
+    <t id="14">Hayate</t><t id="15">Mirage</t><t id="16">Hayate &amp; Mirage</t><t id="17">Arad</t><t id="18">Messer</t>
+    <t id="19">Rayna</t><t id="20">TEL Evacuation Fleet Command</t><t id="21">Delta Squadron</t><t id="22">Anglerfish</t><t id="23">Domel</t>
+    <t id="24">TRI Freighter</t><t id="25">Unidentified Passenger Broadcast</t><t id="26">Unknown Signal</t><t id="27">Shin</t><t id="28">TEL Freighter Captain</t><t id="29">ANT Auxiliary Captain</t>
+    <t id="30">Domel III</t><t id="31">TRI Flashpoint Defence Station</t><t id="32">ANT Defence Station</t><t id="33">Xenon Defence Station</t><t id="34">TER Defence Station</t>
+    <t id="35">Balgray</t><t id="36">Lambea</t><t id="37">Delta-A Flight</t><t id="38">Delta-B Flight</t>
+    <t id="39">VF-31J</t><t id="40">VF-31S</t><t id="41">VF-31C</t><t id="42">VF-29</t><t id="43">VF-29A</t>
+    <t id="44">Pontiff’s Vessel</t><t id="45">Pilgrim Ship</t><t id="46">Holy Missionary</t><t id="47">TRI Evacuation Fleet</t>
+    <t id="48">Darold</t><t id="49">Schderg</t><t id="50">86th Escort Fleet Lead Craft</t><t id="51">HAT 86th Escort Fleet</t><t id="52">Wreck of the First Expedition Fleet Command Escape Craft</t>
+    <t id="53">Star of Profit</t><t id="54">TEL Auxiliary</t><t id="55">TEL Construction Ship</t><t id="56">TEL Mining Ship</t><t id="57">TEL Evacuation Fleet</t>
+    <t id="58">Disabled TEL Freighter</t><t id="59">ANT Repair Auxiliary</t><t id="60">Xenon Jump Beacon</t><t id="61">Xenon CPU Mothership</t><t id="62">Annihilator</t><t id="63">Ravager</t>
+    <t id="64">Hayate Fighter</t><t id="65">Mirage Fighter</t><t id="66">Arad Fighter</t><t id="67">Messer Fighter</t>
+    <t id="68">Phi Six</t><t id="69">ZYA Freighter</t><t id="70">Split Refugee</t><t id="71">Split Child</t><t id="72">Paradigm Captain</t><t id="73">Paradox Captain</t>
+    <t id="74">Family Zyarth</t><t id="75">Family Phi</t><t id="76">Split Evacuation Fleet</t><t id="77">Disabled ZYA Freighter</t><t id="78">Sidonia</t><t id="79">Paradigm</t><t id="80">Paradox</t><t id="81">86th Escort Fleet Member</t>
+
+    <t id="101">The Gatefall shattered the Commonwealth's defences. Xenon fleets are now striking every major sector through the gate network.</t>
+    <t id="102">The corridor from the superhighway ring to Getsu Fune is civilisation's last lifeline into the Solar System. Second Contact II Flashpoint is its most exposed choke point.</t>
+    <t id="103">Command Domel III and Delta Squadron. Hold Flashpoint and escort the evacuation fleets to safety.</t>
+
+    <t id="201">Lifeline</t><t id="202">Hold Second Contact II Flashpoint and keep the refugee route into the Solar System open.</t>
+    <t id="211">Phase 1: Reopen the Lifeline</t><t id="212">Eliminate the Xenon near Gate A</t><t id="213">Destroy the Xenon capital ships attacking the ANT Defence Station</t>
+    <t id="221">Phase 2: Protect the TRI Evacuation Fleet</t><t id="222">Prepare for the TRI evacuation fleet to arrive</t><t id="223">Escort the TRI evacuation fleet through Flashpoint</t><t id="224">Estimated transit time: 3 minutes</t>
+    <t id="231">Phase 3: Rayna’s Belated Rescue</t><t id="232">Help Rayna destroy the Xenon Defence Station</t><t id="233">Prepare for the TEL evacuation fleet to arrive</t>
+    <t id="241">Phase 4: Protect the TEL Evacuation Convoy</t><t id="242">Escort the TEL evacuation convoy through Flashpoint</t><t id="243">Estimated transit time: 5 minutes</t><t id="244">Hold off the Xenon while the ANT auxiliary repairs the TEL freighter</t><t id="245">Estimated repair time: 3 minutes</t>
+    <t id="251">Phase 5: Decapitation Strike</t><t id="252">Destroy the Xenon CPU mothership</t>
+    <t id="261">Phase 6: The Last Lifeline</t><t id="262">Prepare to receive the Split evacuation fleet</t><t id="263">Escort the Split evacuation fleet to Gate B</t><t id="264">Estimated transit time: 5 minutes</t>
+    <t id="265">Approach the disabled ZYA freighter</t><t id="266">Evacuate the crew of the ZYA freighter</t><t id="267">Reach Gate B within one minute</t>
+    <t id="271">Phase 7: Epilogue</t>
+
+    <t id="501">The Xenon have launched a full-scale offensive across the gate network. Every connected civilisation is under attack.</t>
+    <t id="502">By authority of the Alliance of the Word, the Solar System is now open to all refugees, regardless of faction or origin…</t>
+    <t id="503">Provided they reach the Solar System safely and pass our security screening.</t>
+    <t id="504">To that end, we will jointly secure the corridor from the superhighway ring to Getsu Fune.</t>
+    <t id="505">The Terran Ministry of Defence will hold Getsu Fune, while Antigone will secure The Void.</t>
+    <t id="506">Flashpoint—the critical sector where the Xenon advance must be met head-on—falls to the Trinity.</t>
+    <t id="507">I don't care to remember that damned day… Dozens of Odysseus destroyers, gone in an instant…</t>
+    <t id="508">You think I enjoyed it? We were locked in a stalemate with you when the Xenon rolled over both fleets…</t>
+    <t id="509">Save it for later—Xenon incoming!</t>
+    <t id="510">High Command, this is Flashpoint. We need reinforcements—anything you can spare.</t>
+    <t id="511">Domel. Balgray has arrived and is coming through the gate. Lambea is still en route.</t>
+    <t id="512">Vanguard Fleet recently received new fighters and missiles from the Bureau of Weapons Development.</t>
+    <t id="513">Delta-A Flight, led by Delta Squadron's commander, is already on the battlefield. I think you'll like what you see.</t>
+    <t id="514">Hayate, Delta Squadron leader, reporting. Leave the airspace to us!</t>
+    <t id="521">Domel, Xenon capital ships are bearing down on our station. I have no fleet to spare!</t>
+    <t id="522">I've never begged anyone before, but this time… please, save them!</t>
+    <t id="523">Our destroyer squadrons were wiped out. I have no effective anti-capital weapons left…</t>
+    <t id="524">Domel, Lambea has arrived. Its VF-29 torpedo bombers are in position.</t>
+    <t id="525">Mirage, leader of Delta-B Flight, reporting! Watch us tear those Xenon capital ships apart!</t>
+
+    <t id="541">Our people made it out. The station is yours—consider it our thanks.</t>
+    <t id="542">We threw half an army at this station and never took it. Now I'm supposed to treasure it… Well, it's better than nothing.</t>
+    <t id="543">Hayate, Mirage—good work. Use the lull to rearm and recharge.</t><t id="544">Understood, Commander. The squadron could use a shield recharge…</t>
+    <t id="545">Captain, those were just small fry…</t><t id="546">Don't get cocky. We can only hope the next Xenon wave isn't much heavier.</t>
+    <t id="547">High Command! Where is the evacuation fleet? How long until it reaches us?</t><t id="548">The fleet has reached True Sight. Estimated arrival at Flashpoint: two minutes.</t>
+    <t id="549">Hayate, Mirage—you've got two minutes. Rest, rearm and be ready!</t><t id="550">Understood!</t>
+    <t id="551">The evacuation convoy is about to enter Flashpoint. All ships, cut non-essential lighting and maintain the assigned transit order. Report status!</t>
+    <t id="552">TER personnel transport reporting. Our cargo hold has been converted into living quarters and is severely overcrowded. We cannot perform high-speed manoeuvres.</t>
+    <t id="553">We are carrying critically wounded evacuees from Trinity Sanctum. They cannot withstand high-speed manoeuvres.</t>
+    <t id="554">Understood. Move to the port side of the formation before gate transit. We will make a hard port turn upon entering Flashpoint.</t>
+    <t id="555">Did that mining ship just explode? Are we really going to make it to the Solar System?</t>
+    <t id="556">I don't know. The Xenon attacks haven't stopped once. I just hope someone will be there to protect us.</t>
+
+    <t id="571">Captain, that went pretty well, didn't it?</t><t id="572">Could've been worse. Your textbook flying is a little old-fashioned, though. What do you think, Commander?</t>
+    <t id="573">If you come back alive and the mission gets done, you've done your job.</t><t id="574">Well done. Several carriers that covered the fleet's withdrawal, along with their fighter complements, are now under your command.</t>
+    <t id="576">Arad, Delta Squadron, reporting. Call us the moment you spot Xenon fighters!</t><t id="577">Messer, Delta Squadron, reporting. We'll punch a few clean holes through their capital ships!</t>
+    <t id="578">Commander, all Delta flights are now on station and awaiting your orders.</t><t id="579">Everyone, get oriented and prepare to support the TEL convoy—wait, what's that?</t>
+
+    <t id="591">Rayna, what exactly did Shin say in that encrypted message he slipped you?</t><t id="592">He said he'd wait for us at Flashpoint. Once he'd dealt with the Xenon, we'd meet here…</t>
+    <t id="593">This is Rayna, formerly of HAT's 86th Escort Fleet… Has anyone in the area seen Shin?</t><t id="594">Commander Domel, Flashpoint defence. Wait—Shin? Wasn't he trapped by the Xenon in Argon Prime?</t>
+    <t id="595">Are you certain? Then we have to go now!</t><t id="596">Commander, Argon Prime fell hours ago. If she's only setting out now, there may be no one left to rescue…</t>
+    <t id="597">And the gate from Flashpoint to Argon Prime is guarded by a Xenon Defence Station. Can you even get through?</t><t id="598">But… Commander… I have to know for myself. What if he…</t>
+    <t id="599">Let her go, Commander. HAT has had enough taken from them already.</t><t id="600">Rayna, we can escort you as far as the gate out of Flashpoint, but we cannot guarantee your safety in Argon Prime…</t>
+    <t id="601">Thank you, Commander… We'll find our own way from there. You don't need to risk your ships for us…</t><t id="602">Hayate, can Delta Squadron break the Xenon Defence Station and its escorts?</t>
+    <t id="603">With every Delta flight committed, yes, Commander!</t><t id="604">Then we'll clear it out. It weakens the Xenon and opens the route at the same time.</t>
+
+    <t id="621">We've found a wreck. The transponder belongs to… a command escape craft from the Argon First Expedition Fleet.</t><t id="622">The First Expedition Fleet… The ANT commander said Shin was serving aboard it…</t>
+    <t id="623">Then… open it. There may still be something we can recover.</t><t id="624">All right… one occupant. An officer. No respiration…</t>
+    <t id="625">Stay focused, Mirage. See what you can recover from the onboard systems.</t><t id="626">A personnel record… Acting commander of the Argon Expeditionary Fleet… surname Nouzen…</t>
+    <t id="627">No… no. That has to be a coincidence…</t><t id="628">Shin… staff adviser to the First Expedition Fleet… previous command experience with a HAT escort unit…</t>
+    <t id="629">Impossible! Shin was only a fleet adviser. Why would he be in the commander's escape craft? This has to be wrong…</t><t id="630">Mirage, check for mission logs, voice records—anything.</t>
+    <t id="631">There is one… encrypted with an Argon military key. Arad, can you crack it?</t><t id="632">Let me see. It's an audio log and… it just started playing…</t>
+    <t id="633">…Sorry… Rayna… I broke my promise… can't… meet you…</t><t id="634">…Stay away… Argon Prime… Xenon… threat…</t>
+    <t id="635">…The 86th… they're in your hands… and…</t><t id="636">…&amp;^%&amp;^&amp;%… &amp;^&amp;*… *&amp;^*</t>
+    <t id="637">…Let me… get closer. I need to see him…</t><t id="638">…Shin! Wake up… wake up… wake up!</t>
+    <t id="639">His biometric log… it was still recording a pulse half an hour ago…</t><t id="640">Why? Why? Half an hour… we were only half an hour late!</t>
+    <t id="641">No… maybe the monitor failed. If we connect ours…</t><t id="642">Rayna!</t><t id="643">…</t>
+    <t id="644">Rayna… I'm sorry. The logs show that Shin took command of the First Fleet and led its return to Argon Prime…</t>
+    <t id="645">…Shin… you were the one who erased us from Argon's death ledger…</t>
+    <t id="646">…Then why did you go back to Argon Prime? You could have escaped… let those Argon officials reap what they sowed…</t>
+    <t id="647">The comm logs say he couldn't leave the civilians of Argon Prime behind…</t>
+    <t id="648">This is the TEL evacuation convoy. Is anyone still defending Flashpoint? Estimated arrival: four minutes!</t><t id="649">Flashpoint Defence here. Report the condition of your ships.</t>
+    <t id="650">Several ships have taken hits to critical systems. Half our engines are smoking!</t><t id="651">Understood. Keep every engine turning. We'll get out whoever we can—don't let anyone go dead in space!</t>
+    <t id="652">The 86th have done enough. We can hold Flashpoint. You can withdraw towards Getsu Fune…</t>
+    <t id="653">But… Shin wanted me to keep the 86th safe. I… I don't know what to do…</t>
+    <t id="654">That was his order. It isn't your decision.</t>
+    <t id="655">Shin didn't run. He stayed and fought to the end… How can I run now?</t>
+    <t id="656">Eighty-Six, I'm staying to protect these evacuation fleets, just as Shin did.</t>
+    <t id="657">I won't run again… The rest of you can withdraw towards Getsu Fune. It's safe there…</t>
+    <t id="658">Rayna, we didn't come all this way for one man. The 86th Escort Fleet moves together.</t>
+    <t id="659">Shin saved us once. Now it's our turn to hold the road he never made it back from.</t>
+    <t id="660">If that's how you all feel… then the 86th is joining the defence of Flashpoint!</t>
+    <t id="661">Understood. Rearm and get ready—the next convoy is almost here!</t>
+
+    <t id="701">Commander… the Xenon hit our engines… we can't keep going… Please, save us!</t><t id="702">Damn it! Where are your auxiliaries? Get one over here and repair the ship!</t>
+    <t id="703">They say the risk is too high… and that the cargo can be replaced…</t><t id="704">The cargo? What exactly are you carrying?</t>
+    <t id="705">Some hull parts… and… Argon slaves captured by the Split. With Argon gone, no one will ransom them now…</t><t id="706">ANT Command, do you have anything you can spare—a freighter or an auxiliary?</t>
+    <t id="707">'Spare'? Are you joking? Do you know what that word means these days?</t><t id="708">There's a TEL freighter dead in space here. It's carrying Argon slaves… no. People.</t>
+    <t id="709">Damn… One of my auxiliaries is tied up repairing destroyers. I'll break it off and send it over.</t><t id="710">All right. No speeches—let's call us even.</t>
+    <t id="721">All right… a few quick welds. It should hold together at least as far as the Asteroid Belt!</t><t id="722">Thank you… thank you…</t>
+    <t id="723">Commander, I still have destroyers waiting for repairs. Pass my thanks to Delta Squadron!</t><t id="724">Commander Domel, thank you. I took the liberty of fully replenishing Delta Squadron's ammunition.</t>
+
+    <t id="751">That beacon… don't tell me…</t><t id="752">No… it's a Xenon jump beacon. They're preparing to send something serious through!</t>
+    <t id="753">A CPU mothership! It'll keep assembling Xenon capital ships—and it has several escorts we cannot take head-on.</t><t id="754">Hayate, Delta Squadron has carried out a decapitation strike before, hasn't it?</t>
+    <t id="755">We have. Against a Macross-class automated production carrier. Maximilian Jenius and the White Knight backed us up that time.</t><t id="756">All right! Hayate, Mirage, Arad, Messer—launch!</t>
+    <t id="757">Your target is the CPU mothership. Destroy it before its production can threaten the evacuation fleets.</t><t id="758">Understood!</t>
+    <t id="759">Rayna, you've dealt with this technology before. We need your help.</t><t id="760">I'm with you!</t>
+
+    <t id="799">Looks like the Xenon are pulling back now that their CPU mothership is gone…</t><t id="800">We'll take whatever good news we can get.</t>
+    <t id="801">Flashpoint, come in! Flashpoint… don't tell me no one's left there either…</t>
+    <t id="802">Flashpoint escort force here. Go ahead!</t>
+    <t id="803">Thank goodness… finally, a sector with someone still alive…</t>
+    <t id="804">This is a Split evacuation convoy… The Xenon hit us hard. Our losses are severe…</t>
+    <t id="805">Split convoy, Flashpoint is still held by friendly forces. Report your position!</t>
+    <t id="806">We're in Black Hole Sun… but the Xenon have already caught up with us…</t>
+    <t id="807">We can't engage travel drive. Too many of our engines are overheating…</t>
+    <t id="808">We'll protect you, but I need your fleet composition and estimated arrival time.</t>
+    <t id="809">About seven capital ships and ten… no, eight freighters. Arrival… roughly five minutes…</t>
+    <t id="810">Delta Squadron, resupply immediately. Another convoy needs us in five minutes.</t>
+    <t id="811">Copy!</t>
+
+    <t id="821">Judging by your call sign, Phi Six, you weren't originally in command of this fleet, were you?</t>
+    <t id="822">Our entire chain of command is gone. Mine is the only comm link still working…</t>
+    <t id="823">Listen, Phi Six. I can help, but only if you stay alive long enough to reach Flashpoint.</t>
+    <t id="824">You sound like you came up through civilian service. Then you'll understand what I'm about to ask.</t>
+    <t id="825">Jettison every non-essential cargo unit. Reduce your mass. The containers may draw some Xenon fire as well.</t>
+    <t id="826">But… we barely managed to bring all of that out of our territory…</t>
+    <t id="827">The other factions can replace supplies. The people aboard those ships cannot be replaced.</t>
+    <t id="828">If a passenger ship loses propulsion, have the other ships push or tow it forward.</t>
+    <t id="829">…Right… right…</t>
+    <t id="830">Next, reorganise the formation. Move the most badly damaged ships to the rear.</t>
+    <t id="831">If a ship is about to break up, evacuate the crew and leave the hull in the lane. The wreck will disrupt Xenon travel drives and lines of fire.</t>
+    <t id="832">…Understood.</t>
+    <t id="833">Were there any other evacuation convoys behind you?</t>
+    <t id="834">…There were. Now there's only Xenon behind us…</t>
+    <t id="835">Make it to the gate. Once you're here, we'll find a way.</t>
+
+    <t id="851">Commander! The Xenon are right behind them!</t><t id="852">Form a screen between the convoy and the Xenon. Save as many as you can.</t>
+    <t id="853">More Xenon are pouring in from the superhighway ring!</t><t id="854">Begin evacuating the station. Keep its guns firing and use it to draw their fire!</t>
+    <t id="861">Damn… they've taken out our engines. We need to evacuate the ship!</t><t id="862">Every carrier is packed with refugees… Domel III still has room.</t>
+    <t id="871">This is Domel III, my command ship. Board in order—no pushing. Everyone will get a place.</t><t id="872">Thank you… truly. The Split will never forget this.</t>
+    <t id="873">Are we really going to make it to the Solar System?</t><t id="874">With Uncle Domel here, everything will be all right…</t>
+    <t id="881">Domel, I can't hold much longer either. I'm almost out of destroyers…</t><t id="882">How much longer can you hold? The last convoy is almost through!</t>
+    <t id="883">One minute! Sidonia's shields can hold for one more minute!</t><t id="884">One minute is all we need! All fleets, clear the sector within sixty seconds!</t>
+
+    <t id="901">Damn… we finally made it to the Solar System. Delta Squadron, 86th—status report!</t><t id="902">Not… not good. I don't think I could survive another attack like that.</t>
+    <t id="903">I've never fought a battle like that before.</t><t id="904">ANT Command… how are you holding up?</t>
+    <t id="905">Sidonia is badly damaged, but the Split refugee ships are intact…</t>
+    <t id="911">Damn it! Does this ever end? More of them… we're screwed…</t>
+    <t id="921">Terran Intervention Corps battleship Paradigm to all ships: you've done more than enough. We'll take it from here!</t>
+    <t id="922">Takeru Shirogane, let's give these Xenon a proper beating. Look what they've done to the convoy…</t>
+    <t id="923">Looks like these Xenon have a death wish. Let's make sure they regret it!</t>
+
+    <t id="1001">Lifeline Complete</t><t id="1002">The TRI, TEL and Split evacuation convoys crossed Flashpoint. The surviving fleet reached the Solar System, where the Terran Intervention Corps took over the defence.</t>
+    <t id="1003">Lifeline Failed</t><t id="1004">Domel III was destroyed; the TRI or TEL evacuation fleet was wiped out; the TEL freighter or ANT auxiliary was destroyed during the repair operation; or Flashpoint was not evacuated within the final minute of Phase 6.</t>
+    <t id="1005">Surviving Carriers</t><t id="1006">Each carrier that survives under your command earns 50 points.</t>
+    <t id="1007">Surviving Delta Squadron Fighters</t><t id="1008">Each surviving VF-31 or VF-29 fighter earns 5 points.</t>
+    <t id="1009">Surviving TRI Evacuation Ships</t><t id="1010">Each surviving ship from the TRI evacuation wave earns 5 points.</t>
+    <t id="1011">Surviving TEL Evacuation Ships</t><t id="1012">Each surviving ship from the TEL evacuation wave earns 5 points.</t>
+    <t id="1013">Surviving Split Evacuation Ships</t><t id="1014">Each surviving ship from the Split evacuation wave earns 5 points.</t>
+    <t id="1015">Surviving 86th Escort Fleet Fighters</t><t id="1016">Each surviving 86th Escort Fleet fighter earns 5 points.</t>
   </page>
 </language>

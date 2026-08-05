@@ -250,6 +250,32 @@
         <fade_screen fadeout="0s" fadein="1s" realtime="true" />
       </actions>
       <cues>
+        <!-- A newly added child cue can miss event_game_loaded on the first load of an older save.
+             event_universe_generated is emitted after both new-game generation and save loading; on a
+             new game this child does not exist until Setup.Start runs, so it acts as a load-only hook. -->
+        <cue name="ResumeMusicAfterLoad" instantiate="true">
+          <conditions>
+            <event_universe_generated />
+            <check_value value="not @$ScenarioEnded" />
+          </conditions>
+          <delay exact="1s" />
+          <actions>
+            <stop_music />
+            <do_if value="@$Phase10CleanupActive">
+              <play_music music="'music_dlc_terran_story_som_6'" />
+            </do_if>
+            <do_elseif value="Phase6_LocalWarp.state == cuestate.complete and Phase6_Ended.state != cuestate.complete">
+              <play_music music="'music_soundtrack_xenon'" loop="true" />
+            </do_elseif>
+            <do_elseif value="Phase3_Ended.state != cuestate.complete">
+              <play_music music="'music_soundtrack_argon'" loop="true" />
+            </do_elseif>
+            <do_elseif value="Phase4_Combat.state == cuestate.complete and Phase6_LocalWarp.state != cuestate.complete">
+              <play_music music="'music_soundtrack_argon'" loop="true" />
+            </do_elseif>
+          </actions>
+        </cue>
+
         <cue name="Phase1_Intro">
           <!-- Child cues activate only after Start has finished, so the intro cannot miss an early signal. -->
           <delay exact="500ms" />

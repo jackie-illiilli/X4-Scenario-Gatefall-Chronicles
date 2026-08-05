@@ -414,6 +414,71 @@
         <fade_screen fadeout="0s" fadein="1s" realtime="true" />
       </actions>
       <cues>
+        <!-- All authored Scenario 03 tracks are persistent loops. Phase booleans select the active
+             chapter and cue completion selects the most recent intra-phase transition. -->
+        <cue name="ResumeMusicAfterLoad" instantiate="true">
+          <conditions>
+            <event_universe_generated />
+            <check_value value="not @$ScenarioEnded" />
+          </conditions>
+          <delay exact="1s" />
+          <actions>
+            <stop_music />
+            <do_if value="$Phase5Active">
+              <do_if value="Phase5_DefenceComplete.state == cuestate.complete">
+                <play_music music="'gfc_music_m03_phase5_ashes'" loop="true" />
+              </do_if>
+              <do_else>
+                <play_music music="'gfc_music_m03_phase5_oni_sword_base'" loop="true" />
+              </do_else>
+            </do_if>
+            <do_elseif value="$Phase4Active">
+              <do_if value="Phase4_KatSceneEnded.state == cuestate.complete">
+                <play_music music="'gfc_music_m03_phase4_winter_contingency'" loop="true" />
+              </do_if>
+              <do_else>
+                <play_music music="'gfc_music_m03_phase4_new_alexandria'" loop="true" />
+              </do_else>
+            </do_elseif>
+            <do_elseif value="$Phase3Active">
+              <do_if value="Phase3_ZhinCrossed.state == cuestate.complete">
+                <play_music music="'gfc_music_m03_phase3_epilogue'" loop="true" />
+              </do_if>
+              <do_else>
+                <play_music music="'gfc_music_m03_phase3_pillar_of_autumn'" loop="true" />
+              </do_else>
+            </do_elseif>
+            <do_elseif value="$Phase2Active">
+              <do_if value="Phase2_EscortStart.state == cuestate.complete">
+                <play_music music="'gfc_music_m03_phase2_halo'" loop="true" />
+              </do_if>
+              <do_else>
+                <play_music music="'gfc_music_m03_phase2_the_package'" loop="true" />
+              </do_else>
+            </do_elseif>
+            <do_elseif value="not $Phase1Completed">
+              <do_if value="Phase1_CarrierAttackersCleared.state == cuestate.complete">
+                <play_music music="'gfc_music_m03_phase1_opening_suite'" loop="true" />
+              </do_if>
+              <do_elseif value="Phase1_WeaponAttackersCleared.state == cuestate.complete">
+                <play_music music="'gfc_music_m03_phase1_truth_and_reconciliation'" loop="true" />
+              </do_elseif>
+              <do_elseif value="Phase1_WeaponStationApproached.state == cuestate.complete">
+                <play_music music="'gfc_music_m03_phase1_rock_anthem'" loop="true" />
+              </do_elseif>
+              <do_elseif value="Phase1_HullAttackersCleared.state == cuestate.complete">
+                <play_music music="'gfc_music_m03_phase1_under_cover_of_night'" loop="true" />
+              </do_elseif>
+              <do_elseif value="Phase1_HullStationApproached.state == cuestate.complete">
+                <play_music music="'gfc_music_m03_phase1_perilous_journey'" loop="true" />
+              </do_elseif>
+              <do_else>
+                <play_music music="'gfc_music_m03_phase1_opening_suite'" loop="true" />
+              </do_else>
+            </do_elseif>
+          </actions>
+        </cue>
+
         <!-- Count every registered Xenon L/XL ship destroyed in combat. Scripted cleanup has no killer
              and therefore cannot inflate the score. -->
         <cue name="Score_XenonCapitalDestroyed" instantiate="true">

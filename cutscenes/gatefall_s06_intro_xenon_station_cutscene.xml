@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s06_intro_xenon_station_cutscene" />
+  <environments><environment_implicit name="scenezone" zone="@auto:target_station" /><object_group name="targets"><reference object="target_station" /></object_group></environments>
+  <presentation><actions><sequence name="Main" start="0"><shot name="XenonStation" environment="scenezone" duration="8000"><camera_orbit reference="target_station" orient_to="object" cycle="none" interpolation="smooth"><begin distance="9000" angle="-25" elevation="10" /><end distance="7200" angle="18" elevation="7" time="7600" /></camera_orbit></shot></sequence></actions></presentation>
+</cutscene>

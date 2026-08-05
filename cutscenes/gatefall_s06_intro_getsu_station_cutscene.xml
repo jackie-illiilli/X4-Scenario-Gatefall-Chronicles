@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s06_intro_getsu_station_cutscene" />
+  <environments><environment_implicit name="scenezone" zone="@auto:target_station" /><object_group name="targets"><reference object="target_station" /></object_group></environments>
+  <presentation><actions><sequence name="Main" start="0"><shot name="GetsuDefence" environment="scenezone" duration="28000"><camera_orbit reference="target_station" orient_to="object" cycle="none" interpolation="smooth"><begin distance="10500" angle="-32" elevation="8" /><end distance="7600" angle="34" elevation="12" time="27500" /></camera_orbit></shot></sequence></actions></presentation>
+</cutscene>

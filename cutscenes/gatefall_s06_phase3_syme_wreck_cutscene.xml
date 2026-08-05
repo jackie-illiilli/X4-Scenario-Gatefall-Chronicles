@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s06_phase3_syme_wreck_cutscene" />
+  <environments><environment_implicit name="scenezone" zone="@auto:target_wreck" /><object_group name="targets"><reference object="target_wreck" /></object_group></environments>
+  <presentation><actions><sequence name="Main" start="0"><shot name="SineWreck" environment="scenezone" duration="255000"><camera_orbit reference="target_wreck" orient_to="object" cycle="none" interpolation="smooth"><begin distance="3800" angle="-28" elevation="9" /><end distance="2600" angle="68" elevation="5" time="254500" /></camera_orbit></shot></sequence></actions></presentation>
+</cutscene>

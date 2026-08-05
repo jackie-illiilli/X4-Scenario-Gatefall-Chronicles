@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<diff>
+  <add sel="/envmapprobes/templates">
+    <template name="ship_par_m_corvette_gatefall_bomber_01">
+      <envmapprobe name="probe_01_left" type="static" shape="cuboid" preset="cockpit">
+        <offset>
+          <position x="-1.4" y="0.22" z="16.49" />
+        </offset>
+        <size x="2.05" y="2.5" z="2.7" />
+        <volumeoffset x="-0.34" y="0.86" />
+      </envmapprobe>
+      <envmapprobe name="probe_02_right" type="static" shape="cuboid" preset="cockpit">
+        <offset>
+          <position x="1.28" y="0.8" z="16.49" />
+        </offset>
+        <size x="2.05" y="2.5" z="2.7" />
+        <volumeoffset x="0.67" y="0.28" />
+      </envmapprobe>
+      <envmapprobe name="probe_03_rear" type="static" shape="cuboid" preset="cockpit">
+        <offset>
+          <position y="0.67" z="12.16" />
+        </offset>
+        <size x="3.66" y="2.5" z="1.81" />
+        <volumeoffset y="0.28" />
+      </envmapprobe>
+      <envmapprobe name="probe_04_transporterroom" type="static" shape="cuboid" preset="cockpit" importance="1">
+        <offset>
+          <position y="0.6" z="9.53" />
+        </offset>
+        <size x="1.6" y="1.5" z="1.4" />
+        <volumeoffset y="-0.09" z="-0.36" />
+      </envmapprobe>
+      <envmapprobe name="probe_05_exit" type="static" shape="cuboid" preset="cockpit" tags="interior parallaxcorrection">
+        <offset>
+          <position y="-8.42" z="-4.251" />
+        </offset>
+        <size x="7.78" y="2.47" z="3.26" />
+        <volumeoffset y="0.43" z="0.25" />
+      </envmapprobe>
+      <envmapprobe name="probe_06_transporterroom_exit" type="static" shape="cuboid" preset="cockpit" importance="1">
+        <offset>
+          <position y="-8.4" z="-7.86" />
+        </offset>
+        <size x="1.6" y="1.5" z="1.4" />
+        <volumeoffset y="-0.42" z="-0.25" />
+      </envmapprobe>
+    </template>
+  </add>
+</diff>
