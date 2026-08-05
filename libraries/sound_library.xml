@@ -11,6 +11,13 @@
       <sample start="extensions\ego_dlc_timelines\music\x4_timelines_ost_02_redemption" />
     </sound>
 
+    <!-- Gatefall Chronicles mission 02: Phase 3 dual-crisis battle. -->
+    <sound id="gfc_music_m02_phase3_the_answer" description="Gatefall mission 02 Phase 3 - THE ANSWER" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_02\the_answer" />
+      <volume start="0.75" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+
     <!-- Gatefall Chronicles mission 03: authored full-campaign Halo soundtrack. -->
     <sound id="gfc_music_m03_phase1_opening_suite" description="Gatefall mission 03 opening - Opening Suite" repeat="-1" is3d="0" preload="0">
       <sample start="extensions\gatefall_chronicles\music\mission_03\opening_suite" />

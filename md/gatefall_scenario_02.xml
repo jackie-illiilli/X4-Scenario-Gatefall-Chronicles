@@ -524,7 +524,10 @@
             <do_elseif value="$Phase4Started">
               <play_music music="'music_soundtrack_argon'" loop="true" />
             </do_elseif>
-            <do_elseif value="$Phase3Started or $Phase2Started">
+            <do_elseif value="$Phase3Started">
+              <play_music music="'gfc_music_m02_phase3_the_answer'" loop="true" />
+            </do_elseif>
+            <do_elseif value="$Phase2Started">
               <play_music music="'music_soundtrack_xenon'" loop="true" />
             </do_elseif>
             <do_else>
@@ -827,7 +830,8 @@
             <do_if value="not @$Phase3Started and not @$ScenarioEnded">
               <set_value name="$Phase3Started" exact="true" />
               <set_value name="$Phase3CleanupReleased" exact="false" />
-              <play_music music="'music_soundtrack_xenon'" loop="true" />
+              <stop_music />
+              <play_music music="'gfc_music_m02_phase3_the_answer'" loop="true" />
               <signal_cue cue="Phase3_Timeout" />
               <speak actor="$HatOutpostActor" page="899901" line="541" priority="100" />
               <signal_cue cue="Phase3_SpawnEnemies" />
