@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s07_frontier_memory_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_shark" />
+    <object_group name="targets"><reference object="target_shark" /><reference object="target_katana" /></object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="SharkWide" environment="scenezone" duration="5000">
+          <camera_orbit reference="target_shark" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="12500" angle="-28" elevation="15" />
+            <end distance="10000" angle="-5" elevation="10" time="4500" />
+          </camera_orbit>
+        </shot>
+        <shot name="KatanaFront" environment="scenezone" duration="12000">
+          <camera_orbit reference="target_katana" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="430" angle="0" elevation="2" />
+            <end distance="320" angle="4" elevation="1" time="11500" />
+          </camera_orbit>
+        </shot>
+        <shot name="SharkClose" environment="scenezone" duration="25000">
+          <camera_orbit reference="target_shark" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="4300" angle="24" elevation="7" />
+            <end distance="2700" angle="-18" elevation="4" time="24500" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

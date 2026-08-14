@@ -93,7 +93,7 @@
     </sound>
     <sound id="gfc_music_m05_phase3_opening_gates" description="Gatefall mission 05 Phase 3 reveal - Opening of the Gates" repeat="1" is3d="0" preload="0">
       <sample start="extensions\gatefall_chronicles\music\mission_05\mission_e13_opening_of_the_gates" />
-      <volume start="0.76" />
+      <volume start="0.50" />
       <effects><fade in="1.0" out="1.0" /></effects>
     </sound>
     <sound id="gfc_music_m05_phase3_treachery" description="Gatefall mission 05 Phase 3 assault - Treachery" repeat="-1" is3d="0" preload="0">
@@ -321,6 +321,33 @@
     <sound id="gfc_music_m06_phase6_alive" description="Gatefall mission 06 final rescue - ALIVE Inori no Uta" repeat="-1" is3d="0" preload="0">
       <sample start="extensions\gatefall_chronicles\music\mission_06\alive_inori_no_uta" />
       <volume start="0.78" />
+      <effects><fade in="1.0" out="1.5" /></effects>
+    </sound>
+
+    <!-- Gatefall Chronicles mission 07: A Faint Hope authored soundtrack. -->
+    <sound id="gfc_music_m07_phase6_alive_intro" description="Gatefall mission 07 Getsu Fune rescue - ALIVE Inori no Uta" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_07\alive_inori_no_uta" />
+      <volume start="0.30" />
+      <effects><fade in="4.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m07_phase6_yamato_2199" description="Gatefall mission 07 Terran intervention - Yamato 2199 Theme" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_07\yamato_2199_theme" />
+      <volume start="0.78" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m07_phase3_galactic_route" description="Gatefall mission 07 Alternative XIV briefing - Ginga Kouro instrumental" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_07\ginga_kouro_instrumental" />
+      <volume start="0.78" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m07_phase8_white_comet_disco" description="Gatefall mission 07 Alternative X-IV combat - White Comet Disco" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_07\white_comet_disco" />
+      <volume start="0.78" />
+      <effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m07_phase9_mirai_e_no_houkou" description="Gatefall mission 07 Phase 5 chained escape - Mirai e no Houkou" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_07\mirai_e_no_houkou" />
+      <volume start="0.80" />
       <effects><fade in="1.0" out="1.5" /></effects>
     </sound>
   </add>

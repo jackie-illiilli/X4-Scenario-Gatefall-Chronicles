@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <diff>
   <add sel="/gamestarts">
-    <gamestart id="gatefall_scenario_01" name="{899900,1}" description="{899900,2}" image="gamestart_scenario_seek_and_destroy" group="11">
+    <gamestart id="gatefall_scenario_01" name="{899900,1}" description="{899900,2}" image="gatefall_scenario_01_cover" group="11">
       <info startyear="3040" startmonth="6" startday="30" />
       <type name="Timelines Scenario" description="Gatefall Chronicles hidden scenario" />
       <loadingscreen>
@@ -37,7 +37,7 @@
         </scores>
       </scenario>
     </gamestart>
-    <gamestart id="gatefall_scenario_02" name="{899901,1}" description="{899901,2}" image="gamestart_scenario_seek_and_destroy" group="11">
+    <gamestart id="gatefall_scenario_02" name="{899901,1}" description="{899901,2}" image="gatefall_scenario_02_cover" group="11">
       <info startyear="3040" startmonth="7" startday="5" />
       <type name="Timelines Scenario" description="Gatefall Chronicles hidden scenario" />
       <loadingscreen>
@@ -71,7 +71,7 @@
         </scores>
       </scenario>
     </gamestart>
-    <gamestart id="gatefall_scenario_03" name="{899904,1}" description="{899904,2}" image="gamestart_scenario_seek_and_destroy" group="11">
+    <gamestart id="gatefall_scenario_03" name="{899904,1}" description="{899904,2}" image="gatefall_scenario_03_cover" group="11">
       <info startyear="3040" startmonth="8" startday="2" />
       <type name="Timelines Scenario" description="Gatefall Chronicles scenario 03 complete campaign" />
       <loadingscreen>
@@ -119,7 +119,7 @@
         </scores>
       </scenario>
     </gamestart>
-    <gamestart id="gatefall_scenario_04" name="{899902,1}" description="{899902,2}" image="gamestart_scenario_m0_boss_battle" group="11">
+    <gamestart id="gatefall_scenario_04" name="{899902,1}" description="{899902,2}" image="gatefall_scenario_04_cover" group="11">
       <info startyear="3040" startmonth="8" startday="18" />
       <type name="Timelines Scenario" description="Gatefall Chronicles hidden scenario" />
       <loadingscreen>
@@ -154,7 +154,7 @@
         </scores>
       </scenario>
     </gamestart>
-    <gamestart id="gatefall_scenario_05" name="{899903,1}" description="{899903,2}" image="gamestart_scenario_m0_boss_battle" group="11">
+    <gamestart id="gatefall_scenario_05" name="{899903,1}" description="{899903,2}" image="gatefall_scenario_05_cover" group="11">
       <info startyear="3040" startmonth="9" startday="1" />
       <type name="Timelines Scenario" description="Gatefall Chronicles scenario 05" />
       <loadingscreen>
@@ -176,7 +176,7 @@
         </scores>
       </scenario>
     </gamestart>
-    <gamestart id="gatefall_scenario_06" name="{899906,1}" description="{899906,2}" image="gamestart_scenario_seek_and_destroy" group="11">
+    <gamestart id="gatefall_scenario_06" name="{899906,1}" description="{899906,2}" image="gatefall_scenario_06_cover" group="11">
       <info startyear="3040" startmonth="8" startday="25" />
       <type name="Timelines Scenario" description="Gatefall Chronicles scenario 06 complete campaign" />
       <loadingscreen>
@@ -209,6 +209,42 @@
           <score value="400" rating="3" />
           <score value="500" rating="4" />
           <score value="600" rating="5" />
+        </scores>
+      </scenario>
+    </gamestart>
+    <gamestart id="gatefall_scenario_07" name="{899907,1}" description="{899907,2}" image="gatefall_scenario_07_cover" group="11">
+      <info startyear="3040" startmonth="9" startday="4" />
+      <type name="Timelines Scenario" description="Gatefall Chronicles scenario 07 complete campaign" />
+      <loadingscreen>
+        <text text="{899907,101}" />
+        <text text="{899907,102}" />
+        <text text="{899907,103}" />
+        <info text="{899907,3}" />
+        <info text="{899907,4}" />
+      </loadingscreen>
+      <location galaxy="gatefall_scenario_07_galaxy_macro" zone="gatefall_scenario_07_zone004_cluster_104_sector001_macro">
+        <position x="30km" y="0m" z="0m" />
+        <rotation yaw="270" pitch="0" roll="0" />
+      </location>
+      <player macro="character_player_scenario_combat_terran_macro" money="0" name="{899907,10}">
+        <ship macro="ship_atf_xl_battleship_gatefall_high_mobility_01_macro" name="{899907,30}">
+          <loadout ref="gatefall_scenario_07_player_asgard" />
+        </ship>
+      </player>
+      <universe ventures="false" visitors="false" onlineinventory="false">
+        <jobs enabled="false" />
+        <god enabled="false" />
+        <masstraffic enabled="false" />
+      </universe>
+      <scenario chapter="0" description="{899907,3}">
+        <!-- Scenario 07 combines registered Xenon capital kills with the revised
+             30-to-80-minute time score. -->
+        <scores description="{899907,4}">
+          <score value="50" rating="1" />
+          <score value="100" rating="2" />
+          <score value="150" rating="3" />
+          <score value="200" rating="4" />
+          <score value="250" rating="5" />
         </scores>
       </scenario>
     </gamestart>

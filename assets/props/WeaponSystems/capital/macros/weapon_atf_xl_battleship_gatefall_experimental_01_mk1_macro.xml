@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<macros>
+  <macro name="weapon_atf_xl_battleship_gatefall_experimental_01_mk1_macro" class="weapon">
+    <component ref="weapon_atf_xl_battleship_01_mk1" />
+    <properties>
+      <identification name="{899905,41}" makerrace="terran" description="{899905,42}" mk="1" />
+      <bullet class="bullet_atf_xl_beam_01_mk1_macro" />
+      <heat overheat="10000" cooldelay="0.0" overheatcooldelay="2" coolrate="500" reenable="10000" />
+      <hull max="10000" integrated="1" />
+      <effects>
+        <firing start="startshooting_atf_xl_beam_01_mk1" stop="stopshooting_atf_xl_beam_01_mk1" />
+      </effects>
+    </properties>
+  </macro>
+</macros>

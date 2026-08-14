@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s07_terminal_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_terminal" />
+    <object_group name="targets"><reference object="target_terminal" /></object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="TerminalOrbit" environment="scenezone" duration="120000">
+          <camera_orbit reference="target_terminal" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="14500" angle="-42" elevation="16" />
+            <end distance="8200" angle="66" elevation="8" time="119500" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

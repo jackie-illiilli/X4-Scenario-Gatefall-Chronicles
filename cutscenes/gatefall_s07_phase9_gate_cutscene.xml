@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s07_phase9_gate_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_gate" />
+    <object_group name="targets"><reference object="target_gate" /><reference object="target_cpu" /></object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="GateAndCPU" environment="scenezone" duration="40000">
+          <camera_orbit reference="target_cpu" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="15000" angle="-35" elevation="14" />
+            <end distance="9000" angle="48" elevation="7" time="39500" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

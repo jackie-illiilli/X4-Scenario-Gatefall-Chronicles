@@ -22,6 +22,49 @@
     </ware>
 
     <!--
+      Experimental high-mobility Asgard conversion:
+      - reuses the original Asgard component, equipment slots and storage;
+      - copies the Boron M corvette's jerk, steering curve and physics block;
+      - keeps the original XL engine connection and XL virtual-thruster class;
+      - remains ownerless and outside normal faction production and sales.
+    -->
+    <ware id="ship_atf_xl_battleship_gatefall_high_mobility_01" name="{899905,31}" description="{899905,32}" transport="ship" volume="1" tags="ship">
+      <price min="22252932" average="26179920" max="30106908" />
+      <production time="516" amount="1" method="default" name="{20206,901}">
+        <primary>
+          <ware ware="computronicsubstrate" amount="619" />
+          <ware ware="energycells" amount="2854" />
+          <ware ware="metallicmicrolattice" amount="1300" />
+        </primary>
+      </production>
+      <component ref="ship_atf_xl_battleship_gatefall_high_mobility_01_macro" />
+      <restriction licence="capitalship" />
+      <owner faction="ownerless" />
+    </ware>
+
+    <!--
+      Experimental ATF XL main battery:
+      - reuses the original Asgard main-battery component, beam and effects;
+      - changes only the weapon heat dissipation rate from 178 to 500;
+      - remains ownerless and outside normal faction production and sales.
+    -->
+    <ware id="weapon_atf_xl_battleship_gatefall_experimental_01_mk1" name="{899905,41}" description="{899905,42}" group="weapons" transport="equipment" volume="1" tags="equipment weapon">
+      <price min="8323268" average="9248076" max="10172884" />
+      <production time="10" amount="1" method="default" name="{20206,901}">
+        <primary>
+          <ware ware="computronicsubstrate" amount="419" />
+          <ware ware="energycells" amount="14450" />
+          <ware ware="metallicmicrolattice" amount="4624" />
+          <ware ware="siliconcarbide" amount="491" />
+        </primary>
+      </production>
+      <component ref="weapon_atf_xl_battleship_gatefall_experimental_01_mk1_macro" />
+      <restriction licence="capitalequipment" />
+      <use threshold="0" />
+      <owner faction="ownerless" />
+    </ware>
+
+    <!--
       Experimental campaign ordnance:
       - uses the current small/light launcher compatibility and flight profiles;
       - replaces only explosion damage with the matching legacy heavy value;

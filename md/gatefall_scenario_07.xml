@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="Gatefall_Scenario_07" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd">
+  <cues>
+    <library name="InitialiseScenarioStation" purpose="run_actions">
+      <params><param name="Station" /><param name="Faction" /></params>
+      <actions>
+        <set_module_loadout_level object="$Station" exact="1" />
+        <find_object_component name="$StationModules" object="$Station" class="class.module" multiple="true" />
+        <do_for_each name="$StationModule" in="$StationModules">
+          <generate_loadout result="$StationModuleLoadout" macro="$Station.macro" module="$StationModule.macro" faction="$Faction" level="1.0" variation="0" />
+          <do_if value="$StationModuleLoadout.count"><apply_loadout object="$StationModule" loadout="$StationModuleLoadout.{1}" /></do_if>
+        </do_for_each>
+        <signal_objects object="player.galaxy" param="'init station'" param2="$Station" param3="true" />
+      </actions>
+    </library>
+
+    <library name="ApplyScenarioAsgardMods" purpose="run_actions">
+      <params><param name="Ship" /></params>
+      <actions>
+        <add_equipment_mods object="$Ship"><ship ware="ware.mod_ship_mass_01_mk3" /></add_equipment_mods>
+        <add_equipment_mods object="$Ship"><engine ware="ware.mod_engine_travelthrust_01_mk3" /></add_equipment_mods>
+        <do_for_each name="$ScenarioWeapon" in="$Ship.weapons.all.list">
+          <do_if value="$ScenarioWeapon.grouptag">
+            <add_equipment_mods object="$Ship"><weapon ware="ware.mod_weapon_damage_01_mk3" context="'..'" group="$ScenarioWeapon.grouptag" /></add_equipment_mods>
+          </do_if>
+          <do_else><add_equipment_mods object="$Ship"><weapon ware="ware.mod_weapon_damage_01_mk3" macro="$ScenarioWeapon.macro" /></add_equipment_mods></do_else>
+        </do_for_each>
+        <do_for_each name="$ScenarioShield" in="$Ship.shields.all.list">
+          <do_if value="$ScenarioShield.grouptag">
+            <add_equipment_mods object="$Ship"><shield ware="ware.mod_shield_capacity_01_mk3" context="'..'" group="$ScenarioShield.grouptag" /></add_equipment_mods>
+          </do_if>
+          <do_else><add_equipment_mods object="$Ship"><shield ware="ware.mod_shield_capacity_01_mk3" /></add_equipment_mods></do_else>
+        </do_for_each>
+      </actions>
+    </library>
+
+    <cue name="Start" namespace="this" module="gatefall_scenario_07">
+      <conditions><event_cue_signalled cue="md.Setup.Start" /></conditions>
+      <actions>
+        <set_value name="md.GenericMissions.Manager.$Disabled" exact="true" />
+        <set_value name="$MissionCue" exact="namespace" />
+        <set_value name="$ScenarioEnded" exact="false" />
+        <set_value name="$ScenarioStartTime" exact="player.age" />
+        <set_value name="$XenonCapitalShipsDestroyed" exact="0" />
+        <set_value name="$PlayerShip" exact="player.ship" />
+        <set_value name="$Phase6Active" exact="false" />
+        <set_value name="$Phase8CombatActive" exact="false" />
+        <set_value name="$Phase8DefenseActive" exact="false" />
+        <set_value name="$Phase8DefenseNextWaveTime" exact="0" />
+        <set_value name="$Phase8TerminalCritical" exact="false" />
+        <set_value name="$Phase9AsgardEscapeActive" exact="false" />
+        <set_value name="$Phase9FalxEscapeActive" exact="false" />
+        <set_value name="$Phase9GladiusEscapeActive" exact="false" />
+        <set_value name="$Phase9MemoryBlurActive" exact="false" />
+        <set_value name="$Phase9MemoryBlurNextTime" exact="0" />
+        <set_value name="$Phase9GladiusBlurNextTime" exact="0" />
+        <set_value name="$ParadigmFailureCritical" exact="true" />
+        <set_value name="$FalxFailureCritical" exact="false" />
+        <set_value name="$GladiusFailureCritical" exact="false" />
+
+        <find_sector name="$Earth" macro="macro.gatefall_scenario_07_Cluster_104_Sector001_macro" required="true" />
+        <find_sector name="$Mars" macro="macro.gatefall_scenario_07_Cluster_101_Sector001_macro" required="true" />
+        <find_sector name="$SavageSpurII" macro="macro.gatefall_scenario_07_Cluster_112_Sector002_macro" required="true" />
+        <find_sector name="$GetsuFune" macro="macro.gatefall_scenario_07_Cluster_48_Sector001_macro" required="true" />
+        <find_zone name="$SavageGetsuGateZone" macro="macro.gatefall_scenario_07_Zone002_Cluster_112_Sector002_macro" required="true" />
+        <find_gate name="$SavageGetsuGate" space="$SavageGetsuGateZone" accelerator="false" required="true" />
+        <find_zone name="$GetsuGateAZone" macro="macro.gatefall_scenario_07_Zone001_Cluster_48_Sector001_macro" required="true" />
+        <find_zone name="$GetsuGateBZone" macro="macro.gatefall_scenario_07_Zone003_Cluster_48_Sector001_macro" required="true" />
+        <find_zone name="$GetsuGateCZone" macro="macro.gatefall_scenario_07_Zone004_Cluster_48_Sector001_macro" required="true" />
+        <find_gate name="$GetsuGateA" space="$GetsuGateAZone" accelerator="false" required="true" />
+        <find_gate name="$GetsuGateB" space="$GetsuGateBZone" accelerator="false" required="true" />
+        <find_gate name="$GetsuGateC" space="$GetsuGateCZone" accelerator="false" required="true" />
+
+        <set_known object="$Earth" known="true" /><set_known object="$Earth.cluster" known="true" />
+        <set_known object="$Mars" known="true" /><set_known object="$Mars.cluster" known="true" />
+        <set_known object="$SavageSpurII" known="true" /><set_known object="$SavageSpurII.cluster" known="true" /><set_known object="$SavageGetsuGate" known="true" />
+        <set_known object="$GetsuFune" known="true" /><set_known object="$GetsuFune.cluster" known="true" />
+        <set_known object="$GetsuGateA" known="true" /><set_known object="$GetsuGateB" known="true" /><set_known object="$GetsuGateC" known="true" />
+
+        <!-- Zone004's sandbox sector transform; the player starts 30 km on its local X axis. -->
+        <create_position name="$EarthStationPos" space="$Earth" x="18336.318359375m" y="0m" z="-79140.4609375m" />
+        <create_position name="$MarsHQPos" space="$Mars" x="0m" y="0m" z="0m" />
+        <!-- B-to-A line anchors copied from Scenario 06: 30 km and 50 km from the Void gate. -->
+        <create_position name="$GetsuFleetAnchorPos" space="$GetsuFune" x="-53.584957km" y="0m" z="-66.155467km" />
+        <create_position name="$GetsuPlayerAnchorPos" space="$GetsuFune" x="-63.180339km" y="0m" z="-48.607571km" />
+        <create_position name="$GetsuGateAPos" space="$GetsuFune" x="-139.269971km" y="0m" z="90.544057km" />
+        <!-- Savage Spur II's sandbox-authored superhighway exit is retained as a
+             positional landmark only. The actual highway connection remains absent,
+             so it cannot reconnect this scenario map to Savage Spur I. -->
+        <create_position name="$SavageHighwayExitPos" space="$SavageSpurII" x="-50km" y="0m" z="200km" />
+        <create_position name="$SavageTerminalPos" space="$SavageSpurII" x="-93.806947km" y="0m" z="68.634766km" />
+        <create_position name="$SavageCPUPos" space="$SavageSpurII" object="$SavageGetsuGate" x="0m" y="0m" z="4km" />
+
+        <create_group groupname="$Phase6EvacuationFleet" /><create_group groupname="$Phase6CinematicXenon" /><create_group groupname="$Phase6XenonWave1" /><create_group groupname="$Phase6XenonWave2" />
+        <create_group groupname="$Phase6PlayerReinforcements" />
+        <create_group groupname="$ScoreXenonCapitalTargets" />
+        <create_group groupname="$Phase8TerminalEscorts" /><create_group groupname="$Phase8DefenseEnemies" />
+        <create_group groupname="$Phase9StationAttackers" /><create_group groupname="$Phase9GateFleet" /><create_group groupname="$Phase9EscapeEnemies" />
+
+        <set_faction_relation faction="faction.player" otherfaction="faction.terran" value="1.0" /><set_faction_relation faction="faction.terran" otherfaction="faction.player" value="1.0" />
+        <set_faction_relation faction="faction.player" otherfaction="faction.trinity" value="1.0" /><set_faction_relation faction="faction.trinity" otherfaction="faction.player" value="1.0" />
+        <set_faction_relation faction="faction.player" otherfaction="faction.antigone" value="1.0" /><set_faction_relation faction="faction.antigone" otherfaction="faction.player" value="1.0" />
+        <set_faction_relation faction="faction.player" otherfaction="faction.hatikvah" value="1.0" /><set_faction_relation faction="faction.hatikvah" otherfaction="faction.player" value="1.0" />
+        <set_faction_relation faction="faction.player" otherfaction="faction.boron" value="1.0" /><set_faction_relation faction="faction.boron" otherfaction="faction.player" value="1.0" />
+        <set_faction_relation faction="faction.player" otherfaction="faction.split" value="0.0" /><set_faction_relation faction="faction.split" otherfaction="faction.player" value="0.0" />
+        <set_faction_relation faction="faction.player" otherfaction="faction.xenon" value="faction.player.relation.enemy.min" /><set_faction_relation faction="faction.xenon" otherfaction="faction.player" value="faction.xenon.relation.enemy.min" />
+        <set_faction_relation_locked faction="faction.player" locked="true" />
+
+        <set_entity_traits entity="player.entity" subtitlename="true" />
+        <set_entity_overrides entity="player.entity" title="'{899907,10}'" />
+        <set_object_name object="$PlayerShip" name="{899907,30}" />
+        <run_actions ref="ApplyScenarioAsgardMods"><param name="Ship" value="$PlayerShip" /></run_actions>
+        <set_object_min_hull object="$PlayerShip" exact="100" /><set_object_min_shield object="$PlayerShip" exact="100" /><set_value name="$PlayerShip.pilot.$noattackresponse" exact="true" />
+
+        <create_cue_actor name="$CommanderActor" cue="namespace"><select faction="faction.terran" race="race.terran" tags="tag.commander" /><owner exact="faction.terran" /><page exact="899907" /><name name="'{899907,11}'" /></create_cue_actor>
+        <set_entity_traits entity="$CommanderActor" missionactor="true" customhandler="true" subtitlename="true" /><set_entity_overrides entity="$CommanderActor" title="'{899907,11}'" icon="'mission'" />
+        <create_cue_actor name="$DomelActor" cue="namespace" macro="macro.character_paranid_pilot_01_macro"><owner exact="faction.trinity" /><page exact="899907" /><name name="'{899907,17}'" /></create_cue_actor>
+        <set_entity_traits entity="$DomelActor" missionactor="true" customhandler="true" subtitlename="true" /><set_entity_overrides entity="$DomelActor" title="'{899907,17}'" icon="'mission'" />
+        <create_cue_actor name="$RaynaActor" cue="namespace" macro="macro.character_argon_female_cau_pilot_01_macro"><owner exact="faction.hatikvah" /><page exact="899907" /><name name="'{899907,18}'" /></create_cue_actor>
+        <set_entity_traits entity="$RaynaActor" missionactor="true" customhandler="true" subtitlename="true" /><set_entity_overrides entity="$RaynaActor" title="'{899907,18}'" icon="'mission'" />
+        <create_cue_actor name="$HayateActor" cue="namespace" macro="macro.character_paranid_pilot_02_macro"><owner exact="faction.trinity" /><page exact="899907" /><name name="'{899907,19}'" /></create_cue_actor>
+        <set_entity_traits entity="$HayateActor" missionactor="true" customhandler="true" subtitlename="true" /><set_entity_overrides entity="$HayateActor" title="'{899907,19}'" icon="'mission'" />
+        <create_cue_actor name="$AntCommandActor" cue="namespace"><select faction="faction.antigone" race="race.argon" tags="tag.commander" /><owner exact="faction.antigone" /><page exact="899907" /><name name="'{899907,20}'" /></create_cue_actor>
+        <set_entity_traits entity="$AntCommandActor" missionactor="true" customhandler="true" subtitlename="true" /><set_entity_overrides entity="$AntCommandActor" title="'{899907,20}'" icon="'mission'" />
+        <create_cue_actor name="$SiegfriedActor" cue="namespace"><select faction="faction.terran" race="race.terran" tags="tag.commander" /><owner exact="faction.player" /><page exact="899907" /><name name="'{899907,21}'" /></create_cue_actor>
+        <set_entity_traits entity="$SiegfriedActor" missionactor="true" customhandler="true" subtitlename="true" /><set_entity_overrides entity="$SiegfriedActor" title="'{899907,21}'" icon="'mission'" />
+        <create_cue_actor name="$SumikaActor" cue="namespace"><select faction="faction.terran" race="race.terran" tags="tag.crew" /><owner exact="faction.player" /><page exact="899907" /><name name="'{899907,22}'" /></create_cue_actor>
+        <set_entity_traits entity="$SumikaActor" missionactor="true" customhandler="true" subtitlename="true" /><set_entity_overrides entity="$SumikaActor" title="'{899907,22}'" icon="'mission'" />
+
+        <create_station name="$EarthStation" macro="macro.station_gen_factory_base_01_macro" sector="$Earth" state="componentstate.operational" owner="faction.terran" constructionplan="'ter_defence'">
+          <position value="$EarthStationPos" />
+        </create_station>
+        <run_actions ref="InitialiseScenarioStation"><param name="Station" value="$EarthStation" /><param name="Faction" value="faction.terran" /></run_actions>
+        <set_object_name object="$EarthStation" name="{899907,32}" /><set_object_min_hull object="$EarthStation" exact="100" />
+        <get_room_definition macro="$EarthCorridorMacro" race="race.terran" tags="tag.corridor" />
+        <get_room_definition macro="$EarthCrewQuartersMacro" race="race.terran" tags="tag.crewquarters" />
+        <create_dynamic_interior roomname="$EarthCrewQuartersRoom" room="$EarthCrewQuartersMacro"
+          corridorname="$EarthCrewQuartersCorridor" corridor="$EarthCorridorMacro"
+          interiorname="$EarthCrewQuartersInterior" roomtype="roomtype.crewquarters"
+          name="'{20007,1251}'" object="$EarthStation" persistent="true" />
+        <create_position name="$EarthPlayerPos" space="$Earth" object="$EarthStation" x="30km" y="0m" z="0m" />
+        <create_station name="$MarsHQ" macro="macro.station_gen_factory_base_01_macro" sector="$Mars" state="componentstate.operational" owner="faction.terran" constructionplan="'ter_defence'">
+          <position value="$MarsHQPos" />
+        </create_station>
+        <run_actions ref="InitialiseScenarioStation"><param name="Station" value="$MarsHQ" /><param name="Faction" value="faction.terran" /></run_actions>
+        <set_object_name object="$MarsHQ" name="{899907,47}" /><set_object_min_hull object="$MarsHQ" exact="100" />
+        <create_position name="$MarsPlayerPos" space="$Mars" object="$MarsHQ" x="30km" y="0m" z="0m" />
+        <create_position name="$MarsFleetAnchor" space="$Mars" object="$MarsHQ" x="0m" y="0m" z="15km" />
+
+        <create_mission cue="$MissionCue" abortable="false" name="{899907,201}" description="{899907,202}" icon="'briefing_mission_director_01'" difficulty="level.hard" type="missiontype.fight" faction="faction.terran">
+          <briefing><objective step="1" action="objective.none" /></briefing>
+        </create_mission>
+        <stop_music /><blur_screen strength="10" duration="0s" />
+        <fade_screen fadeout="0s" fadein="1s" realtime="true" />
+        <signal_cue cue="Phase6_Stage" />
+      </actions>
+      <cues>
+        <!-- Only combat-spawned L/XL targets enter this group. Scripted cinematic
+             replacements and cleanup ships are never allowed to award points. -->
+        <cue name="Score_XenonCapitalDestroyed" instantiate="true">
+          <conditions>
+            <event_object_destroyed group="$ScoreXenonCapitalTargets" />
+            <check_value value="not @$ScenarioEnded" />
+          </conditions>
+          <actions>
+            <set_value name="$XenonCapitalShipsDestroyed" operation="add" exact="1" />
+            <remove_from_group group="$ScoreXenonCapitalTargets" object="event.object" />
+          </actions>
+        </cue>
+        <!-- Phase 1: formulate the counteroffensive at Intervention Corps HQ on Mars. -->
+        <cue name="Phase1_Start">
+          <conditions><event_cue_signalled /></conditions><delay exact="3s" />
+          <actions>
+            <do_if value="$GetsuCutscene?"><stop_cutscene cutscene="$GetsuCutscene" /></do_if>
+            <stop_music /><play_music music="'gatefall_music_mission_control'" loop="true" />
+            <warp object="$PlayerShip" sector="$Mars"><position value="$MarsPlayerPos" /><orientation orientation="look_at" refobject="$MarsHQ" /></warp>
+            <do_for_each name="$MarsCommonwealthShip" in="$Phase6EvacuationFleet"><do_if value="$MarsCommonwealthShip.exists and not $MarsCommonwealthShip.iswreck"><warp object="$MarsCommonwealthShip" sector="$Mars"><safepos value="$MarsFleetAnchor" min="2km" max="14km" /><orientation orientation="look_at" refobject="$MarsHQ" /></warp></do_if></do_for_each>
+            <do_for_each name="$MarsTerranShip" in="$Phase6PlayerReinforcements"><do_if value="$MarsTerranShip.exists and not $MarsTerranShip.iswreck"><warp object="$MarsTerranShip" sector="$Mars"><safepos value="$MarsFleetAnchor" min="3km" max="16km" /><orientation orientation="look_at" refobject="$MarsHQ" /></warp></do_if></do_for_each>
+            <!-- The screenplay says 10 -> 10 here, but the station scene must be visible;
+                 this is implemented as the intended 10 -> 0 transition. -->
+            <blur_screen strength="0" duration="3s" />
+            <play_cutscene result="$StationCutscene" key="'gatefall_s07_station_memory_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false"><param name="target_station" object="$MarsHQ" /></play_cutscene>
+            <speak actor="$CommanderActor" page="899907" line="501" priority="100" /><signal_cue cue="P1_502" />
+          </actions>
+        </cue>
+        <cue name="P1_502"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="502" priority="100" /><signal_cue cue="P1_503" /></actions></cue>
+        <cue name="P1_503"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="503" priority="100" /><signal_cue cue="P1_504" /></actions></cue>
+        <cue name="P1_504"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="504" priority="100" /><signal_cue cue="P1_505" /></actions></cue>
+        <cue name="P1_505"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="505" priority="100" /><signal_cue cue="P1_506" /></actions></cue>
+        <cue name="P1_506"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="506" priority="100" /><signal_cue cue="P1_507" /></actions></cue>
+        <cue name="P1_507"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="507" priority="100" /><signal_cue cue="P1_508" /></actions></cue>
+        <cue name="P1_508"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="508" priority="100" /><signal_cue cue="P1_509" /></actions></cue>
+        <cue name="P1_509"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="509" priority="100" /><signal_cue cue="Phase1_BlurOut" /></actions></cue>
+        <cue name="Phase1_BlurOut"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><blur_screen strength="10" duration="3s" /><signal_cue cue="Phase2_Start" /></actions></cue>
+
+        <cue name="Phase2_Start">
+          <conditions><event_cue_signalled /></conditions><delay exact="3s" />
+          <actions>
+            <do_if value="$StationCutscene?"><stop_cutscene cutscene="$StationCutscene" /></do_if>
+            <stop_music /><play_music music="'gatefall_music_redemption'" loop="true" />
+            <warp object="$PlayerShip" sector="$Earth"><position value="$EarthPlayerPos" /><orientation orientation="look_at" refobject="$EarthStation" /></warp>
+            <blur_screen strength="0" duration="3s" />
+            <play_cutscene result="$StationCutscene" key="'gatefall_s07_station_memory_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false"><param name="target_station" object="$EarthStation" /></play_cutscene>
+            <speak actor="player.entity" page="899907" line="521" priority="100" /><signal_cue cue="P2_522" />
+          </actions>
+        </cue>
+        <cue name="P2_522"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="522" priority="100" /><signal_cue cue="P2_523" /></actions></cue>
+        <cue name="P2_523"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="523" priority="100" /><signal_cue cue="P2_524" /></actions></cue>
+        <cue name="P2_524"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="524" priority="100" /><signal_cue cue="P2_525" /></actions></cue>
+        <cue name="P2_525"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="525" priority="100" /><signal_cue cue="P2_526" /></actions></cue>
+        <cue name="P2_526"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="526" priority="100" /><signal_cue cue="P2_527" /></actions></cue>
+        <cue name="P2_527"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="527" priority="100" /><signal_cue cue="P2_528" /></actions></cue>
+        <cue name="P2_528"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="528" priority="100" /><signal_cue cue="P2_529" /></actions></cue>
+        <cue name="P2_529"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="529" priority="100" /><signal_cue cue="P2_530" /></actions></cue>
+        <cue name="P2_530"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="530" priority="100" /><signal_cue cue="P2_531" /></actions></cue>
+        <cue name="P2_531"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="531" priority="100" /><signal_cue cue="P2_532" /></actions></cue>
+        <cue name="P2_532"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="532" priority="100" /><signal_cue cue="P2_533" /></actions></cue>
+        <cue name="P2_533"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="533" priority="100" /><signal_cue cue="P2_534" /></actions></cue>
+        <cue name="P2_534"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="534" priority="100" /><signal_cue cue="Phase2_BlurOut" /></actions></cue>
+        <cue name="Phase2_BlurOut"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><blur_screen strength="10" duration="3s" /><signal_cue cue="Phase3_Start" /></actions></cue>
+
+        <cue name="Phase3_Start">
+          <conditions><event_cue_signalled /></conditions><delay exact="3s" />
+          <actions>
+            <do_if value="$StationCutscene?"><stop_cutscene cutscene="$StationCutscene" /></do_if>
+            <stop_music /><play_music music="'gfc_music_m07_phase3_galactic_route'" loop="true" />
+            <warp object="$PlayerShip" sector="$Mars"><position value="$MarsPlayerPos" /><orientation orientation="look_at" refobject="$MarsHQ" /></warp>
+            <do_for_each name="$MarsBriefingCommonwealthShip" in="$Phase6EvacuationFleet"><do_if value="$MarsBriefingCommonwealthShip.exists and not $MarsBriefingCommonwealthShip.iswreck"><warp object="$MarsBriefingCommonwealthShip" sector="$Mars"><safepos value="$MarsFleetAnchor" min="2km" max="14km" /><orientation orientation="look_at" refobject="$MarsHQ" /></warp></do_if></do_for_each>
+            <do_for_each name="$MarsBriefingTerranShip" in="$Phase6PlayerReinforcements"><do_if value="$MarsBriefingTerranShip.exists and not $MarsBriefingTerranShip.iswreck"><warp object="$MarsBriefingTerranShip" sector="$Mars"><safepos value="$MarsFleetAnchor" min="3km" max="16km" /><orientation orientation="look_at" refobject="$MarsHQ" /></warp></do_if></do_for_each>
+            <blur_screen strength="0" duration="3s" />
+            <play_cutscene result="$StationCutscene" key="'gatefall_s07_station_memory_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false"><param name="target_station" object="$MarsHQ" /></play_cutscene>
+            <speak actor="$CommanderActor" page="899907" line="541" priority="100" /><signal_cue cue="P3_542" />
+          </actions>
+        </cue>
+        <cue name="P3_542"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="542" priority="100" /><signal_cue cue="P3_543" /></actions></cue>
+        <cue name="P3_543"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="543" priority="100" /><signal_cue cue="P3_544" /></actions></cue>
+        <cue name="P3_544"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SiegfriedActor" page="899907" line="544" priority="100" /><signal_cue cue="P3_545" /></actions></cue>
+        <cue name="P3_545"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$DomelActor" page="899907" line="545" priority="100" /><signal_cue cue="P3_546" /></actions></cue>
+        <cue name="P3_546"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="546" priority="100" /><signal_cue cue="P3_547" /></actions></cue>
+        <cue name="P3_547"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="547" priority="100" /><signal_cue cue="P3_548" /></actions></cue>
+        <cue name="P3_548"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="548" priority="100" /><signal_cue cue="P3_549" /></actions></cue>
+        <cue name="P3_549"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="549" priority="100" /><signal_cue cue="P3_550" /></actions></cue>
+        <cue name="P3_550"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="550" priority="100" /><signal_cue cue="P3_551" /></actions></cue>
+        <cue name="P3_551"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="551" priority="100" /><signal_cue cue="P3_552" /></actions></cue>
+        <cue name="P3_552"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="552" priority="100" /><signal_cue cue="P3_553" /></actions></cue>
+        <cue name="P3_553"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="553" priority="100" /><signal_cue cue="P3_554" /></actions></cue>
+        <cue name="P3_554"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="554" priority="100" /><signal_cue cue="Phase3_BlurOut" /></actions></cue>
+        <cue name="Phase3_BlurOut"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><blur_screen strength="10" duration="3s" /><signal_cue cue="Phase8_Start" /></actions></cue>
+
+        <!-- Phase 0: rescue the surviving Commonwealth fleet at Getsu Fune. The
+             internal Phase6 prefix is retained because this roster is shared with
+             Scenario 06 and its scoring implementation. -->
+        <cue name="Phase6_Stage">
+          <conditions><event_cue_signalled /></conditions><delay exact="0s" />
+          <actions>
+            <do_if value="$StationCutscene?"><stop_cutscene cutscene="$StationCutscene" /></do_if>
+            <stop_music /><play_music music="'gfc_music_m07_phase6_alive_intro'" />
+            <warp object="$PlayerShip" sector="$GetsuFune"><position value="$GetsuPlayerAnchorPos" /><orientation orientation="look_at" refobject="$GetsuGateB" /></warp>
+            <!-- Clear the opening blur only after the player has entered Getsu Fune. -->
+            <blur_screen strength="0" duration="3s" />
+            <set_object_hull object="$PlayerShip" exact="100" /><set_object_shield object="$PlayerShip" exact="100" />
+            <create_ship name="$Paradox" macro="macro.ship_atf_xl_battleship_01_a_macro" sector="$GetsuFune" groupname="$Phase6PlayerReinforcements" capturable="false" commandeerable="false"><owner exact="faction.player" overridenpc="true" /><pilot actor="$SiegfriedActor" /><loadout ref="gatefall_scenario_07_asgard" /><safepos value="$GetsuPlayerAnchorPos" min="5km" max="8km" /><rotation yaw="151.329679deg" /></create_ship>
+            <set_object_name object="$Paradox" name="{899907,31}" /><run_actions ref="ApplyScenarioAsgardMods"><param name="Ship" value="$Paradox" /></run_actions>
+
+            <create_ship name="$DomelIII" macro="macro.ship_par_l_destroyer_02_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.trinity" overridenpc="true" /><pilot actor="$DomelActor" /><loadout ref="story_paranid_stranded_odysseus_E" /><position value="$GetsuFleetAnchorPos" /><rotation yaw="331.329679deg" /></create_ship>
+            <set_object_name object="$DomelIII" name="{899907,36}" />
+            <create_ship name="$S07Bargre" macro="macro.ship_par_xl_carrier_02_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.trinity" overridenpc="true" /><pilot><select faction="faction.trinity" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.paranid" /></loadout><safepos value="$GetsuFleetAnchorPos" min="3km" max="10km" /><rotation yaw="331.329679deg" /></create_ship><set_object_name object="$S07Bargre" name="{899906,35}" />
+            <create_ship name="$S07Lambert" macro="macro.ship_par_xl_carrier_02_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.trinity" overridenpc="true" /><pilot><select faction="faction.trinity" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.paranid" /></loadout><safepos value="$GetsuFleetAnchorPos" min="3km" max="10km" /><rotation yaw="331.329679deg" /></create_ship><set_object_name object="$S07Lambert" name="{899906,36}" />
+            <create_ship name="$S07Darod" macro="macro.ship_par_xl_carrier_02_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.trinity" overridenpc="true" /><pilot><select faction="faction.trinity" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.paranid" /></loadout><safepos value="$GetsuFleetAnchorPos" min="3km" max="10km" /><rotation yaw="331.329679deg" /></create_ship><set_object_name object="$S07Darod" name="{899906,48}" />
+            <create_ship name="$S07Shudeg" macro="macro.ship_par_xl_carrier_02_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.trinity" overridenpc="true" /><pilot><select faction="faction.trinity" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.paranid" /></loadout><safepos value="$GetsuFleetAnchorPos" min="3km" max="10km" /><rotation yaw="331.329679deg" /></create_ship><set_object_name object="$S07Shudeg" name="{899906,49}" />
+
+            <create_ship name="$HayateShip" macro="macro.ship_par_m_corvette_01_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.trinity" overridenpc="true" /><pilot actor="$HayateActor" /><loadout ref="gatefall_scenario_06_vf31_laser" /><safepos object="$S07Bargre" min="1km" max="3km" /><rotation yaw="331.329679deg" /></create_ship><set_object_name object="$HayateShip" name="{899906,64}" /><set_object_commander object="$HayateShip" commander="$S07Bargre" assignment="assignment.interception" />
+            <do_all exact="11" counter="$S07HayateWingIndex"><create_ship name="$DeltaA" macro="macro.ship_par_m_corvette_01_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.trinity" overridenpc="true" /><pilot><select faction="faction.trinity" tags="tag.fighterpilot" /></pilot><loadout ref="gatefall_scenario_06_vf31_laser" /><safepos object="$HayateShip" min="800m" max="2.5km" /><rotation yaw="331.329679deg" /></create_ship><do_if value="$S07HayateWingIndex le 5"><set_object_name object="$DeltaA" name="{899906,39}" /></do_if><do_elseif value="$S07HayateWingIndex le 8"><set_object_name object="$DeltaA" name="{899906,40}" /></do_elseif><do_else><set_object_name object="$DeltaA" name="{899906,41}" /></do_else><set_object_commander object="$DeltaA" commander="$S07Bargre" assignment="assignment.interception" /></do_all>
+            <create_ship name="$DeltaBLeader" macro="macro.ship_par_m_corvette_gatefall_bomber_01_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.trinity" overridenpc="true" /><pilot><select faction="faction.trinity" tags="tag.fighterpilot" /></pilot><loadout ref="gatefall_scenario_06_vf29" /><safepos object="$S07Lambert" min="1km" max="3km" /><rotation yaw="331.329679deg" /></create_ship><set_object_commander object="$DeltaBLeader" commander="$S07Lambert" assignment="assignment.bombardment" />
+            <set_object_name object="$DeltaBLeader" name="{899906,65}" />
+            <do_all exact="11" counter="$S07MirageWingIndex"><create_ship name="$DeltaB" macro="macro.ship_par_m_corvette_gatefall_bomber_01_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.trinity" overridenpc="true" /><pilot><select faction="faction.trinity" tags="tag.fighterpilot" /></pilot><loadout ref="gatefall_scenario_06_vf29" /><safepos object="$DeltaBLeader" min="800m" max="2.5km" /><rotation yaw="331.329679deg" /></create_ship><do_if value="$S07MirageWingIndex le 5"><set_object_name object="$DeltaB" name="{899906,42}" /></do_if><do_else><set_object_name object="$DeltaB" name="{899906,43}" /></do_else><set_object_commander object="$DeltaB" commander="$S07Lambert" assignment="assignment.bombardment" /></do_all>
+            <create_ship name="$DeltaCLeader" macro="macro.ship_par_m_corvette_01_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.trinity" overridenpc="true" /><pilot><select faction="faction.trinity" tags="tag.fighterpilot" /></pilot><loadout ref="gatefall_scenario_06_vf31_laser" /><safepos object="$S07Darod" min="1km" max="3km" /><rotation yaw="331.329679deg" /></create_ship><set_object_name object="$DeltaCLeader" name="{899906,66}" /><set_object_commander object="$DeltaCLeader" commander="$S07Darod" assignment="assignment.interception" />
+            <do_all exact="11" counter="$S07AradWingIndex"><create_ship name="$DeltaC" macro="macro.ship_par_m_corvette_01_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.trinity" overridenpc="true" /><pilot><select faction="faction.trinity" tags="tag.fighterpilot" /></pilot><loadout ref="gatefall_scenario_06_vf31_laser" /><safepos object="$DeltaCLeader" min="800m" max="2.5km" /><rotation yaw="331.329679deg" /></create_ship><do_if value="$S07AradWingIndex le 5"><set_object_name object="$DeltaC" name="{899906,39}" /></do_if><do_elseif value="$S07AradWingIndex le 8"><set_object_name object="$DeltaC" name="{899906,40}" /></do_elseif><do_else><set_object_name object="$DeltaC" name="{899906,41}" /></do_else><set_object_commander object="$DeltaC" commander="$S07Darod" assignment="assignment.interception" /></do_all>
+            <create_ship name="$DeltaDLeader" macro="macro.ship_par_m_corvette_gatefall_bomber_01_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.trinity" overridenpc="true" /><pilot><select faction="faction.trinity" tags="tag.fighterpilot" /></pilot><loadout ref="gatefall_scenario_06_vf29" /><safepos object="$S07Shudeg" min="1km" max="3km" /><rotation yaw="331.329679deg" /></create_ship><set_object_name object="$DeltaDLeader" name="{899906,67}" /><set_object_commander object="$DeltaDLeader" commander="$S07Shudeg" assignment="assignment.bombardment" />
+            <do_all exact="11" counter="$S07MesserWingIndex"><create_ship name="$DeltaD" macro="macro.ship_par_m_corvette_gatefall_bomber_01_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.trinity" overridenpc="true" /><pilot><select faction="faction.trinity" tags="tag.fighterpilot" /></pilot><loadout ref="gatefall_scenario_06_vf29" /><safepos object="$DeltaDLeader" min="800m" max="2.5km" /><rotation yaw="331.329679deg" /></create_ship><do_if value="$S07MesserWingIndex le 5"><set_object_name object="$DeltaD" name="{899906,42}" /></do_if><do_else><set_object_name object="$DeltaD" name="{899906,43}" /></do_else><set_object_commander object="$DeltaD" commander="$S07Shudeg" assignment="assignment.bombardment" /></do_all>
+
+            <create_ship name="$RaynaLeader" macro="macro.ship_arg_m_frigate_01_b_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.hatikvah" overridenpc="true" /><pilot actor="$RaynaActor" /><loadout ref="gatefall_scenario_02_cerberus_bombardment_leader" /><safepos value="$GetsuFleetAnchorPos" min="3km" max="10km" /><rotation yaw="331.329679deg" /></create_ship><set_object_name object="$RaynaLeader" name="{899906,50}" />
+            <do_all exact="15"><create_ship name="$EightySixEscort" macro="macro.ship_arg_m_frigate_01_b_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.hatikvah" overridenpc="true" /><pilot><select faction="faction.hatikvah" tags="tag.fighterpilot" /></pilot><loadout ref="gatefall_scenario_02_cerberus_bombardment" /><safepos object="$RaynaLeader" min="1km" max="3km" /><rotation yaw="331.329679deg" /></create_ship><set_object_name object="$EightySixEscort" name="{899906,51}" /><set_object_commander object="$EightySixEscort" commander="$RaynaLeader" assignment="assignment.bombardment" /></do_all>
+
+            <create_ship name="$SplitCarrierA" macro="macro.ship_spl_xl_carrier_01_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.split" overridenpc="true" /><pilot><select faction="faction.split" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.split" /></loadout><safepos value="$GetsuFleetAnchorPos" min="4km" max="12km" /><rotation yaw="331.329679deg" /></create_ship>
+            <create_ship name="$SplitCarrierB" macro="macro.ship_spl_xl_carrier_01_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.split" overridenpc="true" /><pilot><select faction="faction.split" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.split" /></loadout><safepos value="$GetsuFleetAnchorPos" min="4km" max="12km" /><rotation yaw="331.329679deg" /></create_ship>
+            <create_ship name="$SplitDestroyer" macro="macro.ship_spl_l_destroyer_01_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.split" overridenpc="true" /><pilot><select faction="faction.split" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.split" /></loadout><safepos value="$GetsuFleetAnchorPos" min="3km" max="11km" /><rotation yaw="331.329679deg" /></create_ship>
+            <do_all exact="2"><create_ship name="$SplitResupplier" macro="macro.ship_spl_xl_resupplier_01_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.split" overridenpc="true" /><pilot><select faction="faction.split" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.split" /></loadout><safepos value="$GetsuFleetAnchorPos" min="4km" max="13km" /><rotation yaw="331.329679deg" /></create_ship></do_all>
+            <do_all exact="2"><create_ship name="$SplitBuilder" macro="macro.ship_spl_xl_builder_01_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.split" overridenpc="true" /><pilot><select faction="faction.split" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.split" /></loadout><safepos value="$GetsuFleetAnchorPos" min="4km" max="13km" /><rotation yaw="331.329679deg" /></create_ship></do_all>
+            <do_all exact="5"><create_ship name="$SplitFreighter" macro="macro.ship_spl_l_trans_container_01_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.split" overridenpc="true" /><pilot><select faction="faction.split" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.split" /></loadout><safepos value="$GetsuFleetAnchorPos" min="3km" max="13km" /><rotation yaw="331.329679deg" /></create_ship></do_all>
+            <create_ship name="$Sidenia" macro="macro.ship_arg_xl_carrier_02_a_macro" sector="$GetsuFune" groupname="$Phase6EvacuationFleet" capturable="false" commandeerable="false"><owner exact="faction.antigone" overridenpc="true" /><pilot actor="$AntCommandActor" /><loadout><level exact="1.0" faction="faction.argon" /></loadout><safepos object="$DomelIII" min="4km" max="8km" /><rotation yaw="331.329679deg" /></create_ship><set_object_name object="$Sidenia" name="{899907,37}" />
+
+            <do_for_each name="$DamagedEvacuationShip" in="$Phase6EvacuationFleet"><set_object_hull object="$DamagedEvacuationShip" exact="10" /><set_object_min_hull object="$DamagedEvacuationShip" exact="10" /><set_object_min_shield object="$DamagedEvacuationShip" exact="0" /><set_value name="$DamagedEvacuationShip.pilot.$noattackresponse" exact="true" /><set_known object="$DamagedEvacuationShip" known="true" /><set_object_forced_radar_visible object="$DamagedEvacuationShip" visible="true" /><cancel_all_orders object="$DamagedEvacuationShip" /><create_order id="'Wait'" object="$DamagedEvacuationShip" default="true"><param name="skipalignment" value="true" /><param name="noattackresponse" value="true" /></create_order></do_for_each>
+            <!-- The whole 3I/5K force exists for the gate shot. It is replaced after
+                 the cutscene so none of the protected camera objects enter combat. -->
+            <create_ship name="$CinematicGetsuI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$GetsuFune" groupname="$Phase6CinematicXenon" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos object="$GetsuGateB" min="2km" max="5km" /><rotation yaw="331.329679deg" /></create_ship>
+            <do_all exact="2"><create_ship name="$CinematicGetsuEscortI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$GetsuFune" groupname="$Phase6CinematicXenon" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos object="$GetsuGateB" min="3km" max="8km" /><rotation yaw="331.329679deg" /></create_ship></do_all>
+            <do_all exact="5"><create_ship name="$CinematicGetsuK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$GetsuFune" groupname="$Phase6CinematicXenon" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos object="$GetsuGateB" min="3km" max="9km" /><rotation yaw="331.329679deg" /></create_ship></do_all>
+            <do_for_each name="$CinematicXenon" in="$Phase6CinematicXenon"><set_object_min_hull object="$CinematicXenon" exact="100" /><set_object_min_shield object="$CinematicXenon" exact="100" /><set_value name="$CinematicXenon.pilot.$noattackresponse" exact="true" /><create_order id="'Wait'" object="$CinematicXenon" default="true"><param name="skipalignment" value="true" /><param name="noattackresponse" value="true" /></create_order></do_for_each>
+            <signal_cue cue="Phase6_StartCutscene" />
+          </actions>
+        </cue>
+
+        <cue name="Phase6_StartCutscene"><conditions><event_cue_signalled /></conditions><delay exact="1s" /><actions><play_cutscene result="$GetsuCutscene" key="'gatefall_s07_getsu_memory_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false"><param name="target_domel" object="$DomelIII" /><param name="target_sidenia" object="$Sidenia" /><param name="target_xenon_i" object="$CinematicGetsuI" /><param name="target_player_ship" object="$PlayerShip" /></play_cutscene><speak actor="$DomelActor" page="899907" line="602" priority="100" /><signal_cue cue="P6_603" /></actions></cue>
+        <cue name="P6_603"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$RaynaActor" page="899907" line="603" priority="100" /><signal_cue cue="P6_604" /></actions></cue>
+        <cue name="P6_604"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$HayateActor" page="899907" line="604" priority="100" /><signal_cue cue="P6_605" /></actions></cue>
+        <cue name="P6_605"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$DomelActor" page="899907" line="605" priority="100" /><signal_cue cue="P6_606" /></actions></cue>
+        <cue name="P6_606"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$AntCommandActor" page="899907" line="606" priority="100" /><signal_cue cue="P6_607" /></actions></cue>
+        <cue name="P6_607"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><add_effect object="$GetsuGateB" effect="'jump_gateeffect'" /><do_for_each name="$CinematicArrival" in="$Phase6CinematicXenon"><add_effect object="$CinematicArrival" effect="'jump_gateeffect'" /></do_for_each><speak actor="$DomelActor" page="899907" line="607" priority="100" /><signal_cue cue="Phase6_RepositionPlayerForCutscene" /></actions></cue>
+        <!-- Refresh the player's exact world position one second before the cutscene changes
+             to its player shot. This prevents that shot from retaining a pre-warp transform. -->
+        <cue name="Phase6_RepositionPlayerForCutscene">
+          <conditions><event_cue_signalled /></conditions><delay exact="7s" />
+          <actions>
+            <create_position name="$Phase6PlayerCameraPos" space="$GetsuFune" x="-63.180339km" y="0m" z="-48.607571km" />
+            <warp object="$PlayerShip" sector="$GetsuFune"><position value="$Phase6PlayerCameraPos" /><orientation orientation="look_at" refobject="$GetsuGateB" /></warp>
+            <stop_music /><play_music music="'gfc_music_m07_phase6_yamato_2199'" loop="true" />
+            <signal_cue cue="P6_608" />
+          </actions>
+        </cue>
+        <cue name="P6_608"><conditions><event_cue_signalled /></conditions><delay exact="1s" /><actions><speak actor="player.entity" page="899907" line="608" priority="100" /><signal_cue cue="P6_609" /></actions></cue>
+        <cue name="P6_609"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$SiegfriedActor" page="899907" line="609" priority="100" /><signal_cue cue="P6_610" /></actions></cue>
+        <cue name="P6_610"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899907" line="610" priority="100" /><signal_cue cue="Phase6_BeginCombat" /></actions></cue>
+
+        <cue name="Phase6_BeginCombat">
+          <conditions><event_cue_signalled /></conditions><delay exact="6s" />
+          <actions>
+            <do_if value="$GetsuCutscene?"><stop_cutscene cutscene="$GetsuCutscene" /></do_if>
+            <!-- Replace the cinematic I. Camera targets can retain a cinematic protection flag. -->
+            <destroy_group group="$Phase6CinematicXenon" explosion="false" />
+            <set_object_min_hull object="$PlayerShip" exact="0" /><set_object_min_shield object="$PlayerShip" exact="0" /><set_value name="$PlayerShip.pilot.$noattackresponse" exact="false" />
+            <do_for_each name="$EvacuationShip" in="$Phase6EvacuationFleet"><set_object_min_hull object="$EvacuationShip" exact="0" /><set_object_min_shield object="$EvacuationShip" exact="0" /><set_value name="$EvacuationShip.pilot.$noattackresponse" exact="false" /><cancel_all_orders object="$EvacuationShip" /><create_order id="'MoveWait'" object="$EvacuationShip" immediate="true" default="true"><param name="destination" value="[$GetsuFune, $GetsuGateAPos]" /><param name="precise" value="false" /></create_order></do_for_each>
+            <do_all exact="3"><create_ship name="$Wave1I" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$GetsuFune" groupname="$Phase6XenonWave1" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos object="$GetsuGateB" min="2km" max="8km" /><rotation yaw="331.329679deg" /></create_ship><add_effect object="$Wave1I" effect="'jump_gateeffect'" /><create_order id="'Attack'" object="$Wave1I" immediate="true" default="true"><param name="primarytarget" value="$DomelIII" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /><param name="checkrelation" value="false" /></create_order></do_all>
+            <do_all exact="5"><create_ship name="$Wave1K" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$GetsuFune" groupname="$Phase6XenonWave1" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos object="$GetsuGateB" min="2km" max="9km" /><rotation yaw="331.329679deg" /></create_ship><add_effect object="$Wave1K" effect="'jump_gateeffect'" /><create_order id="'Attack'" object="$Wave1K" immediate="true" default="true"><param name="primarytarget" value="$DomelIII" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /><param name="checkrelation" value="false" /></create_order></do_all>
+            <do_for_each name="$Phase6Wave1ScoringTarget" in="$Phase6XenonWave1"><add_to_group groupname="$ScoreXenonCapitalTargets" object="$Phase6Wave1ScoringTarget" /></do_for_each>
+            <do_all exact="6"><create_ship name="$GetsuSyn" macro="macro.ship_atf_l_destroyer_01_a_macro" sector="$GetsuFune" groupname="$Phase6PlayerReinforcements" capturable="false" commandeerable="false"><owner exact="faction.player" overridenpc="true" /><pilot><select faction="faction.terran" tags="tag.commander" /></pilot><loadout ref="gatefall_scenario_04_syn" /><safepos object="$PlayerShip" min="4km" max="9km" /><rotation yaw="151.329679deg" /></create_ship></do_all>
+            <do_all exact="8"><create_ship name="$GetsuOsaka" macro="macro.ship_ter_l_destroyer_01_a_macro" sector="$GetsuFune" groupname="$Phase6PlayerReinforcements" capturable="false" commandeerable="false"><owner exact="faction.player" overridenpc="true" /><pilot><select faction="faction.terran" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.terran" /></loadout><safepos object="$PlayerShip" min="4km" max="10km" /><rotation yaw="151.329679deg" /></create_ship></do_all>
+            <do_for_each name="$GetsuReinforcement" in="$Phase6PlayerReinforcements"><create_order id="'Attack'" object="$GetsuReinforcement" immediate="true" default="true"><param name="primarytarget" value="$Phase6XenonWave1.random" /><param name="secondarytargets" value="$Phase6XenonWave1" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /></create_order></do_for_each>
+            <set_value name="$Phase6Active" exact="true" /><set_value name="$Phase6EndTime" exact="player.age + 2min" />
+            <set_objective cue="$MissionCue" step="2" action="objective.escort" group="$Phase6EvacuationFleet" text="{899907,212}" endtime="$Phase6EndTime" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+        <cue name="Phase6_Complete" checkinterval="500ms">
+          <conditions><check_value value="$Phase6Active and not @$ScenarioEnded and player.age ge $Phase6EndTime" /></conditions>
+          <actions>
+            <set_value name="$Phase6Active" exact="false" />
+            <stop_music /><play_music music="'gatefall_music_redemption'" loop="true" />
+            <!-- Phase 0 cleanup is made score-neutral
+                 before objects are destroyed. Otherwise surviving I/K ships would be
+                 reported as player kills during the scripted end of Phase 0. -->
+            <do_for_each name="$Phase6CleanupWave1" in="$Phase6XenonWave1"><remove_from_group group="$ScoreXenonCapitalTargets" object="$Phase6CleanupWave1" /></do_for_each>
+            <do_for_each name="$Phase6CleanupWave2" in="$Phase6XenonWave2"><remove_from_group group="$ScoreXenonCapitalTargets" object="$Phase6CleanupWave2" /></do_for_each>
+            <destroy_group group="$Phase6XenonWave1" explosion="false" /><destroy_group group="$Phase6XenonWave2" explosion="false" />
+
+            <!-- The rescued fleet is preserved for the following Mars scenes, but its
+                 survivor count no longer contributes to the revised score. -->
+            <do_for_each name="$Phase6FrozenSurvivor" in="$Phase6EvacuationFleet"><do_if value="$Phase6FrozenSurvivor.exists and not $Phase6FrozenSurvivor.iswreck"><set_object_min_hull object="$Phase6FrozenSurvivor" exact="1" /><set_value name="$Phase6FrozenSurvivor.pilot.$noattackresponse" exact="true" /><cancel_all_orders object="$Phase6FrozenSurvivor" /><create_order id="'Wait'" object="$Phase6FrozenSurvivor" default="true"><param name="skipalignment" value="true" /><param name="noattackresponse" value="true" /></create_order></do_if></do_for_each>
+
+            <set_object_min_hull object="$PlayerShip" exact="100" /><set_object_min_shield object="$PlayerShip" exact="100" /><set_value name="$PlayerShip.pilot.$noattackresponse" exact="true" />
+            <set_objective cue="$MissionCue" step="2" action="objective.none" updatebriefing="true" silent="true" />
+            <speak actor="$DomelActor" page="899907" line="611" priority="100" /><signal_cue cue="P6_612" />
+          </actions>
+        </cue>
+        <cue name="P6_612"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$RaynaActor" page="899907" line="612" priority="100" /><signal_cue cue="P6_613" /></actions></cue>
+        <cue name="P6_613"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$AntCommandActor" page="899907" line="613" priority="100" /><signal_cue cue="P6_614" /></actions></cue>
+        <cue name="P6_614"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$SiegfriedActor" page="899907" line="614" priority="100" /><signal_cue cue="P6_615" /></actions></cue>
+        <cue name="P6_615"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899907" line="615" priority="100" /><signal_cue cue="P6_616" /></actions></cue>
+        <cue name="P6_616"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$SiegfriedActor" page="899907" line="616" priority="100" /><signal_cue cue="P6_617" /></actions></cue>
+        <cue name="P6_617"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="player.entity" page="899907" line="617" priority="100" /><signal_cue cue="Phase0_BlurOut" /></actions></cue>
+        <cue name="Phase0_BlurOut"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><blur_screen strength="10" duration="3s" /><signal_cue cue="Phase1_Start" /></actions></cue>
+
+        <!-- Phase 4: Alternative X-IV. The sandbox superhighway endpoint is used only
+             as an authored coordinate; its destination connection is deliberately absent. -->
+        <cue name="Phase8_Start">
+          <conditions><event_cue_signalled /></conditions><delay exact="3s" />
+          <actions>
+            <do_if value="$StationCutscene?"><stop_cutscene cutscene="$StationCutscene" /></do_if>
+            <stop_music /><play_music music="'x4_timelines_ost_10_gamma_epsilon'" loop="true" />
+            <blur_screen strength="0" duration="3s" />
+            <create_position name="$Phase8SavagePlayerPos" space="$SavageSpurII" object="$SavageGetsuGate" x="0m" y="0m" z="6km" />
+            <warp object="$PlayerShip" sector="$SavageSpurII"><position value="$Phase8SavagePlayerPos" /><orientation orientation="look_at" refposition="$SavageHighwayExitPos" /></warp>
+            <signal_cue cue="Phase8_StartPlayerCutscene" />
+          </actions>
+        </cue>
+        <cue name="Phase8_StartPlayerCutscene">
+          <conditions><event_cue_signalled /></conditions><delay exact="500ms" />
+          <actions>
+            <play_cutscene result="$Phase8PlayerCutscene" key="'gatefall_s07_phase8_player_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false"><param name="target_player_ship" object="$PlayerShip" /></play_cutscene>
+            <speak actor="player.entity" page="899907" line="701" priority="100" /><signal_cue cue="P8_702" />
+          </actions>
+        </cue>
+        <cue name="P8_702"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="702" priority="100" /><signal_cue cue="P8_703" /></actions></cue>
+        <cue name="P8_703"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="703" priority="100" /><signal_cue cue="P8_704" /></actions></cue>
+        <cue name="P8_704"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="704" priority="100" /><signal_cue cue="P8_705" /></actions></cue>
+        <cue name="P8_705"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="705" priority="100" /><signal_cue cue="P8_706" /></actions></cue>
+        <cue name="P8_706"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="706" priority="100" /><signal_cue cue="P8_707" /></actions></cue>
+        <cue name="P8_707"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="707" priority="100" /><signal_cue cue="Phase8_RevealTerminal" /></actions></cue>
+
+        <cue name="Phase8_RevealTerminal">
+          <conditions><event_cue_signalled /></conditions><delay exact="7s" />
+          <actions>
+            <do_if value="$Phase8PlayerCutscene?"><stop_cutscene cutscene="$Phase8PlayerCutscene" /></do_if>
+            <create_station name="$CinematicXenonTerminal" macro="macro.station_xen_defence_base_01_macro" sector="$SavageSpurII" owner="faction.xenon" constructionplan="'xen_defence'" state="componentstate.operational"><position value="$SavageTerminalPos" /></create_station>
+            <run_actions ref="InitialiseScenarioStation"><param name="Station" value="$CinematicXenonTerminal" /><param name="Faction" value="faction.xenon" /></run_actions>
+            <remove_units object="$CinematicXenonTerminal" category="unitcategory.defence" mk="1" exact="$CinematicXenonTerminal.units.{unitcategory.defence}.count" /><remove_units object="$CinematicXenonTerminal" category="unitcategory.repair" mk="1" exact="$CinematicXenonTerminal.units.{unitcategory.repair}.count" /><remove_units object="$CinematicXenonTerminal" category="unitcategory.transport" mk="1" exact="$CinematicXenonTerminal.units.{unitcategory.transport}.count" /><remove_units object="$CinematicXenonTerminal" category="unitcategory.build" mk="1" exact="$CinematicXenonTerminal.units.{unitcategory.build}.count" />
+            <set_object_name object="$CinematicXenonTerminal" name="{899907,39}" /><set_known object="$CinematicXenonTerminal" known="true" /><set_object_forced_radar_visible object="$CinematicXenonTerminal" visible="true" /><set_value name="$XenonTerminal" exact="$CinematicXenonTerminal" /><set_value name="$Phase8TerminalCritical" exact="true" />
+            <play_cutscene result="$Phase8TerminalCutscene" key="'gatefall_s07_terminal_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false"><param name="target_terminal" object="$CinematicXenonTerminal" /></play_cutscene>
+            <speak actor="player.entity" page="899907" line="715" priority="100" /><signal_cue cue="P8_716" />
+          </actions>
+        </cue>
+        <cue name="P8_716"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="716" priority="100" /><signal_cue cue="P8_717" /></actions></cue>
+        <cue name="P8_717"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="717" priority="100" /><signal_cue cue="P8_718" /></actions></cue>
+        <cue name="P8_718"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="718" priority="100" /><signal_cue cue="Phase8_BeginTerminalAssault" /></actions></cue>
+
+        <cue name="Phase8_BeginTerminalAssault">
+          <conditions><event_cue_signalled /></conditions><delay exact="7s" />
+          <actions>
+            <do_if value="$Phase8TerminalCutscene?"><stop_cutscene cutscene="$Phase8TerminalCutscene" /></do_if>
+            <!-- Replace the cinematic station and create every actual escort only after
+                 the reveal camera has stopped, preventing cinematic invulnerability. -->
+            <set_value name="$Phase8TerminalCritical" exact="false" />
+            <destroy_object object="$CinematicXenonTerminal" explosion="false" />
+            <create_station name="$XenonTerminal" macro="macro.station_xen_defence_base_01_macro" sector="$SavageSpurII" owner="faction.xenon" constructionplan="'xen_defence'" state="componentstate.operational"><position value="$SavageTerminalPos" /></create_station>
+            <run_actions ref="InitialiseScenarioStation"><param name="Station" value="$XenonTerminal" /><param name="Faction" value="faction.xenon" /></run_actions>
+            <remove_units object="$XenonTerminal" category="unitcategory.defence" mk="1" exact="$XenonTerminal.units.{unitcategory.defence}.count" /><remove_units object="$XenonTerminal" category="unitcategory.repair" mk="1" exact="$XenonTerminal.units.{unitcategory.repair}.count" /><remove_units object="$XenonTerminal" category="unitcategory.transport" mk="1" exact="$XenonTerminal.units.{unitcategory.transport}.count" /><remove_units object="$XenonTerminal" category="unitcategory.build" mk="1" exact="$XenonTerminal.units.{unitcategory.build}.count" />
+            <set_object_name object="$XenonTerminal" name="{899907,39}" /><set_known object="$XenonTerminal" known="true" /><set_object_forced_radar_visible object="$XenonTerminal" visible="true" /><set_value name="$Phase8TerminalCritical" exact="true" />
+            <do_all exact="3"><create_ship name="$P8EscortI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$SavageSpurII" groupname="$Phase8TerminalEscorts" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos object="$XenonTerminal" min="6km" max="15km" /><orientation orientation="look_at" refobject="$XenonTerminal" /></create_ship><add_to_group groupname="$ScoreXenonCapitalTargets" object="$P8EscortI" /><set_object_min_hull object="$P8EscortI" exact="0" /><set_object_min_shield object="$P8EscortI" exact="0" /><set_object_commander object="$P8EscortI" commander="$XenonTerminal" assignment="assignment.bombardment" /></do_all>
+            <do_all exact="5"><create_ship name="$P8EscortK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$SavageSpurII" groupname="$Phase8TerminalEscorts" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos object="$XenonTerminal" min="6km" max="16km" /><orientation orientation="look_at" refobject="$XenonTerminal" /></create_ship><add_to_group groupname="$ScoreXenonCapitalTargets" object="$P8EscortK" /><set_object_min_hull object="$P8EscortK" exact="0" /><set_object_min_shield object="$P8EscortK" exact="0" /><set_object_commander object="$P8EscortK" commander="$XenonTerminal" assignment="assignment.bombardment" /></do_all>
+            <set_object_min_hull object="$PlayerShip" exact="0" /><set_object_min_shield object="$PlayerShip" exact="0" /><set_value name="$PlayerShip.pilot.$noattackresponse" exact="false" />
+            <set_value name="$Phase8CombatActive" exact="true" />
+            <set_objective cue="$MissionCue" step="3" action="objective.defeat" group="$Phase8TerminalEscorts" text="{899907,213}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+        <!-- Phase 4 begins with Gamma Epsilon. The first attack involving the
+             player ship permanently switches this assault to White Comet Disco;
+             ordinary combat-state changes cannot return it to the opening track. -->
+        <cue name="Phase8_FirstCombatMusic">
+          <conditions>
+            <check_all>
+              <check_any>
+                <event_attack_started attacker="$PlayerShip" />
+                <event_attack_started target="$PlayerShip" />
+              </check_any>
+              <check_value value="$Phase8CombatActive and not @$ScenarioEnded" />
+            </check_all>
+          </conditions>
+          <actions>
+            <stop_music /><play_music music="'gfc_music_m07_phase8_white_comet_disco'" loop="true" />
+          </actions>
+        </cue>
+        <cue name="Phase8_TerminalEscortsCleared" checkinterval="500ms">
+          <conditions><check_value value="$Phase8CombatActive and not @$ScenarioEnded and $Phase8TerminalEscorts.count == 0" /></conditions>
+          <actions>
+            <set_value name="$Phase8CombatActive" exact="false" /><set_owner object="$XenonTerminal" faction="faction.player" overridenpc="true" />
+            <stop_music /><play_music music="'x4_timelines_ost_09_streamlined_process'" />
+            <set_objective cue="$MissionCue" step="3" action="objective.none" updatebriefing="true" silent="true" />
+            <play_cutscene result="$Phase8PlayerCutscene" key="'gatefall_s07_phase8_player_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false"><param name="target_player_ship" object="$PlayerShip" /></play_cutscene>
+            <speak actor="player.entity" page="899907" line="719" priority="100" /><signal_cue cue="P8_720" />
+          </actions>
+        </cue>
+        <cue name="P8_720"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="720" priority="100" /><signal_cue cue="P8_721" /></actions></cue>
+        <cue name="P8_721"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="721" priority="100" /><signal_cue cue="P8_722" /></actions></cue>
+        <cue name="P8_722"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SiegfriedActor" page="899907" line="722" priority="100" /><signal_cue cue="P8_723" /></actions></cue>
+        <cue name="P8_723"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="723" priority="100" /><signal_cue cue="P8_724" /></actions></cue>
+        <cue name="P8_724"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="724" priority="100" /><signal_cue cue="P8_725" /></actions></cue>
+        <cue name="P8_725"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SiegfriedActor" page="899907" line="725" priority="100" /><signal_cue cue="P8_726" /></actions></cue>
+        <cue name="P8_726"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$HayateActor" page="899907" line="726" priority="100" /><signal_cue cue="P8_727" /></actions></cue>
+        <cue name="P8_727"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="727" priority="100" /><signal_cue cue="P8_728" /></actions></cue>
+        <cue name="P8_728"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="728" priority="100" /><signal_cue cue="P8_729" /></actions></cue>
+        <cue name="P8_729"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="729" priority="100" /><signal_cue cue="P8_730" /></actions></cue>
+        <cue name="P8_730"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="730" priority="100" /><signal_cue cue="Phase8_BeginDefense" /></actions></cue>
+
+        <cue name="Phase8_BeginDefense">
+          <conditions><event_cue_signalled /></conditions><delay exact="7s" />
+          <actions>
+            <do_if value="$Phase8PlayerCutscene?"><stop_cutscene cutscene="$Phase8PlayerCutscene" /></do_if>
+            <stop_music /><play_music music="'x4_timelines_ost_03_duel_of_immortals'" loop="true" />
+            <set_value name="$Phase8DefenseActive" exact="true" /><set_value name="$Phase8DefenseEndTime" exact="player.age + 10min" /><set_value name="$Phase8DefenseNextWaveTime" exact="player.age" />
+            <set_objective cue="$MissionCue" step="4" action="objective.protect" object="$XenonTerminal" text="{899907,214}" endtime="$Phase8DefenseEndTime" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+        <!-- The first wave arrives at minute zero. Advancing an absolute next-wave
+             timestamp before resetting keeps the sequence at 0/2/4/6/8 minutes. -->
+        <cue name="Phase8_DefenseWaveLoop" checkinterval="500ms" instantiate="true">
+          <conditions><check_value value="$Phase8DefenseActive and not @$ScenarioEnded and $Phase8DefenseNextWaveTime lt $Phase8DefenseEndTime and player.age ge $Phase8DefenseNextWaveTime" /></conditions>
+          <actions>
+            <do_if value="$Phase8DefenseActive and not @$ScenarioEnded and @$XenonTerminal.exists">
+              <set_value name="$Phase8DefenseNextWaveTime" operation="add" exact="2min" />
+              <create_position name="$P8WavePos" space="$SavageSpurII" object="$XenonTerminal" x="20km" y="0m" z="20km" />
+              <do_all exact="1"><create_ship name="$P8WaveStationI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$SavageSpurII" groupname="$Phase8DefenseEnemies" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos value="$P8WavePos" min="1km" max="7km" /><orientation orientation="look_at" refobject="$XenonTerminal" /></create_ship><add_to_group groupname="$ScoreXenonCapitalTargets" object="$P8WaveStationI" /><create_order id="'Attack'" object="$P8WaveStationI" default="true"><param name="primarytarget" value="$XenonTerminal" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /><param name="checkrelation" value="false" /></create_order><create_order id="'MoveWait'" object="$P8WaveStationI" immediate="true"><param name="destination" value="[$SavageSpurII, $SavageTerminalPos]" /><param name="precise" value="false" /></create_order></do_all>
+              <do_all exact="2"><create_ship name="$P8WaveStationK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$SavageSpurII" groupname="$Phase8DefenseEnemies" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos value="$P8WavePos" min="1km" max="8km" /><orientation orientation="look_at" refobject="$XenonTerminal" /></create_ship><add_to_group groupname="$ScoreXenonCapitalTargets" object="$P8WaveStationK" /><create_order id="'Attack'" object="$P8WaveStationK" default="true"><param name="primarytarget" value="$XenonTerminal" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /><param name="checkrelation" value="false" /></create_order><create_order id="'MoveWait'" object="$P8WaveStationK" immediate="true"><param name="destination" value="[$SavageSpurII, $SavageTerminalPos]" /><param name="precise" value="false" /></create_order></do_all>
+              <do_all exact="3"><create_ship name="$P8WavePlayerI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$SavageSpurII" groupname="$Phase8DefenseEnemies" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos value="$P8WavePos" min="2km" max="10km" /><orientation orientation="look_at" refobject="$XenonTerminal" /></create_ship><add_to_group groupname="$ScoreXenonCapitalTargets" object="$P8WavePlayerI" /><create_order id="'Attack'" object="$P8WavePlayerI" immediate="true" default="true"><param name="primarytarget" value="$PlayerShip" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /><param name="checkrelation" value="false" /></create_order></do_all>
+              <do_all exact="5"><create_ship name="$P8WavePlayerK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$SavageSpurII" groupname="$Phase8DefenseEnemies" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos value="$P8WavePos" min="2km" max="11km" /><orientation orientation="look_at" refobject="$XenonTerminal" /></create_ship><add_to_group groupname="$ScoreXenonCapitalTargets" object="$P8WavePlayerK" /><create_order id="'Attack'" object="$P8WavePlayerK" immediate="true" default="true"><param name="primarytarget" value="$PlayerShip" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /><param name="checkrelation" value="false" /></create_order></do_all>
+            </do_if>
+          </actions>
+        </cue>
+        <cue name="Phase8_DefenseComplete" checkinterval="500ms">
+          <conditions><check_value value="$Phase8DefenseActive and not @$ScenarioEnded and player.age ge $Phase8DefenseEndTime and @$XenonTerminal.exists and not $XenonTerminal.iswreck" /></conditions>
+          <actions>
+            <set_value name="$Phase8DefenseActive" exact="false" /><set_objective cue="$MissionCue" step="4" action="objective.none" updatebriefing="true" silent="true" />
+            <stop_music /><play_music music="'x4_timelines_ost_07_ashes'" />
+            <disable_travel_mode ship="$PlayerShip" duration="24h" />
+            <set_object_min_hull object="$XenonTerminal" exact="1" /><set_object_min_hull object="$PlayerShip" exact="100" /><set_object_min_shield object="$PlayerShip" exact="100" /><set_value name="$PlayerShip.pilot.$noattackresponse" exact="true" />
+            <create_position name="$Phase8PostDefensePlayerPos" space="$SavageSpurII" object="$XenonTerminal" x="0m" y="0m" z="8km" />
+            <warp object="$PlayerShip" sector="$SavageSpurII"><position value="$Phase8PostDefensePlayerPos" /><orientation orientation="look_at" refobject="$XenonTerminal" /></warp>
+            <play_cutscene result="$Phase8TerminalCutscene" key="'gatefall_s07_terminal_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false"><param name="target_terminal" object="$XenonTerminal" /></play_cutscene>
+            <speak actor="player.entity" page="899907" line="731" priority="100" /><signal_cue cue="P8_732" />
+          </actions>
+        </cue>
+        <cue name="P8_732"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="732" priority="100" /><signal_cue cue="P8_733" /></actions></cue>
+        <cue name="P8_733"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="733" priority="100" /><signal_cue cue="P8_734" /></actions></cue>
+        <cue name="P8_734"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="734" priority="100" /><signal_cue cue="P8_735" /></actions></cue>
+        <cue name="P8_735"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SiegfriedActor" page="899907" line="735" priority="100" /><signal_cue cue="P8_736" /></actions></cue>
+        <cue name="P8_736"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="736" priority="100" /><signal_cue cue="P8_737" /></actions></cue>
+        <cue name="P8_737"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="737" priority="100" /><signal_cue cue="P8_738" /></actions></cue>
+        <cue name="P8_738"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SiegfriedActor" page="899907" line="738" priority="100" /><signal_cue cue="P8_739" /></actions></cue>
+        <cue name="P8_739"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="739" priority="100" /><signal_cue cue="P8_740" /></actions></cue>
+        <cue name="P8_740"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="740" priority="100" /><signal_cue cue="P8_741" /></actions></cue>
+        <cue name="P8_741"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="741" priority="100" /><signal_cue cue="P8_742" /></actions></cue>
+        <cue name="P8_742"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="742" priority="100" /><signal_cue cue="P8_743" /></actions></cue>
+        <cue name="P8_743"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="743" priority="100" /><signal_cue cue="Phase9_Start" /></actions></cue>
+
+        <!-- Phase 5: the jump-in fleet, the crippled Paradigm and the chained
+             Falx/Gladius/spacesuit escape sequence. The legacy Phase9 cue prefix
+             is retained to avoid destabilising the completed escape chain. -->
+        <cue name="Phase9_Start">
+          <conditions><event_cue_signalled /></conditions><delay exact="7s" />
+          <actions>
+            <do_if value="$Phase8TerminalCutscene?"><stop_cutscene cutscene="$Phase8TerminalCutscene" /></do_if>
+            <stop_music /><play_music music="'gatefall_music_age_of_deceivers'" loop="true" />
+            <set_value name="$Phase8TerminalCritical" exact="false" />
+            <!-- The post-defence station was also a cutscene target. Replace it once
+                 more so the Phase 9 Annihilators attack a fully damageable object. -->
+            <destroy_object object="$XenonTerminal" explosion="false" />
+            <create_station name="$Phase9Terminal" macro="macro.station_xen_defence_base_01_macro" sector="$SavageSpurII" owner="faction.player" constructionplan="'xen_defence'" state="componentstate.operational"><position value="$SavageTerminalPos" /></create_station>
+            <run_actions ref="InitialiseScenarioStation"><param name="Station" value="$Phase9Terminal" /><param name="Faction" value="faction.xenon" /></run_actions>
+            <remove_units object="$Phase9Terminal" category="unitcategory.defence" mk="1" exact="$Phase9Terminal.units.{unitcategory.defence}.count" /><remove_units object="$Phase9Terminal" category="unitcategory.repair" mk="1" exact="$Phase9Terminal.units.{unitcategory.repair}.count" /><remove_units object="$Phase9Terminal" category="unitcategory.transport" mk="1" exact="$Phase9Terminal.units.{unitcategory.transport}.count" /><remove_units object="$Phase9Terminal" category="unitcategory.build" mk="1" exact="$Phase9Terminal.units.{unitcategory.build}.count" />
+            <set_object_name object="$Phase9Terminal" name="{899907,39}" /><set_known object="$Phase9Terminal" known="true" /><set_object_forced_radar_visible object="$Phase9Terminal" visible="true" /><set_value name="$XenonTerminal" exact="$Phase9Terminal" />
+            <!-- Only a disposable CPU-ship stand-in exists before the gate shot. The
+                 combat fleet is created after the camera stops so it remains destructible. -->
+            <create_ship name="$P9CinematicCPUShip" macro="macro.ship_tfm_xl_carrier_02_b_macro" sector="$SavageSpurII" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" /></loadout><position value="$SavageCPUPos" /><rotation yaw="19deg" /></create_ship>
+            <generate_loadout result="$P9CinematicCPULoadout" macro="$P9CinematicCPUShip.macro" faction="faction.xenon" level="1.0" variation="0" /><do_if value="$P9CinematicCPULoadout.count"><apply_loadout object="$P9CinematicCPUShip" loadout="$P9CinematicCPULoadout.{1}" /></do_if><set_object_name object="$P9CinematicCPUShip" name="{899907,40}" /><set_known object="$P9CinematicCPUShip" known="true" /><set_object_forced_radar_visible object="$P9CinematicCPUShip" visible="true" /><add_effect object="$P9CinematicCPUShip.zone" effect="'hq_warpin'"><position object="$P9CinematicCPUShip" /></add_effect>
+            <play_cutscene result="$Phase9GateCutscene" key="'gatefall_s07_phase9_gate_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false"><param name="target_gate" object="$SavageGetsuGate" /><param name="target_cpu" object="$P9CinematicCPUShip" /></play_cutscene>
+            <speak actor="player.entity" page="899907" line="801" priority="100" /><signal_cue cue="P9_802" />
+          </actions>
+        </cue>
+        <cue name="P9_802"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="802" priority="100" /><signal_cue cue="P9_803" /></actions></cue>
+        <cue name="P9_803"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="803" priority="100" /><signal_cue cue="P9_804" /></actions></cue>
+        <cue name="P9_804"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="804" priority="100" /><signal_cue cue="Phase9_BeginAsgardEscape" /></actions></cue>
+
+        <cue name="Phase9_BeginAsgardEscape">
+          <conditions><event_cue_signalled /></conditions><delay exact="7s" />
+          <actions>
+            <do_if value="$Phase9GateCutscene?"><stop_cutscene cutscene="$Phase9GateCutscene" /></do_if>
+            <do_if value="@$P9CinematicCPUShip.exists"><destroy_object object="$P9CinematicCPUShip" explosion="false" /></do_if>
+            <do_all exact="3"><create_ship name="$P9StationAnnihilator" macro="macro.ship_kha_xl_battleship_01_a_macro" sector="$SavageSpurII" groupname="$Phase9StationAttackers" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.khaak" tags="tag.commander" /></pilot><loadout><level exact="1.0" /></loadout><safepos object="$XenonTerminal" min="7km" max="14km" /></create_ship><generate_loadout result="$P9StationAnnihilatorLoadout" macro="$P9StationAnnihilator.macro" faction="faction.khaak" level="1.0" variation="0" /><do_if value="$P9StationAnnihilatorLoadout.count"><apply_loadout object="$P9StationAnnihilator" loadout="$P9StationAnnihilatorLoadout.{1}" /></do_if><set_object_name object="$P9StationAnnihilator" name="{899907,41}" /><add_effect object="$P9StationAnnihilator.zone" effect="'hq_warpin'"><position object="$P9StationAnnihilator" /></add_effect><create_order id="'Attack'" object="$P9StationAnnihilator" immediate="true" default="true"><param name="primarytarget" value="$XenonTerminal" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /><param name="checkrelation" value="false" /></create_order></do_all>
+            <do_for_each name="$P9StationScoringTarget" in="$Phase9StationAttackers"><add_to_group groupname="$ScoreXenonCapitalTargets" object="$P9StationScoringTarget" /></do_for_each>
+            <!-- Match scenario 05: use the TFM CPU carrier, then generate and apply its
+                 Xenon loadout explicitly instead of relying on a generic level loadout. -->
+            <create_ship name="$P9CPUShip" macro="macro.ship_tfm_xl_carrier_02_b_macro" sector="$SavageSpurII" groupname="$Phase9GateFleet" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" /></loadout><position value="$SavageCPUPos" /><rotation yaw="19deg" /></create_ship>
+            <generate_loadout result="$P9CPUCombatLoadout" macro="$P9CPUShip.macro" faction="faction.xenon" level="1.0" variation="0" /><do_if value="$P9CPUCombatLoadout.count"><apply_loadout object="$P9CPUShip" loadout="$P9CPUCombatLoadout.{1}" /></do_if><set_object_name object="$P9CPUShip" name="{899907,40}" /><set_object_min_hull object="$P9CPUShip" exact="0" /><set_object_min_shield object="$P9CPUShip" exact="0" /><set_known object="$P9CPUShip" known="true" /><set_object_forced_radar_visible object="$P9CPUShip" visible="true" /><cancel_all_orders object="$P9CPUShip" /><create_order id="'Wait'" object="$P9CPUShip" immediate="true" default="true"><param name="skipalignment" value="true" /></create_order><add_effect object="$P9CPUShip.zone" effect="'hq_warpin'"><position object="$P9CPUShip" /></add_effect>
+            <do_all exact="3"><create_ship name="$P9GateAnnihilator" macro="macro.ship_kha_xl_battleship_01_a_macro" sector="$SavageSpurII" groupname="$Phase9GateFleet" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.khaak" tags="tag.commander" /></pilot><loadout><level exact="1.0" /></loadout><safepos object="$P9CPUShip" min="7km" max="15km" /></create_ship><generate_loadout result="$P9GateAnnihilatorLoadout" macro="$P9GateAnnihilator.macro" faction="faction.khaak" level="1.0" variation="0" /><do_if value="$P9GateAnnihilatorLoadout.count"><apply_loadout object="$P9GateAnnihilator" loadout="$P9GateAnnihilatorLoadout.{1}" /></do_if><set_object_name object="$P9GateAnnihilator" name="{899907,41}" /><set_object_commander object="$P9GateAnnihilator" commander="$P9CPUShip" assignment="assignment.bombardment" /><add_effect object="$P9GateAnnihilator.zone" effect="'hq_warpin'"><position object="$P9GateAnnihilator" /></add_effect></do_all>
+            <do_all exact="5"><create_ship name="$P9GateRavager" macro="macro.ship_kha_l_destroyer_01_a_macro" sector="$SavageSpurII" groupname="$Phase9GateFleet" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.khaak" tags="tag.commander" /></pilot><loadout><level exact="1.0" /></loadout><safepos object="$P9CPUShip" min="6km" max="17km" /></create_ship><generate_loadout result="$P9GateRavagerLoadout" macro="$P9GateRavager.macro" faction="faction.khaak" level="1.0" variation="0" /><do_if value="$P9GateRavagerLoadout.count"><apply_loadout object="$P9GateRavager" loadout="$P9GateRavagerLoadout.{1}" /></do_if><set_object_name object="$P9GateRavager" name="{899907,42}" /><set_object_commander object="$P9GateRavager" commander="$P9CPUShip" assignment="assignment.bombardment" /><add_effect object="$P9GateRavager.zone" effect="'hq_warpin'"><position object="$P9GateRavager" /></add_effect></do_all>
+            <do_all exact="10"><create_ship name="$P9GateM" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$SavageSpurII" groupname="$Phase9GateFleet" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos object="$P9CPUShip" min="4km" max="18km" /></create_ship><set_object_commander object="$P9GateM" commander="$P9CPUShip" assignment="assignment.bombardment" /><add_effect object="$P9GateM.zone" effect="'hq_warpin'"><position object="$P9GateM" /></add_effect></do_all>
+            <do_for_each name="$P9GateScoringCandidate" in="$Phase9GateFleet"><do_if value="$P9GateScoringCandidate.iscapitalship"><add_to_group groupname="$ScoreXenonCapitalTargets" object="$P9GateScoringCandidate" /></do_if></do_for_each>
+            <set_object_min_hull object="$PlayerShip" exact="0" /><set_object_min_shield object="$PlayerShip" exact="0" /><set_value name="$PlayerShip.pilot.$noattackresponse" exact="false" />
+            <set_value name="$Phase9AsgardEscapeActive" exact="true" /><set_value name="$Phase9AsgardEndTime" exact="player.age + 1min" />
+            <set_objective cue="$MissionCue" step="5" action="objective.flyto" object="$SavageGetsuGate" radius="5km" text="{899907,215}" insert="true" updatebriefing="true" />
+          </actions>
+        </cue>
+        <cue name="Phase9_AsgardWaveLoop" checkinterval="500ms">
+          <conditions><check_value value="$Phase9AsgardEscapeActive and not @$ScenarioEnded" /></conditions><delay exact="10s" />
+          <actions>
+            <do_if value="$Phase9AsgardEscapeActive and not @$ScenarioEnded">
+              <create_position name="$P9AsgardWavePos" space="$SavageSpurII" object="$PlayerShip" x="0m" y="0m" z="20km" />
+              <do_all exact="1"><create_ship name="$P9AsgardWaveI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$SavageSpurII" groupname="$Phase9EscapeEnemies" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos value="$P9AsgardWavePos" min="1km" max="4km" /></create_ship><add_to_group groupname="$ScoreXenonCapitalTargets" object="$P9AsgardWaveI" /><add_effect object="$P9AsgardWaveI.zone" effect="'hq_warpin'"><position object="$P9AsgardWaveI" /></add_effect><create_order id="'Attack'" object="$P9AsgardWaveI" immediate="true" default="true"><param name="primarytarget" value="$PlayerShip" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /><param name="checkrelation" value="false" /></create_order></do_all>
+              <do_all exact="2"><create_ship name="$P9AsgardWaveK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$SavageSpurII" groupname="$Phase9EscapeEnemies" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos value="$P9AsgardWavePos" min="1km" max="5km" /></create_ship><add_to_group groupname="$ScoreXenonCapitalTargets" object="$P9AsgardWaveK" /><add_effect object="$P9AsgardWaveK.zone" effect="'hq_warpin'"><position object="$P9AsgardWaveK" /></add_effect><create_order id="'Attack'" object="$P9AsgardWaveK" immediate="true" default="true"><param name="primarytarget" value="$PlayerShip" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /><param name="checkrelation" value="false" /></create_order></do_all>
+              <reset_cue cue="this" />
+            </do_if>
+          </actions>
+        </cue>
+        <cue name="Phase9_EngineDisabled" checkinterval="500ms">
+          <conditions><check_value value="$Phase9AsgardEscapeActive and not @$ScenarioEnded and player.age ge $Phase9AsgardEndTime" /></conditions>
+          <actions>
+            <set_value name="$Phase9AsgardEscapeActive" exact="false" /><set_object_min_hull object="$PlayerShip" exact="1" /><set_playership_throttle value="0" />
+            <stop_music /><play_music music="'x4_timelines_ost_07_ashes'" />
+            <set_object_velocity object="$PlayerShip" constantvel="true"><linear value="vector.[0m, 0m, 0m]" /><angular value="vector.[0m, 0m, 0m]" /></set_object_velocity>
+            <!-- Enter the camera before creating the ambush and escape craft; ships
+                 created beforehand can inherit cinematic damage protection. -->
+            <play_cutscene result="$Phase9EngineCutscene" key="'gatefall_s07_phase9_engine_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false"><param name="target_player_ship" object="$PlayerShip" /></play_cutscene>
+            <create_position name="$P9RearAmbushPos" space="$SavageSpurII" object="$PlayerShip" x="0m" y="0m" z="-5km" />
+            <do_all exact="3"><create_ship name="$P9RearAmbushI" macro="macro.ship_xen_xl_carrier_01_a_macro" sector="$SavageSpurII" groupname="$Phase9EscapeEnemies" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos value="$P9RearAmbushPos" min="500m" max="2km" /></create_ship><add_to_group groupname="$ScoreXenonCapitalTargets" object="$P9RearAmbushI" /><add_effect object="$P9RearAmbushI.zone" effect="'hq_warpin'"><position object="$P9RearAmbushI" /></add_effect><create_order id="'Attack'" object="$P9RearAmbushI" immediate="true" default="true"><param name="primarytarget" value="$PlayerShip" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /><param name="checkrelation" value="false" /></create_order></do_all>
+            <find_object_component groupname="$ParadigmEngines" object="$PlayerShip" class="class.engine" multiple="true" /><destroy_group group="$ParadigmEngines" explosion="true" />
+            <find_dockingbay name="$ParadigmInternalDock" object="$PlayerShip" checkoperational="false"><match_dock size="tag.dock_m" storage="true" /></find_dockingbay>
+            <do_if value="$ParadigmInternalDock?"><create_ship name="$Falx" dock="$ParadigmInternalDock" macro="macro.ship_ter_m_frigate_01_a_macro" capturable="false" commandeerable="false"><owner exact="faction.player" overridenpc="true" /><loadout><level exact="1.0" faction="faction.terran" /></loadout></create_ship></do_if>
+            <do_else><create_ship name="$Falx" macro="macro.ship_ter_m_frigate_01_a_macro" sector="$SavageSpurII" capturable="false" commandeerable="false"><owner exact="faction.player" overridenpc="true" /><loadout><level exact="1.0" faction="faction.terran" /></loadout><position object="$PlayerShip" x="1km" y="0m" z="2km" /><rotation value="$PlayerShip.rotation" /></create_ship></do_else>
+            <set_object_name object="$Falx" name="{899907,43}" /><set_object_min_hull object="$Falx" exact="0" /><set_object_min_shield object="$Falx" exact="0" /><set_value name="$FalxFailureCritical" exact="true" />
+            <speak actor="player.entity" page="899907" line="805" priority="100" /><signal_cue cue="P9_806" />
+          </actions>
+          <cues>
+            <cue name="Phase9_RetrieveFalx" ref="md.LIB_Generic.RetrieveShip"><param name="Ship" value="$Falx" /><param name="SignalCue_Retrieved" value="Phase9_FalxRetrieved" /><param name="RetrieveInterval" value="5s" /></cue>
+            <cue name="Phase9_FalxRetrieved" instantiate="true"><conditions><event_cue_signalled /></conditions><actions><set_value name="$FalxWasRetrieved" exact="true" /></actions></cue>
+          </cues>
+        </cue>
+        <cue name="P9_806"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="806" priority="100" /><signal_cue cue="P9_807" /></actions></cue>
+        <cue name="P9_807"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="807" priority="100" /><signal_cue cue="P9_808" /></actions></cue>
+        <cue name="P9_808"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="808" priority="100" /><signal_cue cue="P9_809" /></actions></cue>
+        <cue name="P9_809"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="809" priority="100" /><signal_cue cue="P9_810" /></actions></cue>
+        <cue name="P9_810"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="810" priority="100" /><signal_cue cue="P9_811" /></actions></cue>
+        <cue name="P9_811"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="811" priority="100" /><signal_cue cue="P9_812" /></actions></cue>
+        <cue name="P9_812"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><stop_music /><play_music music="'gfc_music_m07_phase9_mirai_e_no_houkou'" loop="true" /><speak actor="player.entity" page="899907" line="812" priority="100" /><set_value name="$Phase9MemoryBlurActive" exact="true" /><set_value name="$Phase9MemoryBlurNextTime" exact="player.age + 10s" /><signal_cue cue="P9_813" /></actions></cue>
+        <cue name="P9_813"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="813" priority="100" /><signal_cue cue="P9_814" /></actions></cue>
+        <cue name="P9_814"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="814" priority="100" /><signal_cue cue="Phase9_BoardFalx" /></actions></cue>
+        <cue name="Phase9_MemoryBlurLoop" checkinterval="250ms" instantiate="true">
+          <conditions><check_value value="$Phase9MemoryBlurActive and not @$ScenarioEnded and $Phase9MemoryBlurNextTime gt 0 and player.age ge $Phase9MemoryBlurNextTime" /></conditions>
+          <actions><set_value name="$Phase9MemoryBlurNextTime" exact="player.age + 10s" /><blur_screen strength="5" duration="1s" holdtime="1s" /></actions>
+        </cue>
+
+        <cue name="Phase9_BoardFalx">
+          <conditions><event_cue_signalled /></conditions><delay exact="7s" />
+          <actions>
+            <do_if value="$Phase9EngineCutscene?"><stop_cutscene cutscene="$Phase9EngineCutscene" /></do_if>
+            <!-- Retrieval runs throughout the dialogue. The final warp guarantees a
+                 free-flight start even if the external M pad was temporarily blocked. -->
+            <warp object="$Falx" sector="$SavageSpurII"><position object="$PlayerShip" x="1km" y="0m" z="2km" /><orientation orientation="look_at" refobject="$SavageGetsuGate" /></warp>
+            <teleport_player object="$Falx" instant="true" force="true" control="true" /><set_playership_throttle value="0" />
+            <set_value name="$Phase9MemoryBlurActive" exact="false" /><set_value name="$Phase9MemoryBlurNextTime" exact="0" /><blur_screen strength="0" duration="1s" /><set_value name="$ParadigmFailureCritical" exact="false" /><set_object_min_hull object="$PlayerShip" exact="0" /><set_object_min_shield object="$PlayerShip" exact="0" />
+            <disable_travel_mode ship="$Falx" duration="0s" />
+            <set_value name="$Phase9FalxEscapeActive" exact="true" /><set_value name="$Phase9FalxEndTime" exact="player.age + 30s" />
+            <set_objective cue="$MissionCue" step="5" action="objective.flyto" object="$SavageGetsuGate" radius="5km" text="{899907,216}" updatebriefing="true" />
+          </actions>
+        </cue>
+        <cue name="Phase9_FalxWaveLoop" checkinterval="250ms">
+          <conditions><check_value value="$Phase9FalxEscapeActive and not @$ScenarioEnded and (player.age + 10s lt $Phase9FalxEndTime)" /></conditions><delay exact="10s" />
+          <actions><do_if value="$Phase9FalxEscapeActive and not @$ScenarioEnded"><create_position name="$P9FalxWavePos" space="$SavageSpurII" object="$Falx" x="0m" y="0m" z="20km" /><do_all exact="5"><create_ship name="$P9FalxWavePE" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$SavageSpurII" groupname="$Phase9EscapeEnemies" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos value="$P9FalxWavePos" min="500m" max="4km" /></create_ship><add_effect object="$P9FalxWavePE.zone" effect="'hq_warpin'"><position object="$P9FalxWavePE" /></add_effect><create_order id="'Attack'" object="$P9FalxWavePE" immediate="true" default="true"><param name="primarytarget" value="$Falx" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /><param name="checkrelation" value="false" /></create_order></do_all><do_all exact="10"><create_ship name="$P9FalxWaveM" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$SavageSpurII" groupname="$Phase9EscapeEnemies" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos value="$P9FalxWavePos" min="500m" max="5km" /></create_ship><add_effect object="$P9FalxWaveM.zone" effect="'hq_warpin'"><position object="$P9FalxWaveM" /></add_effect><create_order id="'Attack'" object="$P9FalxWaveM" immediate="true" default="true"><param name="primarytarget" value="$Falx" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="true" /><param name="checkrelation" value="false" /></create_order></do_all><reset_cue cue="this" /></do_if></actions>
+        </cue>
+        <cue name="Phase9_SwitchToGladius" checkinterval="250ms">
+          <conditions><check_value value="$Phase9FalxEscapeActive and not @$ScenarioEnded and player.age ge $Phase9FalxEndTime" /></conditions>
+          <actions>
+            <set_value name="$Phase9FalxEscapeActive" exact="false" /><set_object_hull object="$Falx" exact="1" /><set_object_min_hull object="$Falx" exact="1" /><set_playership_throttle value="0" />
+            <set_object_velocity object="$Falx" constantvel="true"><linear value="vector.[0m, 0m, 0m]" /><angular value="vector.[0m, 0m, 0m]" /></set_object_velocity>
+            <create_ship name="$Gladius" macro="macro.ship_ter_s_heavyfighter_01_a_macro" sector="$SavageSpurII" capturable="false" commandeerable="false"><owner exact="faction.player" overridenpc="true" /><loadout><level exact="1.0" faction="faction.terran" /></loadout><position object="$Falx" x="0m" y="0m" z="1km" /><rotation value="$Falx.rotation" /></create_ship>
+            <set_object_name object="$Gladius" name="{899907,44}" /><set_object_min_hull object="$Gladius" exact="0" /><set_object_min_shield object="$Gladius" exact="0" /><set_value name="$GladiusFailureCritical" exact="true" /><teleport_player object="$Gladius" instant="true" force="true" control="true" /><set_playership_throttle value="0" /><set_value name="$FalxFailureCritical" exact="false" /><set_object_min_hull object="$Falx" exact="0" /><set_object_min_shield object="$Falx" exact="0" />
+            <blur_screen strength="0" duration="1s" /><set_value name="$Phase9GladiusEscapeActive" exact="true" /><set_value name="$Phase9GladiusBlurNextTime" exact="player.age + 10s" />
+            <set_objective cue="$MissionCue" step="5" action="objective.flyto" object="$SavageGetsuGate" radius="5km" text="{899907,217}" updatebriefing="true" />
+            <speak actor="player.entity" page="899907" line="819" priority="100" /><signal_cue cue="P9_820" />
+          </actions>
+        </cue>
+        <cue name="P9_820"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="820" priority="100" /><signal_cue cue="P9_821" /></actions></cue>
+        <cue name="P9_821"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="821" priority="100" /></actions></cue>
+        <cue name="Phase9_GladiusBlurLoop" checkinterval="250ms" instantiate="true"><conditions><check_value value="$Phase9GladiusEscapeActive and not @$ScenarioEnded and $Phase9GladiusBlurNextTime gt 0 and player.age ge $Phase9GladiusBlurNextTime" /></conditions><actions><set_value name="$Phase9GladiusBlurNextTime" exact="player.age + 10s" /><blur_screen strength="7" duration="1s" holdtime="1s" /></actions></cue>
+        <cue name="Phase9_GateReached" checkinterval="250ms">
+          <conditions><check_value value="$Phase9GladiusEscapeActive and not @$ScenarioEnded and player.ship == $Gladius and $Gladius.distanceto.{$SavageGetsuGate} le 5km" /></conditions>
+          <actions>
+            <set_value name="$Phase9GladiusEscapeActive" exact="false" /><set_value name="$Phase9GladiusBlurNextTime" exact="0" /><blur_screen strength="0" duration="1s" /><set_value name="$GladiusFailureCritical" exact="false" /><set_object_min_hull object="$Gladius" exact="1" /><set_playership_throttle value="0" />
+            <set_object_velocity object="$Gladius" constantvel="true"><linear value="vector.[0m, 0m, 0m]" /><angular value="vector.[0m, 0m, 0m]" /></set_object_velocity>
+            <do_all exact="5"><create_ship name="$GateReachedPE" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$SavageSpurII" groupname="$Phase9EscapeEnemies" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos object="$Gladius" min="2km" max="5km" /></create_ship><add_effect object="$GateReachedPE.zone" effect="'hq_warpin'"><position object="$GateReachedPE" /></add_effect><create_order id="'Attack'" object="$GateReachedPE" immediate="true" default="true"><param name="primarytarget" value="$Gladius" /><param name="pursuetargets" value="true" /><param name="allowothertargets" value="false" /><param name="checkrelation" value="false" /></create_order></do_all>
+            <set_objective cue="$MissionCue" step="5" action="objective.none" updatebriefing="true" silent="true" />
+            <speak actor="player.entity" page="899907" line="818" priority="100" /><signal_cue cue="P9_822" />
+          </actions>
+        </cue>
+        <cue name="P9_822"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="822" priority="100" /><signal_cue cue="Phase9_EjectToSpacesuit" /></actions></cue>
+        <cue name="Phase9_EjectToSpacesuit">
+          <conditions><event_cue_signalled /></conditions><delay exact="7s" />
+          <actions>
+            <create_ship name="$EscapeSuit" macro="macro.ship_arg_xs_spacesuit_01_a_macro" sector="$SavageSpurII" capturable="false" commandeerable="false"><owner exact="faction.player" overridenpc="true" /><position object="$Gladius" x="0m" y="0m" z="200m" /><rotation value="$Gladius.rotation" /></create_ship>
+            <!-- The final spacesuit passage is narrative-only. Lock its structure at
+                 full strength before transferring control so stray Xenon fire cannot
+                 interrupt the closing dialogue or turn the intended ending into a failure. -->
+            <set_object_hull object="$EscapeSuit" exact="100" /><set_object_min_hull object="$EscapeSuit" exact="100" />
+            <teleport_player object="$EscapeSuit" force="true" instant="true" control="true" /><set_owner object="$Gladius" faction="faction.ownerless" overridenpc="true" />
+            <do_if value="@$Falx.exists"><destroy_object object="$Falx" explosion="true" /></do_if>
+            <speak actor="player.entity" page="899907" line="823" priority="100" /><signal_cue cue="P9_824" />
+          </actions>
+        </cue>
+        <cue name="P9_824"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="824" priority="100" /><signal_cue cue="Phase9_FinalBlur" /></actions></cue>
+        <cue name="Phase9_FinalBlur"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><blur_screen strength="10" duration="3s" /><signal_cue cue="P9_825" /></actions></cue>
+        <cue name="P9_825"><conditions><event_cue_signalled /></conditions><delay exact="3s" /><actions><speak actor="$SumikaActor" page="899907" line="825" priority="100" /><signal_cue cue="P9_826" /></actions></cue>
+        <cue name="P9_826"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="826" priority="100" /><signal_cue cue="P9_827" /></actions></cue>
+        <cue name="P9_827"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="827" priority="100" /><signal_cue cue="P9_828" /></actions></cue>
+        <cue name="P9_828"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><stop_music /><play_music music="'music_soundtrack_timelines_dragonfyre_outro'" /><speak actor="$SumikaActor" page="899907" line="828" priority="100" /><signal_cue cue="P9_829" /></actions></cue>
+        <cue name="P9_829"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="829" priority="100" /><signal_cue cue="Phase9_ReturnToGetsu" /></actions></cue>
+        <cue name="Phase9_ReturnToGetsu"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><create_position name="$Phase9GetsuExitPos" space="$GetsuFune" object="$GetsuGateC" x="0m" y="0m" z="2km" /><warp object="$EscapeSuit" sector="$GetsuFune"><position value="$Phase9GetsuExitPos" /><orientation orientation="look_at" refobject="$GetsuGateC" /></warp><signal_cue cue="Phase10_Start" /></actions></cue>
+
+        <!-- Phase 10: place the player in a persistent TER crew-quarters interior,
+             then let the exterior station shot carry the final conversation. -->
+        <cue name="Phase10_Start">
+          <conditions><event_cue_signalled /></conditions><delay exact="1s" />
+          <actions>
+            <stop_music /><play_music music="'x4_timelines_ost_05_circular_triangle'" />
+            <leave_control_position />
+            <signal_cue cue="Phase10_PlaceInterior" />
+          </actions>
+        </cue>
+        <cue name="Phase10_PlaceInterior">
+          <conditions><event_cue_signalled /></conditions><delay exact="100ms" />
+          <actions>
+            <add_actor_to_room actor="player.entity" object="$EarthCrewQuartersRoom"><position x="0m" y="0m" z="0m" space="$EarthCrewQuartersRoom" /></add_actor_to_room>
+            <add_actor_to_room actor="$CommanderActor" object="$EarthCrewQuartersRoom"><position x="2m" y="0m" z="2m" space="$EarthCrewQuartersRoom" /></add_actor_to_room>
+            <add_actor_to_room actor="$SumikaActor" object="$EarthCrewQuartersRoom"><position x="-2m" y="0m" z="2m" space="$EarthCrewQuartersRoom" /></add_actor_to_room>
+            <blur_screen strength="0" duration="1s" />
+            <play_cutscene result="$StationCutscene" key="'gatefall_s07_station_memory_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false"><param name="target_station" object="$EarthStation" /></play_cutscene>
+            <speak actor="$CommanderActor" page="899907" line="901" priority="100" /><signal_cue cue="P10_902" />
+          </actions>
+        </cue>
+        <cue name="P10_902"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="902" priority="100" /><signal_cue cue="P10_903" /></actions></cue>
+        <cue name="P10_903"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="903" priority="100" /><signal_cue cue="P10_904" /></actions></cue>
+        <cue name="P10_904"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="904" priority="100" /><signal_cue cue="P10_905" /></actions></cue>
+        <cue name="P10_905"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="905" priority="100" /><signal_cue cue="P10_906" /></actions></cue>
+        <cue name="P10_906"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="906" priority="100" /><signal_cue cue="P10_907" /></actions></cue>
+        <cue name="P10_907"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="907" priority="100" /><signal_cue cue="P10_908" /></actions></cue>
+        <cue name="P10_908"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="908" priority="100" /><signal_cue cue="P10_909" /></actions></cue>
+        <cue name="P10_909"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="909" priority="100" /><signal_cue cue="P10_910" /></actions></cue>
+        <cue name="P10_910"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="910" priority="100" /><signal_cue cue="P10_911" /></actions></cue>
+        <cue name="P10_911"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="911" priority="100" /><signal_cue cue="P10_912" /></actions></cue>
+        <cue name="P10_912"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="player.entity" page="899907" line="912" priority="100" /><signal_cue cue="P10_913" /></actions></cue>
+        <cue name="P10_913"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$SumikaActor" page="899907" line="913" priority="100" /><signal_cue cue="P10_914" /></actions></cue>
+        <cue name="P10_914"><conditions><event_cue_signalled /></conditions><delay exact="7s" /><actions><speak actor="$CommanderActor" page="899907" line="914" priority="100" /><signal_cue cue="ScenarioComplete" /></actions></cue>
+
+        <cue name="ScenarioComplete">
+          <conditions><event_cue_signalled /></conditions><delay exact="7s" />
+          <actions>
+            <do_if value="$StationCutscene?"><stop_cutscene cutscene="$StationCutscene" /></do_if><set_value name="$ScenarioEnded" exact="true" /><set_value name="$Phase8CombatActive" exact="false" /><set_value name="$Phase8DefenseActive" exact="false" /><set_value name="$Phase9AsgardEscapeActive" exact="false" /><set_value name="$Phase9FalxEscapeActive" exact="false" /><set_value name="$Phase9GladiusEscapeActive" exact="false" /><blur_screen strength="0" duration="0s" /><stop_music /><remove_mission cue="$MissionCue" type="completed" /><show_notification text="{899907,1001}" sound="notification_positive" />
+            <!-- Kill and elapsed-time totals remain live until this final cue. -->
+            <set_value name="$ScenarioDuration" exact="player.age - $ScenarioStartTime" />
+            <set_value name="$ScoreXenonCapitalShips" exact="$XenonCapitalShipsDestroyed * 5" />
+            <!-- 30 minutes or less = 100; 80 minutes or more = 0; linear and rounded in between. -->
+            <set_value name="$ScoreTime" exact="0" />
+            <do_if value="$ScenarioDuration le 1800s"><set_value name="$ScoreTime" exact="100" /></do_if>
+            <do_elseif value="$ScenarioDuration lt 4800s"><set_value name="$ScoreTime" exact="((((4800s - $ScenarioDuration)f * 100.0 / 3000.0) + 0.5)i)" /></do_elseif>
+            <set_value name="$FinalScore" exact="$ScoreXenonCapitalShips + $ScoreTime" />
+            <set_userdata name="'gatefall_scenario_07_completed'" value="1" />
+            <set_value name="$ResultData" exact="table[]" /><set_value name="$ResultData.$PlayerDied" exact="false" /><set_value name="$ResultData.$Score" exact="$FinalScore" />
+            <add_scenario_stat id="'gatefall_scenario_07_xenon_capital_kills'" name="{899907,1005}" description="{899907,1006}" uivalue="$XenonCapitalShipsDestroyed" score="$ScoreXenonCapitalShips" maxscore="480" />
+            <add_scenario_stat id="'gatefall_scenario_07_duration'" name="{899907,1011}" description="{899907,1012}" uivalue="$ScenarioDuration.formatted.default" score="$ScoreTime" maxscore="100" />
+            <add_scenario_stat id="'gatefall_scenario_07_complete'" name="{899907,1013}" description="{899907,1014}" uivalue="$FinalScore" score="$FinalScore" maxscore="580" />
+            <signal_cue cue="ScenarioShowResults" />
+          </actions>
+        </cue>
+        <cue name="ScenarioShowResults"><conditions><event_cue_signalled /></conditions><delay exact="1s" /><cues><cue name="Finished_Ref" ref="md.Gatefall_Lib_Scenario.ScenarioFinished"><param name="ResultData" value="$ResultData" /></cue></cues></cue>
+
+        <cue name="ScenarioFailure" instantiate="true">
+          <conditions><event_cue_signalled /><check_value value="not @$ScenarioEnded" /></conditions>
+          <actions><set_value name="$ScenarioEnded" exact="true" /><set_value name="$Phase6Active" exact="false" /><set_value name="$Phase8CombatActive" exact="false" /><set_value name="$Phase8DefenseActive" exact="false" /><set_value name="$Phase9AsgardEscapeActive" exact="false" /><set_value name="$Phase9FalxEscapeActive" exact="false" /><set_value name="$Phase9GladiusEscapeActive" exact="false" /><blur_screen strength="0" duration="0s" /><stop_music /><remove_mission cue="$MissionCue" type="failed" /><show_notification text="{899907,1003}" sound="notification_negative" /><set_value name="$ResultData" exact="table[]" /><set_value name="$ResultData.$PlayerDied" exact="event.param == 'player'" /><set_value name="$ResultData.$Score" exact="0" /><add_scenario_stat id="'gatefall_scenario_07_failed'" name="{899907,1003}" description="{899907,1004}" uivalue="{1001,2618}" score="0" maxscore="1" /></actions>
+          <cues><cue name="Failed_Ref" ref="md.Gatefall_Lib_Scenario.ScenarioFinished"><param name="ResultData" value="$ResultData" /></cue></cues>
+        </cue>
+        <cue name="PlayerShipDestroyed"><conditions><event_object_destroyed object="$PlayerShip" /><check_value value="$ParadigmFailureCritical and not @$ScenarioEnded" /></conditions><actions><signal_cue_instantly cue="ScenarioFailure" param="'player'" /></actions></cue>
+        <cue name="FalxDestroyed" checkinterval="250ms"><conditions><check_value value="$FalxFailureCritical and not @$ScenarioEnded and (not @$Falx.exists or $Falx.iswreck)" /></conditions><actions><signal_cue_instantly cue="ScenarioFailure" param="'falx'" /></actions></cue>
+        <cue name="GladiusDestroyed" checkinterval="250ms"><conditions><check_value value="$GladiusFailureCritical and not @$ScenarioEnded and (not @$Gladius.exists or $Gladius.iswreck)" /></conditions><actions><signal_cue_instantly cue="ScenarioFailure" param="'gladius'" /></actions></cue>
+        <cue name="Phase8TerminalDestroyed" checkinterval="500ms"><conditions><check_value value="$Phase8TerminalCritical and not @$ScenarioEnded and (not @$XenonTerminal.exists or $XenonTerminal.iswreck or $XenonTerminal.hullpercentage le 0)" /></conditions><actions><signal_cue_instantly cue="ScenarioFailure" param="'terminal'" /></actions></cue>
+      </cues>
+    </cue>
+  </cues>
+</mdscript>

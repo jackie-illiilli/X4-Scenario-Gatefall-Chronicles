@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s07_getsu_memory_cutscene" />
+  <environments>
+    <environment_implicit name="scenezone" zone="@auto:target_domel" />
+    <object_group name="targets">
+      <reference object="target_domel" /><reference object="target_sidenia" />
+      <reference object="target_xenon_i" /><reference object="target_player_ship" />
+    </object_group>
+  </environments>
+  <presentation>
+    <actions>
+      <sequence name="Main" start="0">
+        <shot name="DomelFleet" environment="scenezone" duration="24000">
+          <camera_orbit reference="target_domel" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="8500" angle="-35" elevation="13" />
+            <end distance="5600" angle="28" elevation="8" time="23500" />
+          </camera_orbit>
+        </shot>
+        <shot name="Sidenia" environment="scenezone" duration="7000">
+          <camera_orbit reference="target_sidenia" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="6800" angle="-20" elevation="9" />
+            <end distance="4700" angle="12" elevation="6" time="6500" />
+          </camera_orbit>
+        </shot>
+        <shot name="XenonArrival" environment="scenezone" duration="8000">
+          <camera_orbit reference="target_xenon_i" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="7900" angle="-26" elevation="12" />
+            <end distance="5200" angle="18" elevation="7" time="7500" />
+          </camera_orbit>
+        </shot>
+        <shot name="Paradigm" environment="scenezone" duration="28000">
+          <camera_orbit reference="target_player_ship" orient_to="object" interpolation="smooth" cycle="none">
+            <begin distance="7600" angle="-22" elevation="10" />
+            <end distance="4300" angle="30" elevation="5" time="27500" />
+          </camera_orbit>
+        </shot>
+      </sequence>
+    </actions>
+  </presentation>
+</cutscene>

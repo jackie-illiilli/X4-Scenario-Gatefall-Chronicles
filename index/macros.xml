@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <index>
   <entry name="ship_par_m_corvette_gatefall_bomber_01_macro" value="extensions\gatefall_chronicles\assets\units\size_m\macros\ship_par_m_corvette_gatefall_bomber_01_macro" />
+  <entry name="ship_atf_xl_battleship_gatefall_high_mobility_01_macro" value="extensions\gatefall_chronicles\assets\units\size_xl\macros\ship_atf_xl_battleship_gatefall_high_mobility_01_macro" />
+  <entry name="weapon_atf_xl_battleship_gatefall_experimental_01_mk1_macro" value="extensions\gatefall_chronicles\assets\props\WeaponSystems\capital\macros\weapon_atf_xl_battleship_gatefall_experimental_01_mk1_macro" />
   <entry name="missile_gen_s_torpedo_gatefall_experimental_heavy_mk1_macro" value="extensions\gatefall_chronicles\assets\props\WeaponSystems\missile\macros\missile_gen_s_torpedo_gatefall_experimental_heavy_mk1_macro" />
   <entry name="missile_gen_s_guided_gatefall_experimental_heavy_mk1_macro" value="extensions\gatefall_chronicles\assets\props\WeaponSystems\missile\macros\missile_gen_s_guided_gatefall_experimental_heavy_mk1_macro" />
   <entry name="gatefall_scenario_01_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_01_galaxy_macro.xml" />
@@ -21,4 +23,5 @@
   <entry name="gatefall_scenario_05_phase7_cluster_48_sector001_macro" value="extensions\gatefall_chronicles\maps\gatefall_scenario_05_phase7_getsu_fune_macro.xml" />
   <entry name="gatefall_scenario_05_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_05_test_galaxy_macro.xml" />
   <entry name="gatefall_scenario_06_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_06_galaxy_macro.xml" />
+  <entry name="gatefall_scenario_07_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_07_galaxy_macro.xml" />
 </index>

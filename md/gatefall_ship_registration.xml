@@ -27,5 +27,27 @@
         <add_encyclopedia_entry type="missiletypes" item="'missile_gen_s_guided_gatefall_experimental_heavy_mk1_macro'" />
       </actions>
     </cue>
+
+    <!-- Separate cue so existing saves can discover the newly added Asgard variant. -->
+    <cue name="Register_High_Mobility_Asgard" version="1">
+      <conditions>
+        <event_cue_signalled cue="md.Setup.Start" />
+      </conditions>
+      <delay exact="1ms" />
+      <actions>
+        <add_encyclopedia_entry type="shiptypes_xl" item="'ship_atf_xl_battleship_gatefall_high_mobility_01_macro'" />
+      </actions>
+    </cue>
+
+    <!-- Separate cue so existing saves can discover the experimental main battery. -->
+    <cue name="Register_Experimental_ATF_Main_Battery" version="1">
+      <conditions>
+        <event_cue_signalled cue="md.Setup.Start" />
+      </conditions>
+      <delay exact="1ms" />
+      <actions>
+        <add_encyclopedia_entry type="weapons_lasers" item="'weapon_atf_xl_battleship_gatefall_experimental_01_mk1_macro'" />
+      </actions>
+    </cue>
   </cues>
 </mdscript>
