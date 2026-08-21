@@ -643,4 +643,49 @@
       <thruster macro="thruster_gen_xl_allround_01_mk3_macro" />
     </virtualmacros>
   </loadout>
+
+  <!-- Scenario 08 Paradox: baseline Asgard hull with the experimental high-dissipation gun. -->
+  <loadout id="gatefall_scenario_08_paradox" macro="ship_atf_xl_battleship_01_a_macro">
+    <macros>
+      <engine macro="engine_ter_xl_travel_01_mk1_macro" path="../con_engine_01" />
+      <weapon macro="weapon_atf_xl_battleship_gatefall_experimental_01_mk1_macro" path="../con_weapon_extralarge_01" />
+      <weapon macro="weapon_ter_l_destroyer_01_mk1_macro" path="../con_weapon_large_01" />
+      <weapon macro="weapon_ter_l_destroyer_01_mk1_macro" path="../con_weapon_large_02" />
+      <shield macro="shield_ter_xl_standard_01_mk2_macro" path="../con_shieldgen_xl_01" />
+      <shield macro="shield_ter_xl_standard_01_mk2_macro" path="../con_shieldgen_xl_02" />
+      <shield macro="shield_ter_xl_standard_01_mk2_macro" path="../con_shieldgen_xl_03" />
+      <shield macro="shield_ter_xl_standard_01_mk2_macro" path="../con_shieldgen_xl_04" />
+    </macros>
+    <groups>
+      <turrets macro="turret_ter_l_beam_01_mk1_macro" group="group_front_up_left_1" exact="2" weaponmode="attackall" />
+      <turrets macro="turret_ter_l_beam_01_mk1_macro" group="group_front_up_left_2" exact="2" weaponmode="attackall" />
+      <turrets macro="turret_ter_l_beam_01_mk1_macro" group="group_front_up_right_1" exact="2" weaponmode="attackall" />
+      <turrets macro="turret_ter_l_beam_01_mk1_macro" group="group_front_up_right_2" exact="2" weaponmode="attackall" />
+      <turrets macro="turret_ter_l_beam_01_mk1_macro" group="group_front_down_left_1" exact="2" weaponmode="attackall" />
+      <turrets macro="turret_ter_l_beam_01_mk1_macro" group="group_front_down_left_2" exact="2" weaponmode="attackall" />
+      <turrets macro="turret_ter_l_beam_01_mk1_macro" group="group_front_down_right_1" exact="2" weaponmode="attackall" />
+      <turrets macro="turret_ter_l_beam_01_mk1_macro" group="group_front_down_right_2" exact="2" weaponmode="attackall" />
+      <turrets macro="turret_ter_m_beam_02_mk1_macro" group="group_mid_up_left" exact="2" weaponmode="attackall" />
+      <turrets macro="turret_ter_m_beam_02_mk1_macro" group="group_mid_up_right" exact="2" weaponmode="attackall" />
+      <turrets macro="turret_ter_m_beam_02_mk1_macro" group="group_mid_down_mid" exact="2" weaponmode="attackall" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" group="group_front_up_left_1" exact="4" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" group="group_front_up_left_2" exact="4" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" group="group_front_up_right_1" exact="4" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" group="group_front_up_right_2" exact="4" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" group="group_front_down_left_1" exact="4" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" group="group_front_down_left_2" exact="4" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" group="group_front_down_right_1" exact="4" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" group="group_front_down_right_2" exact="4" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" group="group_mid_up_left" exact="2" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" group="group_mid_up_right" exact="2" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" group="group_mid_down_mid" exact="2" />
+      <shields macro="shield_ter_m_standard_02_mk3_macro" group="group_back_mid_down" exact="4" />
+    </groups>
+    <ammunition><unit macro="ship_gen_xs_repairdrone_01_a_macro" exact="20" /></ammunition>
+    <software>
+      <software ware="software_dockmk2" /><software ware="software_flightassistmk1" />
+      <software ware="software_scannerlongrangemk2" /><software ware="software_scannerobjectmk2" /><software ware="software_targetmk1" />
+    </software>
+    <virtualmacros><thruster macro="thruster_gen_xl_allround_01_mk3_macro" /></virtualmacros>
+  </loadout>
 </loadouts>

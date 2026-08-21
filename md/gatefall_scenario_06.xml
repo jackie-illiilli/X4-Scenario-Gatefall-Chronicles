@@ -1049,10 +1049,10 @@
                 <loadout ref="gatefall_scenario_02_cerberus_bombardment" /><safepos object="$RaynaLeader" min="1km" max="3km" /><rotation yaw="210deg" />
               </create_ship>
               <set_object_name object="$EightySixEscort" name="{899906,51}" />
-              <set_object_commander object="$EightySixEscort" commander="$RaynaLeader" assignment="assignment.bombardment" />
+               <set_object_commander object="$EightySixEscort" commander="$RaynaLeader" assignment="assignment.bombardment" />
               <append_to_list name="$EightySixShips" exact="$EightySixEscort" />
-            </do_all>
-            <speak actor="$UnknownSignalActor" page="899906" line="591" priority="100" /><signal_cue cue="Phase3_Line592" />
+             </do_all>
+             <speak actor="$UnknownSignalActor" page="899906" line="591" priority="100" /><signal_cue cue="Phase3_Line592" />
           </actions>
         </cue>
         <cue name="Phase3_Line592"><conditions><event_cue_signalled /></conditions><delay exact="6s" /><actions><speak actor="$RaynaActor" page="899906" line="592" priority="100" /><signal_cue cue="Phase3_Line593" /></actions></cue>
@@ -1279,7 +1279,7 @@
               </do_if>
             </do_for_each>
             <do_if value="$RaynaLeader.commander"><remove_object_commander object="$RaynaLeader" /></do_if>
-            <set_object_commander object="$RaynaLeader" commander="$Shudeg" assignment="assignment.bombardment" />
+            <set_object_commander object="$RaynaLeader" commander="$Shudeg" assignment="assignment.defence" />
             <do_for_each name="$Phase3VF31Resupply" in="$AllVF31">
               <set_object_shield object="$Phase3VF31Resupply" exact="100" />
             </do_for_each>
@@ -1520,8 +1520,8 @@
             <do_all exact="3"><create_ship name="$Phase5Annihilator" macro="macro.ship_kha_xl_battleship_01_a_macro" sector="$Flashpoint" groupname="$Phase5CPUEscort" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.khaak" tags="tag.commander" /></pilot><loadout><level exact="1.0" /></loadout><safepos object="$CPUShip" min="8km" max="16km" /></create_ship><generate_loadout result="$Phase5AnnihilatorLoadout" macro="$Phase5Annihilator.macro" faction="faction.khaak" level="1.0" variation="0" /><do_if value="$Phase5AnnihilatorLoadout.count"><apply_loadout object="$Phase5Annihilator" loadout="$Phase5AnnihilatorLoadout.{1}" /></do_if><set_object_name object="$Phase5Annihilator" name="{899906,62}" /><set_object_commander object="$Phase5Annihilator" commander="$CPUShip" assignment="assignment.defence" /><add_effect object="$Phase5Annihilator.zone" effect="'hq_warpin'"><position object="$Phase5Annihilator" /></add_effect></do_all>
             <do_all exact="6"><create_ship name="$Phase5Ravager" macro="macro.ship_kha_l_destroyer_01_a_macro" sector="$Flashpoint" groupname="$Phase5CPUEscort" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.khaak" tags="tag.commander" /></pilot><loadout><level exact="1.0" /></loadout><safepos object="$CPUShip" min="7km" max="18km" /></create_ship><generate_loadout result="$Phase5RavagerLoadout" macro="$Phase5Ravager.macro" faction="faction.khaak" level="1.0" variation="0" /><do_if value="$Phase5RavagerLoadout.count"><apply_loadout object="$Phase5Ravager" loadout="$Phase5RavagerLoadout.{1}" /></do_if><set_object_name object="$Phase5Ravager" name="{899906,63}" /><set_object_commander object="$Phase5Ravager" commander="$CPUShip" assignment="assignment.defence" /><add_effect object="$Phase5Ravager.zone" effect="'hq_warpin'"><position object="$Phase5Ravager" /></add_effect></do_all>
             <do_all exact="15"><create_ship name="$Phase5EscortPE" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$Flashpoint" groupname="$Phase5CPUEscort" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos object="$CPUShip" min="5km" max="20km" /></create_ship><set_object_commander object="$Phase5EscortPE" commander="$CPUShip" assignment="assignment.defence" /><add_effect object="$Phase5EscortPE.zone" effect="'hq_warpin'"><position object="$Phase5EscortPE" /></add_effect></do_all>
-            <do_all exact="30"><create_ship name="$Phase5EscortM" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$Flashpoint" groupname="$Phase5CPUEscort" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos object="$CPUShip" min="4km" max="22km" /></create_ship><set_object_commander object="$Phase5EscortM" commander="$CPUShip" assignment="assignment.defence" /><add_effect object="$Phase5EscortM.zone" effect="'hq_warpin'"><position object="$Phase5EscortM" /></add_effect></do_all>
-            <play_cutscene result="$Phase5FleetCutscene" key="'gatefall_s06_phase5_cpu_fleet_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false"><param name="target_beacon" object="$Phase5Beacon" /></play_cutscene>
+             <do_all exact="30"><create_ship name="$Phase5EscortM" macro="macro.ship_xen_s_fighter_02_a_macro" sector="$Flashpoint" groupname="$Phase5CPUEscort" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.fighterpilot" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos object="$CPUShip" min="4km" max="22km" /></create_ship><set_object_commander object="$Phase5EscortM" commander="$CPUShip" assignment="assignment.defence" /><add_effect object="$Phase5EscortM.zone" effect="'hq_warpin'"><position object="$Phase5EscortM" /></add_effect></do_all>
+             <play_cutscene result="$Phase5FleetCutscene" key="'gatefall_s06_phase5_cpu_fleet_cutscene'" cinematicmode="true" letterbox="true" movesoundcamera="true" targetmonitor="false" abortable="false"><param name="target_beacon" object="$Phase5Beacon" /></play_cutscene>
             <speak actor="player.entity" page="899906" line="753" priority="100" /><signal_cue cue="Phase5_Line754" />
           </actions>
         </cue>
@@ -1551,7 +1551,7 @@
           <conditions><check_value value="$Phase5CombatActive and not @$ScenarioEnded and @$CPUShip.exists and $Phase5NextReinforcementTime gt 0 and player.age ge $Phase5NextReinforcementTime" /></conditions>
           <actions>
             <set_value name="$Phase5NextReinforcementTime" exact="player.age + 2min" /><set_value name="$Phase5ReinforcementWaveNumber" operation="add" exact="1" />
-            <do_all exact="2"><create_ship name="$Phase5ReinforcementK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$Flashpoint" groupname="$Phase5CPUReinforcements" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos object="$CPUShip" min="5km" max="10km" /></create_ship><set_object_commander object="$Phase5ReinforcementK" commander="$CPUShip" assignment="assignment.defence" /><add_effect object="$Phase5ReinforcementK.zone" effect="'hq_warpin'"><position object="$Phase5ReinforcementK" /></add_effect></do_all>
+             <do_all exact="2"><create_ship name="$Phase5ReinforcementK" macro="macro.ship_xen_xl_destroyer_01_a_macro" sector="$Flashpoint" groupname="$Phase5CPUReinforcements" capturable="false" commandeerable="false"><owner exact="faction.xenon" overridenpc="true" /><pilot><select faction="faction.xenon" tags="tag.commander" /></pilot><loadout><level exact="1.0" faction="faction.xenon" /></loadout><safepos object="$CPUShip" min="5km" max="10km" /></create_ship><set_object_commander object="$Phase5ReinforcementK" commander="$CPUShip" assignment="assignment.defence" /><add_effect object="$Phase5ReinforcementK.zone" effect="'hq_warpin'"><position object="$Phase5ReinforcementK" /></add_effect></do_all>
           </actions>
         </cue>
 

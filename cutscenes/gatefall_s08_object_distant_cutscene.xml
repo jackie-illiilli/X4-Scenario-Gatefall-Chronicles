@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cutscenes.xsd">
+  <director key="gatefall_s08_object_distant_cutscene" />
+  <environments><environment_implicit name="scenezone" zone="@auto:target_focus" /><object_group name="targets"><reference object="target_focus" /></object_group></environments>
+  <presentation><actions><sequence name="Main" start="0"><shot name="DistantOrbit" environment="scenezone" duration="120000"><camera_orbit reference="target_focus" orient_to="object" interpolation="smooth" cycle="none"><begin distance="22000" angle="-25" elevation="10" /><end distance="15000" angle="38" elevation="6" time="119500" /></camera_orbit></shot></sequence></actions></presentation>
+</cutscene>

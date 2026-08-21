@@ -24,4 +24,5 @@
   <entry name="gatefall_scenario_05_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_05_test_galaxy_macro.xml" />
   <entry name="gatefall_scenario_06_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_06_galaxy_macro.xml" />
   <entry name="gatefall_scenario_07_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_07_galaxy_macro.xml" />
+  <entry name="gatefall_scenario_08_*" value="extensions\gatefall_chronicles\maps\gatefall_scenario_08_galaxy_macro.xml" />
 </index>

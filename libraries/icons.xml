@@ -8,5 +8,6 @@
     <icon name="gatefall_scenario_05_cover" texture="extensions\gatefall_chronicles\assets\textures\ui\gamestarts\gatefall_scenario_05_gui.png" height="270" width="480" />
     <icon name="gatefall_scenario_06_cover" texture="extensions\gatefall_chronicles\assets\textures\ui\gamestarts\gatefall_scenario_06_gui.png" height="270" width="480" />
     <icon name="gatefall_scenario_07_cover" texture="extensions\gatefall_chronicles\assets\textures\ui\gamestarts\gatefall_scenario_07_gui.png" height="270" width="480" />
+    <icon name="gatefall_scenario_08_cover" texture="extensions\gatefall_chronicles\assets\textures\ui\gamestarts\gatefall_scenario_08_gui.png" height="270" width="480" />
   </add>
 </diff>

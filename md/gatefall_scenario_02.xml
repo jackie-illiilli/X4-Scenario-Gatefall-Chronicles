@@ -447,8 +447,9 @@
             <rotation yaw="270deg" />
           </create_ship>
           <set_known object="$ZyaChimera" known="true" />
-          <set_object_commander object="$ZyaChimera" commander="$ZyaBlockadeLeader" assignment="assignment.interception" />
+          <set_object_commander object="$ZyaChimera" commander="$ZyaBlockadeLeader" assignment="assignment.defence" />
         </do_all>
+
 
         <create_ship name="$PatrolLeadA" macro="macro.ship_xen_m_corvette_02_a_macro" sector="$FrontSector" groupname="$BackgroundPatrols" capturable="false" commandeerable="false">
           <owner exact="faction.xenon" overridenpc="true" />

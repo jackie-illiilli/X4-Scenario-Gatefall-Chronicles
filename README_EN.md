@@ -2,7 +2,7 @@
 
 One-line summary: Gatefall Chronicles is an original hidden Timelines campaign for X4 about anomalous Xenon jump technology, the collapse of the gate network, and rival factions forced from mistrust and civil war into a desperate coalition counteroffensive.
 
-The current public build contains seven complete, scored scenarios:
+The current public build now contains **eight complete, scored scenarios**:
 
 - `Gatefall 01: Under the Surface`
 - `Gatefall 02: Passing the Buck`
@@ -11,23 +11,28 @@ The current public build contains seven complete, scored scenarios:
 - `Gatefall 05: Judgement Day`
 - `Gatefall 06: Lifeline`
 - `Gatefall 07: Forlorn Hope`
+- `Gatefall 08: Hamartia`
 
 Chinese version: [README.md](README.md)
 
-## Latest Update: Forlorn Hope + English Localisation Refresh
+## Latest Update: Gatefall 08 — Hamartia
 
-This update completes `Gatefall 07: Forlorn Hope` and comprehensively revises the English L044 text across Scenarios 01–07.
+This update completes `Gatefall 08: Hamartia`. With the final scenario released, the eight-scenario main campaign of Gatefall Chronicles is now complete.
 
-Scenario 07 now forms one continuous operation:
+The finale begins in the strategic opening created by `Alternative XIV`. You play as Siegfried, captain of the Asgard-class battleship `Paradox`, leading the surviving coalition forces from Matrix #79 towards the Xenon jump installation in Savage Spur I.
 
-- It opens directly where `Lifeline` ends. Takeru Shirogane commands the Terran Asgard-class battleship `Paragon`, while Siegfried's `Paradox` relieves Domel, Delta Flight, the 86th Escort Fleet, and the battered evacuation convoy at Getsu Fune.
-- Sensor data recovered by the Sunborn Militia, the 86th's Yaki Xenon-lure records, and a gate-authentication key obtained through long-term PIO analysis are combined into `Alternative XIV`.
-- Takeru and Sumika seize a Xenon large communications terminal in Savage Spur II and use it to pull defenders away from Savage Spur I while the coalition fleet advances by conventional routes.
-- As the lure is expanded, a CPU Ship, Annihilators, Ravagers, and repeated Xenon jump reinforcements converge on `Paragon`.
-- After `Paragon` loses propulsion, Takeru escapes through a nested emergency chain: Falx → Gladius → spacesuit. Sumika / 00-Unit transfers into Takeru's neural interface, and both survive the gate shutdown.
-- The scenario includes complete Chinese and English subtitles, linked cutscenes, dynamic visual impairment, failure handling, scoring, and a post-operation epilogue.
+The operation includes:
 
-The English localisation has also been standardised around the intended tribute terminology, including `Forlorn Hope`, `Paragon`, `Delta Flight`, `Lamvea`, and `Alternative XIV`.
+- Commanding three simultaneous strike groups against Xenon power stations to collapse the defensive energy network.
+- Deploying a Tactical Production Platform and returning to the shipbuilding and resource-management mechanics introduced in Scenario 04.
+- Destroying Xenon ship production and a superweapon capable of jumping antimatter bombs directly into the coalition formation.
+- Surviving a strategic Xenon ambush triggered by a hidden jump beacon, leaving `Paradox` badly damaged and forcing the offensive to fall back.
+- Recharging `Paradox` first at the production platform and then around the wreckage of a destroyed Xenon power station after the forward base is abandoned.
+- Fighting renewed Xenon production and multiple rebuilt superweapons while using improvised production space inside the damaged `Paradox` to assemble new frigates and strike craft.
+- Launching a second assault on the gate defence, then splitting the coalition: Delta Flight, the 86th Escort Fleet, Boron aviation, Split and other surviving forces hold Matrix #79 while Terran destroyers follow `Paradox` into Savage Spur I.
+- Carrying the operation through to the Xenon jump installation and ending the Gatefall.
+
+The English title is standardised as `Gatefall 08: Hamartia`, directly continuing the tribute to `Mental Omega 3.3.6` through Allied missions `Withershins / Hamartia`, Epsilon finale `Babel`, Siegfried, and the Paradox Engine. Mission 08's L044 text has also received a dedicated localisation and tribute pass.
 
 ## Campaign Saving
 
@@ -156,6 +161,21 @@ Status: Complete and scored
 
 Key features: high-mobility Asgard combat, direct continuity from Scenario 06, strategic lure mechanics, recurring Xenon reinforcements, communications-terminal defence, chained vehicle escape, dynamic visual impairment, and full results.
 
+### Scenario 08: Hamartia
+
+Status: Complete and scored
+
+- Play as Siegfried aboard `Paradox` and lead the final coalition offensive from Matrix #79 into Savage Spur I.
+- Split the coalition into three strike groups and destroy the Xenon power stations feeding the core defensive network.
+- Deploy a Tactical Production Platform, rebuild your fleet, and race to destroy Xenon ship production plus an antimatter jump superweapon.
+- Survive a hidden-beacon ambush that cripples `Paradox`, then fight a retreat while recharging its reserve energy.
+- Abandon the production platform and use energy cells scattered around a destroyed Xenon power station to keep the operation alive.
+- Fight renewed Xenon production and superweapons while assembling frigates and strike craft from improvised facilities inside `Paradox`.
+- Break the gate defence on a second assault, leave Delta Flight, the 86th, Boron and Split forces to hold Matrix #79, and take the Terran destroyer force into Savage Spur I.
+- When the main gun is finally lost, execute the last contingency and destroy the Xenon jump installation.
+
+Key features: three-front fleet command, Tactical Production Platform, timed superweapons, jump ambushes, retreat and recharging, improvised ship production, a coalition-wide final offensive, capital-ship endgame, and full scoring.
+
 ## Campaign Progress
 
 | Scenario | Title | Focus | Status |
@@ -167,15 +187,15 @@ Key features: high-mobility Asgard combat, direct continuity from Scenario 06, s
 | 05 | Judgement Day | Xenon infiltration, pseudo-RTS production, fall of Argon Prime | Complete |
 | 06 | Lifeline | Carrier defence and multi-faction evacuation | Complete |
 | 07 | Forlorn Hope | Getsu Fune relief, Alternative XIV, Savage Spur II blockade | Complete |
-| 08 | Crime and Punishment | Coalition assault on Savage Spur I and the Xenon jump facility | Concept stage |
+| 08 | Hamartia | Matrix #79 / Savage Spur I final offensive and Xenon jump installation | Complete |
 
 ## Notes
 
-- All seven released scenarios can be played independently from start to finish and produce scored results.
+- All eight campaign scenarios can be played from start to finish and produce scored results.
 - Campaign scenarios support saving and loading through a system implemented by this mod; loading restores the current phase's BGM.
 - The mod uses the hidden Timelines scenario interface and does not replace the official Timelines storyline.
 - Presentation currently uses Chinese and English subtitles; there is no voice acting.
-- Development is ongoing. Later scenarios, presentation, art, balance, and localisation will continue to evolve.
+- The eight-scenario main story is complete. Balance, presentation, art, localisation, and technical details may continue to receive updates.
 
 ## Tribute
 
@@ -194,6 +214,8 @@ Key features: high-mobility Asgard combat, direct continuity from Scenario 06, s
 - Rayna, Shin, and the 86th continue the `86—Eighty-Six` tribute, while the ANT flagship `Sidonia` references `Knights of Sidonia`.
 
 `Gatefall 07: Forlorn Hope` takes its English title and `Paragon` motif from Starsector's `Forlorn Hope`. Takeru Shirogane, Sumika / 00-Unit, Alternative XIV, and much of the character dynamic and imagery are tributes to `Muv-Luv Alternative` and related works.
+
+`Gatefall 08: Hamartia` is a direct structural tribute to the Allied finales `Withershins` and `Hamartia` and the Epsilon finale `Babel` from `Mental Omega 3.3.6`. Siegfried, `Paradox`, the progression from an apparently successful offensive into repeated retreats and recharging, and the final use of the ship itself all deliberately echo Siegfried and the Paradox Engine.
 
 All referenced names, music, and original works remain the property of their respective creators and rights holders. Gatefall Chronicles is a non-commercial fan project and is not officially affiliated with any of those works or rights holders.
 

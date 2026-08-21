@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<diff>
+  <add sel="/voicesequences">
+    <!-- Voice-sequence delays are explicitly processed in real time, including while the game is
+         paused. Each inaudible final line raises a distinct event_speak_finished music event. -->
+    <voicesequence id="gfc_m08_phase2_awakening_timer" page="899998" priority="-100">
+      <delay time="339" />
+      <speak line="1" nosubtitles="true" />
+    </voicesequence>
+    <voicesequence id="gfc_m08_phase2_mechanical_man_timer" page="899998" priority="-100"><delay time="210" /><speak line="2" nosubtitles="true" /></voicesequence>
+    <voicesequence id="gfc_m08_phase2_cybertek_timer" page="899998" priority="-100"><delay time="192" /><speak line="3" nosubtitles="true" /></voicesequence>
+    <voicesequence id="gfc_m08_phase2_decible_timer" page="899998" priority="-100"><delay time="272" /><speak line="4" nosubtitles="true" /></voicesequence>
+    <voicesequence id="gfc_m08_phase2_escape_timer" page="899998" priority="-100"><delay time="251" /><speak line="5" nosubtitles="true" /></voicesequence>
+    <voicesequence id="gfc_m08_phase2_it_has_begun_timer" page="899998" priority="-100"><delay time="246" /><speak line="6" nosubtitles="true" /></voicesequence>
+    <voicesequence id="gfc_m08_phase2_militant_funk_timer" page="899998" priority="-100"><delay time="203" /><speak line="7" nosubtitles="true" /></voicesequence>
+    <voicesequence id="gfc_m08_phase3_vigilante_timer" page="899998" priority="-100"><delay time="271" /><speak line="8" nosubtitles="true" /></voicesequence>
+    <voicesequence id="gfc_m08_phase3_get_on_it_timer" page="899998" priority="-100"><delay time="262" /><speak line="9" nosubtitles="true" /></voicesequence>
+    <voicesequence id="gfc_m08_phase3_the_edge_timer" page="899998" priority="-100"><delay time="225" /><speak line="10" nosubtitles="true" /></voicesequence>
+    <voicesequence id="gfc_m08_phase3_infiltrator_timer" page="899998" priority="-100"><delay time="284" /><speak line="11" nosubtitles="true" /></voicesequence>
+  </add>
+</diff>

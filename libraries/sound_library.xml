@@ -350,5 +350,76 @@
       <volume start="0.80" />
       <effects><fade in="1.0" out="1.5" /></effects>
     </sound>
+
+    <!-- Gatefall Chronicles mission 08: Sin and Punishment. -->
+    <sound id="gfc_music_m08_militant_funk" description="Gatefall mission 08 energy station A - Militant Funk" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\militant_funk" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_sidonia" description="Gatefall mission 08 energy station B - Sidonia" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\sidonia" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_awakening_1" description="Gatefall mission 08 regrouping - Awakening I" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\awakening_1" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_awakening_2" description="Gatefall mission 08 superweapon reveal - Awakening II" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\awakening_2" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <!-- Phase 2 post-Awakening playlist. These are one-shots; MD rotates them without immediately
+         repeating the previous choice, matching the proven Scenario 04 selection logic. -->
+    <sound id="gfc_music_m08_phase2_mechanical_man" description="Gatefall mission 08 Phase 2 - Mechanical Man" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\mechanical_man" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase2_cybertek" description="Gatefall mission 08 Phase 2 - Cybertek" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\cybertek" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase2_decible" description="Gatefall mission 08 Phase 2 - Decible" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\decible" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase2_escape" description="Gatefall mission 08 Phase 2 - Escape" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\escape" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase2_it_has_begun" description="Gatefall mission 08 Phase 2 - It Has Begun" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\it_has_begun" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase2_militant_funk" description="Gatefall mission 08 Phase 2 - Militant Funk" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\militant_funk" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <!-- Phase 3 interlude and defense playlist. -->
+    <sound id="gfc_music_m08_phase3_viratia_reprise" description="Gatefall mission 08 Phase 3 retreat - Viratia Reprise" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\viratia_reprise" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase3_vigilante" description="Gatefall mission 08 Phase 3 defense - Vigilante" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\vigilante" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase3_get_on_it" description="Gatefall mission 08 Phase 3 defense - Get On It" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\get_on_it" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase3_the_edge" description="Gatefall mission 08 Phase 3 defense - The Edge" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\the_edge" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase3_infiltrator" description="Gatefall mission 08 Phase 3 defense - Infiltrator" repeat="1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\infiltrator" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase3_mechanical_man" description="Gatefall mission 08 Phase 3 last stand - Mechanical Man" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\mechanical_man" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase3_machines_collide" description="Gatefall mission 08 Phase 3 last stand - Machines Collide" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\machines_collide" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase4_hell_march_trilogy" description="Gatefall mission 08 Phase 4 gate assault - Hell March Trilogy" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\hell_march_trilogy" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase4_skirmish_lost_serenity" description="Gatefall mission 08 Phase 4 orders - Skirmish / Lost Serenity" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\skirmish_lost_serenity" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase4_from_chaos" description="Gatefall mission 08 Phase 4 aftermath - From Chaos" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\from_chaos" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase5_track_12" description="Gatefall mission 08 Phase 5 blockade - Track 12" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\track_12" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
+    <sound id="gfc_music_m08_phase5_its_happening" description="Gatefall mission 08 Phase 5 final plan - It's Happening" repeat="-1" is3d="0" preload="0">
+      <sample start="extensions\gatefall_chronicles\music\mission_08\its_happening" /><volume start="0.78" /><effects><fade in="1.0" out="1.0" /></effects>
+    </sound>
   </add>
 </diff>
